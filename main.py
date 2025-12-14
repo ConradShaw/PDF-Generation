@@ -225,46 +225,74 @@ def extract_identity_flexible(xls_path: str) -> Tuple[str, str, str]:
         )
 
     # 1) Column-style: First Name / Surname
+    # Excel structure: ['First Name', value] in row 0, ['Surname', value] in row 1
     first_val = None
     last_val = None
-    for r in range(min(150, len(df))):
+    
+    # First, try direct column-based lookup (most reliable for our format)
+    # Excel structure: ['First Name', value] in row 0, ['Surname', value] in row 1
+    for r in range(min(10, len(df))):  # Only check first 10 rows
         row = [str(v) if pd.notna(v) else "" for v in df.iloc[r, :].tolist()]
-        for c in range(len(row)):
-            cell = row[c].strip()
+        
+        # Check if this row has "First Name" or "Surname" in first column
+        if len(row) >= 2:
+            label = row[0].strip()
+            value = row[1].strip() if len(row) > 1 else ""
+            
+            # Check for First Name - accept any non-empty value that's not a placeholder
+            if first_val is None and re.search(r"(?i)^\s*(first\s*name|firstname)\s*$", label):
+                cleaned = clean_frag(value)
+                # Accept if it's not empty and not a known placeholder
+                if cleaned and cleaned.lower() not in ["first", "participant", "name", ""]:
+                    first_val = cleaned
+            
+            # Check for Surname - accept any non-empty value that's not a placeholder
+            if last_val is None and re.search(r"(?i)^\s*(surname|last\s*name|lastname)\s*$", label):
+                cleaned = clean_frag(value)
+                # Accept if it's not empty and not a known placeholder
+                if cleaned and cleaned.lower() not in ["last", "name", "surname", ""]:
+                    last_val = cleaned
+    
+    # Fallback: More flexible parsing if direct lookup didn't work
+    if not (first_val and last_val):
+        for r in range(min(150, len(df))):
+            row = [str(v) if pd.notna(v) else "" for v in df.iloc[r, :].tolist()]
+            for c in range(len(row)):
+                cell = row[c].strip()
 
-            if first_val is None:
-                m = re.match(
-                    r"(?i)^\s*(first\s*name|firstname|first)\b\s*[:\-]?\s*(.+)$", cell
-                )
-                if m:
-                    cand = clean_frag(m.group(2))
-                    if is_name_like(cand):
-                        first_val = cand
-                elif c + 1 < len(row) and re.search(
-                    r"(?i)\b(first\s*name|firstname|first)\b", cell
-                ):
-                    cand = clean_frag(row[c + 1])
-                    if is_name_like(cand):
-                        first_val = cand
+                if first_val is None:
+                    m = re.match(
+                        r"(?i)^\s*(first\s*name|firstname|first)\b\s*[:\-]?\s*(.+)$", cell
+                    )
+                    if m:
+                        cand = clean_frag(m.group(2))
+                        if cand and cand.lower() not in ["first", "participant"] and is_name_like(cand):
+                            first_val = cand
+                    elif c + 1 < len(row) and re.search(
+                        r"(?i)\b(first\s*name|firstname|first)\b", cell
+                    ):
+                        cand = clean_frag(row[c + 1])
+                        if cand and cand.lower() not in ["first", "participant"] and is_name_like(cand):
+                            first_val = cand
 
-            if last_val is None:
-                m = re.match(
-                    r"(?i)^\s*(surname|last\s*name|lastname|last)\b\s*[:\-]?\s*(.+)$",
-                    cell,
-                )
-                if m:
-                    cand = clean_frag(m.group(2))
-                    if is_name_like(cand):
-                        last_val = cand
-                elif c + 1 < len(row) and re.search(
-                    r"(?i)\b(surname|last\s*name|lastname|last)\b", cell
-                ):
-                    cand = clean_frag(row[c + 1])
-                    if is_name_like(cand):
-                        last_val = cand
+                if last_val is None:
+                    m = re.match(
+                        r"(?i)^\s*(surname|last\s*name|lastname|last)\b\s*[:\-]?\s*(.+)$",
+                        cell,
+                    )
+                    if m:
+                        cand = clean_frag(m.group(2))
+                        if cand and cand.lower() not in ["last", "name"] and is_name_like(cand):
+                            last_val = cand
+                    elif c + 1 < len(row) and re.search(
+                        r"(?i)\b(surname|last\s*name|lastname|last)\b", cell
+                    ):
+                        cand = clean_frag(row[c + 1])
+                        if cand and cand.lower() not in ["last", "name"] and is_name_like(cand):
+                            last_val = cand
 
-        if first_val and last_val:
-            break
+            if first_val and last_val:
+                break
 
     # 2) Legacy single-cell: "Name: Jason Loosle________"
     if not (first_val and last_val):
@@ -281,11 +309,17 @@ def extract_identity_flexible(xls_path: str) -> Tuple[str, str, str]:
                     break
 
     if first_val:
-        tok = tokens_alpha(first_val)
-        first = tok[0] if tok else first
+        # Use the full cleaned value, not just the first token
+        first = clean_frag(first_val)
+        # If it's still empty or just whitespace, keep default
+        if not first or first.lower() in ["first", "participant"]:
+            first = "First"
     if last_val:
-        tok = tokens_alpha(last_val)
-        last = tok[-1] if tok else last
+        # Use the full cleaned value, not just the last token
+        last = clean_frag(last_val)
+        # If it's still empty or just whitespace, keep default
+        if not last or last.lower() in ["last", "name"]:
+            last = "Last"
 
     # --- DATE parsing ---
     def parse_date_any(raw: str) -> Optional[str]:

@@ -22,7 +22,7 @@ import itertools
 import re
 from datetime import datetime
 from statistics import mean
-from typing import Optional, Tuple, Dict, List
+from typing import Optional, Tuple, Dict, List, Any
 
 import pandas as pd
 from reportlab.lib.pagesizes import A4
@@ -39,7 +39,8 @@ from reportlab.platypus import (
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
-
+from reportlab.graphics.shapes import Drawing, Rect, String
+from reportlab.graphics.charts.barcharts import VerticalBarChart
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
@@ -1032,6 +1033,515 @@ def generate_pdf(
     return filename
 
 
+def create_distribution_chart_drawing(distribution_data: Dict[str, Dict[str, float]], width=500, height=300) -> Drawing:
+    """
+    Create a stacked bar chart showing the distribution of strength categories across the team.
+    
+    Args:
+        distribution_data: Dict mapping trait names to category percentages
+            Example: {
+                "Fairness": {"Signature": 0.40, "Supporting": 0.35, "Emerging": 0.25},
+                "Empathy": {"Signature": 0.30, "Supporting": 0.50, "Emerging": 0.20},
+                ...
+            }
+        width: Chart width in points
+        height: Chart height in points
+    
+    Returns:
+        Drawing object containing the stacked bar chart
+    """
+    drawing = Drawing(width, height)
+    
+    # Get traits in the standard order
+    traits = TRAITS
+    
+    # Prepare data for stacked bar chart
+    signature_data = [distribution_data[trait].get("Signature", 0) * 100 for trait in traits]
+    supporting_data = [distribution_data[trait].get("Supporting", 0) * 100 for trait in traits]
+    emerging_data = [distribution_data[trait].get("Emerging", 0) * 100 for trait in traits]
+    
+    # Create bar chart
+    chart = VerticalBarChart()
+    chart.x = 50
+    chart.y = 50
+    chart.width = width - 100
+    chart.height = height - 100
+    
+    # Set data (stacked bars)
+    chart.data = [signature_data, supporting_data, emerging_data]
+    chart.categoryAxis.categoryNames = traits
+    
+    # Rotate category labels for better readability
+    chart.categoryAxis.labels.angle = 45
+    chart.categoryAxis.labels.boxAnchor = 'e'
+    chart.categoryAxis.labels.dx = -5
+    chart.categoryAxis.labels.dy = -5
+    chart.categoryAxis.labels.fontSize = 8
+    
+    # Value axis (0-100%)
+    chart.valueAxis.valueMin = 0
+    chart.valueAxis.valueMax = 100
+    chart.valueAxis.valueStep = 20
+    chart.valueAxis.labels.fontSize = 8
+    
+    # Set colors for each category
+    chart.bars[0].fillColor = colors.HexColor("#4d93d9")  # Signature
+    chart.bars[1].fillColor = colors.HexColor("#94dcf8")  # Supporting
+    chart.bars[2].fillColor = colors.HexColor("#d0d0d0")  # Emerging
+    
+    # Make bars stacked
+    chart.barSpacing = 0.5
+    
+    drawing.add(chart)
+    
+    # Add legend
+    legend_y = height - 30
+    legend_x = width - 150
+    
+    # Signature legend
+    drawing.add(Rect(legend_x, legend_y, 12, 12, fillColor=colors.HexColor("#4d93d9"), strokeColor=colors.black))
+    drawing.add(String(legend_x + 15, legend_y + 3, "Signature", fontSize=9))
+    
+    # Supporting legend
+    drawing.add(Rect(legend_x, legend_y - 15, 12, 12, fillColor=colors.HexColor("#94dcf8"), strokeColor=colors.black))
+    drawing.add(String(legend_x + 15, legend_y - 12, "Supporting", fontSize=9))
+    
+    # Emerging legend
+    drawing.add(Rect(legend_x, legend_y - 30, 12, 12, fillColor=colors.HexColor("#d0d0d0"), strokeColor=colors.black))
+    drawing.add(String(legend_x + 15, legend_y - 27, "Emerging", fontSize=9))
+    
+    return drawing
+
+
+def calculate_team_rankings(
+    individual_results: List[Dict[str, Any]]
+) -> Tuple[List[str], Dict[str, float], Dict[str, Dict[str, float]]]:
+    """
+    Calculate team-level rankings by averaging individual rankings.
+    
+    Args:
+        individual_results: List of dicts containing 'ordered_traits' and 'ranks' for each person
+    
+    Returns:
+        Tuple of (ordered_traits, ranks, distribution_data)
+            - ordered_traits: List of traits ordered by team average rank
+            - ranks: Dict mapping trait to average rank
+            - distribution_data: Dict mapping trait to category distribution
+    """
+    # Calculate average ranks
+    rank_sums = {trait: 0.0 for trait in TRAITS}
+    rank_counts = {trait: 0 for trait in TRAITS}
+    
+    for result in individual_results:
+        for trait, rank in result['ranks'].items():
+            rank_sums[trait] += rank
+            rank_counts[trait] += 1
+    
+    avg_ranks = {
+        trait: rank_sums[trait] / rank_counts[trait] if rank_counts[trait] > 0 else 12
+        for trait in TRAITS
+    }
+    
+    # Sort traits by average rank
+    ordered_traits = sorted(TRAITS, key=lambda t: (avg_ranks[t], t))
+    
+    # Calculate distribution data (percentage in each category)
+    distribution_data = {}
+    total_count = len(individual_results)
+    
+    for trait in TRAITS:
+        category_counts = {"Signature": 0, "Supporting": 0, "Emerging": 0}
+        
+        for result in individual_results:
+            rank = result['ranks'].get(trait, 12)
+            category = category_for_rank_number(rank)
+            category_counts[category] += 1
+        
+        # Convert to percentages
+        distribution_data[trait] = {
+            cat: count / total_count if total_count > 0 else 0
+            for cat, count in category_counts.items()
+        }
+    
+    return ordered_traits, avg_ranks, distribution_data
+
+
+def generate_team_pdf(
+    company_name: str,
+    team_name: str,
+    num_members: int,
+    date_str: str,
+    ordered_traits: List[str],
+    ranks: Dict[str, float],
+    distribution_data: Dict[str, Dict[str, float]],
+    output_stream: io.BytesIO,
+    logo_path: str = LOGO_PATH,
+) -> str:
+    """
+    Generate team PDF report and write to output_stream.
+    Returns the suggested filename.
+    """
+    
+    def _fmt_rank(r):
+        try:
+            r = float(r)
+            return str(int(r)) if r.is_integer() else f"{r:.1f}"
+        except Exception:
+            return str(r)
+    
+    def _color_for_category(cat: str):
+        return colors.HexColor(
+            "#4d93d9" if cat == "Signature" else (
+            "#94dcf8" if cat == "Supporting" else
+            "#d0d0d0")
+        )
+    
+    date = _parse_date_long(date_str)
+    
+    doc = SimpleDocTemplate(
+        output_stream, pagesize=A4, leftMargin=40, rightMargin=40, topMargin=36, bottomMargin=36
+    )
+    styles = getSampleStyleSheet()
+    
+    header_style = ParagraphStyle(
+        "SSMHeader", parent=styles["Title"], fontName="Helvetica-Bold",
+        fontSize=22, leading=27, alignment=TA_LEFT, spaceAfter=8
+    )
+    body_style = ParagraphStyle(
+        "Body", parent=styles["Normal"], fontName="Helvetica",
+        fontSize=11, leading=13, alignment=TA_LEFT
+    )
+    body_bold_style = ParagraphStyle("CellBold", parent=body_style, fontName="Helvetica-Bold")
+    body_right_style = ParagraphStyle("AsideRight", parent=body_style, alignment=TA_RIGHT)
+    cell_style = ParagraphStyle("Cell", parent=body_style, fontSize=9, leading=10)
+    cell_bold_style = ParagraphStyle("CellBold", parent=cell_style, fontName="Helvetica-Bold")
+    cell_center_style = ParagraphStyle("CellCenter", parent=cell_style, alignment=TA_CENTER)
+    cell_bold_center_style = ParagraphStyle("CellBoldCenter", parent=cell_bold_style, alignment=TA_CENTER)
+    
+    table_border = TableStyle([
+        ("GRID", (0, 0), (-1, -1), 1, colors.black),
+    ])
+    
+    story = []
+    
+    # Page 1 - Title page
+    story.append(Table(
+        [[Paragraph("Shaw Strengths Matrix™ (SSM™)<br/>Profile and Interpretative Report", header_style)]],
+        style=table_border
+    ))
+    
+    story.append(Spacer(1, 6))
+    
+    story.append(Table([[Paragraph("", style=body_style)]], style=TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#ba9354"))
+    ])))
+    
+    story.append(Table([
+        [Paragraph("Report prepared for:", style=body_bold_style)],
+        [Paragraph(f"Organisation: {company_name}", style=body_bold_style)],
+        [Paragraph(f"Team: {team_name}", style=body_bold_style)],
+        [Paragraph(f"Number of Team members: {num_members}", style=body_bold_style)],
+        [Paragraph(f"Date: {date: %d %B %Y}", style=body_bold_style)],
+        ],
+        style=table_border,
+    ))
+    story.append(Spacer(1, 78))
+    
+    if os.path.exists(logo_path):
+        logo_img = Image(logo_path, width=1.54*inch, height=0.79*inch, kind="proportional")
+    else:
+        logo_img = Paragraph("", styles["Normal"])
+    
+    story.append(Table([[
+        logo_img,
+        Paragraph("ShawSight Pty Ltd   |   ABN:  38688414557", style=body_style),
+    ]]))
+    story.append(Spacer(1,6))
+    
+    legal_notices = Paragraph(
+        """
+        <i>Shaw Strengths Matrix™ Profile</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
+        <i>Shaw Strengths Matrix™ Interpretive Report</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
+        <i>ShawSight</i> logo is Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
+        No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>
+        O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.""",
+        style=body_style
+    )
+    story.append(Table([[legal_notices]], style=table_border))
+    
+    story.append(PageBreak())
+    
+    # Header template for pages 2-7
+    def header_template(page_num: int, subtitle: str) -> Table:
+        return Table(
+            [[
+                Paragraph("Shaw Strengths Matrix™ Profile", style=body_style),
+                Paragraph(f"{team_name} | Page {page_num}", style=body_right_style),
+            ], [
+                Paragraph(f"Shaw Strengths Matrix™<br/>{subtitle}", style=header_style),
+                ""
+            ]],
+            style=TableStyle([
+                ("BOX", (0, 1), (1, 1), 1, colors.black),
+                ("SPAN", (0, 1), (1, 1)),
+            ]),
+        )
+    
+    # Page 2 - Overview
+    story.append(header_template(2, "Overview"))
+    story.append(Spacer(1, 6))
+    
+    story.append(Table([[Paragraph(
+        """
+        <b>About This Report</b><br/>
+        <br/>
+        This report provides an overview of the team's <b>SSM™ Assessment Character Strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
+        <br/>
+        The <b>SSM™ Assessment</b> measures <b>personality</b> — how the team collectively tends to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
+        <br/>
+        While the Assessment is grounded in established <b>personality and work style research</b> and has passed <b>content and face validity testing</b>, it is currently undergoing further psychometric validation. Results should therefore be interpreted as <b>insightful tendencies</b> rather than predictive measures, and are <b>not intended</b> for hiring, promotion, or other HR decision-making.<br/>
+        <br/>
+        In this report, your <b>SSM™ Character Strengths</b> profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
+        <br/>
+        The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
+        """,
+        style=body_style
+    )]], style=table_border))
+    story.append(Spacer(1, 6))
+    
+    story.append(Table([[Paragraph(
+        """
+        <b>Report Contents</b><br/><br/>
+        1) Shaw Strengths Matrix™<br/>
+        2) Shaw Strengths Matrix™ Team Assessment Table<br/>
+        3) Shaw Strengths Matrix™ Team Mapping to O*NET Work Styles<br/>
+        4) Shaw Strengths Matrix™ Team Mapping to O*NET Work Activities<br/>
+        5) Shaw Strengths Matrix™ Team Distribution Chart of Strength Categories
+        """,
+        style=body_style
+    )]], style=table_border))
+    story.append(PageBreak())
+    
+    # Page 3 - Matrix explanation
+    story.append(header_template(3, ""))
+    story.append(Spacer(1, 12))
+    
+    story.append(Table(
+        [
+            ["Shaw Strengths Matrix™","","","",""],
+            ["Character Strengths","","Temporal Preferences","",""],
+            ["","", "Past Reflections", "Present Awareness", "Future Anticipations"],
+            ["Cognitive\nPreferences", "Intuition", "Foresight", "Confidence", "Courage"],
+            ["", "Thinking", "Curiosity", "Objectivity", "Fairness"],
+            ["", "Feeling", "Empathy", "Tenacity", "Prudence"],
+            ["", "Sensing", "Discernment", "Practicality", "Discipline"]
+        ],
+        style=TableStyle([
+            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("FONT", (0, 0), (-1, -1), cell_bold_style.fontName, cell_bold_style.fontSize, cell_bold_style.leading),
+            ("SPAN", (0, 0), (-1, 0)),
+            ("SPAN", (0, 1), (1, 2)),
+            ("SPAN", (2, 1), (-1, 1)),
+            ("SPAN", (0, 3), (0, -1)),
+            ("GRID", (0, 0), (-1, -1), 1, colors.black),
+            ("BACKGROUND", (2, 3), (-1, -1), colors.HexColor("#4d93d9")),
+        ])
+    ))
+    story.append(Spacer(1, 60))
+    
+    story.append(Table([[Paragraph(
+        """
+ <para>
+  <b>How to Read This Chart</b><br/><br/>
+  The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:<br/><br/>
+  * <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i> —<br/>
+  * <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>, and<br/>
+  * <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>Character Strengths</b>.<br/><br/>
+  Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
+  Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
+  These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how people tend to think, feel, and behave in consistent ways across different situations. Our higher-ranked Strengths represent tendencies that are <b>more readily accessible</b> to us and therefore guide our responses in real-world situations more often.<br/>
+</para>
+        """,
+        style=body_style
+    )]], style=table_border))
+    story.append(PageBreak())
+    
+    # Page 4 - Team Assessment Table
+    story.append(header_template(4, "Team Assessment Table"))
+    story.append(Spacer(1, 12))
+    
+    results_table_data = [["Rank", "Category", "SSM\nStrengths™"]]
+    results_table_style = [
+        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("FONT", (0, 0), (-1, -1), cell_bold_style.fontName, cell_bold_style.fontSize, cell_bold_style.leading),
+        ("GRID", (0, 0), (-1, 1), 1, colors.black),
+    ]
+    
+    last_category = None
+    category_start = len(results_table_data)
+    
+    for idx, trait in enumerate(ordered_traits):
+        rank = ranks[trait]
+        category = category_for_rank_number(rank)
+        
+        if last_category != category:
+            if last_category is not None:
+                results_table_style.extend([
+                    ("GRID", (0, category_start), (-1, len(results_table_data) - 1), 1, colors.black),
+                    ("BACKGROUND", (0, category_start), (1, len(results_table_data) - 1), _color_for_category(last_category)),
+                ])
+                results_table_data.append(["","",""])
+                results_table_style.append(("FONTSIZE", (0, len(results_table_data) - 1), (-1, len(results_table_data) - 1), 4))
+                results_table_style.append(("LEADING", (0, len(results_table_data) - 1), (-1, len(results_table_data) - 1), 4))
+            
+            last_category = category
+            category_start = len(results_table_data)
+        results_table_data.append([_fmt_rank(rank), category, trait])
+    
+    results_table_style.extend([
+        ("GRID", (0, category_start), (-1, -1), 1, colors.black),
+        ("BACKGROUND", (0, category_start), (1, -1), _color_for_category(category)),
+    ])
+    
+    descriptions = {"SSM\nStrengths™": "<b>Description</b>", "": ""} | DESCRIPTIONS
+    story.append(Table(
+        [row + [Paragraph(descriptions[row[2]], style=cell_style)] for row in results_table_data],
+        style=results_table_style,
+        colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None],
+    ))
+    story.append(Spacer(1, 12))
+    
+    story.append(Table([[Paragraph(
+        """
+        <b>How to Read This Chart</b><br/>
+        <br/>
+        The <b>SSM™ Assessment Table</b> presents a high-level summary of the results from the averaged rankings across the team for all included assessments.<br/>
+        It ranks the measured presence of the <b>12 SSM™ Character Strengths</b> in your personality — based on the team's collective responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
+        <br/>
+        The team's collective Character Strengths are grouped into three categories:<br/>
+        <br/>
+        a) <b>Signature Strengths</b> – the team's core or defining qualities. These consistently shape how team members collectively think, feel, and act — the team's natural "signature moves."<br/>
+        b) <b>Supporting Strengths</b> – qualities that complement the team's signature strengths. They are reliable and useful but not always dominant or expressed in every context.<br/>
+        c) <b>Emerging Strengths</b> – qualities that are less consistently expressed or still developing. They represent areas for growth and potential for the team to strengthen further.<br/>
+        """,
+        style=body_style
+    )]], style=table_border))
+    story.append(PageBreak())
+    
+    # Page 5 - O*NET Work Styles
+    story.append(header_template(5, "Team Mapping to O*NET Work Styles"))
+    story.append(Spacer(1, 12))
+    
+    work_styles = {"SSM\nStrengths™": ("Work Styles (O*NET)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
+    story.append(Table(
+        [row + [Paragraph(work_styles[row[2]][0], style=cell_bold_center_style), Paragraph(work_styles[row[2]][1], style=cell_style)]
+         for row in results_table_data],
+        style=results_table_style,
+        colWidths=[0.45*inch, 1.1*inch, 1.1*inch, 1.1*inch, None],
+    ))
+    story.append(Spacer(1, 12))
+    
+    story.append(Table([[Paragraph(
+        """
+        <b>How to Read This Chart</b><br/>
+        <br/>
+        This chart maps the team's 12 ranked <b>SSM™ Character Strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how overall team strengths translate into observable workplace behaviours.<br/>
+        <br/>
+        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, and <i>Emerging</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
+        <br/>
+        <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
+        They represent the <b>workplace expression</b> of your Character Strengths — showing how your inner traits are activated and applied in professional settings.<br/>
+        <br/>
+        The team <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — the team's overall motivation and natural approach to work.<br/>
+        """,
+        style=body_style
+    )]], style=table_border))
+    story.append(PageBreak())
+    
+    # Page 6 - O*NET Work Activities
+    story.append(header_template(6, "Team Mapping to O*NET Work Activities"))
+    story.append(Spacer(1, 12))
+    
+    activities = {"SSM\nStrengths™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
+    story.append(Table(
+        [row + [Paragraph(activities[row[2]], style=cell_center_style)] for row in results_table_data],
+        style=results_table_style,
+        colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None],
+    ))
+    
+    story.append(PageBreak())
+    story.append(Table([[
+        Paragraph("Shaw Strengths Matrix™ Profile", style=body_style),
+        Paragraph(f"{team_name} | Page 7", style=body_right_style),
+    ]]))
+    
+    story.append(Table([[Paragraph(
+        """
+        <b>How to Read This Chart</b><br/>
+        <br/>
+        This chart maps the team's 12 ranked <b>SSM™ Character Strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
+        <br/>
+        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, and <i>Emerging</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
+        <br/>
+        <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
+        They represent the <b>task-level expression</b> of your Character Strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
+        <br/>
+        The team <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind the team's overall approach to completing work tasks.<br/>
+        """,
+        style=body_style
+    )]], style=table_border))
+    
+    # Page 7 - Team Distribution Chart
+    story.append(PageBreak())
+    story.append(Table([[
+        Paragraph("Shaw Strengths Matrix™ Profile", style=body_style),
+        Paragraph(f"{team_name} | Page 7", style=body_right_style),
+    ]]))
+    story.append(Spacer(1, 6))
+    
+    story.append(Table([[Paragraph(
+        "Shaw Strengths Matrix™<br/>Team Distribution Chart of Strength Categories",
+        style=header_style
+    )]], style=table_border))
+    story.append(Spacer(1, 12))
+    
+    # Add distribution chart
+    chart_drawing = create_distribution_chart_drawing(distribution_data, width=500, height=300)
+    story.append(chart_drawing)
+    story.append(Spacer(1, 12))
+    
+    story.append(Table([[Paragraph(
+        """
+        <b>How to Read This Chart</b><br/>
+        <br/>
+        Each bar represents one of the 12 SSM™ Character Strengths.<br/>
+        <br/>
+        It is divided into three colour segments — Signature, Supporting, and Emerging — showing what percentage of the team placed the strength in each category.<br/>
+        Every bar totals 100%, making it easy to compare strengths side by side.<br/>
+        <br/>
+        * <b>Signature segments</b> show the team's strongest instincts.<br/>
+        A tall Signature portion means many team members naturally rely on that strength. These usually indicate areas of high capability and team advantage.<br/>
+        <br/>
+        * <b>Supporting segments</b> represent moderate, flexible strengths.<br/>
+        These are strengths the team can use when needed, but which are not core drivers. A tall Supporting segment means many team members placed that strength in the mid-range.<br/>
+        <br/>
+        * <b>Emerging segments</b> highlight development areas.<br/>
+        A tall Emerging portion means few team members prioritise or identify strongly with that strength. These may indicate capability gaps or growth opportunities.<br/>
+        <br/>
+        Taken together, these patterns help compare the team's current profile with a desired profile for the role, department, or organisation.<br/>
+        They reveal where the team is well-aligned and where development or rebalancing may be beneficial.<br/>
+        """,
+        style=body_style
+    )]], style=table_border))
+    
+    doc.build(story)
+    
+    filename = f"SSM_Team_{company_name}_{team_name}_{date_str}_v1.pdf"
+    return filename
+
+
 def process_excel_to_pdf(excel_bytes: bytes, original_filename: str = "assessment.xlsx") -> Tuple[bytes, str]:
     """
     Process Excel file bytes and return PDF bytes and filename.
@@ -1101,6 +1611,21 @@ class GeneratePDFResponse(BaseModel):
     message: Optional[str] = None
 
 
+class GenerateTeamPDFRequest(BaseModel):
+    company_name: str
+    team_name: str
+    num_members: int
+    date_str: str  # YYYY-MM-DD
+    individual_results: List[Dict[str, Any]]  # List of {'ordered_traits': [...], 'ranks': {...}}
+
+
+class GenerateTeamPDFResponse(BaseModel):
+    success: bool
+    pdf_base64: Optional[str] = None
+    filename: Optional[str] = None
+    message: Optional[str] = None
+
+
 class HealthResponse(BaseModel):
     status: str
     service: str
@@ -1158,6 +1683,61 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
         return GeneratePDFResponse(
             success=False,
             message=f"PDF generation failed: {str(e)}"
+        )
+
+
+@app.post("/generate-team-pdf", response_model=GenerateTeamPDFResponse)
+async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
+    """
+    Generate team PDF report from individual assessment results.
+    
+    Request body:
+    - company_name: Company/organization name
+    - team_name: Team name
+    - num_members: Number of team members
+    - date_str: Report date (YYYY-MM-DD)
+    - individual_results: List of individual assessment results
+    
+    Returns:
+    - success: Whether PDF generation succeeded
+    - pdf_base64: Base64-encoded PDF file
+    - filename: Suggested filename for the PDF
+    """
+    try:
+        # Calculate team rankings from individual results
+        ordered_traits, ranks, distribution_data = calculate_team_rankings(request.individual_results)
+        
+        # Generate PDF to memory
+        pdf_buffer = io.BytesIO()
+        pdf_filename = generate_team_pdf(
+            company_name=request.company_name,
+            team_name=request.team_name,
+            num_members=request.num_members,
+            date_str=request.date_str,
+            ordered_traits=ordered_traits,
+            ranks=ranks,
+            distribution_data=distribution_data,
+            output_stream=pdf_buffer,
+            logo_path=LOGO_PATH
+        )
+        
+        pdf_bytes = pdf_buffer.getvalue()
+        
+        # Encode PDF to base64
+        pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
+        
+        return GenerateTeamPDFResponse(
+            success=True,
+            pdf_base64=pdf_base64,
+            filename=pdf_filename
+        )
+        
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return GenerateTeamPDFResponse(
+            success=False,
+            message=f"Team PDF generation failed: {str(e)}"
         )
 
 

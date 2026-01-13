@@ -57,8 +57,7 @@ from reportlab.platypus import (
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
-from reportlab.graphics.shapes import Drawing, Rect, String
-from reportlab.graphics.charts.barcharts import VerticalBarChart
+from reportlab.graphics.shapes import Drawing, Rect, String, Line, Group
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
@@ -1072,67 +1071,111 @@ def create_distribution_chart_drawing(
         height: Chart height in points
     
     Returns:
-        Drawing object containing the stacked bar chart
+        Drawing object containing the stacked bar chart with one bar per trait
     """
+    from math import sin, cos, radians
+    
     drawing = Drawing(width, height)
     
     # Use the ranked order from the team assessment table (rank 1 first, rank 12 last)
     traits = ordered_traits
+    num_traits = len(traits)
     
-    # Prepare data for stacked bar chart
-    signature_data = [distribution_data[trait].get("Signature", 0) * 100 for trait in traits]
-    supporting_data = [distribution_data[trait].get("Supporting", 0) * 100 for trait in traits]
-    emerging_data = [distribution_data[trait].get("Emerging", 0) * 100 for trait in traits]
+    # Chart dimensions and positioning
+    chart_left = 50
+    chart_bottom = 50
+    chart_width = width - 100
+    chart_height = height - 100
     
-    # Create bar chart
-    chart = VerticalBarChart()
-    chart.x = 50
-    chart.y = 50
-    chart.width = width - 100
-    chart.height = height - 100
+    # Bar dimensions
+    bar_width = chart_width / (num_traits * 1.5)  # Leave space between bars
+    bar_spacing = bar_width * 0.5
     
-    # Set data (stacked bars)
-    chart.data = [signature_data, supporting_data, emerging_data]
-    chart.categoryAxis.categoryNames = traits
+    # Draw Y-axis gridlines and labels
+    for i in range(0, 101, 20):
+        y_pos = chart_bottom + (i / 100.0) * chart_height
+        # Gridline label
+        drawing.add(String(chart_left - 5, y_pos - 3, f"{i}%", fontSize=8, textAnchor='end'))
+        # Horizontal grid line
+        drawing.add(Line(chart_left, y_pos, chart_left + chart_width, y_pos, strokeColor=colors.lightgrey, strokeWidth=0.5))
     
-    # Rotate category labels for better readability
-    chart.categoryAxis.labels.angle = 45
-    chart.categoryAxis.labels.boxAnchor = 'e'
-    chart.categoryAxis.labels.dx = -5
-    chart.categoryAxis.labels.dy = -5
-    chart.categoryAxis.labels.fontSize = 8
+    # Draw stacked bars for each trait
+    for i, trait in enumerate(traits):
+        # Calculate bar x position
+        x_pos = chart_left + i * (bar_width + bar_spacing)
+        
+        # Get percentages for this trait
+        signature_pct = distribution_data[trait].get("Signature", 0)
+        supporting_pct = distribution_data[trait].get("Supporting", 0)
+        emerging_pct = distribution_data[trait].get("Emerging", 0)
+        
+        # Calculate heights (in points)
+        signature_height = signature_pct * chart_height
+        supporting_height = supporting_pct * chart_height
+        emerging_height = emerging_pct * chart_height
+        
+        # Draw Signature segment (bottom) - dark blue
+        drawing.add(Rect(
+            x_pos, chart_bottom,
+            bar_width, signature_height,
+            fillColor=colors.HexColor("#4d93d9"),
+            strokeColor=colors.black,
+            strokeWidth=1
+        ))
+        
+        # Draw Supporting segment (middle) - light blue
+        drawing.add(Rect(
+            x_pos, chart_bottom + signature_height,
+            bar_width, supporting_height,
+            fillColor=colors.HexColor("#94dcf8"),
+            strokeColor=colors.black,
+            strokeWidth=1
+        ))
+        
+        # Draw Emerging segment (top) - grey
+        drawing.add(Rect(
+            x_pos, chart_bottom + signature_height + supporting_height,
+            bar_width, emerging_height,
+            fillColor=colors.HexColor("#d0d0d0"),
+            strokeColor=colors.black,
+            strokeWidth=1
+        ))
+        
+        # Add trait label below bar (rotated 45 degrees)
+        label_x = x_pos + bar_width / 2
+        label_y = chart_bottom - 10
+        
+        label_group = Group()
+        label_text = String(0, 0, trait, fontSize=8, textAnchor='end')
+        label_group.add(label_text)
+        
+        # Apply 45-degree rotation transform
+        angle = 45
+        rad = radians(angle)
+        label_group.transform = (cos(rad), sin(rad), -sin(rad), cos(rad), label_x, label_y)
+        drawing.add(label_group)
     
-    # Value axis (0-100%)
-    chart.valueAxis.valueMin = 0
-    chart.valueAxis.valueMax = 100
-    chart.valueAxis.valueStep = 20
-    chart.valueAxis.labels.fontSize = 8
+    # Add legend - centered horizontally above the chart
+    legend_y = chart_bottom + chart_height + 20  # Position above chart
     
-    # Set colors for each category
-    chart.bars[0].fillColor = colors.HexColor("#4d93d9")  # Signature
-    chart.bars[1].fillColor = colors.HexColor("#94dcf8")  # Supporting
-    chart.bars[2].fillColor = colors.HexColor("#d0d0d0")  # Emerging
-    
-    # Make bars stacked
-    chart.barSpacing = 0.5
-    
-    drawing.add(chart)
-    
-    # Add legend
-    legend_y = height - 30
-    legend_x = width - 150
+    # Calculate total legend width to center it
+    # Each item: 12 (rect) + 5 (space) + ~60 (text) + 15 (spacing) = ~92 per item
+    legend_total_width = 3 * 90  # Approximate width for 3 legend items
+    legend_start_x = (width - legend_total_width) / 2  # Center horizontally
     
     # Signature legend
-    drawing.add(Rect(legend_x, legend_y, 12, 12, fillColor=colors.HexColor("#4d93d9"), strokeColor=colors.black))
-    drawing.add(String(legend_x + 15, legend_y + 3, "Signature", fontSize=9))
+    drawing.add(Rect(legend_start_x, legend_y, 12, 12, fillColor=colors.HexColor("#4d93d9"), strokeColor=colors.black))
+    drawing.add(String(legend_start_x + 15, legend_y + 3, "Signature", fontSize=9))
     
     # Supporting legend
-    drawing.add(Rect(legend_x, legend_y - 15, 12, 12, fillColor=colors.HexColor("#94dcf8"), strokeColor=colors.black))
-    drawing.add(String(legend_x + 15, legend_y - 12, "Supporting", fontSize=9))
+    supporting_x = legend_start_x + 90
+    drawing.add(Rect(supporting_x, legend_y, 12, 12, fillColor=colors.HexColor("#94dcf8"), strokeColor=colors.black))
+    drawing.add(String(supporting_x + 15, legend_y + 3, "Supporting", fontSize=9))
     
     # Emerging legend
-    drawing.add(Rect(legend_x, legend_y - 30, 12, 12, fillColor=colors.HexColor("#d0d0d0"), strokeColor=colors.black))
-    drawing.add(String(legend_x + 15, legend_y - 27, "Emerging", fontSize=9))
+    emerging_x = supporting_x + 90
+    drawing.add(Rect(emerging_x, legend_y, 12, 12, fillColor=colors.HexColor("#d0d0d0"), strokeColor=colors.black))
+    drawing.add(String(emerging_x + 15, legend_y + 3, "Emerging", fontSize=9))
     
     return drawing
 
@@ -1333,6 +1376,8 @@ def generate_team_pdf(
     cell_bold_style = ParagraphStyle("CellBold", parent=cell_style, fontName="Helvetica-Bold")
     cell_center_style = ParagraphStyle("CellCenter", parent=cell_style, alignment=TA_CENTER)
     cell_bold_center_style = ParagraphStyle("CellBoldCenter", parent=cell_bold_style, alignment=TA_CENTER)
+    # Compact style for Work Activities table to fit on one page
+    cell_compact_style = ParagraphStyle("CellCompact", parent=body_style, fontSize=7.5, leading=8.5, alignment=TA_CENTER)
     
     table_border = TableStyle([
         ("GRID", (0, 0), (-1, -1), 1, colors.black),
@@ -1578,20 +1623,26 @@ def generate_team_pdf(
     
     # Page 6 - O*NET Work Activities
     story.append(header_template(6, "Team Mapping to O*NET Work Activities"))
-    story.append(Spacer(1, 12))
+    story.append(Spacer(1, 8))  # Reduced from 12 to 8
+    
+    # Create compact table style with reduced padding
+    compact_table_style = list(results_table_style) + [
+        ("TOPPADDING", (0, 0), (-1, -1), 2),    # Reduced padding
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+        ("LEFTPADDING", (0, 0), (-1, -1), 3),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+    ]
     
     activities = {"SSM\nStrengths™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
     story.append(Table(
-        [row + [Paragraph(activities[row[2]], style=cell_center_style)] for row in results_table_data],
-        style=results_table_style,
-        colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None],
+        [row + [Paragraph(activities[row[2]], style=cell_compact_style)] for row in results_table_data],
+        style=compact_table_style,
+        colWidths=[0.4*inch, 1.0*inch, 1.0*inch, None],  # Slightly reduced column widths
     ))
+    story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
-    story.append(PageBreak())
-    story.append(Table([[
-        Paragraph("Shaw Strengths Matrix™ Profile", style=body_style),
-        Paragraph(f"{team_name} | Page 7", style=body_right_style),
-    ]]))
+    # Create compact body style for this explanation
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     
     story.append(Table([[Paragraph(
         """
@@ -1606,7 +1657,7 @@ def generate_team_pdf(
         <br/>
         The team <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind the team's overall approach to completing work tasks.<br/>
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     
     # Page 7 - Team Distribution Chart

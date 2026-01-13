@@ -9,9 +9,27 @@ Endpoints:
   POST /generate-pdf-base64
     Body: { "excel_base64": "...", "filename": "..." }
     Returns: { "success": true, "pdf_base64": "...", "filename": "..." }
+  
+  POST /generate-team-pdf
+    Body: { "company_name": "...", "team_name": "...", "num_members": N, 
+            "date_str": "YYYY-MM-DD", "individual_results": [...] }
+    Returns: { "success": true, "pdf_base64": "...", "filename": "..." }
     
   GET /health
     Returns: { "status": "healthy" }
+
+Team Report Algorithm:
+  Step 1: Calculate average ranks across all team members
+  Step 2: Sort traits by average rank
+  Step 2.1: Convert ranked averages to 1-12 rankings
+  Step 2.2: Team Tie-Breaker using Median Rank
+    - When two or more traits have the same mean rank, use median of individual ranks
+    - Lower median = stronger placement (ranks higher)
+  Step 2.3: Average Rankings for remaining ties
+    - If traits still tie after median comparison, assign average of nominal positions
+    - Example: 3 traits tied for 3rd → ranks (3+4+5)/3 = 4.0 for all three
+  Step 3: Calculate distribution data (percentage in each category)
+  Step 4: Generate team PDF with distribution chart
 """
 
 import os
@@ -1033,7 +1051,12 @@ def generate_pdf(
     return filename
 
 
-def create_distribution_chart_drawing(distribution_data: Dict[str, Dict[str, float]], width=500, height=300) -> Drawing:
+def create_distribution_chart_drawing(
+    distribution_data: Dict[str, Dict[str, float]], 
+    ordered_traits: List[str],
+    width=500, 
+    height=300
+) -> Drawing:
     """
     Create a stacked bar chart showing the distribution of strength categories across the team.
     
@@ -1044,6 +1067,7 @@ def create_distribution_chart_drawing(distribution_data: Dict[str, Dict[str, flo
                 "Empathy": {"Signature": 0.30, "Supporting": 0.50, "Emerging": 0.20},
                 ...
             }
+        ordered_traits: List of traits in ranked order (1-12) to match team assessment table
         width: Chart width in points
         height: Chart height in points
     
@@ -1052,8 +1076,8 @@ def create_distribution_chart_drawing(distribution_data: Dict[str, Dict[str, flo
     """
     drawing = Drawing(width, height)
     
-    # Get traits in the standard order
-    traits = TRAITS
+    # Use the ranked order from the team assessment table (rank 1 first, rank 12 last)
+    traits = ordered_traits
     
     # Prepare data for stacked bar chart
     signature_data = [distribution_data[trait].get("Signature", 0) * 100 for trait in traits]
@@ -1119,33 +1143,125 @@ def calculate_team_rankings(
     """
     Calculate team-level rankings by averaging individual rankings.
     
+    Algorithm steps:
+    1. Calculate average ranks across all team members
+    2. Sort traits by average rank
+    2.1. Convert ranked averages to 1-12 rankings
+    2.2. Apply median tie-breaker for traits with same mean rank
+    2.3. Apply average ranking for remaining ties (same mean and median)
+    3. Calculate distribution data (percentage in each category)
+    
     Args:
         individual_results: List of dicts containing 'ordered_traits' and 'ranks' for each person
     
     Returns:
         Tuple of (ordered_traits, ranks, distribution_data)
             - ordered_traits: List of traits ordered by team average rank
-            - ranks: Dict mapping trait to average rank
+            - ranks: Dict mapping trait to final team rank (1-12, may include .5 for ties)
             - distribution_data: Dict mapping trait to category distribution
     """
-    # Calculate average ranks
+    from statistics import median
+    
+    # Step 1: Calculate average ranks and store individual ranks for median calculation
     rank_sums = {trait: 0.0 for trait in TRAITS}
     rank_counts = {trait: 0 for trait in TRAITS}
+    individual_ranks_by_trait = {trait: [] for trait in TRAITS}
     
     for result in individual_results:
         for trait, rank in result['ranks'].items():
             rank_sums[trait] += rank
             rank_counts[trait] += 1
+            individual_ranks_by_trait[trait].append(rank)
     
     avg_ranks = {
         trait: rank_sums[trait] / rank_counts[trait] if rank_counts[trait] > 0 else 12
         for trait in TRAITS
     }
     
-    # Sort traits by average rank
-    ordered_traits = sorted(TRAITS, key=lambda t: (avg_ranks[t], t))
+    # Step 2: Sort traits by average rank (initial ordering)
+    ordered_traits_temp = sorted(TRAITS, key=lambda t: (avg_ranks[t], t))
     
-    # Calculate distribution data (percentage in each category)
+    # Step 2.1 & 2.2: Group by mean rank, then apply median tie-breaker
+    # Group traits with the same mean rank
+    trait_groups = []
+    i = 0
+    while i < len(ordered_traits_temp):
+        current_trait = ordered_traits_temp[i]
+        current_avg = avg_ranks[current_trait]
+        
+        # Find all traits with same average rank (within floating point tolerance)
+        group = [current_trait]
+        j = i + 1
+        while j < len(ordered_traits_temp):
+            next_trait = ordered_traits_temp[j]
+            if abs(avg_ranks[next_trait] - current_avg) < 0.0001:  # Floating point tolerance
+                group.append(next_trait)
+                j += 1
+            else:
+                break
+        
+        # Step 2.2: If group has multiple traits (tie), sort by median
+        if len(group) > 1:
+            median_ranks = {
+                trait: median(individual_ranks_by_trait[trait]) if individual_ranks_by_trait[trait] else 12
+                for trait in group
+            }
+            # Sort by median, then alphabetically for stability
+            group.sort(key=lambda t: (median_ranks[t], t))
+        
+        trait_groups.append(group)
+        i = j
+    
+    # Flatten groups back into ordered list
+    ordered_traits_with_median = []
+    for group in trait_groups:
+        ordered_traits_with_median.extend(group)
+    
+    # Step 2.3: Assign final ranks with average ranking for remaining ties
+    # Group again by (mean, median) to find remaining ties
+    final_ranks = {}
+    nominal_position = 1
+    
+    i = 0
+    while i < len(ordered_traits_with_median):
+        current_trait = ordered_traits_with_median[i]
+        current_avg = avg_ranks[current_trait]
+        current_median = median(individual_ranks_by_trait[current_trait]) if individual_ranks_by_trait[current_trait] else 12
+        
+        # Find all traits with same average AND median
+        tie_group = [current_trait]
+        j = i + 1
+        while j < len(ordered_traits_with_median):
+            next_trait = ordered_traits_with_median[j]
+            next_avg = avg_ranks[next_trait]
+            next_median = median(individual_ranks_by_trait[next_trait]) if individual_ranks_by_trait[next_trait] else 12
+            
+            if abs(next_avg - current_avg) < 0.0001 and abs(next_median - current_median) < 0.0001:
+                tie_group.append(next_trait)
+                j += 1
+            else:
+                break
+        
+        # Assign average of nominal positions to all traits in tie group
+        if len(tie_group) == 1:
+            # No tie, assign nominal position
+            final_ranks[current_trait] = float(nominal_position)
+        else:
+            # Tie: assign average of nominal positions
+            nominal_positions = list(range(nominal_position, nominal_position + len(tie_group)))
+            avg_position = mean(nominal_positions)
+            for trait in tie_group:
+                final_ranks[trait] = avg_position
+        
+        # Move to next group, skipping positions used by tie group
+        nominal_position += len(tie_group)
+        i = j
+    
+    # Step 2.1 (final): ordered_traits now reflects the final ranking order
+    ordered_traits = ordered_traits_with_median
+    
+    # Step 3: Calculate distribution data (percentage in each category)
+    # This uses the ORIGINAL individual ranks, not the team average ranks
     distribution_data = {}
     total_count = len(individual_results)
     
@@ -1163,7 +1279,7 @@ def calculate_team_rankings(
             for cat, count in category_counts.items()
         }
     
-    return ordered_traits, avg_ranks, distribution_data
+    return ordered_traits, final_ranks, distribution_data
 
 
 def generate_team_pdf(
@@ -1507,8 +1623,8 @@ def generate_team_pdf(
     )]], style=table_border))
     story.append(Spacer(1, 12))
     
-    # Add distribution chart
-    chart_drawing = create_distribution_chart_drawing(distribution_data, width=500, height=300)
+    # Add distribution chart (ordered by team ranking: rank 1 first, rank 12 last)
+    chart_drawing = create_distribution_chart_drawing(distribution_data, ordered_traits, width=500, height=300)
     story.append(chart_drawing)
     story.append(Spacer(1, 12))
     

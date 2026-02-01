@@ -129,12 +129,12 @@ ONET_STYLES = {
         "A tendency to be pleasant, helpful, and willing to assist others at work."
     ),
     "Foresight": (
-        "Achievement Orientation",
-        "A tendency to establish and maintain personally challenging work-related goals, set high work-related standards, and exert high effort toward meeting those goals and standards."
-    ),
-    "Objectivity": (
         "Innovative",
         "A tendency to be inventive, imaginative, and adopt new perspectives on ways to accomplish work."
+    ),
+    "Objectivity": (
+        "Adaptability",
+        "A tendency to be open to and comfortable with change, new experiences, or ideas at work."
     ),
     "Practicality": (
         "Self-Control",

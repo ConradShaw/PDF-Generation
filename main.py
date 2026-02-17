@@ -827,7 +827,7 @@ def generate_pdf(
     def header_template(page_num: int, subtitle: str) -> Table:
         return Table(
             [[
-                Paragraph("Shaw Strengths Matrix™ Profile", style=body_style),
+                Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
                 Paragraph(f"{first} {last} | Page {page_num}", style=body_right_style),
             ], [
                 Paragraph(f"Shaw Strengths Matrix™<br/>{subtitle}", style=header_style),
@@ -847,7 +847,7 @@ def generate_pdf(
         """
         <b>About This Report</b><br/>
         <br/>
-        This report provides an overview of your <b>SSM™ Assessment Character Strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
+        This report provides an overview of your <b>SSM™ Assessment character strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
         <br/>
         The <b>SSM™ Assessment</b> measures <b>personality</b> — how you tend to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
@@ -1024,7 +1024,7 @@ def generate_pdf(
     
     story.append(PageBreak())
     story.append(Table([[
-        Paragraph("Shaw Strengths Matrix™ Profile", style=body_style),
+        Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
         Paragraph(f"{first} {last} | Page 7", style=body_right_style),
     ]]))
     
@@ -1387,7 +1387,7 @@ def generate_team_pdf(
     
     # Page 1 - Title page
     story.append(Table(
-        [[Paragraph("Shaw Strengths Matrix™ (SSM™)<br/>Profile and Interpretative Report", header_style)]],
+        [[Paragraph("Shaw Strengths Matrix™ (SSM™)<br/>Assessment", header_style)]],
         style=table_border
     ))
     
@@ -1421,8 +1421,8 @@ def generate_team_pdf(
     
     legal_notices = Paragraph(
         """
-        <i>Shaw Strengths Matrix™ Profile</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
-        <i>Shaw Strengths Matrix™ Interpretive Report</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
+        <i>Shaw Strengths Matrix™ Framework/i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
+        <i>Shaw Strengths Matrix™ Assessment/i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
         <i>ShawSight</i> logo is Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
         No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>
         O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.""",
@@ -1436,7 +1436,7 @@ def generate_team_pdf(
     def header_template(page_num: int, subtitle: str) -> Table:
         return Table(
             [[
-                Paragraph("Shaw Strengths Matrix™ Profile", style=body_style),
+                Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
                 Paragraph(f"{team_name} | Page {page_num}", style=body_right_style),
             ], [
                 Paragraph(f"Shaw Strengths Matrix™<br/>{subtitle}", style=header_style),
@@ -1462,7 +1462,7 @@ def generate_team_pdf(
         <br/>
         While the Assessment is grounded in established <b>personality and work style research</b> and has passed <b>content and face validity testing</b>, it is currently undergoing further psychometric validation. Results should therefore be interpreted as <b>insightful tendencies</b> rather than predictive measures, and are <b>not intended</b> for hiring, promotion, or other HR decision-making.<br/>
         <br/>
-        In this report, your <b>SSM™ Character Strengths</b> profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
+        In this report, your <b>SSM™ Assessment</b> character strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,
@@ -1663,7 +1663,7 @@ def generate_team_pdf(
     # Page 7 - Team Distribution Chart
     story.append(PageBreak())
     story.append(Table([[
-        Paragraph("Shaw Strengths Matrix™ Profile", style=body_style),
+        Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
         Paragraph(f"{team_name} | Page 7", style=body_right_style),
     ]]))
     story.append(Spacer(1, 6))

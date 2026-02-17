@@ -748,9 +748,11 @@ def generate_pdf(
     def _color_for_category(cat: str):
         return colors.HexColor(
             "#4d93d9" if cat == "Signature" else (
-            "#94dcf8" if cat == "Supporting" else
+            "#94dcf8" if cat == "Supporting" else (
+            "#b7e4c7" if cat == "Stretch" else
             "#d0d0d0")
         )
+    )
 
     date = _parse_date_long(date_str)
 
@@ -973,11 +975,12 @@ def generate_pdf(
         The <b>SSM™ Assessment Table</b> presents a high-level summary of the results from your completed assessment.<br/>
         It ranks the measured presence of the <b>12 SSM™ Character Strengths</b> in your personality — based on your responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
         <br/>
-        Your Character Strengths are grouped into three categories:<br/>
+        Your Character Strengths are grouped into four categories:<br/>
         <br/>
-        a) <b>Signature Strengths</b> – your core or defining qualities. These consistently shape how you think, feel, and act — your natural "signature moves."<br/>
-        b) <b>Supporting Strengths</b> – qualities that complement your signature strengths. They are reliable and useful but not always dominant or expressed in every context.<br/>
-        c) <b>Emerging Strengths</b> – qualities that are less consistently expressed or still developing. They represent areas for growth and potential to strengthen further.<br/>
+        a) <b>Signature Strengths</b> – core strengths you naturally and consistently use—your go-to abilities that define how you operate at your best.<br/>
+        b) <b>Supporting Strengths</b> – readily accessible strengths that reinforce your core abilities—dependable when needed, but not primary.<br/>
+        c) <b>Stretch Strengths</b> – strengths you deploy which are effective when needed, but requiring more focus and effort than the first two categories.<br/>
+        d) <b>Occasional Strengths</b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.<br/>
         """,
         style=body_style
     )]], style=table_border))
@@ -1064,8 +1067,8 @@ def create_distribution_chart_drawing(
     Args:
         distribution_data: Dict mapping trait names to category percentages
             Example: {
-                "Fairness": {"Signature": 0.40, "Supporting": 0.35, "Emerging": 0.25},
-                "Empathy": {"Signature": 0.30, "Supporting": 0.50, "Emerging": 0.20},
+                "Fairness": {"Signature": 0.35, "Supporting": 0.30, "Stretch": 0.20, "Occasional": 0.15},
+                "Empathy": {"Signature": 0.30, "Supporting": 0.40, "Stretch": 0.10, "Occasional": 0.20},
                 ...
             }
         ordered_traits: List of traits in ranked order (1-12) to match team assessment table
@@ -1311,7 +1314,7 @@ def calculate_team_rankings(
     total_count = len(individual_results)
     
     for trait in TRAITS:
-        category_counts = {"Signature": 0, "Supporting": 0, "Emerging": 0}
+        category_counts = {"Signature": 0, "Supporting": 0, "Stretch": 0, "Occasional": 0}
         
         for result in individual_results:
             rank = result['ranks'].get(trait, 12)
@@ -1353,10 +1356,12 @@ def generate_team_pdf(
     def _color_for_category(cat: str):
         return colors.HexColor(
             "#4d93d9" if cat == "Signature" else (
-            "#94dcf8" if cat == "Supporting" else
+            "#94dcf8" if cat == "Supporting" else (
+            "#b7e4c7" if cat == "Stretch" else  
             "#d0d0d0")
+          )
         )
-    
+          
     date = _parse_date_long(date_str)
     
     doc = SimpleDocTemplate(
@@ -1585,9 +1590,10 @@ def generate_team_pdf(
         <br/>
         The team's collective Character Strengths are grouped into three categories:<br/>
         <br/>
-        a) <b>Signature Strengths</b> – the team's core or defining qualities. These consistently shape how team members collectively think, feel, and act — the team's natural "signature moves."<br/>
-        b) <b>Supporting Strengths</b> – qualities that complement the team's signature strengths. They are reliable and useful but not always dominant or expressed in every context.<br/>
-        c) <b>Emerging Strengths</b> – qualities that are less consistently expressed or still developing. They represent areas for growth and potential for the team to strengthen further.<br/>
+        a) <b>Signature Strengths</b> – the team’s core capabilities that it consistently demonstrates—abilities the team naturally leans on and that define how it performs at its best.<br/>
+        b) <b>Supporting Strengths</b> – strengths the team can readily access to reinforce its core capabilities—reliable when needed, though not the team’s primary focus.<br/>
+        c) <b>Stretch Strengths</b> – strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
+        d) <b>Occasional Strengths</b> – strengths the team uses only in specific situations, which can be effective but are energy-intensive and not sustainable for long periods.<br/>
         """,
         style=body_style
     )]], style=table_border))

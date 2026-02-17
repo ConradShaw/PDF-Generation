@@ -152,29 +152,29 @@ ONET_STYLES = {
 
 ONET_ACTIVITIES = {
     "Confidence":
-        "Selling or Influencing Others<br/>Providing Consultation and Advice to Others<br/>Guiding, Directing, and Motivating Subordinates ",
+        "Selling or Influencing Others<br/>Guiding, Directing, and Motivating Subordinates<br/>Communicating with People Outside the Organisation<br/>Performing for or Working Directly with the Public",
     "Courage":
-        "Coordinating the Work and Activities of Others<br/>Staffing Organisational Units<br/>Making Decisions and Solving Problems",
+        "Coordinating the Work and Activities of Others<br/>Making Decisions and Solving Problems",
     "Curiosity":
-        "Updating and Using Relevant Knowledge<br/>Getting Information<br/>Interpreting the Meaning of Information for Others",
+        "Getting Information<br/>Updating and Using Relevant Knowledge<br/>Training and Teaching Others<br/>Interpreting the Meaning of Information for Others",
     "Discernment":
-        "Inspecting Equipment, Structures, or Materials<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment<br/>Evaluating Information to Determine Compliance with Standards",
+        "Inspecting Equipment, Structures, or Materials<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment<br/>Identifying Objects, Actions, and Events<br/>Evaluating Information to Determine Compliance with Standards",
     "Discipline":
-        "Scheduling Work and Activities<br/>Performing Administrative Activities<br/>Monitoring Processes, Materials, or Surroundings",
+        "Scheduling Work and Activities<br/>Performing Administrative Activities<br/>Monitoring Processes, Materials, or Surroundings<br/>Controlling Machines and Processes",
     "Empathy":
-        "Assisting and Caring for Others<br/>Coaching and Developing Others<br/>Training and Teaching Others",
+        "Assisting and Caring for Others<br/>Coaching and Developing Others",
     "Fairness":
-        "Establishing and Maintaining Interpersonal Relationships<br/>Developing and Building Teams<br/>Communicating with Supervisors, Peers, or Subordinates",
+        "Establishing and Maintaining Interpersonal Relationships<br/>Developing and Building Teams<br/>Communicating with Supervisors, Peers, or Subordinates<br/>Staffing Organisational Units",
     "Foresight":
-        "Developing Objectives and Strategies<br/>Organising, Planning, and Prioritising Work<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
+        "Thinking Creatively<br/>Developing Objectives and Strategies<br/>Organising, Planning, and Prioritising Work<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
     "Objectivity":
-        "Thinking Creatively<br/>Analysing Data or Information<br/>Working with Computers",
+        "Providing Consultation and Advice to Others<br/>Working with Computers<br/>Analysing Data or Information<br/>Processing Information",
     "Practicality":
-        "Performing for or Working Directly with the Public<br/>Communicating with People Outside the Organisation<br/>Operating Vehicles, Mechanised Devices, or Equipment",
+        "Operating Vehicles, Mechanised Devices, or Equipment<br/>Handling and Moving Objects",
     "Prudence":
         "Monitoring and Controlling Resources<br/>Documenting/Recording Information<br/>Judging the Qualities of Objects, Services, or People",
     "Tenacity":
-        "Resolving Conflicts and Negotiating with Others<br/>Repairing and Maintaining Mechanical or Electronic Equipment<br/>Performing General Physical Activities",
+        "Resolving Conflicts and Negotiating with Others<br/>Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment<br/>Performing General Physical Activities",
 }
 
 

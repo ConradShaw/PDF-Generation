@@ -1112,12 +1112,14 @@ def create_distribution_chart_drawing(
         # Get percentages for this trait
         signature_pct = distribution_data[trait].get("Signature", 0)
         supporting_pct = distribution_data[trait].get("Supporting", 0)
-        emerging_pct = distribution_data[trait].get("Emerging", 0)
+        stretch_pct = distribution_data[trait].get("Stretch", 0)
+        occasional_pct = distribution_data[trait].get("Occasional", 0)
         
         # Calculate heights (in points)
         signature_height = signature_pct * chart_height
         supporting_height = supporting_pct * chart_height
-        emerging_height = emerging_pct * chart_height
+        stretch_height = stretch_pct * chart_height
+        occasional_height = occasional_pct * chart_height
         
         # Draw Signature segment (bottom) - dark blue
         drawing.add(Rect(
@@ -1128,7 +1130,7 @@ def create_distribution_chart_drawing(
             strokeWidth=1
         ))
         
-        # Draw Supporting segment (middle) - light blue
+        # Draw Supporting segment (middle 1) - light blue
         drawing.add(Rect(
             x_pos, chart_bottom + signature_height,
             bar_width, supporting_height,
@@ -1136,8 +1138,17 @@ def create_distribution_chart_drawing(
             strokeColor=colors.black,
             strokeWidth=1
         ))
-        
-        # Draw Emerging segment (top) - grey
+
+        # Draw Stretch segment (middle 2) - mint
+        drawing.add(Rect(
+            x_pos, chart_bottom + signature_height,
+            bar_width, supporting_height,
+            fillColor=colors.HexColor("#b7e4c7"),
+            strokeColor=colors.black,
+            strokeWidth=1
+        ))
+      
+        # Draw Occasional segment (top) - grey
         drawing.add(Rect(
             x_pos, chart_bottom + signature_height + supporting_height,
             bar_width, emerging_height,
@@ -1176,11 +1187,16 @@ def create_distribution_chart_drawing(
     supporting_x = legend_start_x + 90
     drawing.add(Rect(supporting_x, legend_y, 12, 12, fillColor=colors.HexColor("#94dcf8"), strokeColor=colors.black))
     drawing.add(String(supporting_x + 15, legend_y + 3, "Supporting", fontSize=9))
-    
-    # Emerging legend
-    emerging_x = supporting_x + 90
+
+    # Stretch legend
+    stretch_x = legend_start_x + 90
+    drawing.add(Rect(supporting_x, legend_y, 12, 12, fillColor=colors.HexColor("#b7e4c7"), strokeColor=colors.black))
+    drawing.add(String(supporting_x + 15, legend_y + 3, "Stretch", fontSize=9))
+
+    # Occasional legend
+    occasional_x = supporting_x + 90
     drawing.add(Rect(emerging_x, legend_y, 12, 12, fillColor=colors.HexColor("#d0d0d0"), strokeColor=colors.black))
-    drawing.add(String(emerging_x + 15, legend_y + 3, "Emerging", fontSize=9))
+    drawing.add(String(emerging_x + 15, legend_y + 3, "Occasional", fontSize=9))
     
     return drawing
 

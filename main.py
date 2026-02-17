@@ -692,12 +692,14 @@ class TieBreaker:
 
 
 def category_for_rank_number(rank_num: float) -> str:
-    """Map rank to Signature/Supporting/Emerging."""
-    if rank_num <= 4:
+    """Map rank to Signature/Supporting/Stretch/Occasional."""
+    if rank_num <= 3:
         return "Signature"
-    if rank_num <= 8:
+    if rank_num <= 6:
         return "Supporting"
-    return "Emerging"
+    if rank_num <= 9:
+        return "Stretch"
+      return "Occasional"
 
 
 # ---------------------------

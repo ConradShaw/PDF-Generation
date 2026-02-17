@@ -780,7 +780,7 @@ def generate_pdf(
     
     # Page 1 - Title page
     story.append(Table(
-        [[Paragraph("Shaw Strengths Matrix™ (SSM™)<br/>Profile and Interpretative Report", header_style)]],
+        [[Paragraph("Shaw Strengths Matrix™ (SSM™)<br/>Assessment", header_style)]],
         style=table_border
     ))
 
@@ -812,8 +812,8 @@ def generate_pdf(
     
     legal_notices = Paragraph(
         """
-        <i>Shaw Strengths Matrix™ Profile</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
-        <i>Shaw Strengths Matrix™ Interpretive Report</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
+        <i>Shaw Strengths Matrix™ Framework</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
+        <i>Shaw Strengths Matrix™ Assessment</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
         <i>ShawSight</i> logo is Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
         No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>
         O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.""",
@@ -853,7 +853,7 @@ def generate_pdf(
         <br/>
         While the Assessment is grounded in established <b>personality and work style research</b> and has passed <b>content and face validity testing</b>, it is currently undergoing further psychometric validation. Results should therefore be interpreted as <b>insightful tendencies</b> rather than predictive measures, and are <b>not intended</b> for hiring, promotion, or other HR decision-making.<br/>
         <br/>
-        In this report, your <b>SSM™ Character Strengths</b> profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
+        In this report, your <b>SSM™ Assessment</b> profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,

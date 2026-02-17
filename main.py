@@ -1462,7 +1462,7 @@ def generate_team_pdf(
         <br/>
         While the Assessment is grounded in established <b>personality and work style research</b> and has passed <b>content and face validity testing</b>, it is currently undergoing further psychometric validation. Results should therefore be interpreted as <b>insightful tendencies</b> rather than predictive measures, and are <b>not intended</b> for hiring, promotion, or other HR decision-making.<br/>
         <br/>
-        In this report, your <b>SSM™ Assessment</b> character strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
+        In this report, your <b>SSM™ Assessment</b> Character Strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,

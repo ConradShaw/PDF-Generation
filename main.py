@@ -1604,7 +1604,7 @@ def generate_team_pdf(
         The <b>SSM™ Assessment Table</b> presents a high-level summary of the results from the averaged rankings across the team for all included assessments.<br/>
         It ranks the measured presence of the <b>12 SSM™ Character Strengths</b> in your personality — based on the team's collective responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
         <br/>
-        The team's collective Character Strengths are grouped into three categories:<br/>
+        The team's collective Character Strengths are grouped into four categories:<br/>
         <br/>
         a) <b>Signature Strengths</b> – the team’s core capabilities that it consistently demonstrates—abilities the team naturally leans on and that define how it performs at its best.<br/>
         b) <b>Supporting Strengths</b> – strengths the team can readily access to reinforce its core capabilities—reliable when needed, though not the team’s primary focus.<br/>
@@ -1709,7 +1709,7 @@ def generate_team_pdf(
         <br/>
         Each bar represents one of the 12 SSM™ Character Strengths.<br/>
         <br/>
-        It is divided into three colour segments — Signature, Supporting, Stretch and Occasional — showing what percentage of the team placed the strength in each category.<br/>
+        It is divided into four colour segments — Signature, Supporting, Stretch and Occasional — showing what percentage of the team placed the strength in each category.<br/>
         Every bar totals 100%, making it easy to compare strengths side by side.<br/>
         <br/>
         * <b>Signature segments</b> show the team's strongest instincts.<br/>

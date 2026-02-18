@@ -1712,17 +1712,17 @@ def generate_team_pdf(
         It is divided into four colour segments — Signature, Supporting, Stretch and Occasional — showing what percentage of the team placed the strength in each category.<br/>
         Every bar totals 100%, making it easy to compare strengths side by side.<br/>
         <br/>
-        * <b>Signature segments</b> show the team's strongest instincts.<br/>
-        A tall Signature portion means many team members naturally rely on that strength. These usually indicate areas of high capability and team advantage.<br/>
+        * <b>Signature segments</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
+        A tall Signature segment indicates that many team members naturally rely on that strength.<br/>
         <br/>
-        * <b>Supporting segments</b> represent moderate, flexible strengths.<br/>
-        These are strengths the team can use when needed, but which are not core drivers. A tall Supporting segment means many team members placed that strength in the mid-range.<br/>
+        * <b>Supporting segments</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
+        A tall Supporting segment indicates that many team members placed that strength in the upper mid-range of their overall tendencies.<br/>
         <br/>
-        * <b>Stretch segments</b> highlight development areas.<br/>
-        A tall Stretch portion means few team members prioritise or identify strongly with that strength. These may indicate capability gaps or growth opportunities.<br/>
+        * <b>Stretch segments</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
+        A tall Stretch segment indicates that many team members placed that strength in the lower mid-range of their overall tendencies.<br/>
         <br/>
-        * <b>Occasional segments</b> highlight development areas.<br/>
-        A tall Occasional portion means few team members prioritise or identify strongly with that strength. These may indicate capability gaps or growth opportunities.<br/>
+        * <b>Occasional segments</b> – are strengths the team uses primarily in specific situations. They can be effective, but are energy-intensive and not sustainable for long periods.<br/>
+        A tall Occasional segment indicates that many team members tend to use that strength less frequently and in more limited circumstances.<br/>
         <br/>        
         Taken together, these patterns help compare the team's current profile with a desired profile for the role, department, or organisation.<br/>
         They reveal where the team is well-aligned and where development or rebalancing may be beneficial.<br/>

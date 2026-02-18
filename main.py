@@ -1176,7 +1176,7 @@ def create_distribution_chart_drawing(
     
     # Calculate total legend width to center it
     # Each item: 12 (rect) + 5 (space) + ~60 (text) + 15 (spacing) = ~92 per item
-    legend_total_width = 3 * 90  # Approximate width for 3 legend items
+    legend_total_width = 4 * 90  # Approximate width for 4 legend items
     legend_start_x = (width - legend_total_width) / 2  # Center horizontally
     
     # Signature legend
@@ -1189,14 +1189,14 @@ def create_distribution_chart_drawing(
     drawing.add(String(supporting_x + 15, legend_y + 3, "Supporting", fontSize=9))
 
     # Stretch legend
-    stretch_x = legend_start_x + 90
-    drawing.add(Rect(supporting_x, legend_y, 12, 12, fillColor=colors.HexColor("#b7e4c7"), strokeColor=colors.black))
-    drawing.add(String(supporting_x + 15, legend_y + 3, "Stretch", fontSize=9))
+    stretch_x = supporting_x + 90
+    drawing.add(Rect(stretch_x, legend_y, 12, 12, fillColor=colors.HexColor("#b7e4c7"), strokeColor=colors.black))
+    drawing.add(String(stretch_x + 15, legend_y + 3, "Stretch", fontSize=9))
 
     # Occasional legend
-    occasional_x = supporting_x + 90
-    drawing.add(Rect(emerging_x, legend_y, 12, 12, fillColor=colors.HexColor("#d0d0d0"), strokeColor=colors.black))
-    drawing.add(String(emerging_x + 15, legend_y + 3, "Occasional", fontSize=9))
+    occasional_x = stretch_x + 90
+    drawing.add(Rect(occasional_x, legend_y, 12, 12, fillColor=colors.HexColor("#d0d0d0"), strokeColor=colors.black))
+    drawing.add(String(occasional_x + 15, legend_y + 3, "Occasional", fontSize=9))
     
     return drawing
 

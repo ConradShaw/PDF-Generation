@@ -1005,7 +1005,7 @@ def generate_pdf(
         <br/>
         This chart maps your 12 ranked <b>SSM™ Character Strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how your strengths translate into observable workplace behaviours.<br/>
         <br/>
-        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, and <i>Emerging</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
+        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
         They represent the <b>workplace expression</b> of your Character Strengths — showing how your inner traits are activated and applied in professional settings.<br/>
@@ -1039,7 +1039,7 @@ def generate_pdf(
         <br/>
         This chart maps your 12 ranked <b>SSM™ Character Strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/>
         <br/>
-        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, and <i>Emerging</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
+        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your Character Strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
@@ -1141,8 +1141,8 @@ def create_distribution_chart_drawing(
 
         # Draw Stretch segment (middle 2) - mint
         drawing.add(Rect(
-            x_pos, chart_bottom + signature_height,
-            bar_width, supporting_height,
+            x_pos, chart_bottom + signature_height + supporting_height,
+            bar_width, stretch_height,
             fillColor=colors.HexColor("#b7e4c7"),
             strokeColor=colors.black,
             strokeWidth=1
@@ -1150,8 +1150,8 @@ def create_distribution_chart_drawing(
       
         # Draw Occasional segment (top) - grey
         drawing.add(Rect(
-            x_pos, chart_bottom + signature_height + supporting_height,
-            bar_width, emerging_height,
+            x_pos, chart_bottom + signature_height + supporting_height + stretch_height,
+            bar_width, occasional_height,
             fillColor=colors.HexColor("#d0d0d0"),
             strokeColor=colors.black,
             strokeWidth=1
@@ -1634,7 +1634,7 @@ def generate_team_pdf(
         <br/>
         This chart maps the team's 12 ranked <b>SSM™ Character Strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how overall team strengths translate into observable workplace behaviours.<br/>
         <br/>
-        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, and <i>Emerging</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
+        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
         They represent the <b>workplace expression</b> of your Character Strengths — showing how your inner traits are activated and applied in professional settings.<br/>
@@ -1674,7 +1674,7 @@ def generate_team_pdf(
         <br/>
         This chart maps the team's 12 ranked <b>SSM™ Character Strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
         <br/>
-        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, and <i>Emerging</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
+        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your Character Strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
@@ -1709,7 +1709,7 @@ def generate_team_pdf(
         <br/>
         Each bar represents one of the 12 SSM™ Character Strengths.<br/>
         <br/>
-        It is divided into three colour segments — Signature, Supporting, and Emerging — showing what percentage of the team placed the strength in each category.<br/>
+        It is divided into three colour segments — Signature, Supporting, Stretch and Occasional — showing what percentage of the team placed the strength in each category.<br/>
         Every bar totals 100%, making it easy to compare strengths side by side.<br/>
         <br/>
         * <b>Signature segments</b> show the team's strongest instincts.<br/>
@@ -1718,9 +1718,12 @@ def generate_team_pdf(
         * <b>Supporting segments</b> represent moderate, flexible strengths.<br/>
         These are strengths the team can use when needed, but which are not core drivers. A tall Supporting segment means many team members placed that strength in the mid-range.<br/>
         <br/>
-        * <b>Emerging segments</b> highlight development areas.<br/>
-        A tall Emerging portion means few team members prioritise or identify strongly with that strength. These may indicate capability gaps or growth opportunities.<br/>
+        * <b>Stretch segments</b> highlight development areas.<br/>
+        A tall Stretch portion means few team members prioritise or identify strongly with that strength. These may indicate capability gaps or growth opportunities.<br/>
         <br/>
+        * <b>Occasional segments</b> highlight development areas.<br/>
+        A tall Occasional portion means few team members prioritise or identify strongly with that strength. These may indicate capability gaps or growth opportunities.<br/>
+        <br/>        
         Taken together, these patterns help compare the team's current profile with a desired profile for the role, department, or organisation.<br/>
         They reveal where the team is well-aligned and where development or rebalancing may be beneficial.<br/>
         """,

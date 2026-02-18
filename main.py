@@ -851,7 +851,7 @@ def generate_pdf(
         """
         <b>About This Report</b><br/>
         <br/>
-        This report provides an overview of your <b>SSM™ Assessment character strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
+        This report provides an overview of your <b>SSM™ Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
         <br/>
         The <b>SSM™ Assessment</b> measures <b>personality</b> — how you tend to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
@@ -912,7 +912,7 @@ def generate_pdf(
   The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
   * <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
   * <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i><br/>
-  * <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>Character Strengths</b>.<br/><br/>
+  * <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
   Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
   Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
   These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how people tend to think, feel, and behave in consistent ways across different situations. Your higher-ranked Strengths represent tendencies that are <b>more readily accessible</b> to you and  therefore guide your responses in real-world situations more often.<br/>
@@ -973,9 +973,9 @@ def generate_pdf(
         <b>How to Read This Chart</b><br/>
         <br/>
         The <b>SSM™ Assessment Table</b> presents a high-level summary of the results from your completed assessment.<br/>
-        It ranks the measured presence of the <b>12 SSM™ Character Strengths</b> in your personality — based on your responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
+        It ranks the measured presence of the <b>12 SSM™ strengths</b> in your personality — based on your responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
         <br/>
-        Your Character Strengths are grouped into four categories:<br/>
+        Your strengths are grouped into four categories:<br/>
         <br/>
         a) <b>Signature Strengths</b> – core strengths you naturally and consistently use—your go-to abilities that define how you operate at your best.<br/>
         b) <b>Supporting Strengths</b> – readily accessible strengths that reinforce your core abilities—dependable when needed, but not primary.<br/>
@@ -1003,12 +1003,12 @@ def generate_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart maps your 12 ranked <b>SSM™ Character Strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how your strengths translate into observable workplace behaviours.<br/>
+        This chart maps your 12 ranked <b>SSM™ strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how your strengths translate into observable workplace behaviours.<br/>
         <br/>
         Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
-        They represent the <b>workplace expression</b> of your Character Strengths — showing how your inner traits are activated and applied in professional settings.<br/>
+        They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
         <br/>
         Your <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — your motivation and natural approach to work.<br/>
         """,
@@ -1037,12 +1037,12 @@ def generate_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart maps your 12 ranked <b>SSM™ Character Strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/>
+        This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/>
         <br/>
         Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
-        They represent the <b>task-level expression</b> of your Character Strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
+        They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
         <br/>
         Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
         """,
@@ -1479,13 +1479,13 @@ def generate_team_pdf(
         """
         <b>About This Report</b><br/>
         <br/>
-        This report provides an overview of the team's <b>SSM™ Assessment Character Strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
+        This report provides an overview of the team's <b>SSM™ Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
         <br/>
         The <b>SSM™ Assessment</b> measures <b>personality</b> — how the team collectively tends to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
         While the Assessment is grounded in established <b>personality and work style research</b> and has passed <b>content and face validity testing</b>, it is currently undergoing further psychometric validation. Results should therefore be interpreted as <b>insightful tendencies</b> rather than predictive measures, and are <b>not intended</b> for hiring, promotion, or other HR decision-making.<br/>
         <br/>
-        In this report, your <b>SSM™ Assessment</b> Character Strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
+        In this report, your <b>SSM™ Assessment</b> strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,
@@ -1541,7 +1541,7 @@ def generate_team_pdf(
   The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:<br/><br/>
   * <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i> —<br/>
   * <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>, and<br/>
-  * <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>Character Strengths</b>.<br/><br/>
+  * <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>strengths</b>.<br/><br/>
   Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
   Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
   These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how people tend to think, feel, and behave in consistent ways across different situations. Our higher-ranked Strengths represent tendencies that are <b>more readily accessible</b> to us and therefore guide our responses in real-world situations more often.<br/>
@@ -1602,9 +1602,9 @@ def generate_team_pdf(
         <b>How to Read This Chart</b><br/>
         <br/>
         The <b>SSM™ Assessment Table</b> presents a high-level summary of the results from the averaged rankings across the team for all included assessments.<br/>
-        It ranks the measured presence of the <b>12 SSM™ Character Strengths</b> in your personality — based on the team's collective responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
+        It ranks the measured presence of the <b>12 SSM™ strengths</b> in your personality — based on the team's collective responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
         <br/>
-        The team's collective Character Strengths are grouped into four categories:<br/>
+        The team's collective strengths are grouped into four categories:<br/>
         <br/>
         a) <b>Signature Strengths</b> – the team’s core capabilities that it consistently demonstrates—abilities the team naturally leans on and that define how it performs at its best.<br/>
         b) <b>Supporting Strengths</b> – strengths the team can readily access to reinforce its core capabilities—reliable when needed, though not the team’s primary focus.<br/>
@@ -1632,12 +1632,12 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart maps the team's 12 ranked <b>SSM™ Character Strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how overall team strengths translate into observable workplace behaviours.<br/>
+        This chart maps the team's 12 ranked <b>SSM™ strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how overall team strengths translate into observable workplace behaviours.<br/>
         <br/>
         The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
-        They represent the <b>workplace expression</b> of your Character Strengths — showing how your inner traits are activated and applied in professional settings.<br/>
+        They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
         <br/>
         The team <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — the team's overall motivation and natural approach to work.<br/>
         """,
@@ -1672,12 +1672,12 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart maps the team's 12 ranked <b>SSM™ Character Strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
+        This chart maps the team's 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
         <br/>
         The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
-        They represent the <b>task-level expression</b> of your Character Strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
+        They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
         <br/>
         The team <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind the team's overall approach to completing work tasks.<br/>
         """,
@@ -1707,7 +1707,7 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        Each bar represents one of the 12 SSM™ Character Strengths.<br/>
+        Each bar represents one of the 12 SSM™ strengths.<br/>
         <br/>
         It is divided into four colour segments — Signature, Supporting, Stretch and Occasional — showing what percentage of the team placed the strength in each category.<br/>
         Every bar totals 100%, making it easy to compare strengths side by side.<br/>

@@ -699,7 +699,7 @@ def category_for_rank_number(rank_num: float) -> str:
         return "Supporting"
     if rank_num <= 9:
         return "Stretch"
-        return "Occasional"
+    return "Occasional"
 
 
 # ---------------------------

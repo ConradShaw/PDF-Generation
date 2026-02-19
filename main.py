@@ -154,13 +154,13 @@ ONET_ACTIVITIES = {
     "Confidence":
         "Selling or Influencing Others<br/>Guiding, Directing, and Motivating Subordinates<br/>Communicating with People Outside the Organisation<br/>Performing for or Working Directly with the Public",
     "Courage":
-        "Coordinating the Work and Activities of Others<br/>Making Decisions and Solving Problems",
+        "Coordinating the Work and Activities of Others<br/>Scheduling Work and Activities<br/>Making Decisions and Solving Problems",
     "Curiosity":
         "Getting Information<br/>Updating and Using Relevant Knowledge<br/>Training and Teaching Others<br/>Interpreting the Meaning of Information for Others",
     "Discernment":
         "Inspecting Equipment, Structures, or Materials<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment<br/>Identifying Objects, Actions, and Events<br/>Evaluating Information to Determine Compliance with Standards",
     "Discipline":
-        "Scheduling Work and Activities<br/>Monitoring Processes, Materials, or Surroundings<br/>Controlling Machines and Processes",
+        "Controlling Machines and Processes<br/>Monitoring Processes, Materials, or Surroundings",
     "Empathy":
         "Assisting and Caring for Others<br/>Coaching and Developing Others",
     "Fairness":
@@ -170,7 +170,7 @@ ONET_ACTIVITIES = {
     "Objectivity":
         "Providing Consultation and Advice to Others<br/>Working with Computers<br/>Analysing Data or Information<br/>Processing Information",
     "Practicality":
-        "Documenting/Recording Information<br/>Performing Administrative Activities<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Handling and Moving Objects",
+        "Performing Administrative Activities<br/>Documenting/Recording Information<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Handling and Moving Objects",
     "Prudence":
         "Monitoring and Controlling Resources<br/>Judging the Qualities of Objects, Services, or People",
     "Tenacity":

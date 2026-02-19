@@ -114,11 +114,11 @@ ONET_STYLES = {
     ),
     "Discernment": (
         "Attention to Detail",
-        "A tendency to be detailed oriented, organised, and thorough in completing work."
+        "A tendency to be detail-oriented, organized, and thorough in completing work."
     ),
     "Discipline": (
         "Self-Control",
-        "A tendency to remain calm, composed, and manage emotions effectively in response to criticism or difficult situations at work."
+        "A tendency to remain calm and composed and to manage emotions effectively in response to criticism or difficult situations at work."
     ),
     "Empathy": (
         "Empathy",
@@ -130,7 +130,7 @@ ONET_STYLES = {
     ),
     "Foresight": (
         "Innovative",
-        "A tendency to be inventive, imaginative, and adopt new perspectives on ways to accomplish work."
+        "A tendency to be inventive, to be imaginative, and to adopt new perspectives on ways to accomplish work."
     ),
     "Objectivity": (
         "Adaptability",
@@ -138,7 +138,7 @@ ONET_STYLES = {
     ),
     "Practicality": (
         "Dependability",
-        "A tendency to be reliable, responsible, and consistently meet work-related obligations."
+        "A tendency to be reliable, responsible, and consistent in meeting work-related obligations."
     ),
     "Prudence": (
         "Cautiousness",

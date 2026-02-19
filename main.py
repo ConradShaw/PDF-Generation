@@ -692,14 +692,14 @@ class TieBreaker:
 
 
 def category_for_rank_number(rank_num: float) -> str:
-    """Map rank to Signature/Supporting/Stretch/Occasional."""
+    """Map rank to Signature/Supporting/Stretch/Situational."""
     if rank_num <= 3:
         return "Signature"
     if rank_num <= 6:
         return "Supporting"
     if rank_num <= 9:
         return "Stretch"
-    return "Occasional"
+    return "Situational"
 
 
 # ---------------------------
@@ -980,7 +980,7 @@ def generate_pdf(
         a) <b>Signature Strengths</b> – core strengths you naturally and consistently use—your go-to abilities that define how you operate at your best.<br/>
         b) <b>Supporting Strengths</b> – readily accessible strengths that reinforce your core abilities—dependable when needed, but not primary.<br/>
         c) <b>Stretch Strengths</b> – strengths you deploy which are effective when needed, but requiring more focus and effort than the first two categories.<br/>
-        d) <b>Occasional Strengths</b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.<br/>
+        d) <b>Situational Strengths</b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.<br/>
         """,
         style=body_style
     )]], style=table_border))
@@ -1005,7 +1005,7 @@ def generate_pdf(
         <br/>
         This chart maps your 12 ranked <b>SSM™ strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how your strengths translate into observable workplace behaviours.<br/>
         <br/>
-        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
+        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
@@ -1039,7 +1039,7 @@ def generate_pdf(
         <br/>
         This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/>
         <br/>
-        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
+        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
@@ -1067,8 +1067,8 @@ def create_distribution_chart_drawing(
     Args:
         distribution_data: Dict mapping trait names to category percentages
             Example: {
-                "Fairness": {"Signature": 0.35, "Supporting": 0.30, "Stretch": 0.20, "Occasional": 0.15},
-                "Empathy": {"Signature": 0.30, "Supporting": 0.40, "Stretch": 0.10, "Occasional": 0.20},
+                "Fairness": {"Signature": 0.35, "Supporting": 0.30, "Stretch": 0.20, "Situational": 0.15},
+                "Empathy": {"Signature": 0.30, "Supporting": 0.40, "Stretch": 0.10, "Situational": 0.20},
                 ...
             }
         ordered_traits: List of traits in ranked order (1-12) to match team assessment table
@@ -1113,13 +1113,13 @@ def create_distribution_chart_drawing(
         signature_pct = distribution_data[trait].get("Signature", 0)
         supporting_pct = distribution_data[trait].get("Supporting", 0)
         stretch_pct = distribution_data[trait].get("Stretch", 0)
-        occasional_pct = distribution_data[trait].get("Occasional", 0)
+        situational_pct = distribution_data[trait].get("Situational", 0)
         
         # Calculate heights (in points)
         signature_height = signature_pct * chart_height
         supporting_height = supporting_pct * chart_height
         stretch_height = stretch_pct * chart_height
-        occasional_height = occasional_pct * chart_height
+        situational_height = situational_pct * chart_height
         
         # Draw Signature segment (bottom) - dark blue
         drawing.add(Rect(
@@ -1148,10 +1148,10 @@ def create_distribution_chart_drawing(
             strokeWidth=1
         ))
       
-        # Draw Occasional segment (top) - grey
+        # Draw Situational segment (top) - grey
         drawing.add(Rect(
             x_pos, chart_bottom + signature_height + supporting_height + stretch_height,
-            bar_width, occasional_height,
+            bar_width, situational_height,
             fillColor=colors.HexColor("#d0d0d0"),
             strokeColor=colors.black,
             strokeWidth=1
@@ -1193,10 +1193,10 @@ def create_distribution_chart_drawing(
     drawing.add(Rect(stretch_x, legend_y, 12, 12, fillColor=colors.HexColor("#b7e4c7"), strokeColor=colors.black))
     drawing.add(String(stretch_x + 15, legend_y + 3, "Stretch", fontSize=9))
 
-    # Occasional legend
-    occasional_x = stretch_x + 90
-    drawing.add(Rect(occasional_x, legend_y, 12, 12, fillColor=colors.HexColor("#d0d0d0"), strokeColor=colors.black))
-    drawing.add(String(occasional_x + 15, legend_y + 3, "Occasional", fontSize=9))
+    # Situational legend
+    situational_x = stretch_x + 90
+    drawing.add(Rect(situational_x, legend_y, 12, 12, fillColor=colors.HexColor("#d0d0d0"), strokeColor=colors.black))
+    drawing.add(String(situational_x + 15, legend_y + 3, "Situational", fontSize=9))
     
     return drawing
 
@@ -1330,7 +1330,7 @@ def calculate_team_rankings(
     total_count = len(individual_results)
     
     for trait in TRAITS:
-        category_counts = {"Signature": 0, "Supporting": 0, "Stretch": 0, "Occasional": 0}
+        category_counts = {"Signature": 0, "Supporting": 0, "Stretch": 0, "Situational": 0}
         
         for result in individual_results:
             rank = result['ranks'].get(trait, 12)
@@ -1606,10 +1606,10 @@ def generate_team_pdf(
         <br/>
         The team's collective strengths are grouped into four categories:<br/>
         <br/>
-        a) <b>Signature Strengths</b> – the team’s core capabilities that it consistently demonstrates—abilities the team naturally leans on and that define how it performs at its best.<br/>
-        b) <b>Supporting Strengths</b> – strengths the team can readily access to reinforce its core capabilities—reliable when needed, though not the team’s primary focus.<br/>
-        c) <b>Stretch Strengths</b> – strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
-        d) <b>Occasional Strengths</b> – strengths the team uses only in specific situations, which can be effective but are energy-intensive and not sustainable for long periods.<br/>
+        a) <b>Signature Strengths</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
+        b) <b>Supporting Strengths</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
+        c) <b>Stretch Strengths</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
+        d) <b>Situational Strengths</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         """,
         style=body_style
     )]], style=table_border))
@@ -1634,7 +1634,7 @@ def generate_team_pdf(
         <br/>
         This chart maps the team's 12 ranked <b>SSM™ strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how overall team strengths translate into observable workplace behaviours.<br/>
         <br/>
-        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
+        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
@@ -1674,7 +1674,7 @@ def generate_team_pdf(
         <br/>
         This chart maps the team's 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
         <br/>
-        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Occasional</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
+        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
@@ -1709,7 +1709,7 @@ def generate_team_pdf(
         <br/>
         Each bar represents one of the 12 SSM™ strengths.<br/>
         <br/>
-        It is divided into four colour segments — Signature, Supporting, Stretch and Occasional — showing what percentage of the team placed the strength in each category.<br/>
+        It is divided into four colour segments — Signature, Supporting, Stretch and Situational — showing what percentage of the team placed the strength in each category.<br/>
         Every bar totals 100%, making it easy to compare strengths side by side.<br/>
         <br/>
         * <b>Signature segments</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
@@ -1721,8 +1721,8 @@ def generate_team_pdf(
         * <b>Stretch segments</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
         A tall Stretch segment indicates that many team members placed that strength in the lower mid-range of their overall tendencies.<br/>
         <br/>
-        * <b>Occasional segments</b> – are strengths the team uses primarily in specific situations. They can be effective, but are energy-intensive and not sustainable for long periods.<br/>
-        A tall Occasional segment indicates that many team members tend to use that strength less frequently and in more limited circumstances.<br/>
+        * <b>Situational segments</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
+        A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
         <br/>        
         Taken together, these patterns help compare the team's current profile with a desired profile for the role, department, or organisation.<br/>
         They reveal where the team is well-aligned and where development or rebalancing may be beneficial.<br/>

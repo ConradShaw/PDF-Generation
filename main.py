@@ -160,7 +160,7 @@ ONET_ACTIVITIES = {
     "Discernment":
         "Inspecting Equipment, Structures, or Materials<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment<br/>Identifying Objects, Actions, and Events<br/>Evaluating Information to Determine Compliance with Standards",
     "Discipline":
-        "Scheduling Work and Activities<br/>Performing Administrative Activities<br/>Monitoring Processes, Materials, or Surroundings<br/>Controlling Machines and Processes",
+        "Scheduling Work and Activities<br/>Monitoring Processes, Materials, or Surroundings<br/>Controlling Machines and Processes",
     "Empathy":
         "Assisting and Caring for Others<br/>Coaching and Developing Others",
     "Fairness":
@@ -170,9 +170,9 @@ ONET_ACTIVITIES = {
     "Objectivity":
         "Providing Consultation and Advice to Others<br/>Working with Computers<br/>Analysing Data or Information<br/>Processing Information",
     "Practicality":
-        "Operating Vehicles, Mechanised Devices, or Equipment<br/>Handling and Moving Objects",
+        "Documenting/Recording Information<br/>Performing Administrative Activities<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Handling and Moving Objects",
     "Prudence":
-        "Monitoring and Controlling Resources<br/>Documenting/Recording Information<br/>Judging the Qualities of Objects, Services, or People",
+        "Monitoring and Controlling Resources<br/>Judging the Qualities of Objects, Services, or People",
     "Tenacity":
         "Resolving Conflicts and Negotiating with Others<br/>Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment<br/>Performing General Physical Activities",
 }

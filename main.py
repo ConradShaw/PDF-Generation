@@ -1224,125 +1224,85 @@ def calculate_team_rankings(
             - ranks: Dict mapping trait to final team rank (1-12, may include .5 for ties)
             - distribution_data: Dict mapping trait to category distribution
     """
-    from statistics import median
-    
-    # Step 1: Calculate average ranks and store individual ranks for median calculation
+from statistics import mean, median
+from itertools import groupby
+
+def calculate_team_rankings(individual_results):
+
+    # --- Step 1: Aggregate individual ranks ---
     rank_sums = {trait: 0.0 for trait in TRAITS}
     rank_counts = {trait: 0 for trait in TRAITS}
     individual_ranks_by_trait = {trait: [] for trait in TRAITS}
-    
+
     for result in individual_results:
         for trait, rank in result['ranks'].items():
             rank_sums[trait] += rank
             rank_counts[trait] += 1
             individual_ranks_by_trait[trait].append(rank)
-    
+
     avg_ranks = {
-        trait: rank_sums[trait] / rank_counts[trait] if rank_counts[trait] > 0 else 12
+        trait: (rank_sums[trait] / rank_counts[trait]) if rank_counts[trait] > 0 else 12.0
         for trait in TRAITS
     }
-    
-    # Step 2: Sort traits by average rank (initial ordering)
-    ordered_traits_temp = sorted(TRAITS, key=lambda t: (avg_ranks[t], t))
-    
-    # Step 2.1 & 2.2: Group by mean rank, then apply median tie-breaker
-    # Group traits with the same mean rank
-    trait_groups = []
-    i = 0
-    while i < len(ordered_traits_temp):
-        current_trait = ordered_traits_temp[i]
-        current_avg = avg_ranks[current_trait]
-        
-        # Find all traits with same average rank (within floating point tolerance)
-        group = [current_trait]
-        j = i + 1
-        while j < len(ordered_traits_temp):
-            next_trait = ordered_traits_temp[j]
-            if abs(avg_ranks[next_trait] - current_avg) < 0.0001:  # Floating point tolerance
-                group.append(next_trait)
-                j += 1
-            else:
-                break
-        
-        # Step 2.2: If group has multiple traits (tie), sort by median
-        if len(group) > 1:
-            median_ranks = {
-                trait: median(individual_ranks_by_trait[trait]) if individual_ranks_by_trait[trait] else 12
-                for trait in group
-            }
-            # Sort by median, then alphabetically for stability
-            group.sort(key=lambda t: (median_ranks[t], t))
-        
-        trait_groups.append(group)
-        i = j
-    
-    # Flatten groups back into ordered list
-    ordered_traits_with_median = []
-    for group in trait_groups:
-        ordered_traits_with_median.extend(group)
-    
-    # Step 2.3: Assign final ranks with average ranking for remaining ties
-    # Group again by (mean, median) to find remaining ties
+
+    median_ranks = {
+        trait: median(individual_ranks_by_trait[trait]) if individual_ranks_by_trait[trait] else 12.0
+        for trait in TRAITS
+    }
+
+    # --- Step 2: Stable composite sort ---
+    # Round to avoid floating precision drift
+    ordered_traits = sorted(
+        TRAITS,
+        key=lambda t: (
+            round(avg_ranks[t], 6),
+            round(median_ranks[t], 6),
+            t  # alphabetical stability fallback
+        )
+    )
+
+    # --- Step 3: Assign final ranks with proper average ranking for ties ---
     final_ranks = {}
     nominal_position = 1
-    
-    i = 0
-    while i < len(ordered_traits_with_median):
-        current_trait = ordered_traits_with_median[i]
-        current_avg = avg_ranks[current_trait]
-        current_median = median(individual_ranks_by_trait[current_trait]) if individual_ranks_by_trait[current_trait] else 12
-        
-        # Find all traits with same average AND median
-        tie_group = [current_trait]
-        j = i + 1
-        while j < len(ordered_traits_with_median):
-            next_trait = ordered_traits_with_median[j]
-            next_avg = avg_ranks[next_trait]
-            next_median = median(individual_ranks_by_trait[next_trait]) if individual_ranks_by_trait[next_trait] else 12
-            
-            if abs(next_avg - current_avg) < 0.0001 and abs(next_median - current_median) < 0.0001:
-                tie_group.append(next_trait)
-                j += 1
-            else:
-                break
-        
-        # Assign average of nominal positions to all traits in tie group
-        if len(tie_group) == 1:
-            # No tie, assign nominal position
-            final_ranks[current_trait] = float(nominal_position)
-        else:
-            # Tie: assign average of nominal positions
-            nominal_positions = list(range(nominal_position, nominal_position + len(tie_group)))
-            avg_position = mean(nominal_positions)
-            for trait in tie_group:
-                final_ranks[trait] = avg_position
-        
-        # Move to next group, skipping positions used by tie group
-        nominal_position += len(tie_group)
-        i = j
-    
-    # Step 2.1 (final): ordered_traits now reflects the final ranking order
-    ordered_traits = ordered_traits_with_median
-    
-    # Step 3: Calculate distribution data (percentage in each category)
-    # This uses the ORIGINAL individual ranks, not the team average ranks
+
+    for _, group in groupby(
+        ordered_traits,
+        key=lambda t: (
+            round(avg_ranks[t], 6),
+            round(median_ranks[t], 6)
+        )
+    ):
+        group = list(group)
+        positions = list(range(nominal_position, nominal_position + len(group)))
+        avg_position = mean(positions)
+
+        for trait in group:
+            final_ranks[trait] = float(avg_position)
+
+        nominal_position += len(group)
+
+    # --- Step 4: Distribution Data (unchanged logic) ---
     distribution_data = {}
     total_count = len(individual_results)
-    
+
     for trait in TRAITS:
-        category_counts = {"Signature": 0, "Supporting": 0, "Stretch": 0, "Situational": 0}
-        
+        category_counts = {
+            "Signature": 0,
+            "Supporting": 0,
+            "Stretch": 0,
+            "Situational": 0,
+        }
+
         for result in individual_results:
             rank = result['ranks'].get(trait, 12)
             category = category_for_rank_number(rank)
             category_counts[category] += 1
-        
-        # Convert to percentages
+
         distribution_data[trait] = {
-            cat: count / total_count if total_count > 0 else 0
+            cat: (count / total_count) if total_count > 0 else 0.0
             for cat, count in category_counts.items()
         }
-    
+
     return ordered_traits, final_ranks, distribution_data
 
 

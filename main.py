@@ -915,7 +915,7 @@ def generate_pdf(
   * <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
   Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
   Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
-  These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how people tend to think, feel, and behave in consistent ways across different situations. Your higher-ranked Strengths represent tendencies that are <b>more readily accessible</b> to you and  therefore guide your responses in real-world situations more often.<br/>
+  These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
 </para>
         """,
         style=body_style
@@ -1504,7 +1504,7 @@ def generate_team_pdf(
   * <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>strengths</b>.<br/><br/>
   Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
   Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
-  These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how people tend to think, feel, and behave in consistent ways across different situations. Our higher-ranked Strengths represent tendencies that are <b>more readily accessible</b> to us and therefore guide our responses in real-world situations more often.<br/>
+  These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
 </para>
         """,
         style=body_style

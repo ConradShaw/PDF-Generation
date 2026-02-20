@@ -94,9 +94,9 @@ DESCRIPTIONS = {
     "Confidence": "The <b>intuitive</b> ability to convey self-assurance and assertiveness that inspires respect and persuades others, guided by <b>awareness</b> of the current situation.",
     "Prudence": "The <b>feeling</b> ability to apply careful and discreet judgment, guided by <b>anticipation</b> of imminent outcomes.",
     "Foresight": "The <b>intuitive</b> ability to project future trends and opportunities, guided by <b>reflection</b> on recent cues.",
-    "Practicality": "The <b>sensory</b> ability to take calm, appropriate and effective action to address real-world needs, guided by <b>awareness</b> of the current situation.",
+    "Practicality": "The <b>sensory</b> ability to take effective and appropriate action reliably to meet real-world needs, guided by <b>awareness</b> of the current situation.",
     "Curiosity": "The <b>thinking</b> ability to explore and learn new information, guided by <b>reflection</b> on recent cues.",
-    "Discipline": "The <b>sensory</b> ability to apply self-regulation and consistency, guided by <b>anticipation</b> of imminent outcomes.",
+    "Discipline": "The <b>sensory</b> ability to apply self-regulation with composure and consistency, guided by <b>anticipation</b> of imminent outcomes.",
 }
 
 ONET_STYLES = {

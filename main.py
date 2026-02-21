@@ -526,7 +526,7 @@ def parse_survey_flexible(xls_path: str, traits_set=None) -> Dict[str, Dict[str,
 
 
 # ---------------------------
-# Tie-breaker (5 steps)
+# Tie-breaker algorithm for Individual assessments (5 steps)
 # ---------------------------
 class TieBreaker:
     def __init__(self, traits, results):

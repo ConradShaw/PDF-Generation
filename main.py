@@ -1007,7 +1007,7 @@ def generate_pdf(
         <br/>
         This chart maps your 12 ranked <b>SSM™ strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how your strengths translate into observable workplace behaviours.<br/>
         <br/>
-        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
+        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
@@ -1041,7 +1041,7 @@ def generate_pdf(
         <br/>
         This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/>
         <br/>
-        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
+        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
@@ -1598,7 +1598,7 @@ def generate_team_pdf(
         <br/>
         This chart maps the team's 12 ranked <b>SSM™ strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how overall team strengths translate into observable workplace behaviours.<br/>
         <br/>
-        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the corresponding <b>O*NET Work Styles</b> listed here.<br/>
+        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
@@ -1638,7 +1638,7 @@ def generate_team_pdf(
         <br/>
         This chart maps the team's 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
         <br/>
-        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the corresponding <b>O*NET Work Activities</b> listed here.<br/>
+        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>

@@ -1671,7 +1671,7 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        Each bar represents one of the 12 SSM™ strengths.<br/>
+          Each bar represents one of the 12 SSM™ strengths. Together, the chart shows the team’s strength clusters, arranged from the most expressed strength on the left to the least expressed strength on the right.<br/>
         <br/>
         It is divided into four colour segments — Signature, Supporting, Stretch and Situational — showing what percentage of the team placed the strength in each category.<br/>
         Each bar totals 100%, making it easy to compare strength distributions across categories, side by side.<br/>

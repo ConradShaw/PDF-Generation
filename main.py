@@ -1674,7 +1674,7 @@ def generate_team_pdf(
         Each bar represents one of the 12 SSM™ strengths.<br/>
         <br/>
         It is divided into four colour segments — Signature, Supporting, Stretch and Situational — showing what percentage of the team placed the strength in each category.<br/>
-        Every bar totals 100%, making it easy to compare strengths side by side.<br/>
+        Each bar totals 100%, making it easy to compare strength distributions across categories, side by side.<br/>
         <br/>
         * <b>Signature segments</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
         A tall Signature segment indicates that many team members naturally rely on that strength.<br/>

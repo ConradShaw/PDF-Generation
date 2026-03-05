@@ -979,10 +979,10 @@ def generate_pdf(
         <br/>
         Your strengths are grouped into four categories:<br/>
         <br/>
-        a) <b>Signature Strengths</b> – core strengths you naturally and consistently use—your go-to abilities that define how you operate in flow and at your best.<br/>
-        b) <b>Supporting Strengths</b> – readily accessible strengths that reinforce your core abilities—dependable when needed, but not primary.<br/>
-        c) <b>Stretch Strengths</b> – strengths you deploy which are effective when needed, but requiring more focus and effort than the first two categories.<br/>
-        d) <b>Situational Strengths</b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.<br/>
+        a) <b>Signature Strengths (#1-#3) </b> – core strengths you naturally and consistently use—your go-to abilities that define how you operate in flow and at your best.<br/>
+        b) <b>Supporting Strengths (#4-#6) </b> – readily accessible strengths that reinforce your core abilities—dependable when needed, but not primary.<br/>
+        c) <b>Stretch Strengths (#7-#9) </b> – strengths you deploy which are effective when needed, but requiring more focus and effort than the first two categories.<br/>
+        d) <b>Situational Strengths (#10-#12) </b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.<br/>
         """,
         style=body_style
     )]], style=table_border))

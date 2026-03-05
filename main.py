@@ -1674,22 +1674,20 @@ def generate_team_pdf(
           Each bar represents one of the 12 SSM™ strengths. Together, the chart shows the team’s strength distribution, arranged from the most expressed strength on the left to the least expressed strength on the right.<br/>
         <br/>
         It is divided into four colour segments — Signature, Supporting, Stretch and Situational — showing what percentage of the team placed the strength in each category.<br/>
-        Each bar totals 100%, making it easy to compare strength distributions across categories, side by side.<br/>
+        Each bar totals 100%, enabling comparison of strength distributions across categories.<br/>
         <br/>
-        * <b>Signature segments</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
+        * <b>Signature segments (strengths 1-3)</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
         A tall Signature segment indicates that many team members naturally rely on that strength.<br/>
         <br/>
-        * <b>Supporting segments</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
+        * <b>Supporting segments (strengths 4-6)</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
         A tall Supporting segment indicates that many team members placed that strength in the upper mid-range of their overall tendencies.<br/>
         <br/>
-        * <b>Stretch segments</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
+        * <b>Stretch segments (strengths 7-9)</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
         A tall Stretch segment indicates that many team members placed that strength in the lower mid-range of their overall tendencies.<br/>
         <br/>
-        * <b>Situational segments</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
+        * <b>Situational segments (strengths 10-12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
-        <br/>        
-        Taken together, these patterns help compare the team's current profile with a desired profile for the role, department, or organisation.<br/>
-        They reveal where the team is well-aligned and where development or rebalancing may be beneficial.<br/>
+        <br/>
         """,
         style=body_style
     )]], style=table_border))

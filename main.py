@@ -1183,22 +1183,22 @@ def create_distribution_chart_drawing(
     
     # Signature legend
     drawing.add(Rect(legend_start_x, legend_y, 12, 12, fillColor=colors.HexColor("#4d93d9"), strokeColor=colors.black))
-    drawing.add(String(legend_start_x + 15, legend_y + 3, "Signature", fontSize=9))
+    drawing.add(String(legend_start_x + 15, legend_y + 3, "Signature (#1-#3)", fontSize=9))
     
     # Supporting legend
     supporting_x = legend_start_x + 90
     drawing.add(Rect(supporting_x, legend_y, 12, 12, fillColor=colors.HexColor("#94dcf8"), strokeColor=colors.black))
-    drawing.add(String(supporting_x + 15, legend_y + 3, "Supporting", fontSize=9))
+    drawing.add(String(supporting_x + 15, legend_y + 3, "Supporting (#4-#6)", fontSize=9))
 
     # Stretch legend
     stretch_x = supporting_x + 90
     drawing.add(Rect(stretch_x, legend_y, 12, 12, fillColor=colors.HexColor("#b7e4c7"), strokeColor=colors.black))
-    drawing.add(String(stretch_x + 15, legend_y + 3, "Stretch", fontSize=9))
+    drawing.add(String(stretch_x + 15, legend_y + 3, "Stretch (#7-#9)", fontSize=9))
 
     # Situational legend
     situational_x = stretch_x + 90
     drawing.add(Rect(situational_x, legend_y, 12, 12, fillColor=colors.HexColor("#d0d0d0"), strokeColor=colors.black))
-    drawing.add(String(situational_x + 15, legend_y + 3, "Situational", fontSize=9))
+    drawing.add(String(situational_x + 15, legend_y + 3, "Situational (#10-#12)", fontSize=9))
     
     return drawing
 

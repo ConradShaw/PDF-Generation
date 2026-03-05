@@ -88,7 +88,7 @@ DESCRIPTIONS = {
     "Fairness": "The <b>thinking</b> ability to apply impartiality and equitable treatment, guided by <b>anticipation</b> of imminent outcomes.",
     "Empathy": "The <b>feeling</b> ability to understand others' perspectives and experiences, guided by <b>reflection</b> on recent cues.",
     "Discernment": "The <b>sensory</b> ability to identify and distinguish important details, guided by <b>reflection</b> on recent cues.",
-    "Objectivity": "The <b>thinking</b> ability to process information rationally and without bias to achieve fact-based knowledge, guided by <b>awareness</b> of the current situation.",
+    "Objectivity": "The <b>thinking</b> ability to process information rationally and without bias to achieve fact-based insights, guided by <b>awareness</b> of the current situation.",
     "Tenacity": "The <b>feeling</b> ability to apply persistent and determined effort to overcome obstacles, guided by <b>awareness</b> of the current situation.",
     "Courage": "The <b>intuitive</b> ability to take purposeful action despite fear or uncertainty. guided by <b>anticipation</b> of imminent outcomes.",
     "Confidence": "The <b>intuitive</b> ability to convey self-assurance and assertiveness that inspires respect and persuades others, guided by <b>awareness</b> of the current situation.",

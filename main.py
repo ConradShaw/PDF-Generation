@@ -29,7 +29,7 @@ Team Report Algorithm:
     - If traits still tie after median comparison, assign average of nominal positions
     - Example: 3 traits tied for 3rd → ranks (3+4+5)/3 = 4.0 for all three
   Step 3: Calculate distribution data (percentage in each category)
-  Step 4: Generate team PDF with strength cluster chart
+  Step 4: Generate team PDF with strength distribution chart
 """
 
 import os
@@ -1463,7 +1463,7 @@ def generate_team_pdf(
         2) Shaw Strengths Matrix™ Team Assessment Table<br/>
         3) Shaw Strengths Matrix™ Team Mapping to O*NET Work Styles<br/>
         4) Shaw Strengths Matrix™ Team Mapping to O*NET Work Activities<br/>
-        5) Shaw Strengths Matrix™ Team Strength Cluster Chart
+        5) Shaw Strengths Matrix™ Team Strength Distribution
         """,
         style=body_style
     )]], style=table_border))
@@ -1648,7 +1648,7 @@ def generate_team_pdf(
         style=body_compact_style
     )]], style=table_border))
     
-    # Page 7 - Team Strength Cluster Chart
+    # Page 7 - Team Strength Distribution
     story.append(PageBreak())
     story.append(Table([[
         Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
@@ -1657,12 +1657,12 @@ def generate_team_pdf(
     story.append(Spacer(1, 6))
     
     story.append(Table([[Paragraph(
-        "Shaw Strengths Matrix™<br/>Team Strength Cluster Chart",
+        "Shaw Strengths Matrix™<br/>Team Strength Distribution",
         style=header_style
     )]], style=table_border))
     story.append(Spacer(1, 12))
     
-    # Add strength cluster chart (ordered by team ranking: rank 1 first, rank 12 last)
+    # Add strength distribution chart (ordered by team ranking: rank 1 first, rank 12 last)
     chart_drawing = create_distribution_chart_drawing(distribution_data, ordered_traits, width=500, height=300)
     story.append(chart_drawing)
     story.append(Spacer(1, 12))
@@ -1671,7 +1671,7 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-          Each bar represents one of the 12 SSM™ strengths. Together, the chart shows the team’s strength clusters, arranged from the most expressed strength on the left to the least expressed strength on the right.<br/>
+          Each bar represents one of the 12 SSM™ strengths. Together, the chart shows the team’s strength distribution, arranged from the most expressed strength on the left to the least expressed strength on the right.<br/>
         <br/>
         It is divided into four colour segments — Signature, Supporting, Stretch and Situational — showing what percentage of the team placed the strength in each category.<br/>
         Each bar totals 100%, making it easy to compare strength distributions across categories, side by side.<br/>

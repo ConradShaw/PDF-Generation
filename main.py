@@ -1685,7 +1685,7 @@ def generate_team_pdf(
         <br/>
         * <b>Situational strengths (#10-#12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
-        <br/>        
+        """,
         style=body_style
     )]], style=table_border))
     

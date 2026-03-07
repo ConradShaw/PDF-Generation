@@ -1671,7 +1671,7 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        The chart shows the team’s strength distribution, arranged from the most expressed strength on the left to the least expressed strength on the right.<br/>
+        The chart shows the team’s strength distribution, with strengths ordered from the highest average expressed strength on the left to the lowest on the right.<br/>
         Each bar is divided into up to four categories and totals 100%, enabling comparisons across team strengths.<br/>
         <br/>
         * <b>Signature strengths (#1-#3)</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>

@@ -1672,8 +1672,7 @@ def generate_team_pdf(
         <b>How to Read This Chart</b><br/>
         <br/>
         The chart shows the team’s strength distribution, arranged from the most expressed strength on the left to the least expressed strength on the right.<br/>
-        It is divided into four categories — Signature, Supporting, Stretch and Situational — showing what percentage of the team placed the strength in each category.<br/>
-        Each bar totals 100%, enabling strength comparisons across categories.<br/>
+        Each bar totals 100% and is split into up to four of the following cateogories, enabling comparisons across the team strengths.<br/>
         <br/>
         * <b>Signature strengths (#1-#3)</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
         A tall Signature segment indicates that many team members naturally rely on that strength.<br/>
@@ -1686,8 +1685,7 @@ def generate_team_pdf(
         <br/>
         * <b>Situational strengths (#10-#12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
-        <br/>
-        """,
+        <br/>        
         style=body_style
     )]], style=table_border))
     

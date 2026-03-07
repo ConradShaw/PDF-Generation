@@ -1672,7 +1672,7 @@ def generate_team_pdf(
         <b>How to Read This Chart</b><br/>
         <br/>
         The chart displays the team’s strength distribution, with strengths arranged from the highest average expressed strength on the left to the lowest on the right.<br/>
-        Each bar represents a strength and is divided into one to four categories, with the segments together totalling 100%.<br/>
+        Each bar represents a strength and is divided into coloured segments showing how team members ranked it across four categories. Together, the segments total 100% of responses.<br/>
         <br/>
         * <b>Signature strengths (#1-#3)</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
         A tall Signature segment indicates that many team members naturally rely on that strength.<br/>

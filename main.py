@@ -1546,7 +1546,7 @@ def generate_team_pdf(
             
             last_category = category
             category_start = len(results_table_data)
-        results_table_data.append([_fmt_rank(rank), category, trait])
+        results_table_data.append([_fmt_rank(rank), category, f"{rank}. {trait}"])
     
     results_table_style.extend([
         ("GRID", (0, category_start), (-1, -1), 1, colors.black),

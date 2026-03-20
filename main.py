@@ -1159,7 +1159,8 @@ def create_distribution_chart_drawing(
             strokeWidth=1
         ))
                       
-        # Add trait label below bar (rotated 45 degrees)
+      # Add trait label below bar (rotated 45 degrees)
+      for rank, trait in enumerate(ordered_traits, start=1):    
         label_x = x_pos + bar_width / 2
         label_y = chart_bottom - 10
         

@@ -1056,7 +1056,6 @@ def generate_pdf(
     filename = f"SSM_{first}_{last}_{date_str}_v1.pdf"
     return filename
 
-
 def create_distribution_chart_drawing(
     distribution_data: Dict[str, Dict[str, float]], 
     ordered_traits: List[str],
@@ -1905,7 +1904,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             success=False,
             message=f"Team PDF generation failed: {str(e)}"
         )
-
 
 @app.post("/generate-pdf")
 async def generate_pdf_file(file: UploadFile = File(...)):

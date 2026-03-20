@@ -1875,6 +1875,18 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         )
         
         pdf_bytes = pdf_buffer.getvalue()
+
+        print("[TEAM PDF DEBUG]", {
+          "buffer_size": len(pdf_bytes),
+          "individual_results": len(request.individual_results)
+        })
+
+        if not pdf_bytes:
+          print("[TEAM PDF ERROR] Empty PDF buffer generated")
+          return GenerateTeamPDFResponse(
+            success=False,
+            message="Empty PDF buffer generated"
+          )
         
         # Encode PDF to base64
         pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')

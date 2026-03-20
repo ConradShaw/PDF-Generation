@@ -1158,13 +1158,13 @@ def create_distribution_chart_drawing(
             strokeColor=colors.black,
             strokeWidth=1
         ))
-        
+                      
         # Add trait label below bar (rotated 45 degrees)
         label_x = x_pos + bar_width / 2
         label_y = chart_bottom - 10
         
         label_group = Group()
-        label_text = String(0, 0, trait, fontSize=8, textAnchor='end')
+        label_text = String(0, 0, f"{rank}. {trait}", fontSize=8, textAnchor='end')      
         label_group.add(label_text)
         
         # Apply 45-degree rotation transform

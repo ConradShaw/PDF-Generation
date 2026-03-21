@@ -1624,7 +1624,7 @@ def generate_team_pdf(
     
     activities = {"SSM\nStrengths™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
     story.append(Table(
-        [row + [Paragraph(activities[row[2]], style=cell_compact_style)] for row in results_table_data],
+        [row + [Paragraph(activities[row[2]], style=cell_center_style)] for row in results_table_data],
         style=compact_table_style,
         colWidths=[0.4*inch, 1.0*inch, 1.0*inch, None],  # Slightly reduced column widths
     ))

@@ -1857,11 +1857,17 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     - filename: Suggested filename for the PDF
     """
     try:
+        # Guard clause
+        if not request.individual_results:
+          raise HTTPException(status_code=400, detail="No individual results provided")
+          
         # Calculate team rankings from individual results
+        print("START TEAM RANKING CALC")
         ordered_traits, ranks, distribution_data = calculate_team_rankings(request.individual_results)
         
         # Generate PDF to memory
-        pdf_buffer = io.BytesIO()
+        print("START PDF GENERATION")
+        pdf_buffer = io.BytesIO()        
         pdf_filename = generate_team_pdf(
             company_name=request.company_name,
             team_name=request.team_name,
@@ -1873,6 +1879,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             output_stream=pdf_buffer,
             logo_path=LOGO_PATH
         )
+        print("END PDF GENERATION")
         
         pdf_bytes = pdf_buffer.getvalue()
 
@@ -1881,30 +1888,31 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
           "individual_results": len(request.individual_results)
         })
 
+        # Treat empty PDF as a real failure
         if not pdf_bytes:
-          print("[TEAM PDF ERROR] Empty PDF buffer generated")
-          return GenerateTeamPDFResponse(
-            success=False,
-            message="Empty PDF buffer generated"
-          )
-        
-        # Encode PDF to base64
-        pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
-        
-        return GenerateTeamPDFResponse(
-            success=True,
-            pdf_base64=pdf_base64,
-            filename=pdf_filename
-        )
-        
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        return GenerateTeamPDFResponse(
-            success=False,
-            message=f"Team PDF generation failed: {str(e)}"
-        )
+          raise ValueError("Empty PDF buffer generated")
 
+        # Encode PDF to base64
+        pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
+
+        return GenerateTeamPDFResponse(
+          success=True,
+          pdf_base64=pdf_base64,
+          filename=pdf_filename or "team_report.pdf"
+        )
+      
+    except HTTPException as http_exc:
+        raise http_exc
+      
+    except Exception as e:
+        print("[TEAM PDF ERROR]")
+        traceback.print_exc()
+
+        raise HTTPException(
+          status_code=500,
+          detail=f"Failed to generate team PDF: {str(e)}"
+        )
+                           
 @app.post("/generate-pdf")
 async def generate_pdf_file(file: UploadFile = File(...)):
     """

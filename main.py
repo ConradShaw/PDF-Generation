@@ -91,7 +91,7 @@ DESCRIPTIONS = {
     "Objectivity": "The <b>thinking</b> ability to process information rationally and without bias to achieve fact-based insights, guided by <b>awareness</b> of the current situation.",
     "Tenacity": "The <b>feeling</b> ability to apply persistent and determined effort to overcome obstacles, guided by <b>awareness</b> of the current situation.",
     "Courage": "The <b>intuitive</b> ability to take purposeful action despite fear or uncertainty. guided by <b>anticipation</b> of imminent outcomes.",
-    "Confidence": "The <b>intuitive</b> ability to project certainty through self-assurance and assertiveness that persuades others, guided by <b>awareness</b> of the current situation.",
+    "Confidence": "The <b>intuitive</b> ability to project certainty through self-assurance and assertiveness, persuading others, guided by <b>awareness</b> of the current situation.",
     "Prudence": "The <b>feeling</b> ability to apply careful and discreet judgment, guided by <b>anticipation</b> of imminent outcomes.",
     "Foresight": "The <b>intuitive</b> ability to project future trends and opportunities, guided by <b>reflection</b> on recent cues.",
     "Practicality": "The <b>sensory</b> ability to take effective and appropriate action reliably to meet real-world needs, guided by <b>awareness</b> of the current situation.",

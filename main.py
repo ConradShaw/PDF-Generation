@@ -928,7 +928,7 @@ def generate_pdf(
     story.append(header_template(4, "Assessment Table"))
     story.append(Spacer(1, 12))
 
-    results_table_data = [["Rank", "Category", "SSM\nStrengths™"]]
+    results_table_data = [["Rank", "Category", "SSM\nStrength™"]]
     results_table_style = [
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
@@ -962,7 +962,7 @@ def generate_pdf(
         ("BACKGROUND", (0, category_start), (1, -1), _color_for_category(category)),
     ])
 
-    descriptions = {"SSM\nStrengths™": "<b>Description</b>", "": ""} | DESCRIPTIONS
+    descriptions = {"SSM\nStrength™": "<b>Description</b>", "": ""} | DESCRIPTIONS
     story.append(Table(
         [row + [Paragraph(descriptions[row[2]], style=cell_style)] for row in results_table_data],
         style=results_table_style,
@@ -1022,7 +1022,7 @@ def generate_pdf(
     story.append(header_template(6, "Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
     
-    activities = {"SSM\nStrengths™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
+    activities = {"SSM\nStrength™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
     story.append(Table(
         [row + [Paragraph(activities[row[2]], style=cell_center_style)] for row in results_table_data],
         style=results_table_style,
@@ -1520,7 +1520,7 @@ def generate_team_pdf(
     story.append(header_template(4, "Team Assessment Table"))
     story.append(Spacer(1, 12))
     
-    results_table_data = [["Rank", "Category", "SSM\nStrengths™"]]
+    results_table_data = [["Rank", "Category", "SSM\nStrength™"]]
     results_table_style = [
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
@@ -1554,7 +1554,7 @@ def generate_team_pdf(
         ("BACKGROUND", (0, category_start), (1, -1), _color_for_category(category)),
     ])
     
-    descriptions = {"SSM\nStrengths™": "<b>Description</b>", "": ""} | DESCRIPTIONS
+    descriptions = {"SSM\nStrength™": "<b>Description</b>", "": ""} | DESCRIPTIONS
     story.append(Table(
         [row + [Paragraph(descriptions[row[2]], style=cell_style)] for row in results_table_data],
         style=results_table_style,
@@ -1622,7 +1622,7 @@ def generate_team_pdf(
         ("RIGHTPADDING", (0, 0), (-1, -1), 3),
     ]
     
-    activities = {"SSM\nStrengths™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
+    activities = {"SSM\nStrength™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
     story.append(Table(
         [row + [Paragraph(activities[row[2]], style=cell_center_style)] for row in results_table_data],
         style=compact_table_style,

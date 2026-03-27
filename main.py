@@ -992,7 +992,7 @@ def generate_pdf(
     story.append(header_template(5, "Mapping to O*NET Work Styles"))
     story.append(Spacer(1, 12))
     
-    work_styles = {"SSM\nStrengths™": ("Work Style (O*NET)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
+    work_styles = {"SSM\nStrength™": ("Work Style (O*NET)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
     story.append(Table(
         [row + [Paragraph(work_styles[row[2]][0], style=cell_bold_center_style), Paragraph(work_styles[row[2]][1], style=cell_style)]
          for row in results_table_data],
@@ -1584,7 +1584,7 @@ def generate_team_pdf(
     story.append(header_template(5, "Team Mapping to O*NET Work Styles"))
     story.append(Spacer(1, 12))
     
-    work_styles = {"SSM\nStrengths™": ("Work Style (O*NET)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
+    work_styles = {"SSM\nStrength™": ("Work Style (O*NET)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
     story.append(Table(
         [row + [Paragraph(work_styles[row[2]][0], style=cell_bold_center_style), Paragraph(work_styles[row[2]][1], style=cell_style)]
          for row in results_table_data],

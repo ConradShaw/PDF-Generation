@@ -1465,6 +1465,7 @@ def generate_team_pdf(
         3) Shaw Strengths Matrix™ Team Mapping to O*NET Work Styles<br/>
         4) Shaw Strengths Matrix™ Team Mapping to O*NET Work Activities<br/>
         5) Shaw Strengths Matrix™ Team Strength Distribution
+        6) Shaw Strengths Matrix™ Change Alignment Guide - Team
         """,
         style=body_style
     )]], style=table_border))

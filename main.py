@@ -1668,6 +1668,9 @@ def generate_team_pdf(
     chart_drawing = create_distribution_chart_drawing(distribution_data, ordered_traits, width=500, height=300)
     story.append(chart_drawing)
     story.append(Spacer(1, 12))
+
+    # Create compact body style for this explanation
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     
     story.append(Table([[Paragraph(
         """
@@ -1688,7 +1691,7 @@ def generate_team_pdf(
         * <b>Situational strengths (#10-#12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
 
     # Page 8 report new definitions

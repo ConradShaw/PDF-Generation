@@ -822,7 +822,7 @@ def generate_pdf(
         No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>        
         O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.<br/>
         The Shaw Strengths Matrix™ is a developmental, strengths-based framework and is not intended for psychological diagnosis, clinical use, or performance benchmarking.""",
-        style=body_style       
+        style=body_compact_style       
     )
     story.append(Table([[legal_notices]], style=table_border))
 
@@ -862,7 +862,7 @@ def generate_pdf(
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(Spacer(1, 6))
     
@@ -874,7 +874,7 @@ def generate_pdf(
         3) Shaw Strengths Matrix™ Mapping to O*NET Work Styles<br/>
         4) Shaw Strengths Matrix™ Mapping to O*NET Work Activities
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(PageBreak())
 
@@ -920,7 +920,7 @@ def generate_pdf(
   These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
 </para>
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(PageBreak())
 
@@ -984,7 +984,7 @@ def generate_pdf(
         c) <b>Stretch Strengths (#7-#9) </b> – strengths you deploy which are effective when needed, but requiring more focus and effort than the first two categories.<br/>
         d) <b>Situational Strengths (#10-#12) </b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.<br/>
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(PageBreak())
 
@@ -1014,7 +1014,7 @@ def generate_pdf(
         <br/>
         Your <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — your motivation and natural approach to work.<br/>
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(PageBreak())
 
@@ -1034,7 +1034,7 @@ def generate_pdf(
     story.append(Spacer(1, 12))   
     story.append(Paragraph(
         """...""",
-        style=body_style
+        style=body_compact_style
     ))
  
     story.append(Table([[Paragraph(
@@ -1050,7 +1050,7 @@ def generate_pdf(
         <br/>
         Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
 
     doc.build(story)
@@ -1415,7 +1415,7 @@ def generate_team_pdf(
         No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>
         O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.<br/>
         The Shaw Strengths Matrix™ is a developmental, strengths-based framework and is not intended for psychological diagnosis, clinical use, or performance benchmarking.""",
-        style=body_style
+        style=body_compact_style
     )
     story.append(Table([[legal_notices]], style=table_border))
     
@@ -1455,7 +1455,7 @@ def generate_team_pdf(
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(Spacer(1, 6))
     
@@ -1469,7 +1469,7 @@ def generate_team_pdf(
         5) Shaw Strengths Matrix™ Team Strength Distribution<br/>
         6) Shaw Strengths Matrix™ Change Alignment Guide - Team
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(PageBreak())
     
@@ -1515,7 +1515,7 @@ def generate_team_pdf(
   These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
 </para>
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(PageBreak())
     
@@ -1579,7 +1579,7 @@ def generate_team_pdf(
         c) <b>Stretch Strengths</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
         d) <b>Situational Strengths</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(PageBreak())
     
@@ -1608,7 +1608,7 @@ def generate_team_pdf(
         <br/>
         The team <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — the team's overall motivation and natural approach to work.<br/>
         """,
-        style=body_style
+        style=body_compact_style
     )]], style=table_border))
     story.append(PageBreak())
     
@@ -1632,7 +1632,7 @@ def generate_team_pdf(
     ))
     story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
-    # Create compact body style for this explanation
+    # Create compact body style for explanations throughout both reports
     body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
 
     story.append(PageBreak())
@@ -1672,9 +1672,6 @@ def generate_team_pdf(
     chart_drawing = create_distribution_chart_drawing(distribution_data, ordered_traits, width=500, height=300)
     story.append(chart_drawing)
     story.append(Spacer(1, 12))
-
-    # Create compact body style for this explanation
-    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     
     story.append(Table([[Paragraph(
         """
@@ -1805,13 +1802,6 @@ def generate_team_pdf(
     
     story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
-    # Create compact body style for explanation
-    body_compact_style = ParagraphStyle(
-        "BodyCompact",
-        parent=body_style,
-        fontSize=9.5,
-        leading=11
-    )
     story.append(PageBreak())
     story.append(header_template(10, "Change Alignment Guide - Team"))
     story.append(Spacer(1, 12))

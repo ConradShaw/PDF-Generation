@@ -67,6 +67,16 @@ from pydantic import BaseModel
 # ---------------------------
 # Create compact body style for explanations throughout both individual & team reports
 # ---------------------------
+
+body_style = ParagraphStyle(
+    "Body",
+    parent=styles["Normal"],
+    fontName="Helvetica",
+    fontSize=11,
+    leading=13,
+    alignment=TA_LEFT
+)
+
 body_compact_style = ParagraphStyle(
     "BodyCompact", parent=body_style, fontSize=9.5, leading=11
 )

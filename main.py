@@ -1593,7 +1593,6 @@ def generate_team_pdf(
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, 1.1*inch, None],
     ))
     story.append(Spacer(1, 12))
-    
     story.append(Table([[Paragraph(
         """
         <b>How to Read This Chart</b><br/>
@@ -1633,7 +1632,10 @@ def generate_team_pdf(
     
     # Create compact body style for this explanation
     body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
-    
+
+    story.append(PageBreak())
+    story.append(header_template(10, "Team Mapping to O*NET Work Activities"))
+    story.append(Spacer(1, 12))
     story.append(Table([[Paragraph(
         """
         <b>How to Read This Chart</b><br/>
@@ -1650,11 +1652,11 @@ def generate_team_pdf(
         style=body_compact_style
     )]], style=table_border))
     
-    # Page 7 - Team Strength Distribution
+    # Page 8 - Team Strength Distribution
     story.append(PageBreak())
     story.append(Table([[
         Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
-        Paragraph(f"{team_name} | Page 7", style=body_right_style),
+        Paragraph(f"{team_name} | Page 8", style=body_right_style),
     ]]))
     story.append(Spacer(1, 6))
     
@@ -1694,7 +1696,7 @@ def generate_team_pdf(
         style=body_compact_style
     )]], style=table_border))
 
-    # Page 8 report new definitions
+    # Page 9 report new definitions
     SSM_RISK_REFRAME = {
         "Confidence": (
             "Arrogance – Inflated self-belief limits openness to input and obscures blind spots",
@@ -1748,7 +1750,7 @@ def generate_team_pdf(
     
     # Page 8 - Change Alignment Guide – Team
     story.append(PageBreak())
-    story.append(header_template(8, "Change Alignment Guide - Team"))
+    story.append(header_template(9, "Change Alignment Guide - Team"))
     story.append(Spacer(1, 8))  # Reduced from 12 to 8
     
     # Create compact table style with reduced padding
@@ -1808,7 +1810,9 @@ def generate_team_pdf(
         fontSize=9.5,
         leading=11
     )
-    
+    story.append(PageBreak())
+    story.append(header_template(10, "Change Alignment Guide - Team"))
+    story.append(Spacer(1, 12))
     story.append(Table([[Paragraph(
         """
             <b>How to Read This Chart</b><br/>

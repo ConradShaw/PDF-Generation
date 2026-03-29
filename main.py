@@ -807,8 +807,9 @@ def generate_pdf(
         logo_img,
         Paragraph("ShawSight Pty Ltd   |   ABN:  38688414557", style=body_style),
     ]]))
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1,6))
-  
+    
     legal_notices = Paragraph(
         """
         <i>Shaw Strengths Matrix™ Framework</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
@@ -840,9 +841,10 @@ def generate_pdf(
         )
 
     # Page 2 - Overview
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(header_template(2, "Overview"))
     story.append(Spacer(1, 6))
-
+    
     story.append(Table([[Paragraph(
         """
         <b>About This Report</b><br/>
@@ -859,6 +861,7 @@ def generate_pdf(
         """,
         style=body_compact_style
     )]], style=table_border))
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 6))
     
     story.append(Table([[Paragraph(
@@ -899,8 +902,9 @@ def generate_pdf(
             ("BACKGROUND", (2, 3), (-1, -1), colors.HexColor("#4d93d9")),
         ])
     ))
-    story.append(Spacer(1, 60))
     
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
+    story.append(Spacer(1, 60))
     story.append(Table([[Paragraph(
         """
  <para>
@@ -963,6 +967,7 @@ def generate_pdf(
         style=results_table_style,
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None],
     ))
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 12))
     
     story.append(Table([[Paragraph(
@@ -994,6 +999,7 @@ def generate_pdf(
         style=results_table_style,
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, 1.1*inch, None],
     ))
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 12))
     
     story.append(Table([[Paragraph(
@@ -1014,6 +1020,7 @@ def generate_pdf(
     story.append(PageBreak())
 
     # Page 6 - O*NET Work Activities
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(header_template(6, "Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
     
@@ -1400,6 +1407,7 @@ def generate_team_pdf(
         logo_img,
         Paragraph("ShawSight Pty Ltd   |   ABN:  38688414557", style=body_style),
     ]]))
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1,6))
     
     legal_notices = Paragraph(
@@ -1433,6 +1441,7 @@ def generate_team_pdf(
         )
     
     # Page 2 - Overview
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(header_template(2, "Overview"))
     story.append(Spacer(1, 6))
     
@@ -1452,6 +1461,7 @@ def generate_team_pdf(
         """,
         style=body_compact_style
     )]], style=table_border))
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 6))
     
     story.append(Table([[Paragraph(
@@ -1494,6 +1504,7 @@ def generate_team_pdf(
             ("BACKGROUND", (2, 3), (-1, -1), colors.HexColor("#4d93d9")),
         ])
     ))
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 60))
     
     story.append(Table([[Paragraph(
@@ -1558,6 +1569,7 @@ def generate_team_pdf(
         style=results_table_style,
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None],
     ))
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 12))
     
     story.append(Table([[Paragraph(
@@ -1589,6 +1601,7 @@ def generate_team_pdf(
         style=results_table_style,
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, 1.1*inch, None],
     ))
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 12))
     story.append(Table([[Paragraph(
         """
@@ -1620,6 +1633,7 @@ def generate_team_pdf(
     ]
     
     activities = {"SSM\nStrength™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Table(
         [row + [Paragraph(activities[row[2]], style=cell_center_style)] for row in results_table_data],
         style=compact_table_style,
@@ -1662,6 +1676,7 @@ def generate_team_pdf(
     
     # Add strength distribution chart (ordered by team ranking: rank 1 first, rank 12 last)
     chart_drawing = create_distribution_chart_drawing(distribution_data, ordered_traits, width=500, height=300)
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(chart_drawing)
     story.append(Spacer(1, 12))
     

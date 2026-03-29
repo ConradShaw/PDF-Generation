@@ -177,7 +177,6 @@ ONET_ACTIVITIES = {
         "Resolving Conflicts and Negotiating with Others<br/>Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment",
 }
 
-
 # ---------------------------
 # Sheet Resolution
 # ---------------------------
@@ -197,7 +196,6 @@ def _resolve_sheets(xls_path: str) -> Tuple[str, Optional[str]]:
     else:
         survey = names[1] if len(names) >= 2 else names[0]
     return instr, survey
-
 
 # ---------------------------
 # Identity Extraction
@@ -370,7 +368,6 @@ def extract_identity_flexible(xls_path: str) -> Tuple[str, str, str]:
 
     return first, last, date_str
 
-
 # ---------------------------
 # Survey Parsing
 # ---------------------------
@@ -523,7 +520,6 @@ def parse_survey_flexible(xls_path: str, traits_set=None) -> Dict[str, Dict[str,
         wins += 1
 
     return results
-
 
 # ---------------------------
 # Tie-breaker algorithm for Individual assessments (5 steps)
@@ -701,7 +697,6 @@ def category_for_rank_number(rank_num: float) -> str:
         return "Stretch"
     return "Situational"
 
-
 # ---------------------------
 # PDF Generation
 # ---------------------------
@@ -722,7 +717,6 @@ def _parse_date_long(iso_date: str):
             return datetime.fromisoformat(iso_date)
         except Exception:
             return iso_date
-
 
 def generate_pdf(
     first: str,
@@ -781,6 +775,9 @@ def generate_pdf(
     ])
 
     story = []
+
+    # Create compact body style for explanations throughout both reports
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     
     # Page 1 - Title page
     story.append(Table(
@@ -1632,9 +1629,6 @@ def generate_team_pdf(
     ))
     story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
-    # Create compact body style for explanations throughout both reports
-    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
-
     story.append(PageBreak())
     story.append(header_template(7, "Team Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))

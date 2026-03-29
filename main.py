@@ -687,7 +687,6 @@ class TieBreaker:
                 pos += m
         return ordered, ranks
 
-
 def category_for_rank_number(rank_num: float) -> str:
     """Map rank to Signature/Supporting/Stretch/Situational."""
     if rank_num <= 3:
@@ -776,9 +775,6 @@ def generate_pdf(
     ])
 
     story = []
-
-    # Create compact body style for explanations throughout both reports
-    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     
     # Page 1 - Title page
     story.append(Table(
@@ -811,7 +807,10 @@ def generate_pdf(
         Paragraph("ShawSight Pty Ltd   |   ABN:  38688414557", style=body_style),
     ]]))
     story.append(Spacer(1,6))
-    
+
+    # Create compact body style for explanations throughout both individual & team reports
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
+  
     legal_notices = Paragraph(
         """
         <i>Shaw Strengths Matrix™ Framework</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>

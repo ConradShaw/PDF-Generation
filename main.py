@@ -1691,7 +1691,6 @@ def generate_team_pdf(
         style=body_style
     )]], style=table_border))
 
-
     # Page 8 report new definitions
     SSM_RISK_REFRAME = {
         "Confidence": (
@@ -1819,9 +1818,6 @@ def generate_team_pdf(
             """,
             style=body_compact_style
         )]], style=table_border))
-
-
-
 
   
     doc.build(story)

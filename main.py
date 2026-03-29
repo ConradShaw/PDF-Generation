@@ -94,7 +94,7 @@ DESCRIPTIONS = {
     "Confidence": "The <b>intuitive</b> ability to project certainty with self-assurance and assertiveness, guided by <b>awareness</b> of the current situation.",
     "Prudence": "The <b>feeling</b> ability to apply careful and discreet judgment, guided by <b>anticipation</b> of imminent outcomes.",
     "Foresight": "The <b>intuitive</b> ability to project future trends and opportunities, guided by <b>reflection</b> on recent cues.",
-    "Practicality": "The <b>sensory</b> ability to take effective and appropriate action reliably to meet real-world needs, guided by <b>awareness</b> of the current situation.",
+    "Practicality": "The <b>sensory</b> ability to take common-sense actions that reliably and effectively address real-world needs, guided by <b>awareness</b> of the current situation.",
     "Curiosity": "The <b>thinking</b> ability to explore and learn new information, guided by <b>reflection</b> on recent cues.",
     "Discipline": "The <b>sensory</b> ability to apply self-regulation with composure and consistency, guided by <b>anticipation</b> of imminent outcomes.",
 }

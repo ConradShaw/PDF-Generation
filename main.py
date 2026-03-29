@@ -38,6 +38,7 @@ import base64
 import tempfile
 import itertools
 import re
+import traceback
 from datetime import datetime
 from statistics import mean
 from typing import Optional, Tuple, Dict, List, Any

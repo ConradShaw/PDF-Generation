@@ -1464,7 +1464,7 @@ def generate_team_pdf(
         2) Shaw Strengths Matrix™ Team Assessment Table<br/>
         3) Shaw Strengths Matrix™ Team Mapping to O*NET Work Styles<br/>
         4) Shaw Strengths Matrix™ Team Mapping to O*NET Work Activities<br/>
-        5) Shaw Strengths Matrix™ Team Strength Distribution
+        5) Shaw Strengths Matrix™ Team Strength Distribution<br/>
         6) Shaw Strengths Matrix™ Change Alignment Guide - Team
         """,
         style=body_style
@@ -1634,7 +1634,7 @@ def generate_team_pdf(
     body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
 
     story.append(PageBreak())
-    story.append(header_template(10, "Team Mapping to O*NET Work Activities"))
+    story.append(header_template(7, "Team Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
     story.append(Table([[Paragraph(
         """

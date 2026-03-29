@@ -65,23 +65,6 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 
 # ---------------------------
-# Create compact body style for explanations throughout both individual & team reports
-# ---------------------------
-
-body_style = ParagraphStyle(
-    "Body",
-    parent=styles["Normal"],
-    fontName="Helvetica",
-    fontSize=11,
-    leading=13,
-    alignment=TA_LEFT
-)
-
-body_compact_style = ParagraphStyle(
-    "BodyCompact", parent=body_style, fontSize=9.5, leading=11
-)
-
-# ---------------------------
 # CONFIG
 # ---------------------------
 # Logo path - should be in the same directory as this script in Cloud Run
@@ -786,6 +769,7 @@ def generate_pdf(
     cell_bold_style = ParagraphStyle("CellBold", parent=cell_style, fontName="Helvetica-Bold")
     cell_center_style = ParagraphStyle("CellCenter", parent=cell_style, alignment=TA_CENTER)
     cell_bold_center_style = ParagraphStyle("CellBoldCenter", parent=cell_bold_style, alignment=TA_CENTER)
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     
     table_border = TableStyle([
         ("GRID", (0, 0), (-1, -1), 1, colors.black),

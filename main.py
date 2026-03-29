@@ -65,6 +65,13 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 
 # ---------------------------
+# Create compact body style for explanations throughout both individual & team reports
+# ---------------------------
+body_compact_style = ParagraphStyle(
+    "BodyCompact", parent=body_style, fontSize=9.5, leading=11
+)
+
+# ---------------------------
 # CONFIG
 # ---------------------------
 # Logo path - should be in the same directory as this script in Cloud Run
@@ -807,9 +814,6 @@ def generate_pdf(
         Paragraph("ShawSight Pty Ltd   |   ABN:  38688414557", style=body_style),
     ]]))
     story.append(Spacer(1,6))
-
-    # Create compact body style for explanations throughout both individual & team reports
-    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
   
     legal_notices = Paragraph(
         """

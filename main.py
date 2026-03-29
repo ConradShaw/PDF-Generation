@@ -1028,13 +1028,15 @@ def generate_pdf(
         style=results_table_style,
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None],
     ))
-    
+
     story.append(PageBreak())
-    story.append(Table([[
-        Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
-        Paragraph(f"{first} {last} | Page 7", style=body_right_style),
-    ]]))
-    
+    story.append(header_template(7, "Mapping to O*NET Work Activities"))
+    story.append(Spacer(1, 12))   
+    story.append(Paragraph(
+        """...""",
+        style=body_style
+    ))
+ 
     story.append(Table([[Paragraph(
         """
         <b>How to Read This Chart</b><br/>

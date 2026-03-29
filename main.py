@@ -1690,7 +1690,140 @@ def generate_team_pdf(
         """,
         style=body_style
     )]], style=table_border))
-    
+
+
+# Page 8 report new definitions
+SSM_RISK_REFRAME = {
+    "Confidence": (
+        "Arrogance – Inflated self-belief limits openness to input and obscures blind spots",
+        "Leverage Discernment to apply critical evaluation, validate assumptions, and recalibrate against reality",
+    ),
+    "Courage": (
+        "Recklessness – Rapid action with insufficient evaluation creates avoidable risks",
+        "Leverage Practicality to guide decisions toward common-sense, feasible actions that deliver measurable benefit",
+    ),
+    "Curiosity": (
+        "Scatteredness – Diffused focus across too many priorities weakens execution and follow-through",
+        "Leverage Prudence to constrain scope, and focus effort on critical priorities",
+    ),
+    "Discernment": (
+        "Hypercriticality – Excessive focus on flaws reduces perspective and undermines balanced judgment",
+        "Leverage Fairness to restore proportionality, context, and balanced evaluation",
+    ),
+    "Discipline": (
+        "Rigidity – Inflexible adherence to established methods reduces responsiveness to change",
+        "Leverage Objectivity to reassess current methods based on fact-based analysis for optimal effectiveness",
+    ),
+    "Empathy": (
+        "Enmeshment – Over-identification with others’ emotions blurs boundaries and delays difficult decisions",
+        "Leverage Courage to maintain clear personal boundaries and act decisively despite emotional discomfort",
+    ),
+    "Fairness": (
+        "Indecisiveness – Over-weighting perspectives delays decisions and risks lack of closure",
+        "Leverage Tenacity to drive clear, time-bound commitments and enforce follow-through",
+    ),
+    "Foresight": (
+        "Idealisation – Overly optimistic vision lacks grounding in execution and constraints",
+        "Leverage Discipline to translate vision into structured, resource-backed plans and milestones",
+    ),
+    "Objectivity": (
+        "Disconnection – Over-reliance on logic weakens emotional engagement and reduces buy-in",
+        "Leverage Empathy to encourage two-way sensemaking, reconnect with lived experience and rebuild engagement",
+    ),
+    "Practicality": (
+        "Stubbornness – Over-reliance on familiar solutions and reluctance to consider alternatives, even when circumstances shift",
+        "Leverage Curiosity to explore alternative solutions and incorporate new information to improve outcomes",
+    ),
+    "Prudence": (
+        "Avoidance – Overweighting risk delays action and stalls progress",
+        "Leverage Confidence to assert trust in relevant capabilities, recalibrate risk perceptions and drive forward momentum",
+    ),
+    "Tenacity": (
+        "Obsession – Narrow goal fixation limits perspective and risks misaligned effort",
+        "Leverage Foresight to refocus on longer-term priorities and ensure strategic alignment of current targets",
+    ),
+}
+
+# Page 8 - Change Alignment Guide – Team
+story.append(header_template(6, "Change Alignment Guide - Team"))
+story.append(Spacer(1, 8))  # Reduced from 12 to 8
+
+# Create compact table style with reduced padding
+compact_table_style = list(results_table_style) + [
+    ("TOPPADDING", (0, 0), (-1, -1), 2),
+    ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+    ("LEFTPADDING", (0, 0), (-1, -1), 3),
+    ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+]
+
+# --- Build table data ---
+table_data = []
+
+# 1. Header row (override last two column titles)
+header_row = results_table_data[0] + [
+    Paragraph("<b>Change-Resistance Risks</b>", style=cell_center_style),
+    Paragraph("<b>Targeted Reframe (SSM™)</b>", style=cell_center_style),
+]
+table_data.append(header_row)
+
+# 2. Body rows (dynamic mapping based on SSM Strength in column 3)
+for row in results_table_data[1:]:
+    strength = row[2]
+
+    risk_text, reframe_text = SSM_RISK_REFRAME.get(
+        strength,
+        ("", "")  # fallback if something unexpected appears
+    )
+
+    risk_para = Paragraph(risk_text, style=cell_center_style)
+    reframe_para = Paragraph(reframe_text, style=cell_center_style)
+
+    table_data.append(row + [risk_para, reframe_para])
+
+# Column widths tuned to fit page width (A4 portrait safe)
+col_widths = [
+    0.45 * inch,   # Col 1 (narrow label/index)
+    1.05 * inch,   # Col 2
+    1.05 * inch,   # Col 3
+    1.6 * inch,    # Col 4 (Change-Resistance Risks)
+    1.6 * inch,    # Col 5 (Targeted Reframe)
+]
+
+story.append(Table(
+    table_data,
+    style=compact_table_style,
+    colWidths=col_widths,
+    repeatRows=1  # ensures header repeats if table spans pages
+))
+
+story.append(Spacer(1, 6))  # Reduced spacing before explanation
+
+# Create compact body style for explanation
+body_compact_style = ParagraphStyle(
+    "BodyCompact",
+    parent=body_style,
+    fontSize=9.5,
+    leading=11
+)
+
+story.append(Table([[Paragraph(
+    """
+        <b>How to Read This Chart</b><br/>
+        <br/>
+This chart highlights key change risk areas and the corresponding mitigation levers. It shows how overall team strengths can translate, under pressure, into change-resistant behaviours—while also providing reframing guidance to mitigate these risks.	
+        <br/>
+The chart maps the team’s 12 identically ranked <b>SSM™ Strengths</b> (from the previous chart) to the 12 corresponding <b> Change-Resistant Behaviour Risks</b> that may emerge under change pressure. Alongside each risk are <b> Targeted Reframing Actions</b> designed to most effectively alleviate them by offering a fresh perspective that leverages the balancing SSM™ Strength—whether applied by an individual to their own behaviour or introduced by a leader or change practitioner.
+        <br/>
+Team-level ranks reveal clusters of <b>Change-Resistant Behaviour Risks</b> that arise when corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations. The associated <b>Targeted Reframing Actions</b> indicate how these collective risks can be most effectively addressed through reframing conversations during change initiative discussions.
+        <br/>
+        """,
+        style=body_compact_style
+    )]], style=table_border))
+
+
+
+
+  
     doc.build(story)
     
     filename = f"SSM_Team_{company_name}_{team_name}_{date_str}_v1.pdf"

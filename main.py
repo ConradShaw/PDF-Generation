@@ -1710,7 +1710,7 @@ def generate_team_pdf(
         ),
         "Courage": (
             "Recklessness – Rapid action with insufficient evaluation creates avoidable risks",
-            "Leverage Practicality to guide decisions toward common-sense, feasible actions that deliver measurable benefit",
+            "Leverage Practicality to focus on common-sense, feasible actions that deliver measurable benefit",
         ),
         "Curiosity": (
             "Scatteredness – Diffused focus across too many priorities weakens execution and follow-through",

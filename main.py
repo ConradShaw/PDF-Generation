@@ -754,7 +754,7 @@ def generate_pdf(
         output_stream, pagesize=A4, leftMargin=40, rightMargin=40, topMargin=36, bottomMargin=36
     )
   
-def build_individual_pdf(output_stream, first, last, date_str, ...):
+def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, ranks, ONET_ACTIVITIES):
     styles = getSampleStyleSheet()
 
     header_style = ParagraphStyle(
@@ -1050,10 +1050,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
     ))
     story.append(PageBreak())
 
-# Page 6 - O*NET Work Activities
-def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, body_compact_style, cell_center_style, results_table_style, table_border, doc, first, last, date_str):
-
-    # Header for Page 6
+    # Page 6 - O*NET Work Activities
     story.append(header_template(6, "Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
 
@@ -1078,7 +1075,7 @@ def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, body
     story.append(header_template(7, "Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(      
-        # Info panel table explaining the chart    
+        # Info panel table explaining the chart
         info_text = """
         <b>How to Read This Chart</b><br/><br/>
         This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
@@ -1087,6 +1084,7 @@ def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, body
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/><br/>
         Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
         """
+        style=body_compact_style
     ))
       
     story.append(Table([[Paragraph(info_text, style=body_compact_style)]], style=table_border))

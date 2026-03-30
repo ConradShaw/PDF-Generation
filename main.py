@@ -767,11 +767,11 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
     )
     body_bold_style = ParagraphStyle("CellBold", parent=body_style, fontName="Helvetica-Bold")
     body_right_style = ParagraphStyle("AsideRight", parent=body_style, alignment=TA_RIGHT)
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     cell_style = ParagraphStyle("Cell", parent=body_style, fontSize=9, leading=10)
     cell_bold_style = ParagraphStyle("CellBold", parent=cell_style, fontName="Helvetica-Bold")
     cell_center_style = ParagraphStyle("CellCenter", parent=cell_style, alignment=TA_CENTER)
-    cell_bold_center_style = ParagraphStyle("CellBoldCenter", parent=cell_bold_style, alignment=TA_CENTER)
-    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
+    cell_bold_center_style = ParagraphStyle("CellBoldCenter", parent=cell_bold_style, alignment=TA_CENTER)    
     
     table_border = TableStyle([
         ("GRID", (0, 0), (-1, -1), 1, colors.black),

@@ -775,6 +775,28 @@ def generate_pdf(
         ("GRID", (0, 0), (-1, -1), 1, colors.black),
     ])
 
+    # Reusable InfoPanel class (for "How To Read This Chart" text)
+    class InfoPanel(Flowable):
+        def __init__(self, text, style, width=450, padding=6, fill_color=colors.whitesmoke):
+            Flowable.__init__(self)
+            self.text = Paragraph(text, style)
+            self.width = width
+            self.padding = padding
+            self.fill_color = fill_color
+    
+        def wrap(self, availWidth, availHeight):
+            w, h = self.text.wrap(self.width - 2*self.padding, availHeight)
+            self.height = h + 2*self.padding
+            return self.width, self.height
+    
+        def draw(self):
+            self.canv.setFillColor(self.fill_color)
+            self.canv.roundRect(0, 0, self.width, self.height, 4, fill=1, stroke=0)
+            self.canv.saveState()
+            self.canv.translate(self.padding, self.padding)
+            self.text.drawOn(self.canv, 0, 0)
+            self.canv.restoreState()  
+
     story = []
     
     # Page 1 - Title page

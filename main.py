@@ -874,17 +874,14 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
     story.append(PageBreak())
 
     # Page 3 - Matrix explanation
-    story.append(KeepTogether([
-        header_template(3, ""),
-        Spacer(1, 60),   # This Spacer will now be honored
-        Table(
-            table_data,
-            style=table_style
-        )
-    ]))
-        
-    story.append(Table(
-        [
+    def header_template(level, text):
+        header = Paragraph(text, header_style)
+        return header  # no internal gap
+
+    story.append(header_template(3, ""))
+    story.append(Spacer(1, 60))  # external gap
+
+    table_data = [
             ["Shaw Strengths Matrix™","","","",""],
             ["Character Strengths","","Temporal Preferences","",""],
             ["","", "Past Reflections", "Present Awareness", "Future Anticipations"],
@@ -892,7 +889,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
             ["", "Thinking", "Curiosity", "Objectivity", "Fairness"],
             ["", "Feeling", "Empathy", "Tenacity", "Prudence"],
             ["", "Sensing", "Discernment", "Practicality", "Discipline"]
-        ],
+        ]
         style=TableStyle([
             ("ALIGN", (0, 0), (-1, -1), "CENTER"),
             ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),

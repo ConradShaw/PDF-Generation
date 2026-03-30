@@ -946,17 +946,17 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
     
     story.append(Spacer(1, 60))
     story.append(InfoPanel(
-    """<b>How to Read This Chart</b><br/><br/>
-    The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
-    • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
-    • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i><br/>
-    • <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
-    Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
-    SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
-    Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
-    These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>""",
+        """<b>How to Read This Chart</b><br/><br/>
+        The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
+        • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
+        • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i><br/>
+        • <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
+        Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
+        SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
+        Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
+        These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>"""
+    ))
   
-))
     story.append(PageBreak())  
 
     # Page 4 - Assessment Table
@@ -1020,7 +1020,8 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
         b) <b>Supporting Strengths (#4-#6) </b> – readily accessible strengths that reinforce your core abilities—dependable when needed, but not primary.<br/>
         c) <b>Stretch Strengths (#7-#9) </b> – strengths you deploy which are effective when needed, but requiring more focus and effort than the first two categories.<br/>
         d) <b>Situational Strengths (#10-#12) </b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.<br/>
-        """,
+        """
+    ))
     
     )]], style=table_border))
     story.append(PageBreak())
@@ -1050,7 +1051,8 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
         <br/>
         Your <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — your motivation and natural approach to work.<br/>
-        """,
+        """
+    ))
     
     )]], style=table_border))
     story.append(PageBreak())
@@ -1082,18 +1084,18 @@ def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, body
     # Header for Page 7
     story.append(header_template(7, "Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
-    story.append(InfoPanel(  
+    story.append(InfoPanel(      
+        # Info panel table explaining the chart    
+        info_text = """
+        <b>How to Read This Chart</b><br/><br/>
+        This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
+        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
+        <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
+        They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/><br/>
+        Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
+        """
     ))
-
-    # Info panel table explaining the chart    
-    info_text = """
-    <b>How to Read This Chart</b><br/><br/>
-    This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
-    Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
-    <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
-    They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/><br/>
-    Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
-    """
+      
     story.append(Table([[Paragraph(info_text, style=body_compact_style)]], style=table_border))
 
     # Build PDF
@@ -1550,16 +1552,17 @@ def generate_team_pdf(
     story.append(Spacer(1, 60))
     story.append(InfoPanel(
         """
-  <b>How to Read This Chart</b><br/><br/>
-  The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:<br/><br/>
-  • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i> —<br/>
-  • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>, and<br/>
-  • <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>strengths</b>.<br/><br/>
-  Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
-  SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
-  Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
-  These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
-        """,
+        <b>How to Read This Chart</b><br/><br/>
+        The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:<br/><br/>
+        • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i> —<br/>
+        • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>, and<br/>
+        • <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>strengths</b>.<br/><br/>
+        Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
+        SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
+        Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
+        These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
+        """
+    ))
     
     )]], style=table_border))
     story.append(PageBreak())
@@ -1623,7 +1626,8 @@ def generate_team_pdf(
         b) <b>Supporting Strengths</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
         c) <b>Stretch Strengths</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
         d) <b>Situational Strengths</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
-        """,
+        """
+    ))
     
     )]], style=table_border))
     story.append(PageBreak())
@@ -1653,7 +1657,8 @@ def generate_team_pdf(
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
         <br/>
         The team <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — the team's overall motivation and natural approach to work.<br/>
-        """,
+        """
+     ))
     
     )]], style=table_border))
     story.append(PageBreak())
@@ -1694,7 +1699,8 @@ def generate_team_pdf(
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
         <br/>
         The team <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind the team's overall approach to completing work tasks.<br/>
-        """,
+        """
+     ))
     
     )]], style=table_border))
     
@@ -1735,7 +1741,8 @@ def generate_team_pdf(
         <br/>
         • <b>Situational strengths (#10-#12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
-        """,
+        """
+     ))
    
     )]], style=table_border))
 
@@ -1851,18 +1858,18 @@ def generate_team_pdf(
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         """
-            <b>How to Read This Chart</b><br/>
-            <br/>
-    This chart highlights key change risk areas and the corresponding mitigation levers. It shows how overall team strengths can translate, under pressure, into change-resistant behaviours—while also providing reframing guidance to mitigate these risks.<br/>	
-            <br/>
-    The chart maps the team’s 12 identically ranked <b>SSM™ Strengths</b> (from the previous chart) to the 12 corresponding <b> Change-Resistant Behaviour Risks</b> that may emerge under change pressure. Alongside each risk are <b> Targeted Reframing Actions</b> designed to most effectively alleviate them by offering a fresh perspective that leverages the balancing SSM™ Strength—whether applied by an individual to their own behaviour or introduced by a leader or change practitioner.<br/>
-            <br/>
-    Team-level ranks reveal clusters of <b>Change-Resistant Behaviour Risks</b> that arise when corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations. The associated <b>Targeted Reframing Actions</b> indicate how these collective risks can be most effectively addressed through reframing conversations during change initiative discussions.
-            <br/>
-            """,
+        <b>How to Read This Chart</b><br/>
+        <br/>
+        This chart highlights key change risk areas and the corresponding mitigation levers. It shows how overall team strengths can translate, under pressure, into change-resistant behaviours—while also providing reframing guidance to mitigate these risks.<br/>	
+        <br/>
+        The chart maps the team’s 12 identically ranked <b>SSM™ Strengths</b> (from the previous chart) to the 12 corresponding <b> Change-Resistant Behaviour Risks</b> that may emerge under change pressure. Alongside each risk are <b> Targeted Reframing Actions</b> designed to most effectively alleviate them by offering a fresh perspective that leverages the balancing SSM™ Strength—whether applied by an individual to their own behaviour or introduced by a leader or change practitioner.<br/>
+        <br/>
+        Team-level ranks reveal clusters of <b>Change-Resistant Behaviour Risks</b> that arise when corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations. The associated <b>Targeted Reframing Actions</b> indicate how these collective risks can be most effectively addressed through reframing conversations during change initiative discussions.
+        <br/>
+        """
+     ))
     
         )]], style=table_border))
-
   
     doc.build(story)
     

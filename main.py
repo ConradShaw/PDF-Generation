@@ -775,27 +775,43 @@ def generate_pdf(
         ("GRID", (0, 0), (-1, -1), 1, colors.black),
     ])
 
-    # Reusable InfoPanel class (for "How To Read This Chart" text)
-    class InfoPanel(Flowable):
-        def __init__(self, text, style, width=450, padding=6, fill_color=colors.whitesmoke):
-            Flowable.__init__(self)
-            self.text = Paragraph(text, style)
-            self.width = width
-            self.padding = padding
-            self.fill_color = fill_color
-    
-        def wrap(self, availWidth, availHeight):
-            w, h = self.text.wrap(self.width - 2*self.padding, availHeight)
-            self.height = h + 2*self.padding
-            return self.width, self.height
-    
-        def draw(self):
-            self.canv.setFillColor(self.fill_color)
-            self.canv.roundRect(0, 0, self.width, self.height, 4, fill=1, stroke=0)
-            self.canv.saveState()
-            self.canv.translate(self.padding, self.padding)
-            self.text.drawOn(self.canv, 0, 0)
-            self.canv.restoreState()  
+from reportlab.platypus import Paragraph, Spacer, Flowable
+from reportlab.lib import colors
+from reportlab.lib.styles import ParagraphStyle
+
+# Reusable InfoPanel class
+class InfoPanel(Flowable):
+    def __init__(self, text, style=body_compact_style, width=450, padding=6, fill_color=colors.whitesmoke):
+        """
+        InfoPanel creates a subtle shaded box for narrative text.
+        Parameters:
+        - text: string (can include <b>, <i>, <br/>)
+        - style: ParagraphStyle (default = body_compact_style)
+        - width: panel width in points
+        - padding: space inside the panel around text
+        - fill_color: background color of the panel
+        """
+        Flowable.__init__(self)
+        self.text = Paragraph(text, style=style)  # explicitly use style=...
+        self.width = width
+        self.padding = padding
+        self.fill_color = fill_color
+
+    def wrap(self, availWidth, availHeight):
+        # calculate height including padding
+        w, h = self.text.wrap(self.width - 2*self.padding, availHeight)
+        self.height = h + 2*self.padding
+        return self.width, self.height
+
+    def draw(self):
+        # draw background box
+        self.canv.setFillColor(self.fill_color)
+        self.canv.roundRect(0, 0, self.width, self.height, 4, fill=1, stroke=0)
+        # draw text inside with padding
+        self.canv.saveState()
+        self.canv.translate(self.padding, self.padding)
+        self.text.drawOn(self.canv, 0, 0)
+        self.canv.restoreState()
 
     story = []
     
@@ -924,26 +940,22 @@ def generate_pdf(
             ("BACKGROUND", (2, 3), (-1, -1), colors.HexColor("#4d93d9")),
         ])
     ))
-    
-    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
-    story.append(Spacer(1, 60))
-    story.append(Table([[Paragraph(
-        """
- <para>
-  <b>How to Read This Chart</b><br/><br/>
-  The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
-  • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
-  • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i><br/>
-  • <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
-  Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
-  SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
-  Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
-  These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
-</para>
-        """,
+
+body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
+story.append(Spacer(1, 60))
+story.append(InfoPanel(
+    """<b>How to Read This Chart</b><br/><br/>
+    The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
+    • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
+    • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i><br/>
+    • <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
+    Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
+    SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
+    Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
+    These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>"""
         style=body_compact_style
-    )]], style=table_border))
-    story.append(PageBreak())
+))
+    story.append(PageBreak())  
 
     # Page 4 - Assessment Table
     story.append(header_template(4, "Assessment Table"))

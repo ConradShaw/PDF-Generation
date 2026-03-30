@@ -794,7 +794,7 @@ class InfoPanel(Flowable):
         Flowable.__init__(self)
         if style is None:
             # create a default ParagraphStyle here
-            style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
+            style = ParagraphStyle("BodyCompact", parent=None, fontSize=9.5, leading=11)
         self.text = Paragraph(text, style=style)  # explicitly use style=...
         self.width = width
         self.padding = padding

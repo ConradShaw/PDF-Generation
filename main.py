@@ -955,7 +955,7 @@ story.append(InfoPanel(
     These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>""",
         style=body_compact_style
 ))
-    story.append(PageBreak())  
+story.append(PageBreak())  
 
     # Page 4 - Assessment Table
     story.append(header_template(4, "Assessment Table"))

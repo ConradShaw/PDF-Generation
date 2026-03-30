@@ -1055,7 +1055,8 @@ class InfoPanel(Flowable):
 
     # Page 6 - O*NET Work Activities
     def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, cell_center_style, results_table_style, table_border, doc, first, last, date_str):
-    # Page 6 - O*NET Work Activities
+
+    # Compact body style for tables and info panels
     body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
 
     # Header for Page 6

@@ -1738,7 +1738,7 @@ def generate_team_pdf(
         ),
         "Objectivity": (
             "Disconnection – Over-reliance on logic weakens emotional engagement and reduces buy-in",
-            "Leverage Empathy to encourage two-way sensemaking, reconnect with lived experience and rebuild engagement",
+            "Leverage Empathy to connect with others’ lived experience and foster engagement",
         ),
         "Practicality": (
             "Stubbornness – Over-reliance on familiar solutions and reluctance to consider alternatives",

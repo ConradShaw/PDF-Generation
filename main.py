@@ -817,8 +817,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
             self.text.drawOn(self.canv, 0, 0)
             self.canv.restoreState()        
     
-    # Page 1 - Title page
-    story = []
+    # Page 1 - Title page 
     story.append(Table(
         [[Paragraph("Shaw Strengths Matrix™ (SSM™)<br/>Assessment", header_style)]],
         colWidths=[None],  # or doc.width if you want full width

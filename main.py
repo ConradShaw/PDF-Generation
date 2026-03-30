@@ -859,7 +859,7 @@ class InfoPanel(Flowable):
         No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>        
         O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.<br/>
         The Shaw Strengths Matrix™ is a developmental, strengths-based framework and is not intended for psychological diagnosis, clinical use, or performance benchmarking.""",
-        style=body_compact_style       
+          
     )
     story.append(Table([[legal_notices]], style=table_border))
 
@@ -900,7 +900,7 @@ class InfoPanel(Flowable):
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,
-        style=body_compact_style
+   
     )]], style=table_border))
     body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 6))
@@ -912,8 +912,7 @@ class InfoPanel(Flowable):
         2) Shaw Strengths Matrix™ Assessment Table<br/>
         3) Shaw Strengths Matrix™ Mapping to O*NET Work Styles<br/>
         4) Shaw Strengths Matrix™ Mapping to O*NET Work Activities
-        """,
-        style=body_compact_style
+        """,        
     )]], style=table_border))
     story.append(PageBreak())
 
@@ -956,7 +955,7 @@ class InfoPanel(Flowable):
     SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
     Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
     These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>""",
-        style=body_compact_style
+  
 ))
     story.append(PageBreak())  
 
@@ -1021,7 +1020,7 @@ class InfoPanel(Flowable):
         c) <b>Stretch Strengths (#7-#9) </b> – strengths you deploy which are effective when needed, but requiring more focus and effort than the first two categories.<br/>
         d) <b>Situational Strengths (#10-#12) </b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.<br/>
         """,
-        style=body_compact_style
+    
     )]], style=table_border))
     story.append(PageBreak())
 
@@ -1052,7 +1051,7 @@ class InfoPanel(Flowable):
         <br/>
         Your <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — your motivation and natural approach to work.<br/>
         """,
-        style=body_compact_style
+    
     )]], style=table_border))
     story.append(PageBreak())
 
@@ -1060,7 +1059,7 @@ class InfoPanel(Flowable):
 def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, cell_center_style, results_table_style, table_border, doc, first, last, date_str):
 
     # Compact body style for tables and info panels
-    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
+    body_compact_style = ParagraphStyle("BodyCompact", fontSize=9.5, leading=11)
 
     # Header for Page 6
     story.append(header_template(6, "Mapping to O*NET Work Activities"))
@@ -1090,7 +1089,7 @@ def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, cell
     # Explanatory paragraph
     story.append(Paragraph(
         "...",
-        style=body_compact_style
+   
     ))
 
     # Info panel table explaining the chart
@@ -1469,7 +1468,7 @@ def generate_team_pdf(
         No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>
         O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.<br/>
         The Shaw Strengths Matrix™ is a developmental, strengths-based framework and is not intended for psychological diagnosis, clinical use, or performance benchmarking.""",
-        style=body_compact_style
+    
     )
     story.append(Table([[legal_notices]], style=table_border))
     
@@ -1510,7 +1509,7 @@ def generate_team_pdf(
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,
-        style=body_compact_style
+    
     )]], style=table_border))
     body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 6))
@@ -1525,7 +1524,7 @@ def generate_team_pdf(
         5) Shaw Strengths Matrix™ Team Strength Distribution<br/>
         6) Shaw Strengths Matrix™ Change Alignment Guide - Team
         """,
-        style=body_compact_style
+    
     )]], style=table_border))
     story.append(PageBreak())
     
@@ -1572,7 +1571,7 @@ def generate_team_pdf(
   These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
 </para>
         """,
-        style=body_compact_style
+    
     )]], style=table_border))
     story.append(PageBreak())
     
@@ -1637,7 +1636,7 @@ def generate_team_pdf(
         c) <b>Stretch Strengths</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
         d) <b>Situational Strengths</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         """,
-        style=body_compact_style
+    
     )]], style=table_border))
     story.append(PageBreak())
     
@@ -1667,7 +1666,7 @@ def generate_team_pdf(
         <br/>
         The team <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — the team's overall motivation and natural approach to work.<br/>
         """,
-        style=body_compact_style
+    
     )]], style=table_border))
     story.append(PageBreak())
     
@@ -1708,7 +1707,7 @@ def generate_team_pdf(
         <br/>
         The team <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind the team's overall approach to completing work tasks.<br/>
         """,
-        style=body_compact_style
+    
     )]], style=table_border))
     
     # Page 8 - Team Strength Distribution
@@ -1750,7 +1749,7 @@ def generate_team_pdf(
         • <b>Situational strengths (#10-#12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
         """,
-        style=body_compact_style
+   
     )]], style=table_border))
 
     # Page 9 report new definitions
@@ -1874,7 +1873,7 @@ def generate_team_pdf(
     Team-level ranks reveal clusters of <b>Change-Resistant Behaviour Risks</b> that arise when corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations. The associated <b>Targeted Reframing Actions</b> indicate how these collective risks can be most effectively addressed through reframing conversations during change initiative discussions.
             <br/>
             """,
-            style=body_compact_style
+    
         )]], style=table_border))
 
   

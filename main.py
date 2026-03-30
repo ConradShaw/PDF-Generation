@@ -780,8 +780,8 @@ from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 
 # Reusable InfoPanel class
-class InfoPanel(Flowable):
-    def __init__(self, text, style=body_compact_style, width=450, padding=6, fill_color=colors.whitesmoke):
+class InfoPanel(Flowable):    
+    def __init__(self, text, style=None, width=450, padding=6, fill_color=colors.whitesmoke):
         """
         InfoPanel creates a subtle shaded box for narrative text.
         Parameters:

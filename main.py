@@ -1722,7 +1722,7 @@ def generate_team_pdf(
         ),
         "Discipline": (
             "Rigidity – Inflexible adherence to established methods reduces responsiveness to change",
-            "Leverage Objectivity to reassess current methods based on fact-based analysis for optimal effectiveness",
+            "Leverage Objectivity to assess options using fact-based analysis to achieve optimal outcomes",
         ),
         "Empathy": (
             "Enmeshment – Over-identification with others’ emotions blurs boundaries, undermining judgment",

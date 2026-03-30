@@ -63,6 +63,7 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
+from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel  
 
 # ---------------------------
 # CONFIG
@@ -775,47 +776,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
     
     table_border = TableStyle([
         ("GRID", (0, 0), (-1, -1), 1, colors.black),
-    ])
-
-    from reportlab.lib.styles import ParagraphStyle
-    from reportlab.platypus import Flowable, Table, TableStyle, Paragraph, Spacer
-    from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel  
-
-    # Reusable InfoPanel class
-    class InfoPanel(Flowable):    
-        def __init__(self, text, style=None, width=450, padding=6, fill_color=colors.whitesmoke):
-            """
-            InfoPanel creates a subtle shaded box for narrative text.
-            Parameters:
-            - text: string (can include <b>, <i>, <br/>)
-            - style: ParagraphStyle (default = body_compact_style)
-            - width: panel width in points
-            - padding: space inside the panel around text
-            - fill_color: background color of the panel
-            """
-            Flowable.__init__(self)
-            if style is None:
-                style = ParagraphStyle("BodyCompact", fontSize=9.5, leading=11)
-            self.text = Paragraph(text, style=style)  # explicitly use style=...
-            self.width = width
-            self.padding = padding
-            self.fill_color = fill_color
-
-        def wrap(self, availWidth, availHeight):
-            # calculate height including padding
-            w, h = self.text.wrap(self.width - 2*self.padding, availHeight)
-            self.height = h + 2*self.padding
-            return self.width, self.height
-
-        def draw(self):
-            # draw background box
-            self.canv.setFillColor(self.fill_color)
-            self.canv.roundRect(0, 0, self.width, self.height, 4, fill=1, stroke=0)
-            # draw text inside with padding
-            self.canv.saveState()
-            self.canv.translate(self.padding, self.padding)
-            self.text.drawOn(self.canv, 0, 0)
-            self.canv.restoreState()        
+    ])  
     
     # Page 1 - Title page 
     story.append(Table(

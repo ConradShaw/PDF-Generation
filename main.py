@@ -875,7 +875,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
 
     # Page 3 - Matrix explanation
     story.append(header_template(3, ""))
-    story.append(Spacer(1, 60))
+    story.append(Spacer(1, 120))
     
     story.append(Table(
         [

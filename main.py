@@ -1694,7 +1694,7 @@ def generate_team_pdf(
     SSM_RISK_REFRAME = {
         "Confidence": (
             "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
-            "<b>Leverage Discernment</b> - to apply critical evaluation and validate assumptions against reality",
+            "<b>Leverage Discernment</b> - to apply critical evaluation and verify assumptions against reality",
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action with insufficient evaluation creates avoidable risks",
@@ -1706,7 +1706,7 @@ def generate_team_pdf(
         ),
         "Discernment": (
             "<b>Hypercriticality</b> – excessive focus on flaws reduces perspective and undermines balanced judgment",
-            "<b>Leverage Fairness</b> - to restore proportionality, context, and balanced evaluation",
+            "<b>Leverage Fairness</b> - to restore proportionality, context, and balanced perspective",
         ),
         "Discipline": (
             "<b>Rigidity</b> – inflexible adherence to established methods reduces responsiveness to change",
@@ -1738,7 +1738,7 @@ def generate_team_pdf(
         ),
         "Tenacity": (
             "<b>Obsession</b> – narrow goal fixation limits perspective and risks misaligned effort",
-            "<b>Leverage Foresight</b> - to refocus on longer-term priorities and ensure strategic alignment of current targets",
+            "<b>Leverage Foresight</b> - to refocus on longer-term vision and ensure strategic alignment of current efforts",
         ),
     }
     

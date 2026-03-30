@@ -874,13 +874,15 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
     story.append(PageBreak())
 
     # Page 3 - Matrix explanation
-    def header_template(level, text):
-        header = Paragraph(text, header_style)
-        header.spaceAfter = 60
-    return header
-
-    story.append(header_template(3, ""))
-    
+    story.append(KeepTogether([
+        header_template(3, ""),
+        Spacer(1, 60),   # This Spacer will now be honored
+        Table(
+            table_data,
+            style=table_style
+        )
+    ]))
+        
     story.append(Table(
         [
             ["Shaw Strengths Matrix™","","","",""],

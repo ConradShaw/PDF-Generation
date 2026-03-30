@@ -901,7 +901,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """   
-    )]],style=table_border))
+    )]], style=table_border))
     
     story.append(Spacer(1, 6))
     
@@ -1004,8 +1004,6 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
     ))
     
     story.append(Spacer(1, 12))
-    
-    story.append(Table([[Paragraph(
     story.append(InfoPanel(
         """
         <b>How to Read This Chart</b><br/>
@@ -1022,7 +1020,6 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
         """
     ))
     
-    )]], style=table_border))
     story.append(PageBreak())
 
     # Page 5 - O*NET Work Styles

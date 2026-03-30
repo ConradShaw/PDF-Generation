@@ -890,6 +890,9 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
             ["", "Feeling", "Empathy", "Tenacity", "Prudence"],
             ["", "Sensing", "Discernment", "Practicality", "Discipline"]
         ]
+
+    story.append(Table(
+        table_data,           
         style=TableStyle([
             ("ALIGN", (0, 0), (-1, -1), "CENTER"),
             ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),

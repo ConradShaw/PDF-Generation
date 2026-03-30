@@ -24,6 +24,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY main.py .
+COPY pdf_helpers.py .
 COPY logo.png .
 
 # Expose port

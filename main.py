@@ -46,7 +46,7 @@ from typing import Optional, Tuple, Dict, List, Any
 import pandas as pd
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch
-from reportlab.platypus import (
+from reportlab.us import (
     SimpleDocTemplate,
     Table,
     TableStyle,
@@ -777,9 +777,9 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
         ("GRID", (0, 0), (-1, -1), 1, colors.black),
     ])
 
-    from reportlab.platypus import Paragraph, Spacer, Flowable
-    from reportlab.lib import colors
     from reportlab.lib.styles import ParagraphStyle
+    from reportlab.platypus import Flowable, Table, TableStyle, Paragraph, Spacer
+    from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel  
 
     # Reusable InfoPanel class
     class InfoPanel(Flowable):    

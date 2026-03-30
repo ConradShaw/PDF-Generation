@@ -797,7 +797,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
         ],
         style=table_border,
     ))
-    story.append(Spacer(1, 380))
+    story.append(Spacer(1, 420))
 
     if os.path.exists(logo_path):
         logo_img = Image(logo_path, width=1.54*inch, height=0.79*inch, kind="proportional")
@@ -875,7 +875,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
 
     # Page 3 - Matrix explanation
     story.append(header_template(3, ""))
-    story.append(Spacer(1, 12))
+    story.append(Spacer(1, 60))
     
     story.append(Table(
         [
@@ -1694,7 +1694,7 @@ def generate_team_pdf(
     SSM_RISK_REFRAME = {
         "Confidence": (
             "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
-            "<b>Leverage Discernment</b> - to apply critical evaluation, validate assumptions, and recalibrate against reality",
+            "<b>Leverage Discernment</b> - to apply critical evaluation and validate assumptions against reality",
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action with insufficient evaluation creates avoidable risks",
@@ -1722,7 +1722,7 @@ def generate_team_pdf(
         ),
         "Foresight": (
             "<b>Idealisation</b> – overly optimistic vision lacks grounding in execution and constraints",
-            "<b>Leverage Discipline</b> - to translate vision into structured, resource-backed plans and milestones",
+            "<b>Leverage Discipline</b> - to convert vision into structured, resource-backed plans",
         ),
         "Objectivity": (
             "<b>Disconnection</b> – over-reliance on logic weakens emotional engagement and reduces buy-in",
@@ -1734,7 +1734,7 @@ def generate_team_pdf(
         ),
         "Prudence": (
             "<b>Avoidance</b> – overweighting risk delays action and stalls progress",
-            "<b>Leverage Confidence</b> - by recalibrating risk perceptions and asserting trust in proven capabilities",
+            "<b>Leverage Confidence</b> - to recalibrate risk perceptions and assert trust in proven capabilities",
         ),
         "Tenacity": (
             "<b>Obsession</b> – narrow goal fixation limits perspective and risks misaligned effort",

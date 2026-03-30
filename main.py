@@ -1713,7 +1713,7 @@ def generate_team_pdf(
             "Leverage Practicality to focus on common-sense, feasible actions that deliver measurable benefit",
         ),
         "Curiosity": (
-            "Scatteredness – Diffused focus across too many priorities weakens execution and follow-through",
+            "Scatteredness – Diffused focus on numerous priorities weakens execution and follow-through",
             "Leverage Prudence to constrain scope, and focus effort on critical priorities",
         ),
         "Discernment": (

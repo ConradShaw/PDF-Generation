@@ -796,7 +796,7 @@ def generate_pdf(
         ],
         style=table_border,
     ))
-    story.append(Spacer(1, 78))
+    story.append(Spacer(1, 300))
 
     if os.path.exists(logo_path):
         logo_img = Image(logo_path, width=1.54*inch, height=0.79*inch, kind="proportional")
@@ -910,9 +910,9 @@ def generate_pdf(
  <para>
   <b>How to Read This Chart</b><br/><br/>
   The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
-  * <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
-  * <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i><br/>
-  * <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
+  • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
+  • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i><br/>
+  • <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
   Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
   SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
   Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
@@ -1512,9 +1512,9 @@ def generate_team_pdf(
  <para>
   <b>How to Read This Chart</b><br/><br/>
   The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:<br/><br/>
-  * <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i> —<br/>
-  * <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>, and<br/>
-  * <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>strengths</b>.<br/><br/>
+  • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i> —<br/>
+  • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>, and<br/>
+  • <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>strengths</b>.<br/><br/>
   Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
   SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
   Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
@@ -1687,16 +1687,16 @@ def generate_team_pdf(
         The chart displays the team’s strength distribution, with strengths arranged from the highest average expressed strength on the left to the lowest on the right.<br/>
         Each bar represents a strength and is divided into coloured segments showing how team members ranked it across four categories. Together, the segments total 100% of responses.<br/>
         <br/>
-        * <b>Signature strengths (#1-#3)</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
+        • <b>Signature strengths (#1-#3)</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
         A tall Signature segment indicates that many team members naturally rely on that strength.<br/>
         <br/>
-        * <b>Supporting strengths (#4-#6)</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
+        • <b>Supporting strengths (#4-#6)</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
         A tall Supporting segment indicates that many team members placed that strength in the upper mid-range of their overall tendencies.<br/>
         <br/>
-        * <b>Stretch strengths (#7-#9)</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
+        • <b>Stretch strengths (#7-#9)</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
         A tall Stretch segment indicates that many team members placed that strength in the lower mid-range of their overall tendencies.<br/>
         <br/>
-        * <b>Situational strengths (#10-#12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
+        • <b>Situational strengths (#10-#12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
         """,
         style=body_compact_style
@@ -1796,8 +1796,8 @@ def generate_team_pdf(
         0.45 * inch,   # Col 1 (narrow label/index)
         1.05 * inch,   # Col 2
         1.05 * inch,   # Col 3
-        2.0 * inch,    # Col 4 (Change-Resistance Risks)
-        2.4 * inch,    # Col 5 (Targeted Reframe)
+        2.225 * inch,    # Col 4 (Change-Resistance Risks)
+        2.225 * inch,    # Col 5 (Targeted Reframe)
     ]
     
     story.append(Table(

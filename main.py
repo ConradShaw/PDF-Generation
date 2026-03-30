@@ -1006,6 +1006,7 @@ class InfoPanel(Flowable):
     story.append(Spacer(1, 12))
     
     story.append(Table([[Paragraph(
+    story.append(InfoPanel(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
@@ -1036,8 +1037,7 @@ class InfoPanel(Flowable):
     ))
     
     story.append(Spacer(1, 12))
-    
-    story.append(Table([[Paragraph(
+    story.append(InfoPanel(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
@@ -1081,14 +1081,10 @@ def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, body
     # Header for Page 7
     story.append(header_template(7, "Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
-
-    # Explanatory paragraph
-    story.append(Paragraph(
-        "...",
-   
+    story.append(InfoPanel(  
     ))
 
-    # Info panel table explaining the chart
+    # Info panel table explaining the chart    
     info_text = """
     <b>How to Read This Chart</b><br/><br/>
     This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
@@ -1551,10 +1547,8 @@ def generate_team_pdf(
     ))
     
     story.append(Spacer(1, 60))
-    
-    story.append(Table([[Paragraph(
+    story.append(InfoPanel(
         """
- <para>
   <b>How to Read This Chart</b><br/><br/>
   The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:<br/><br/>
   • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i> —<br/>
@@ -1564,7 +1558,6 @@ def generate_team_pdf(
   SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
   Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
   These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
-</para>
         """,
     
     )]], style=table_border))
@@ -1616,8 +1609,7 @@ def generate_team_pdf(
     ))
   
     story.append(Spacer(1, 12))
-    
-    story.append(Table([[Paragraph(
+    story.append(InfoPanel(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
@@ -1648,7 +1640,7 @@ def generate_team_pdf(
     ))
     
     story.append(Spacer(1, 12))
-    story.append(Table([[Paragraph(
+    story.append(InfoPanel(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
@@ -1689,7 +1681,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     story.append(header_template(7, "Team Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
-    story.append(Table([[Paragraph(
+    story.append(InfoPanel(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
@@ -1724,8 +1716,7 @@ def generate_team_pdf(
     
     story.append(chart_drawing)
     story.append(Spacer(1, 12))
-    
-    story.append(Table([[Paragraph(
+    story.append(InfoPanel(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
@@ -1857,7 +1848,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     story.append(header_template(10, "Change Alignment Guide - Team"))
     story.append(Spacer(1, 12))
-    story.append(Table([[Paragraph(
+    story.append(InfoPanel(
         """
             <b>How to Read This Chart</b><br/>
             <br/>

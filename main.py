@@ -821,9 +821,10 @@ class InfoPanel(Flowable):
     # Page 1 - Title page
     story.append(Table(
         [[Paragraph("Shaw Strengths Matrix™ (SSM™)<br/>Assessment", header_style)]],
+        colWidths=[None],  # or doc.width if you want full width
         style=table_border
     ))
-
+  
     story.append(Spacer(1, 6))
 
     story.append(Table([[Paragraph("", style=body_style)]], style=TableStyle([

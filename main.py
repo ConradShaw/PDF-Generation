@@ -952,7 +952,9 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
         Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
         SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
         Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
-        These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>"""
+        These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
+        """,
+        style=body_compact_style
     ))
   
     story.append(PageBreak())  
@@ -1016,7 +1018,8 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
         b) <b>Supporting Strengths (#4-#6) </b> – readily accessible strengths that reinforce your core abilities—dependable when needed, but not primary.<br/>
         c) <b>Stretch Strengths (#7-#9) </b> – strengths you deploy which are effective when needed, but requiring more focus and effort than the first two categories.<br/>
         d) <b>Situational Strengths (#10-#12) </b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.<br/>
-        """
+        """,
+        style=body_compact_style
     ))
     
     story.append(PageBreak())
@@ -1046,7 +1049,8 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
         <br/>
         Your <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — your motivation and natural approach to work.<br/>
-        """
+        """,
+        style=body_compact_style
     ))
     story.append(PageBreak())
 
@@ -1076,14 +1080,14 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
     story.append(Spacer(1, 12))
     story.append(InfoPanel(      
         # Info panel table explaining the chart
-        info_text = """
+        """
         <b>How to Read This Chart</b><br/><br/>
         This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
         Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/><br/>
         Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
-        """
+        """,
         style=body_compact_style
     ))
       
@@ -1550,7 +1554,8 @@ def generate_team_pdf(
         SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
         Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
         These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
-        """
+        """,
+        style=body_compact_style 
     ))    
     story.append(PageBreak())
     
@@ -1613,7 +1618,8 @@ def generate_team_pdf(
         b) <b>Supporting Strengths</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
         c) <b>Stretch Strengths</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
         d) <b>Situational Strengths</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
-        """
+        """,
+        style=body_compact_style
     ))
     story.append(PageBreak())
     
@@ -1642,8 +1648,9 @@ def generate_team_pdf(
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
         <br/>
         The team <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — the team's overall motivation and natural approach to work.<br/>
-        """
-     ))
+        """,
+        style=body_compact_style
+    ))
     story.append(PageBreak())
     
     # Page 6 - O*NET Work Activities
@@ -1682,8 +1689,9 @@ def generate_team_pdf(
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
         <br/>
         The team <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind the team's overall approach to completing work tasks.<br/>
-        """
-     ))
+        """,
+        style=body_compact_style
+    ))
      
     # Page 8 - Team Strength Distribution
     story.append(PageBreak())
@@ -1722,7 +1730,8 @@ def generate_team_pdf(
         <br/>
         • <b>Situational strengths (#10-#12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
-        """
+        """,
+        style=body_compact_style
     ))
 
     # Page 9 report new definitions
@@ -1845,8 +1854,9 @@ def generate_team_pdf(
         <br/>
         Team-level ranks reveal clusters of <b>Change-Resistant Behaviour Risks</b> that arise when corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations. The associated <b>Targeted Reframing Actions</b> indicate how these collective risks can be most effectively addressed through reframing conversations during change initiative discussions.
         <br/>
-        """
-     ))
+        """,
+        style=body_compact_style
+    ))
   
     doc.build(story)
     

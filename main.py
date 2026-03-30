@@ -900,9 +900,8 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
         In this report, your <b>SSM™ Assessment</b> profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
-        """,
-   
-    )]], style=table_border))
+        """   
+    )]],style=table_border))
     
     story.append(Spacer(1, 6))
     

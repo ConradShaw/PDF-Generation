@@ -952,7 +952,7 @@ story.append(InfoPanel(
     Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
     SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
     Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
-    These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>"""
+    These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>""",
         style=body_compact_style
 ))
     story.append(PageBreak())  

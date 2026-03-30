@@ -797,7 +797,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, r
         ],
         style=table_border,
     ))
-    story.append(Spacer(1, 300))
+    story.append(Spacer(1, 380))
 
     if os.path.exists(logo_path):
         logo_img = Image(logo_path, width=1.54*inch, height=0.79*inch, kind="proportional")
@@ -1693,52 +1693,52 @@ def generate_team_pdf(
     # Page 9 report new definitions
     SSM_RISK_REFRAME = {
         "Confidence": (
-            "Arrogance – Inflated self-belief limits openness to input and obscures blind spots",
-            "Leverage Discernment to apply critical evaluation, validate assumptions, and recalibrate against reality",
+            "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
+            "<b>Leverage Discernment</b> - to apply critical evaluation, validate assumptions, and recalibrate against reality",
         ),
         "Courage": (
-            "Recklessness – Rapid action with insufficient evaluation creates avoidable risks",
-            "Leverage Practicality to focus on common-sense, feasible actions that deliver measurable benefit",
+            "<b>Recklessness</b> – rapid action with insufficient evaluation creates avoidable risks",
+            "<b>Leverage Practicality</b> - to focus on common-sense, feasible actions that deliver measurable benefit",
         ),
         "Curiosity": (
-            "Scatteredness – Diffused focus on numerous priorities weakens execution and follow-through",
-            "Leverage Prudence to constrain scope, and focus effort on critical priorities",
+            "<b>Scatteredness</b> – diffused focus on numerous priorities weakens execution and follow-through",
+            "<b>Leverage Prudence</b> - to constrain scope, and focus effort on critical priorities",
         ),
         "Discernment": (
-            "Hypercriticality – Excessive focus on flaws reduces perspective and undermines balanced judgment",
-            "Leverage Fairness to restore proportionality, context, and balanced evaluation",
+            "<b>Hypercriticality</b> – excessive focus on flaws reduces perspective and undermines balanced judgment",
+            "<b>Leverage Fairness</b> - to restore proportionality, context, and balanced evaluation",
         ),
         "Discipline": (
-            "Rigidity – Inflexible adherence to established methods reduces responsiveness to change",
-            "Leverage Objectivity to assess options using fact-based analysis to achieve optimal outcomes",
+            "<b>Rigidity</b> – inflexible adherence to established methods reduces responsiveness to change",
+            "<b>Leverage Objectivity</b> - to assess options using fact-based analysis to achieve optimal outcomes",
         ),
         "Empathy": (
-            "Enmeshment – Over-identification with others’ emotions blurs boundaries, undermining judgment",
-            "Leverage Courage to maintain clear boundaries and act decisively even in the face of discomfort",
+            "<b>Enmeshment</b> – over-identification with others’ emotions blurs boundaries, undermining judgment",
+            "<b>Leverage Courage</b> - to maintain clear boundaries and act decisively even in the face of discomfort",
         ),
         "Fairness": (
-            "Indecisiveness – Over-weighting perspectives delays decisions and risks lack of closure",
-            "Leverage Tenacity to drive clear, time-bound commitments and enforce follow-through",
+            "<b>Indecisiveness</b> – over-weighting perspectives delays decisions and risks lack of closure",
+            "<b>Leverage Tenacity</b> - to drive clear, time-bound commitments and enforce follow-through",
         ),
         "Foresight": (
-            "Idealisation – Overly optimistic vision lacks grounding in execution and constraints",
-            "Leverage Discipline to translate vision into structured, resource-backed plans and milestones",
+            "<b>Idealisation</b> – overly optimistic vision lacks grounding in execution and constraints",
+            "<b>Leverage Discipline</b> - to translate vision into structured, resource-backed plans and milestones",
         ),
         "Objectivity": (
-            "Disconnection – Over-reliance on logic weakens emotional engagement and reduces buy-in",
-            "Leverage Empathy to connect with others’ lived experience and foster engagement",
+            "<b>Disconnection</b> – over-reliance on logic weakens emotional engagement and reduces buy-in",
+            "<b>Leverage Empathy</b> - to connect with others’ lived experience and foster engagement",
         ),
         "Practicality": (
-            "Stubbornness – Over-reliance on familiar solutions and reluctance to consider alternatives",
-            "Leverage Curiosity to explore alternative solutions and incorporate new information to improve outcomes",
+            "<b>Stubbornness</b> – over-reliance on familiar solutions and reluctance to consider alternatives",
+            "<b>Leverage Curiosity</b> - to explore alternative solutions and incorporate new information to improve outcomes",
         ),
         "Prudence": (
-            "Avoidance – Overweighting risk delays action and stalls progress",
-            "Leverage Confidence by recalibrating risk perceptions and asserting trust in proven capabilities",
+            "<b>Avoidance</b> – overweighting risk delays action and stalls progress",
+            "<b>Leverage Confidence</b> - by recalibrating risk perceptions and asserting trust in proven capabilities",
         ),
         "Tenacity": (
-            "Obsession – Narrow goal fixation limits perspective and risks misaligned effort",
-            "Leverage Foresight to refocus on longer-term priorities and ensure strategic alignment of current targets",
+            "<b>Obsession</b> – narrow goal fixation limits perspective and risks misaligned effort",
+            "<b>Leverage Foresight</b> - to refocus on longer-term priorities and ensure strategic alignment of current targets",
         ),
     }
     

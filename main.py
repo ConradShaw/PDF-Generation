@@ -1796,8 +1796,8 @@ def generate_team_pdf(
         0.45 * inch,   # Col 1 (narrow label/index)
         1.05 * inch,   # Col 2
         1.05 * inch,   # Col 3
-        2.2 * inch,    # Col 4 (Change-Resistance Risks)
-        2.2 * inch,    # Col 5 (Targeted Reframe)
+        2.0 * inch,    # Col 4 (Change-Resistance Risks)
+        2.4 * inch,    # Col 5 (Targeted Reframe)
     ]
     
     story.append(Table(

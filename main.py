@@ -794,7 +794,7 @@ class InfoPanel(Flowable):
         Flowable.__init__(self)
         if style is None:
             # create a default ParagraphStyle here
-            style = ParagraphStyle("BodyCompact", fontSize=9.5, leading=11)
+            style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
         self.text = Paragraph(text, style=style)  # explicitly use style=...
         self.width = width
         self.padding = padding
@@ -1055,7 +1055,7 @@ class InfoPanel(Flowable):
     story.append(PageBreak())
 
 # Page 6 - O*NET Work Activities
-def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, cell_center_style, results_table_style, table_border, doc, first, last, date_str):
+def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, body_compact_style, cell_center_style, results_table_style, table_border, doc, first, last, date_str):
 
     # Header for Page 6
     story.append(header_template(6, "Mapping to O*NET Work Activities"))

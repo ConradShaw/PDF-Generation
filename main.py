@@ -1725,7 +1725,7 @@ def generate_team_pdf(
             "Leverage Objectivity to reassess current methods based on fact-based analysis for optimal effectiveness",
         ),
         "Empathy": (
-            "Enmeshment – Over-identification with others’ emotions blurs boundaries and distorts judgment",
+            "Enmeshment – Over-identification with others’ emotions blurs boundaries, undermining judgment",
             "Leverage Courage to maintain clear personal boundaries and act decisively despite emotional discomfort",
         ),
         "Fairness": (

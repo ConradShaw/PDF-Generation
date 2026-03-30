@@ -522,7 +522,6 @@ def parse_survey_flexible(xls_path: str, traits_set=None) -> Dict[str, Dict[str,
         wins += 1
 
     return results
-
 # ---------------------------
 # Tie-breaker algorithm for Individual assessments (5 steps)
 # ---------------------------
@@ -1206,7 +1205,6 @@ def create_distribution_chart_drawing(
     
     return drawing
 
-
 def calculate_team_rankings(
     individual_results: List[Dict[str, Any]]
 ) -> Tuple[List[str], Dict[str, float], Dict[str, Dict[str, float]]]:
@@ -1310,7 +1308,6 @@ def calculate_team_rankings(individual_results):
         }
 
     return ordered_traits, final_ranks, distribution_data
-
 
 def generate_team_pdf(
     company_name: str,
@@ -1822,7 +1819,6 @@ def generate_team_pdf(
     filename = f"SSM_Team_{company_name}_{team_name}_{date_str}_v1.pdf"
     return filename
 
-
 def process_excel_to_pdf(excel_bytes: bytes, original_filename: str = "assessment.xlsx") -> Tuple[bytes, str]:
     """
     Process Excel file bytes and return PDF bytes and filename.
@@ -1859,7 +1855,6 @@ def process_excel_to_pdf(excel_bytes: bytes, original_filename: str = "assessmen
         # Clean up temp file
         os.unlink(tmp_excel_path)
 
-
 # ---------------------------
 # FastAPI Application
 # ---------------------------
@@ -1878,19 +1873,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # Pydantic models for request/response
 class GeneratePDFRequest(BaseModel):
     excel_base64: str
     filename: Optional[str] = "assessment.xlsx"
-
 
 class GeneratePDFResponse(BaseModel):
     success: bool
     pdf_base64: Optional[str] = None
     filename: Optional[str] = None
     message: Optional[str] = None
-
 
 class GenerateTeamPDFRequest(BaseModel):
     company_name: str
@@ -1899,19 +1891,16 @@ class GenerateTeamPDFRequest(BaseModel):
     date_str: str  # YYYY-MM-DD
     individual_results: List[Dict[str, Any]]  # List of {'ordered_traits': [...], 'ranks': {...}}
 
-
 class GenerateTeamPDFResponse(BaseModel):
     success: bool
     pdf_base64: Optional[str] = None
     filename: Optional[str] = None
     message: Optional[str] = None
 
-
 class HealthResponse(BaseModel):
     status: str
     service: str
     version: str
-
 
 @app.get("/health", response_model=HealthResponse)
 async def health_check():
@@ -1921,7 +1910,6 @@ async def health_check():
         service="ssm-pdf-generator",
         version="1.0.0"
     )
-
 
 @app.post("/generate-pdf-base64", response_model=GeneratePDFResponse)
 async def generate_pdf_base64(request: GeneratePDFRequest):
@@ -1965,7 +1953,6 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
             success=False,
             message=f"PDF generation failed: {str(e)}"
         )
-
 
 @app.post("/generate-team-pdf", response_model=GenerateTeamPDFResponse)
 async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
@@ -2080,7 +2067,6 @@ async def generate_pdf_file(file: UploadFile = File(...)):
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
-
 
 if __name__ == '__main__':
     import uvicorn

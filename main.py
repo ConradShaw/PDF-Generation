@@ -1054,43 +1054,56 @@ class InfoPanel(Flowable):
     story.append(PageBreak())
 
     # Page 6 - O*NET Work Activities
+    def build_onet_page(story, results_table_data, ONET_ACTIVITIES, body_style, cell_center_style, results_table_style, table_border, doc, first, last, date_str):
+    # Page 6 - O*NET Work Activities
     body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
+
+    # Header for Page 6
     story.append(header_template(6, "Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
-    
+
+    # Merge header with ONET activities
     activities = {"SSM\nStrength™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
+
+    # Build results table
+    table_data = [
+        row + [Paragraph(activities.get(row[2], ""), style=cell_center_style)]
+        for row in results_table_data
+    ]
     story.append(Table(
-        [row + [Paragraph(activities[row[2]], style=cell_center_style)] for row in results_table_data],
+        table_data,
         style=results_table_style,
-        colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None],
+        colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None]
     ))
 
+    # Page break
     story.append(PageBreak())
+
+    # Header for Page 7
     story.append(header_template(7, "Mapping to O*NET Work Activities"))
-    story.append(Spacer(1, 12))   
+    story.append(Spacer(1, 12))
+
+    # Explanatory paragraph
     story.append(Paragraph(
-        """...""",
+        "...",
         style=body_compact_style
     ))
- 
-    story.append(Table([[Paragraph(
-        """
-        <b>How to Read This Chart</b><br/>
-        <br/>
-        This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/>
-        <br/>
-        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/>
-        <br/>
-        <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
-        They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
-        <br/>
-        Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
-        """,
-        style=body_compact_style
-    )]], style=table_border))
 
+    # Info panel table explaining the chart
+    info_text = """
+    <b>How to Read This Chart</b><br/><br/>
+    This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
+    Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
+    <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
+    They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/><br/>
+    Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
+    """
+    story.append(Table([[Paragraph(info_text, style=body_compact_style)]], style=table_border))
+
+    # Build PDF
     doc.build(story)
-    
+
+    # Return filename
     filename = f"SSM_{first}_{last}_{date_str}_v1.pdf"
     return filename
 

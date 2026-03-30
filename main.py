@@ -1726,7 +1726,7 @@ def generate_team_pdf(
         ),
         "Empathy": (
             "Enmeshment – Over-identification with others’ emotions blurs boundaries, undermining judgment",
-            "Leverage Courage to maintain clear personal boundaries and act decisively despite emotional discomfort",
+            "Leverage Courage to maintain clear boundaries and act decisively even in the face of discomfort",
         ),
         "Fairness": (
             "Indecisiveness – Over-weighting perspectives delays decisions and risks lack of closure",

@@ -46,7 +46,7 @@ from typing import Optional, Tuple, Dict, List, Any
 import pandas as pd
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch
-from reportlab.us import (
+from reportlab.lib import (
     SimpleDocTemplate,
     Table,
     TableStyle,

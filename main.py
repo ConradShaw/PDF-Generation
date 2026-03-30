@@ -1725,7 +1725,7 @@ def generate_team_pdf(
             "Leverage Objectivity to reassess current methods based on fact-based analysis for optimal effectiveness",
         ),
         "Empathy": (
-            "Enmeshment – Over-identification with others’ emotions blurs boundaries and delays difficult decisions",
+            "Enmeshment – Over-identification with others’ emotions blurs boundaries and distorts judgment",
             "Leverage Courage to maintain clear personal boundaries and act decisively despite emotional discomfort",
         ),
         "Fairness": (
@@ -1741,7 +1741,7 @@ def generate_team_pdf(
             "Leverage Empathy to encourage two-way sensemaking, reconnect with lived experience and rebuild engagement",
         ),
         "Practicality": (
-            "Stubbornness – Over-reliance on familiar solutions and reluctance to consider alternatives, even when circumstances shift",
+            "Stubbornness – Over-reliance on familiar solutions and reluctance to consider alternatives",
             "Leverage Curiosity to explore alternative solutions and incorporate new information to improve outcomes",
         ),
         "Prudence": (

@@ -1746,7 +1746,7 @@ def generate_team_pdf(
         ),
         "Prudence": (
             "Avoidance – Overweighting risk delays action and stalls progress",
-            "Leverage Confidence to assert trust in relevant capabilities, recalibrate risk perceptions and drive forward momentum",
+            "Leverage Confidence by recalibrating risk perceptions and asserting trust in proven capabilities",
         ),
         "Tenacity": (
             "Obsession – Narrow goal fixation limits perspective and risks misaligned effort",

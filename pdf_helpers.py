@@ -5,32 +5,34 @@ from reportlab.lib.styles import getSampleStyleSheet
 styles = getSampleStyleSheet()
 
 class InfoPanel(Flowable):
-    """
-    Simple info panel for ReportLab PDF.
-    Accepts either a string or a list-of-lists of Paragraphs/Tables.
-    """
-    def __init__(self, content):
+    def __init__(self, content, style=None):
+        """
+        A reusable panel for displaying text in PDFs.
+
+        Args:
+            content (str or Paragraph): The content to display.
+            style (ParagraphStyle, optional): Style for the text. 
+                If None, a default style is used.
+        """
         super().__init__()
-        # Wrap string content in a Paragraph inside a single-cell table
+
+        # If the user passed a raw string and a style, wrap it in Paragraph
         if isinstance(content, str):
-            self.content = [[Paragraph(content, styles['Normal'])]]
+            from reportlab.lib.styles import getSampleStyleSheet
+            default_style = getSampleStyleSheet()["Normal"]
+            self.paragraph = Paragraph(content, style or default_style)
+        elif isinstance(content, Paragraph):
+            self.paragraph = content
         else:
-            self.content = content  # assume already a Table-compatible list-of-lists
+            raise TypeError("InfoPanel content must be a string or Paragraph")
+
+        # Save style (optional, can be used for layout calculations)
+        self.style = style or default_style
 
     def wrap(self, availWidth, availHeight):
-        # Set width and default height
-        self.width = availWidth
-        self.height = 50  # default panel height; you can adjust as needed
-        return (self.width, self.height)
+        """Calculate required width and height"""
+        return self.paragraph.wrap(availWidth, availHeight)
 
     def draw(self):
-        table = Table(self.content, colWidths=self.width)
-        table.setStyle(TableStyle([
-            ('BOX', (0,0), (-1,-1), 1, colors.black),
-            ('BACKGROUND', (0,0), (-1,-1), colors.whitesmoke),
-            ('VALIGN', (0,0), (-1,-1), 'TOP'),
-            ('LEFTPADDING', (0,0), (-1,-1), 6),
-            ('RIGHTPADDING', (0,0), (-1,-1), 6),
-        ]))
-        table.wrapOn(self.canv, self.width, self.height)
-        table.drawOn(self.canv, 0, 0)
+        """Draw the paragraph on the canvas"""
+        self.paragraph.drawOn(self.canv, 0, 0)

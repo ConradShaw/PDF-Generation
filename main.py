@@ -942,8 +942,8 @@ class InfoPanel(Flowable):
     ))
 
 body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
-story.append(Spacer(1, 60))
-story.append(InfoPanel(
+    story.append(Spacer(1, 60))
+    story.append(InfoPanel(
     """<b>How to Read This Chart</b><br/><br/>
     The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
     • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
@@ -955,7 +955,7 @@ story.append(InfoPanel(
     These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>""",
         style=body_compact_style
 ))
-story.append(PageBreak())  
+    story.append(PageBreak())  
 
     # Page 4 - Assessment Table
     story.append(header_template(4, "Assessment Table"))

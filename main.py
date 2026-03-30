@@ -864,7 +864,6 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
           
     )
     story.append(Table([[legal_notices]], style=table_border))
-
     story.append(PageBreak())
 
     # Header template for pages 2-6
@@ -903,8 +902,7 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
         """   
     )]], style=table_border))
     
-    story.append(Spacer(1, 6))
-    
+    story.append(Spacer(1, 6))    
     story.append(Table([[Paragraph(
         """
         <b>Report Contents</b><br/><br/>
@@ -1049,8 +1047,6 @@ def build_individual_pdf(output_stream, first, last, date_str, ...):
         Your <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — your motivation and natural approach to work.<br/>
         """
     ))
-    
-    )]], style=table_border))
     story.append(PageBreak())
 
 # Page 6 - O*NET Work Activities
@@ -1422,8 +1418,7 @@ def generate_team_pdf(
         style=table_border
     ))
     
-    story.append(Spacer(1, 6))
-    
+    story.append(Spacer(1, 6))    
     story.append(Table([[Paragraph("", style=body_style)]], style=TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#ba9354"))
     ])))
@@ -1437,7 +1432,8 @@ def generate_team_pdf(
         ],
         style=table_border,
     ))
-    story.append(Spacer(1, 78))
+  
+    story.append(Spacer(1, 300))
     
     if os.path.exists(logo_path):
         logo_img = Image(logo_path, width=1.54*inch, height=0.79*inch, kind="proportional")

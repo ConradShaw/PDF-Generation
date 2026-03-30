@@ -753,6 +753,8 @@ def generate_pdf(
     doc = SimpleDocTemplate(
         output_stream, pagesize=A4, leftMargin=40, rightMargin=40, topMargin=36, bottomMargin=36
     )
+  
+def build_individual_pdf(output_stream, first, last, date_str, ...):
     styles = getSampleStyleSheet()
 
     header_style = ParagraphStyle(
@@ -775,48 +777,47 @@ def generate_pdf(
         ("GRID", (0, 0), (-1, -1), 1, colors.black),
     ])
 
-from reportlab.platypus import Paragraph, Spacer, Flowable
-from reportlab.lib import colors
-from reportlab.lib.styles import ParagraphStyle
+    from reportlab.platypus import Paragraph, Spacer, Flowable
+    from reportlab.lib import colors
+    from reportlab.lib.styles import ParagraphStyle
 
-# Reusable InfoPanel class
-class InfoPanel(Flowable):    
-    def __init__(self, text, style=None, width=450, padding=6, fill_color=colors.whitesmoke):
-        """
-        InfoPanel creates a subtle shaded box for narrative text.
-        Parameters:
-        - text: string (can include <b>, <i>, <br/>)
-        - style: ParagraphStyle (default = body_compact_style)
-        - width: panel width in points
-        - padding: space inside the panel around text
-        - fill_color: background color of the panel
-        """
-        Flowable.__init__(self)
-        if style is None:
-            # create a default ParagraphStyle here
-            style = ParagraphStyle("BodyCompact", fontSize=9.5, leading=11)
-        self.text = Paragraph(text, style=style)  # explicitly use style=...
-        self.width = width
-        self.padding = padding
-        self.fill_color = fill_color
+    # Reusable InfoPanel class
+    class InfoPanel(Flowable):    
+        def __init__(self, text, style=None, width=450, padding=6, fill_color=colors.whitesmoke):
+            """
+            InfoPanel creates a subtle shaded box for narrative text.
+            Parameters:
+            - text: string (can include <b>, <i>, <br/>)
+            - style: ParagraphStyle (default = body_compact_style)
+            - width: panel width in points
+            - padding: space inside the panel around text
+            - fill_color: background color of the panel
+            """
+            Flowable.__init__(self)
+            if style is None:
+                style = ParagraphStyle("BodyCompact", fontSize=9.5, leading=11)
+            self.text = Paragraph(text, style=style)  # explicitly use style=...
+            self.width = width
+            self.padding = padding
+            self.fill_color = fill_color
 
-    def wrap(self, availWidth, availHeight):
-        # calculate height including padding
-        w, h = self.text.wrap(self.width - 2*self.padding, availHeight)
-        self.height = h + 2*self.padding
-        return self.width, self.height
+        def wrap(self, availWidth, availHeight):
+            # calculate height including padding
+            w, h = self.text.wrap(self.width - 2*self.padding, availHeight)
+            self.height = h + 2*self.padding
+            return self.width, self.height
 
-    def draw(self):
-        # draw background box
-        self.canv.setFillColor(self.fill_color)
-        self.canv.roundRect(0, 0, self.width, self.height, 4, fill=1, stroke=0)
-        # draw text inside with padding
-        self.canv.saveState()
-        self.canv.translate(self.padding, self.padding)
-        self.text.drawOn(self.canv, 0, 0)
-        self.canv.restoreState()
+        def draw(self):
+            # draw background box
+            self.canv.setFillColor(self.fill_color)
+            self.canv.roundRect(0, 0, self.width, self.height, 4, fill=1, stroke=0)
+            # draw text inside with padding
+            self.canv.saveState()
+            self.canv.translate(self.padding, self.padding)
+            self.text.drawOn(self.canv, 0, 0)
+            self.canv.restoreState()
 
-    story = []
+        story = []
     
     # Page 1 - Title page
     story.append(Table(

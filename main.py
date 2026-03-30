@@ -1495,8 +1495,7 @@ def generate_team_pdf(
         In this report, your <b>SSM™ Assessment</b> strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
-        """,
-    
+        """,    
     )]], style=table_border))
 
     story.append(Spacer(1, 6))
@@ -1510,8 +1509,7 @@ def generate_team_pdf(
         4) Shaw Strengths Matrix™ Team Mapping to O*NET Work Activities<br/>
         5) Shaw Strengths Matrix™ Team Strength Distribution<br/>
         6) Shaw Strengths Matrix™ Change Alignment Guide - Team
-        """,
-    
+        """,    
     )]], style=table_border))
     story.append(PageBreak())
     
@@ -1555,9 +1553,7 @@ def generate_team_pdf(
         Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
         These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
         """
-    ))
-    
-    )]], style=table_border))
+    ))    
     story.append(PageBreak())
     
     # Page 4 - Team Assessment Table
@@ -1621,8 +1617,6 @@ def generate_team_pdf(
         d) <b>Situational Strengths</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         """
     ))
-    
-    )]], style=table_border))
     story.append(PageBreak())
     
     # Page 5 - O*NET Work Styles
@@ -1652,8 +1646,6 @@ def generate_team_pdf(
         The team <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — the team's overall motivation and natural approach to work.<br/>
         """
      ))
-    
-    )]], style=table_border))
     story.append(PageBreak())
     
     # Page 6 - O*NET Work Activities
@@ -1694,9 +1686,7 @@ def generate_team_pdf(
         The team <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind the team's overall approach to completing work tasks.<br/>
         """
      ))
-    
-    )]], style=table_border))
-    
+     
     # Page 8 - Team Strength Distribution
     story.append(PageBreak())
     story.append(Table([[
@@ -1735,9 +1725,7 @@ def generate_team_pdf(
         • <b>Situational strengths (#10-#12)</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         A tall Situational segment indicates that many team members tend to use that strength only in more limited circumstances.<br/>
         """
-     ))
-   
-    )]], style=table_border))
+    ))
 
     # Page 9 report new definitions
     SSM_RISK_REFRAME = {
@@ -1861,8 +1849,6 @@ def generate_team_pdf(
         <br/>
         """
      ))
-    
-        )]], style=table_border))
   
     doc.build(story)
     

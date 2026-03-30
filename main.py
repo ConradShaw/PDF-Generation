@@ -941,7 +941,7 @@ class InfoPanel(Flowable):
         ])
     ))
 
-body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
+    body_compact_style = ParagraphStyle("BodyCompact", parent=body_style, fontSize=9.5, leading=11)
     story.append(Spacer(1, 60))
     story.append(InfoPanel(
     """<b>How to Read This Chart</b><br/><br/>

@@ -1733,7 +1733,7 @@ def generate_team_pdf(
             "<b>Leverage Curiosity</b> - to explore alternative solutions and incorporate new information to improve outcomes",
         ),
         "Prudence": (
-            "<b>Avoidance</b> – overweighting risk delays action and stalls progress",
+            "<b>Avoidance</b> – over-weighting risk delays action and stalls progress",
             "<b>Leverage Confidence</b> - to recalibrate risk perceptions and assert trust in proven capabilities",
         ),
         "Tenacity": (

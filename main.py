@@ -1991,13 +1991,20 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         # Guard clause
         if not request.individual_results:
           raise HTTPException(status_code=400, detail="No individual results provided")
-          
-        # Calculate team rankings from individual results
-        print("START TEAM RANKING CALC")
-        ordered_traits, ranks, distribution_data = calculate_team_rankings(request.individual_results)
+
+
+
+      
+results_summary = []
+
+for survey in request.individual_results:
+    survey_id = survey.get("id", "unknown")
+    user_email = survey.get("user_email", "unknown")
+    try:
+        # Calculate rankings for this survey individually if needed
+        ordered_traits, ranks, distribution_data = calculate_team_rankings([survey])
         
         # Generate PDF to memory
-        print("START PDF GENERATION")
         pdf_buffer = io.BytesIO()        
         pdf_filename = generate_team_pdf(
             company_name=request.company_name,
@@ -2008,17 +2015,36 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             ranks=ranks,
             distribution_data=distribution_data,
             output_stream=pdf_buffer,
-            logo_path=LOGO_PATH
+            logo_path=survey.get("logo_path", LOGO_PATH)
         )
-        print("END PDF GENERATION")
         
         pdf_bytes = pdf_buffer.getvalue()
 
-        print("[TEAM PDF DEBUG]", {
-          "buffer_size": len(pdf_bytes),
-          "individual_results": len(request.individual_results)
-        })
+        # Treat empty PDF as failure
+        if not pdf_bytes:
+            raise ValueError("Empty PDF buffer generated")
 
+        # TODO: save pdf_bytes or email PDF here
+        # Example: upload_pdf(pdf_bytes, survey_id)
+        # Example: send_email(user_email, pdf_bytes)
+
+        results_summary.append({"survey_id": survey_id, "status": "success"})
+    
+    except Exception as e:
+        logger.error(
+            f"PDF generation failed for survey_id={survey_id}, user_email={user_email}: {str(e)}\n"
+            f"{traceback.format_exc()}"
+        )
+        results_summary.append({"survey_id": survey_id, "status": "failed"})
+
+# Return summary for all surveys
+return {
+    "success": all(r["status"] == "success" for r in results_summary),
+    "results": results_summary
+}
+
+
+      
         # Treat empty PDF as a real failure
         if not pdf_bytes:
           raise ValueError("Empty PDF buffer generated")

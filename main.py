@@ -1700,15 +1700,15 @@ def generate_team_pdf(
     SSM_RISK_REFRAME = {
         "Confidence": (
             "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
-            "<b>Leverage Discernment</b> - to apply critical evaluation and verify assumptions against reality",
+            "<b>Leverage Discernment</b> - to apply critical judgment and verify assumptions against reality",
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action with insufficient evaluation creates avoidable risks",
-            "<b>Leverage Practicality</b> - to focus on common-sense, feasible actions that deliver measurable benefit",
+            "<b>Leverage Practicality</b> - to focus on common-sense, effective actions that deliver measurable benefit",
         ),
         "Curiosity": (
             "<b>Scatteredness</b> – diffused focus on numerous priorities weakens execution and follow-through",
-            "<b>Leverage Prudence</b> - to constrain scope, and focus effort on critical priorities",
+            "<b>Leverage Prudence</b> - to exercise caution, constrain scope, and mitigate risk",
         ),
         "Discernment": (
             "<b>Hypercriticality</b> – excessive focus on flaws reduces perspective and undermines balanced judgment",
@@ -1740,7 +1740,7 @@ def generate_team_pdf(
         ),
         "Prudence": (
             "<b>Avoidance</b> – over-weighting risk delays action and stalls progress",
-            "<b>Leverage Confidence</b> - to recalibrate risk perceptions and assert trust in proven capabilities",
+            "<b>Leverage Confidence</b> - to recalibrate risk perceptions and project trust in capabilities with self-assurance",
         ),
         "Tenacity": (
             "<b>Obsession</b> – narrow goal fixation limits perspective and risks misaligned effort",

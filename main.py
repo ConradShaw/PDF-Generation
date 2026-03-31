@@ -2035,11 +2035,11 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
     
-    # Return summary for all surveys
-    return {
-        "success": all(r["status"] == "success" for r in results_summary),
-        "results": results_summary
-    }
+        # Return summary for all surveys
+        return {
+            "success": all(r["status"] == "success" for r in results_summary),
+            "results": results_summary
+        }
           
             # Treat empty PDF as a real failure
             if not pdf_bytes:

@@ -65,6 +65,10 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel  
 
+# Set-up PDF file error logs
+import logging
+logging.basicConfig(level=logging.INFO)  # or DEBUG for more details
+
 # ---------------------------
 # CONFIG
 # ---------------------------
@@ -1920,6 +1924,8 @@ async def health_check():
         service="ssm-pdf-generator",
         version="1.0.0"
     )
+
+logger = logging.getLogger("pdf_logger")
 
 @app.post("/generate-pdf-base64", response_model=GeneratePDFResponse)
 async def generate_pdf_base64(request: GeneratePDFRequest):

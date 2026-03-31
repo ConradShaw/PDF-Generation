@@ -2043,7 +2043,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
 
-        overall_success = all(r["status"] == "success" for r in results_summary)        
+        overall_success = all(r["status"] == "success" for r in results_summary)
         return GenerateTeamPDFResponse(
             success=overall_success,
             results=results_summary,
@@ -2055,7 +2055,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
     except Exception as e:
         logger.error("Unexpected error in generate_team_pdf_endpoint:\n" + traceback.format_exc())
-        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")            
+        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")     
        
                 # Treat empty PDF as failure
                 if not pdf_bytes:

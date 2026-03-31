@@ -75,10 +75,15 @@ payload = {
     "individual_results": individual_results
 }
 
-response = requests.post(PDF_ENDPOINT, json=payload)
-if response.status_code != 200:
-    print(f"Endpoint returned status {response.status_code}: {response.text}")
-else:
+try:
+    response = requests.post(PDF_ENDPOINT, json=payload)
+    response.raise_for_status()
     data = response.json()
     print("=== Retry Results ===")
     print(json.dumps(data, indent=2))
+except requests.RequestException as e:
+    print(f"Error contacting endpoint: {e}")
+except json.JSONDecodeError:
+    print("Error: endpoint did not return valid JSON")
+
+

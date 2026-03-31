@@ -5,10 +5,10 @@ import json
 # ----------------------------
 # 1. Database connection info
 # ----------------------------
-DB_HOST = "YOUR_DB_HOST"
+DB_HOST = db.zsuzncnguhtvevivbxrn.supabase.co
 DB_PORT = 5432
-DB_NAME = "YOUR_DB_NAME"
-DB_USER = "YOUR_DB_USER"
+DB_NAME = postgres
+DB_USER = postgres
 DB_PASSWORD = "YOUR_DB_PASSWORD"
 
 # ----------------------------

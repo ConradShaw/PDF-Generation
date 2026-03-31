@@ -1990,10 +1990,11 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     try:
         # Guard clause
         if not request.individual_results:
-            raise HTTPException(status_code=400, detail="No individual results provided")
-      
-
+            raise HTTPException(status_code=400, detail="No individual results provided") 
+        
+        #######################################################
         # --- Safe retry loop for failed/incomplete surveys ---
+        #######################################################
         results_summary = []
         skipped_surveys = []
 
@@ -2046,10 +2047,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             "results": results_summary,
             "skipped": skipped_surveys
         }
-
-
-          
-                
+                      
                 pdf_bytes = pdf_buffer.getvalue()
         
                 # Treat empty PDF as failure

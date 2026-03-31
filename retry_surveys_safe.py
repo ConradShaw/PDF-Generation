@@ -14,7 +14,7 @@ DB_PASSWORD = daiG12tuoNwY9IO4
 # ----------------------------
 # 2. Your endpoint URL
 # ----------------------------
-PDF_ENDPOINT = "https://your-domain.com/generate-team-pdf"
+PDF_ENDPOINT = https://www.shawsight.com/hr/performance-ratings
 
 # ----------------------------
 # 3. Team info

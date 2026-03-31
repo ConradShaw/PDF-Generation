@@ -30,8 +30,8 @@ DB_PASSWORD = "daiG12tuoNwY9IO4"
 # 3. Endpoint and team info
 # ----------------------------
 PDF_ENDPOINT = "https://www.shawsight.com/hr/performance-ratings"
-COMPANY_NAME = "My Company"
-TEAM_NAME = "Team Alpha"
+COMPANY_NAME = "ShawSight Pty Ltd"
+TEAM_NAME = "Founder"
 DATE_STR = datetime.now().strftime("%Y-%m-%d")  # report date
 
 # ----------------------------

@@ -92,7 +92,7 @@ DESCRIPTIONS = {
     "Discernment": "The <b>sensory</b> ability to apply critical judgment to relevant details and verify assumptions against reality, guided by <b>reflection</b> on recent cues.",
     "Objectivity": "The <b>thinking</b> ability to process information rationally and without bias to achieve fact-based insights, guided by <b>awareness</b> of the current situation.",
     "Tenacity": "The <b>feeling</b> ability to commit persistent and determined effort to overcome obstacles, guided by <b>awareness</b> of the current situation.",
-    "Courage": "The <b>intuitive</b> ability to take purposeful action despite fear or uncertainty. guided by <b>anticipation</b> of imminent outcomes.",
+    "Courage": "The <b>intuitive</b> ability to decide on and take purposeful action despite fear or uncertainty. guided by <b>anticipation</b> of imminent outcomes.",
     "Confidence": "The <b>intuitive</b> ability to project trust in capabilities with self-assurance and assertiveness, guided by <b>awareness</b> of the current situation.",
     "Prudence": "The <b>feeling</b> ability to exercise caution, apply restraint, and act with discretion, guided by <b>anticipation</b> of imminent outcomes.",
     "Foresight": "The <b>intuitive</b> ability to project future trends and opportunities within a longer-term vision, guided by <b>reflection</b> on recent cues.",

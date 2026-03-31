@@ -98,7 +98,7 @@ DESCRIPTIONS = {
     "Foresight": "The <b>intuitive</b> ability to project future trends and opportunities within a longer-term vision, guided by <b>reflection</b> on recent cues.",
     "Practicality": "The <b>sensory</b> ability to take common-sense actions that reliably and effectively address real-world needs, guided by <b>awareness</b> of the current situation.",
     "Curiosity": "The <b>thinking</b> ability to explore and learn new information, guided by <b>reflection</b> on recent cues.",
-    "Discipline": "The <b>sensory</b> ability to apply self-regulation with composure and consistency, guided by <b>anticipation</b> of imminent outcomes.",
+    "Discipline": "The <b>sensory</b> ability to apply self-regulation in executing plans with composure and consistency, guided by <b>anticipation</b> of imminent outcomes.",
 }
 
 ONET_STYLES = {

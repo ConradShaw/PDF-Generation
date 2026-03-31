@@ -88,16 +88,16 @@ TRAITS = [
 
 DESCRIPTIONS = {
     "Fairness": "The <b>thinking</b> ability to apply balanced perspective, impartiality and equitable treatment, guided by <b>anticipation</b> of imminent outcomes.",
-    "Empathy": "The <b>feeling</b> ability understand and connect with others’ perspectives and lived experience, guided by <b>reflection</b> on recent cues.",
-    "Discernment": "The <b>sensory</b> ability to apply critical judgment to relevant details and verify assumptions against reality, guided by <b>reflection</b> on recent cues.",
+    "Empathy": "The <b>feeling</b> ability understand and connect with others’ perspectives and lived experience, guided by <b>reflection</b> on recent signals.",
+    "Discernment": "The <b>sensory</b> ability to apply critical judgment to relevant details and verify assumptions against reality, guided by <b>reflection</b> on recent signals.",
     "Objectivity": "The <b>thinking</b> ability to process information rationally and without bias to achieve fact-based insights, guided by <b>awareness</b> of the current situation.",
     "Tenacity": "The <b>feeling</b> ability to commit persistent and determined effort to overcome obstacles, guided by <b>awareness</b> of the current situation.",
     "Courage": "The <b>intuitive</b> ability to decide on and take purposeful action despite fear or uncertainty. guided by <b>anticipation</b> of imminent outcomes.",
     "Confidence": "The <b>intuitive</b> ability to project trust in capabilities with self-assurance and assertiveness, guided by <b>awareness</b> of the current situation.",
     "Prudence": "The <b>feeling</b> ability to exercise caution, apply restraint, and act with discretion, guided by <b>anticipation</b> of imminent outcomes.",
-    "Foresight": "The <b>intuitive</b> ability to project future trends and opportunities within a longer-term vision, guided by <b>reflection</b> on recent cues.",
+    "Foresight": "The <b>intuitive</b> ability to project future trends and opportunities within a longer-term vision, guided by <b>reflection</b> on recent signals.",
     "Practicality": "The <b>sensory</b> ability to take common-sense actions that reliably and effectively address real-world needs, guided by <b>awareness</b> of the current situation.",
-    "Curiosity": "The <b>thinking</b> ability to explore and learn new information, guided by <b>reflection</b> on recent cues.",
+    "Curiosity": "The <b>thinking</b> ability to explore and learn new information, guided by <b>reflection</b> on recent signals.",
     "Discipline": "The <b>sensory</b> ability to apply self-regulation in executing plans with composure and consistency, guided by <b>anticipation</b> of imminent outcomes.",
 }
 

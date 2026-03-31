@@ -2002,7 +2002,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             survey_id = survey.get("id")
             user_email = survey.get("user_email", "unknown")
 
-            # Check essential fields
+            # Skip surveys with missing essential fields
             required_fields = ["ordered_traits", "ranks", "distribution_data"]
             if not all(field in survey and survey[field] for field in required_fields):
                 skipped_surveys.append({
@@ -2015,7 +2015,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
             try:
                 # Prepare PDF output stream
-                pdf_stream = io.BytesIO()
+                pdf_buffer = io.BytesIO()
 
                 # Call your existing PDF generator
                 generate_team_pdf(
@@ -2030,7 +2030,9 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     logo_path=survey.get("logo_path", LOGO_PATH)
                 )
 
-                # TODO: save pdf_stream somewhere or email PDF
+                pdf_bytes = pdf_buffer.getvalue()
+
+                # Save pdf_stream somewhere or email PDF
                 results_summary.append({"survey_id": survey_id, "status": "success"})
                 logger.info(f"Survey {survey_id} retried successfully for {user_email}.")
 
@@ -2041,15 +2043,20 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
 
-        # --- Return combined results ---
-        return {
-            "success": all(r["status"] == "success" for r in results_summary),
-            "results": results_summary,
-            "skipped": skipped_surveys
-        }
-                      
-                pdf_bytes = pdf_buffer.getvalue()
-        
+        overall_success = all(r["status"] == "success" for r in results_summary)        
+        return GenerateTeamPDFResponse(
+            success=overall_success,
+            results=results_summary,
+            skipped=skipped_surveys
+        )
+
+    except HTTPException as http_exc:
+        raise http_exc
+
+    except Exception as e:
+        logger.error("Unexpected error in generate_team_pdf_endpoint:\n" + traceback.format_exc())
+        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")            
+       
                 # Treat empty PDF as failure
                 if not pdf_bytes:
                     raise ValueError("Empty PDF buffer generated")

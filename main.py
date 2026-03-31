@@ -1991,9 +1991,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         # Guard clause
         if not request.individual_results:
           raise HTTPException(status_code=400, detail="No individual results provided")
-
-
-
       
 results_summary = []
 
@@ -2042,8 +2039,6 @@ return {
     "success": all(r["status"] == "success" for r in results_summary),
     "results": results_summary
 }
-
-
       
         # Treat empty PDF as a real failure
         if not pdf_bytes:

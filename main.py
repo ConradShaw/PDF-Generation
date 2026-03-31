@@ -2041,18 +2041,18 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             "results": results_summary
         }
           
-            # Treat empty PDF as a real failure
-            if not pdf_bytes:
-              raise ValueError("Empty PDF buffer generated")
-    
-            # Encode PDF to base64
-            pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
-    
-            return GenerateTeamPDFResponse(
-              success=True,
-              pdf_base64=pdf_base64,
-              filename=pdf_filename or "team_report.pdf"
-            )
+        # Treat empty PDF as a real failure
+        if not pdf_bytes:
+          raise ValueError("Empty PDF buffer generated")
+
+        # Encode PDF to base64
+        pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
+
+        return GenerateTeamPDFResponse(
+          success=True,
+          pdf_base64=pdf_base64,
+          filename=pdf_filename or "team_report.pdf"
+        )
       
     except HTTPException as http_exc:
         raise http_exc

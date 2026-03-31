@@ -5,16 +5,16 @@ import json
 # ----------------------------
 # 1. Database connection info
 # ----------------------------
-DB_HOST = db.zsuzncnguhtvevivbxrn.supabase.co
-DB_PORT = 5432
-DB_NAME = postgres
-DB_USER = postgres
-DB_PASSWORD = daiG12tuoNwY9IO4
+DB_HOST = "db.zsuzncnguhtvevivbxrn.supabase.co"
+DB_PORT = "5432"
+DB_NAME = "postgres"
+DB_USER = "postgres"
+DB_PASSWORD = "daiG12tuoNwY9IO4"
 
 # ----------------------------
 # 2. Your endpoint URL
 # ----------------------------
-PDF_ENDPOINT = https://www.shawsight.com/hr/performance-ratings
+PDF_ENDPOINT = "https://www.shawsight.com/hr/performance-ratings"
 
 # ----------------------------
 # 3. Team info

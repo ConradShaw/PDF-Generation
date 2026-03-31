@@ -1716,7 +1716,7 @@ def generate_team_pdf(
         ),
         "Discipline": (
             "<b>Rigidity</b> – inflexible adherence to established methods reduces responsiveness to change",
-            "<b>Leverage Objectivity</b> - to assess options using fact-based analysis to achieve optimal outcomes",
+            "<b>Leverage Objectivity</b> - to assess options using fact-based insights and determine the best course of action",
         ),
         "Empathy": (
             "<b>Enmeshment</b> – over-identification with others’ emotions blurs boundaries, undermining judgment",
@@ -1812,9 +1812,13 @@ def generate_team_pdf(
         <br/>
         This chart highlights key change risk areas and the corresponding mitigation levers. It shows how overall team strengths can translate, under pressure, into change-resistant behaviours—while also providing reframing guidance to mitigate these risks.<br/>	
         <br/>
-        The chart maps the team’s 12 identically ranked <b>SSM™ Strengths</b> (from the previous chart) to the 12 corresponding <b> Change-Resistant Behaviour Risks</b> that may emerge under change pressure. Alongside each risk are <b> Targeted Reframing Actions</b> designed to most effectively alleviate them by offering a fresh perspective that leverages the balancing SSM™ Strength—whether applied by an individual to their own behaviour or introduced by a leader or change practitioner.<br/>
+        The chart maps the team’s 12 identically ranked <b>SSM™ Strengths</b> (from the previous chart) to the 12 corresponding <b> Change-Resistant Behaviour Risks</b> that may emerge under change pressure.<br/>
         <br/>
-        Team-level ranks reveal clusters of <b>Change-Resistant Behaviour Risks</b> that arise when corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations. The associated <b>Targeted Reframing Actions</b> indicate how these collective risks can be most effectively addressed through reframing conversations during change initiative discussions.
+        Alongside each risk are <b> Targeted Reframing Actions</b> designed to most effectively alleviate them by offering a fresh perspective that leverages the balancing SSM™ Strength—whether applied by an individual to their own behaviour or introduced by a leader or change practitioner.<br/>
+        <br/>
+        Team-level ranks reveal clusters of <b>Change-Resistant Behaviour Risks</b> that arise when corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations.<br/>
+        <br/>
+        The associated <b>Targeted Reframing Actions</b> indicate how these collective risks can be most effectively addressed through reframing conversations during change initiative discussions.
         <br/>
         """,
         style=body_compact_style

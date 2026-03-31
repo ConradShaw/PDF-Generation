@@ -9,7 +9,7 @@ DB_HOST = db.zsuzncnguhtvevivbxrn.supabase.co
 DB_PORT = 5432
 DB_NAME = postgres
 DB_USER = postgres
-DB_PASSWORD = "YOUR_DB_PASSWORD"
+DB_PASSWORD = daiG12tuoNwY9IO4
 
 # ----------------------------
 # 2. Your endpoint URL

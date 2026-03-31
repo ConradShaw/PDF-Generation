@@ -2028,12 +2028,12 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         
                 results_summary.append({"survey_id": survey_id, "status": "success"})
         
-    except Exception as e:
-        logger.error(
-            f"PDF generation failed for survey_id={survey_id}, user_email={user_email}: {str(e)}\n"
-            f"{traceback.format_exc()}"
-        )
-        results_summary.append({"survey_id": survey_id, "status": "failed"})
+            except Exception as e:
+                logger.error(
+                    f"PDF generation failed for survey_id={survey_id}, user_email={user_email}: {str(e)}\n"
+                    f"{traceback.format_exc()}"
+                )
+                results_summary.append({"survey_id": survey_id, "status": "failed"})
     
     # Return summary for all surveys
     return {

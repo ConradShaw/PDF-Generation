@@ -1992,29 +1992,63 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         if not request.individual_results:
             raise HTTPException(status_code=400, detail="No individual results provided")
       
+
+        # --- Safe retry loop for failed/incomplete surveys ---
         results_summary = []
-    
+        skipped_surveys = []
+
         for survey in request.individual_results:
-            survey_id = survey.get("id", "unknown")
+            survey_id = survey.get("id")
             user_email = survey.get("user_email", "unknown")
-          
+
+            # Check essential fields
+            required_fields = ["ordered_traits", "ranks", "distribution_data"]
+            if not all(field in survey and survey[field] for field in required_fields):
+                skipped_surveys.append({
+                    "survey_id": survey_id,
+                    "user_email": user_email,
+                    "reason": "Incomplete data"
+                })
+                logger.warning(f"Skipping survey {survey_id} for {user_email}: incomplete data.")
+                continue
+
             try:
-                # Calculate rankings for this survey individually if needed
-                ordered_traits, ranks, distribution_data = calculate_team_rankings([survey])
-                
-                # Generate PDF to memory
-                pdf_buffer = io.BytesIO()        
-                pdf_filename = generate_team_pdf(
+                # Prepare PDF output stream
+                pdf_stream = io.BytesIO()
+
+                # Call your existing PDF generator
+                generate_team_pdf(
                     company_name=request.company_name,
                     team_name=request.team_name,
                     num_members=request.num_members,
                     date_str=request.date_str,
-                    ordered_traits=ordered_traits,
-                    ranks=ranks,
-                    distribution_data=distribution_data,
-                    output_stream=pdf_buffer,
+                    ordered_traits=survey["ordered_traits"],
+                    ranks=survey["ranks"],
+                    distribution_data=survey["distribution_data"],
+                    output_stream=pdf_stream,
                     logo_path=survey.get("logo_path", LOGO_PATH)
                 )
+
+                # TODO: save pdf_stream somewhere or email PDF
+                results_summary.append({"survey_id": survey_id, "status": "success"})
+                logger.info(f"Survey {survey_id} retried successfully for {user_email}.")
+
+            except Exception as e:
+                logger.error(
+                    f"PDF generation failed for survey {survey_id}, user_email={user_email}: {str(e)}\n"
+                    f"{traceback.format_exc()}"
+                )
+                results_summary.append({"survey_id": survey_id, "status": "failed"})
+
+        # --- Return combined results ---
+        return {
+            "success": all(r["status"] == "success" for r in results_summary),
+            "results": results_summary,
+            "skipped": skipped_surveys
+        }
+
+
+          
                 
                 pdf_bytes = pdf_buffer.getvalue()
         

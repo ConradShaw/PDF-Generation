@@ -2169,6 +2169,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
               
                 # Generate team summary PDF for HR ---
+                overall_success = all(r["status"] == "success" for r in results_summary)
                 team_pdf_buffer = io.BytesIO()
                 
                 generate_team_summary_pdf(

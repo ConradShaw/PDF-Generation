@@ -39,6 +39,9 @@ import tempfile
 import itertools
 import re
 import traceback
+from supabase import create_client, Client
+import smtplib
+from email.message import EmailMessage
 from datetime import datetime
 from statistics import mean
 from typing import Optional, Tuple, Dict, List, Any
@@ -68,6 +71,39 @@ from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPa
 # Set-up PDF file error logs
 import logging
 logging.basicConfig(level=logging.INFO)  # or DEBUG for more details
+
+# ----------------------------
+# Supabase setup
+# ----------------------------
+SUPABASE_URL = os.environ.get("VITE_PUBLIC_SUPABASE_URL") or "https://zsuzncnguhtvevivbxrn.supabase.co"
+SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+# ----------------------------
+# Email setup (SMTP)
+# ----------------------------
+SMTP_HOST = "smtp.yourdomain.com"
+SMTP_PORT = 587
+SMTP_USER = "noreply@yourdomain.com"
+SMTP_PASS = os.environ.get("SMTP_PASSWORD")  # secure your password
+
+def send_pdf_email(to_email: str, pdf_bytes: bytes, filename: str):
+    msg = EmailMessage()
+    msg["Subject"] = f"Your ShawSight PDF Report - {filename}"
+    msg["From"] = SMTP_USER
+    msg["To"] = to_email
+    msg.set_content("Please find your regenerated PDF report attached.")
+    msg.add_attachment(pdf_bytes, maintype="application", subtype="pdf", filename=filename)
+
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+        server.starttls()
+        server.login(SMTP_USER, SMTP_PASS)
+        server.send_message(msg)
+
+def upload_pdf_to_supabase(pdf_bytes: bytes, filename: str, folder: str = "reports"):
+    path = f"{folder}/{filename}"
+    result = supabase.storage.from_("pdf_reports").upload(path, pdf_bytes, {"content-type": "application/pdf"})
+    return result
 
 # ---------------------------
 # CONFIG
@@ -2016,6 +2052,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             try:
                 # Prepare PDF output stream
                 pdf_buffer = io.BytesIO()
+                pdf_filename = f"team_report_{survey_id}.pdf"
 
                 # Call your existing PDF generator
                 generate_team_pdf(
@@ -2031,8 +2068,15 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 )
 
                 pdf_bytes = pdf_buffer.getvalue()
+                if not pdf_bytes:
+                    raise ValueError("Empty PDF buffer generated")
 
-                # Save pdf_stream somewhere or email PDF
+                # Upload to Supabase storage
+                upload_pdf_to_supabase(pdf_bytes, pdf_filename)
+
+                # Send email to user
+                send_pdf_email(user_email, pdf_bytes, pdf_filename
+
                 results_summary.append({"survey_id": survey_id, "status": "success"})
                 logger.info(f"Survey {survey_id} retried successfully for {user_email}.")
 

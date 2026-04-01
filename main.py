@@ -76,8 +76,7 @@ logging.basicConfig(level=logging.INFO)  # or DEBUG for more details
 # Supabase setup
 # ----------------------------
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-
+SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 if not SUPABASE_URL or not SUPABASE_KEY:
     raise ValueError("SUPABASE_URL and SUPABASE_KEY must be set in environment variables")
 

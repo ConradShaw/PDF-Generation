@@ -2164,9 +2164,11 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         generate_team_pdf(
             company_name=request.company_name,
             team_name=request.team_name,
-            num_members=request.num_members,
+            num_members=len(request.individual_results),
             date_str=request.date_str,
-            all_results=request.individual_results,
+            ordered_traits=team_ordered_traits,
+            ranks=team_ranks,
+            distribution_data=team_distribution,
             output_stream=team_pdf_buffer
         )
         

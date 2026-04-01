@@ -1922,14 +1922,13 @@ def generate_team_pdf(
         <br/>
         The chart maps the team’s 12 identically ranked <b>SSM™ Strengths</b> (from the previous chart) to the 12 corresponding <b>Change-Resistant Behaviours</b> that may emerge under change pressure.<br/>
         <br/>
-        Note that not all change-resistant behaviour indicates risk. A degree of resistance is a natural human response and is only considered a risk when it is persistent, widespread, and does not diminish following targeted change interventions.<br/>
+        Note that not all change-resistant behaviour indicates risk. A degree of resistance is a natural human response as people go through the cycle of change at their own pace. Change resistance only becomes a risk when it persistently repeats, is widely shared and does not diminish following targeted change interventions.<br/>
         <br/>
-        Alongside each behaviour are the <b>Reframing Interventions</b> found to most effectively alleviate them. These reframings offer a fresh perspective and leverage a balancing SSM™ Strength. They may be applied by individuals to their own behaviour or introduced by a leader or change practitioner.<br/>
+        Alongside each behaviour are the <b>Reframing Interventions</b> found to most effectively alleviate them. These reframings offer a fresh perspective and leverage a balancing SSM™ Strength. They may be applied by individuals to their own behaviour or introduced by a change practitioner or leader.<br/>
         <br/>
         The team's average <b>Signatory Strengths</b> reveal clusters of <b>Change-Resistant Behaviour</b> that are most likely to arise when the corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations.<br/>
         <br/>       
-        The associated <b>Reframing Interventions</b> linked to these top three change-resistant behaviours therefore indicate the likely most necessary reframing conversations to address potential behavioural risks during change initiative discussions.
-        <br/>        
+        The associated <b>Reframing Interventions</b> linked to these top three change-resistant behaviours therefore indicate the likely most necessary reframing conversations to address potential behavioural risks during change initiative discussions. A change practitioner or leader should only apply such interventions if they note that there has been insufficient progress in change alignment over time.<br/>
         """,
         style=body_compact_style
     ))

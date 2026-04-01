@@ -2161,7 +2161,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         overall_success = all(r["status"] == "success" for r in results_summary)
         team_pdf_buffer = io.BytesIO()
         
-        generate_team_summary_pdf(
+        generate_team_pdf(
             company_name=request.company_name,
             team_name=request.team_name,
             num_members=request.num_members,

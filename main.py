@@ -124,26 +124,7 @@ if __name__ == "__main__":
         if 'cursor' in locals():
             cursor.close()
         if 'conn' in locals():
-            conn.close()
-              
-    """
-    Returns a psycopg2 connection using literal values.
-    Logs and raises errors if connection fails.
-    """
-    try:
-        conn = psycopg2.connect(
-            host="db.zsuzncnguhtvevivbxrn.supabase.co",
-            port=5432,
-            dbname="postgres",
-            user="postgres",
-            password="daiG12tuoNwY9IO4",
-            connect_timeout=10
-        )
-        print("[INFO] Database connection established.")
-        return conn
-    except OperationalError as e:
-        print(f"[ERROR] Database connection failed: {e}")
-        raise
+            conn.close()              
 
 # ------------------------------
 # Error logs

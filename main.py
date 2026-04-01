@@ -2192,28 +2192,28 @@ async def generate_pdf_file(file: UploadFile = File(...)):
     
     Returns: PDF file download
     """
-        if not file.filename:
-            raise HTTPException(status_code=400, detail="No file selected")
-        
-        if not file.filename.endswith('.xlsx'):
-            raise HTTPException(status_code=400, detail="File must be an Excel file (.xlsx)")
-        
-        # Read file bytes
-        excel_bytes = await file.read()
-        
-        # Process and generate PDF
-        pdf_bytes, pdf_filename = process_excel_to_pdf(excel_bytes, file.filename)
-        
-        # Return PDF file
-        return Response(
-            content=pdf_bytes,
-            media_type='application/pdf',
-            headers={
-                'Content-Disposition': f'attachment; filename="{pdf_filename}"'
-            }
-        )        
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No file selected")
+    
+    if not file.filename.endswith('.xlsx'):
+        raise HTTPException(status_code=400, detail="File must be an Excel file (.xlsx)")
+    
+    # Read file bytes
+    excel_bytes = await file.read()
+    
+    # Process and generate PDF
+    pdf_bytes, pdf_filename = process_excel_to_pdf(excel_bytes, file.filename)
+    
+    # Return PDF file
+    return Response(
+        content=pdf_bytes,
+        media_type='application/pdf',
+        headers={
+            'Content-Disposition': f'attachment; filename="{pdf_filename}"'
+        }
+    )        
 
-if __name__ == '__main__':
-    import uvicorn
-    port = int(os.environ.get('PORT', 8080))
-    uvicorn.run(app, host='127.0.0.1', port=port)
+    if __name__ == '__main__':
+        import uvicorn
+        port = int(os.environ.get('PORT', 8080))
+        uvicorn.run(app, host='127.0.0.1', port=port)

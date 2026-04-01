@@ -2057,8 +2057,7 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Invalid base64 encoding: {str(e)}")
         
-        # Process Excel and generate PDF
-    try:
+        # Process Excel and generate PDF 
         pdf_bytes, pdf_filename = process_excel_to_pdf(excel_bytes, request.filename)
     
         # Fail early if generator returns nothing

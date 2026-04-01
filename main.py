@@ -2124,8 +2124,11 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             survey_id = survey.get("id")
             user_email = survey.get("user_email", "unknown")
 
+            # DEBUG: inspect incoming survey structure
+            print(f"[PDF DEBUG] Survey keys: {list(survey.keys())}")
+
             # Skip surveys with missing essential fields
-            required_fields = ["ordered_traits", "ranks", "distribution_data"]
+            required_fields = ["ordered_traits", "ranks"]
             if not all(field in survey and survey[field] for field in required_fields):
                 skipped_surveys.append({
                     "survey_id": survey_id,
@@ -2149,7 +2152,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     ordered_traits=survey["ordered_traits"],
                     ranks=survey["ranks"],
                     distribution_data=survey["distribution_data"],
-                    output_stream=pdf_stream,
+                    output_stream=pdf_buffer,
                     logo_path=survey.get("logo_path", LOGO_PATH)
                 )
 

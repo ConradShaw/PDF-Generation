@@ -40,6 +40,12 @@ import itertools
 import re
 import traceback
 from supabase import create_client, Client
+
+import requests
+import psycopg2
+import json
+from psycopg2 import OperationalError
+
 import smtplib
 from email.message import EmailMessage
 from datetime import datetime
@@ -68,6 +74,95 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel  
 
+# ------------------------------
+# Secure Database Connection Helper
+# ------------------------------
+def get_db_connection():
+    """
+    Returns a psycopg2 connection using environment variables.
+    Expects the following environment variables to be set:
+      - DB_HOST
+      - DB_PORT (optional, defaults to 5432)
+      - DB_NAME
+      - DB_USER
+      - DB_PASSWORD
+    Raises ValueError if any required environment variable is missing.
+    Logs and raises OperationalError if connection fails.
+    """
+    required_vars = ["DB_HOST", "DB_NAME", "DB_USER", "DB_PASSWORD"]
+    missing_vars = [var for var in required_vars if not os.environ.get(var)]
+    if missing_vars:
+        raise ValueError(f"Missing required environment variables: {', '.join(missing_vars)}")
+
+    try:
+        conn = psycopg2.connect(
+            host=os.environ["DB_HOST"],
+            port=int(os.environ.get("DB_PORT", 5432)),
+            dbname=os.environ["DB_NAME"],
+            user=os.environ["DB_USER"],
+            password=os.environ["DB_PASSWORD"],
+            connect_timeout=10
+        )
+        print("[INFO] Database connection established.")
+        return conn
+    except OperationalError as e:
+        print(f"[ERROR] Database connection failed: {e}")
+        raise
+
+# ----------------------------
+# Usage Example
+# ----------------------------
+if __name__ == "__main__":
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT 1;")
+        print("[INFO] Test query result:", cursor.fetchone())
+    except Exception as e:
+        print(f"[ERROR] Could not run test query: {e}")
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
+        if 'conn' in locals():
+            conn.close()def get_db_connection():
+    """
+    Returns a psycopg2 connection using literal values.
+    Logs and raises errors if connection fails.
+    """
+    try:
+        conn = psycopg2.connect(
+            host="db.zsuzncnguhtvevivbxrn.supabase.co",
+            port=5432,
+            dbname="postgres",
+            user="postgres",
+            password="daiG12tuoNwY9IO4",
+            connect_timeout=10
+        )
+        print("[INFO] Database connection established.")
+        return conn
+    except OperationalError as e:
+        print(f"[ERROR] Database connection failed: {e}")
+        raise
+
+# ----------------------------
+# Usage example
+# ----------------------------
+try:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT 1;")
+    print(cursor.fetchone())
+except Exception as e:
+    print(f"[ERROR] Could not run query: {e}")
+finally:
+    if 'cursor' in locals():
+        cursor.close()
+    if 'conn' in locals():
+        conn.close()
+
+# ------------------------------
+# Error logs
+# ------------------------------
 # Set-up PDF file error logs
 import logging
 logging.basicConfig(level=logging.INFO)  # or DEBUG for more details

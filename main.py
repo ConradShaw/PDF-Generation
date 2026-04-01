@@ -2167,11 +2167,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     f"{traceback.format_exc()}"
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
-
-
-
-
-
               
                 # Generate team summary PDF for HR ---
                 team_pdf_buffer = io.BytesIO()
@@ -2200,11 +2195,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     pdf_base64=team_pdf_base64,
                     filename="team_summary.pdf"
                 )
-
-
-
-
-
   
     except HTTPException as http_exc:
         raise http_exc

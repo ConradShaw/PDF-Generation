@@ -1808,51 +1808,51 @@ def generate_team_pdf(
     SSM_RISK_REFRAME = {
         "Confidence": (
             "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
-            "<b>Leverage Discernment</b> - to apply critical judgment and verify assumptions against reality",
+            "<b>Discernment</b> - to apply critical judgment and verify assumptions against reality",
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action with insufficient evaluation creates avoidable risks",
-            "<b>Leverage Practicality</b> - to focus on common-sense, effective actions that deliver measurable benefit",
+            "<b>Practicality</b> - to focus on common-sense, effective actions that deliver measurable benefit",
         ),
         "Curiosity": (
             "<b>Scatteredness</b> – diffused focus on numerous priorities weakens execution and follow-through",
-            "<b>Leverage Prudence</b> - to exercise caution, constrain scope, and mitigate risk",
+            "<b>Prudence</b> - to exercise caution, constrain scope, and mitigate risk",
         ),
         "Discernment": (
             "<b>Hypercriticality</b> – excessive focus on flaws reduces perspective and undermines balanced judgment",
-            "<b>Leverage Fairness</b> - to restore proportionality, context, and balanced perspective",
+            "<b>Fairness</b> - to restore proportionality, context, and balanced perspective",
         ),
         "Discipline": (
             "<b>Rigidity</b> – inflexible adherence to established methods reduces responsiveness to change",
-            "<b>Leverage Objectivity</b> - to assess options using fact-based insights and determine the best course of action",
+            "<b>Objectivity</b> - to assess options using fact-based insights and determine the best course of action",
         ),
         "Empathy": (
             "<b>Enmeshment</b> – over-identification with others’ emotions blurs boundaries, undermining judgment",
-            "<b>Leverage Courage</b> - to maintain clear boundaries and act decisively even in the face of discomfort",
+            "<b>Courage</b> - to maintain clear boundaries and act decisively even in the face of discomfort",
         ),
         "Fairness": (
             "<b>Indecisiveness</b> – over-weighting perspectives delays decisions and risks lack of closure",
-            "<b>Leverage Tenacity</b> - to drive clear, time-bound commitments and enforce follow-through",
+            "<b>Tenacity</b> - to drive clear, time-bound commitments and enforce follow-through",
         ),
         "Foresight": (
             "<b>Idealisation</b> – overly optimistic vision lacks grounding in execution and constraints",
-            "<b>Leverage Discipline</b> - to convert vision into structured, resource-backed plans",
+            "<b>Discipline</b> - to convert vision into structured, resource-backed plans",
         ),
         "Objectivity": (
             "<b>Disconnection</b> – over-reliance on logic weakens emotional engagement and reduces buy-in",
-            "<b>Leverage Empathy</b> - to connect with others’ lived experience and foster engagement",
+            "<b>Empathy</b> - to connect with others’ lived experience and foster engagement",
         ),
         "Practicality": (
             "<b>Stubbornness</b> – over-reliance on familiar solutions and reluctance to consider alternatives",
-            "<b>Leverage Curiosity</b> - to explore alternative solutions and incorporate new information to improve outcomes",
+            "<b>Curiosity</b> - to explore alternative solutions and incorporate new information to improve outcomes",
         ),
         "Prudence": (
             "<b>Avoidance</b> – over-weighting risk delays action and stalls progress",
-            "<b>Leverage Confidence</b> - to recalibrate risk perceptions and project trust in capabilities with self-assurance",
+            "<b>Confidence</b> - to recalibrate risk perceptions and project trust in capabilities with self-assurance",
         ),
         "Tenacity": (
             "<b>Obsession</b> – narrow goal fixation limits perspective and risks misaligned effort",
-            "<b>Leverage Foresight</b> - to refocus on longer-term vision and ensure strategic alignment of current efforts",
+            "<b>Foresight</b> - to refocus on longer-term vision and ensure strategic alignment of current efforts",
         ),
     }
     
@@ -1874,8 +1874,8 @@ def generate_team_pdf(
     
     # 1. Header row (override last two column titles)
     header_row = results_table_data[0] + [
-        Paragraph("<b>Change-Resistance Risks</b>", style=cell_center_style),
-        Paragraph("<b>Targeted Reframe (SSM™)</b>", style=cell_center_style),
+        Paragraph("<b>Change-Resistance Behaviours</b>", style=cell_center_style),
+        Paragraph("<b>Reframing Intervention (SSM™)</b>", style=cell_center_style),
     ]
     table_data.append(header_row)
     
@@ -1898,8 +1898,8 @@ def generate_team_pdf(
         0.45 * inch,   # Col 1 (narrow label/index)
         1.05 * inch,   # Col 2
         1.05 * inch,   # Col 3
-        2.21 * inch,    # Col 4 (Change-Resistance Risks)
-        2.21 * inch,    # Col 5 (Targeted Reframe)
+        2.21 * inch,    # Col 4 (Change-Resistant Behaviours)
+        2.21 * inch,    # Col 5 (Reframing Interventions)
     ]
     
     story.append(Table(
@@ -1918,16 +1918,18 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart highlights key change risk areas and the corresponding mitigation levers. It shows how overall team strengths can translate, under pressure, into change-resistant behaviours—while also providing reframing guidance to mitigate these risks.<br/>	
+        This chart highlights key change-resistant behaviours and the corresponding levers to reframe and mitigate them. It shows how overall team strengths can translate, under pressure, into change-resistant behaviours—while also providing reframing guidance to mitigate these potential risks.<br/>
         <br/>
-        The chart maps the team’s 12 identically ranked <b>SSM™ Strengths</b> (from the previous chart) to the 12 corresponding <b> Change-Resistant Behaviour Risks</b> that may emerge under change pressure.<br/>
+        The chart maps the team’s 12 identically ranked <b>SSM™ Strengths</b> (from the previous chart) to the 12 corresponding <b>Change-Resistant Behaviours</b> that may emerge under change pressure.<br/>
         <br/>
-        Alongside each risk are <b> Targeted Reframing Actions</b> designed to most effectively alleviate them by offering a fresh perspective that leverages the balancing SSM™ Strength—whether applied by an individual to their own behaviour or introduced by a leader or change practitioner.<br/>
+        Note that not all change-resistant behaviour indicates risk. A degree of resistance is a natural human response and is only considered a risk when it is persistent, widespread, and does not diminish following targeted change interventions.<br/>
         <br/>
-        Team-level ranks reveal clusters of <b>Change-Resistant Behaviour Risks</b> that arise when corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations.<br/>
+        Alongside each behaviour are the <b>Reframing Interventions</b> found to most effectively alleviate them. These reframings offer a fresh perspective and leverage a balancing SSM™ Strength. They may be applied by individuals to their own behaviour or introduced by a leader or change practitioner.<br/>
         <br/>
-        The associated <b>Targeted Reframing Actions</b> indicate how these collective risks can be most effectively addressed through reframing conversations during change initiative discussions.
-        <br/>
+        The team's average <b>Signatory Strengths</b> reveal clusters of <b>Change-Resistant Behaviour</b> that are most likely to arise when the corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations.<br/>
+        <br/>       
+        The associated <b>Reframing Interventions</b> linked to these top three change-resistant behaviours therefore indicate the likely most necessary reframing conversations to address potential behavioural risks during change initiative discussions.
+        <br/>        
         """,
         style=body_compact_style
     ))

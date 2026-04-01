@@ -2168,34 +2168,34 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
               
-                # Generate team summary PDF for HR ---
-                overall_success = all(r["status"] == "success" for r in results_summary)
-                team_pdf_buffer = io.BytesIO()
-                
-                generate_team_summary_pdf(
-                    company_name=request.company_name,
-                    team_name=request.team_name,
-                    num_members=request.num_members,
-                    date_str=request.date_str,
-                    all_results=request.individual_results,
-                    output_stream=team_pdf_buffer
-                )
-                
-                team_pdf_bytes = team_pdf_buffer.getvalue()
-                if not team_pdf_bytes:
-                    raise ValueError("Team summary PDF generation failed")
-                
-                # Encode to base64 ---
-                team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
-                
-                # Return with summary PDF ---
-                return GenerateTeamPDFResponse(
-                    success=overall_success,
-                    results=results_summary,
-                    skipped=skipped_surveys,
-                    pdf_base64=team_pdf_base64,
-                    filename="team_summary.pdf"
-                )
+        # Generate team summary PDF for HR ---
+        overall_success = all(r["status"] == "success" for r in results_summary)
+        team_pdf_buffer = io.BytesIO()
+        
+        generate_team_summary_pdf(
+            company_name=request.company_name,
+            team_name=request.team_name,
+            num_members=request.num_members,
+            date_str=request.date_str,
+            all_results=request.individual_results,
+            output_stream=team_pdf_buffer
+        )
+        
+        team_pdf_bytes = team_pdf_buffer.getvalue()
+        if not team_pdf_bytes:
+            raise ValueError("Team summary PDF generation failed")
+        
+        # Encode to base64 ---
+        team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
+        
+        # Return with summary PDF ---
+        return GenerateTeamPDFResponse(
+            success=overall_success,
+            results=results_summary,
+            skipped=skipped_surveys,
+            pdf_base64=team_pdf_base64,
+            filename="team_summary.pdf"
+        )
   
     except HTTPException as http_exc:
         raise http_exc

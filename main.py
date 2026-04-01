@@ -538,7 +538,7 @@ def parse_survey_flexible(xls_path: str, traits_set=None) -> Dict[str, Dict[str,
             return None, None
         return m.group(1).strip().title(), m.group(2).strip().title()
 
-    def row_has_X_anywhere(row) -> :
+    def row_has_X_anywhere(row):
         for v in row.values:
             s = str(v).strip().upper()
             if s == "X":

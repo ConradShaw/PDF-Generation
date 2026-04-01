@@ -2056,8 +2056,8 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     "user_email": user_email,
                     "reason": "Incomplete data"
                 })
-                logger.warning(f"Skipping survey {survey_id} for {user_email}: incomplete data.")
-                continue
+                logger.warning(f"Skipping survey {survey_id if survey else 'None'} for {user_email}: incomplete data.")
+                continue             
 
             try:
                 # Prepare PDF output stream

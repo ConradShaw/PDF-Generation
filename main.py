@@ -1971,6 +1971,8 @@ async def health_check():
 
 logger = logging.getLogger("pdf_logger")
 
+# Suppose skipped_surveys holds the failed surveys
+survey_ids = [s["survey_id"] for s in skipped_surveys if "survey_id" in s]
 print("Retrying surveys:", survey_ids)
 
 @app.post("/generate-pdf-base64", response_model=GeneratePDFResponse)

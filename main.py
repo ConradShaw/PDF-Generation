@@ -2063,17 +2063,8 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
     
         # Fail early if generator returns nothing
         if not pdf_bytes or len(pdf_bytes) == 0:
-            raise ValueError("PDF generator returned empty bytes")
+            raise ValueError("PDF generator returned empty bytes") 
       
-        # Encode PDF to base64
-        pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
-        
-        return GeneratePDFResponse(
-            success=True,
-            pdf_base64=pdf_base64,
-            filename=pdf_filename
-        )
-        
     except HTTPException:
         raise
     except Exception as e:
@@ -2188,46 +2179,8 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
     except Exception as e:
         logger.error("Unexpected error in generate_team_pdf_endpoint:\n" + traceback.format_exc())
-        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")     
-       
-    except Exception as e:
-        logger.error(
-            f"PDF generation failed for survey_id={survey_id}, user_email={user_email}: {str(e)}\n"
-            f"{traceback.format_exc()}"
-        )
-        results_summary.append({"survey_id": survey_id, "status": "failed"})
-    
-        # Return summary for all surveys
-        return {
-            "success": all(r["status"] == "success" for r in results_summary),
-            "results": results_summary
-        }
-          
-        # Treat empty PDF as a real failure
-        if not pdf_bytes:
-          raise ValueError("Empty PDF buffer generated")
-
-        # Encode PDF to base64
-        pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
-
-        return GenerateTeamPDFResponse(
-          success=True,
-          pdf_base64=pdf_base64,
-          filename=pdf_filename or "team_report.pdf"
-        )
-      
-    except HTTPException as http_exc:
-        raise http_exc
-      
-    except Exception as e:
-        print("[TEAM PDF ERROR]")
-        traceback.print_exc()
-
-        raise HTTPException(
-          status_code=500,
-          detail=f"Failed to generate team PDF: {str(e)}"
-        )
-                           
+        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")            
+                                 
 @app.post("/generate-pdf")
 async def generate_pdf_file(file: UploadFile = File(...)):
     """
@@ -2259,14 +2212,7 @@ async def generate_pdf_file(file: UploadFile = File(...)):
             headers={
                 'Content-Disposition': f'attachment; filename="{pdf_filename}"'
             }
-        )
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
+        )        
 
 if __name__ == '__main__':
     import uvicorn

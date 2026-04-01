@@ -75,8 +75,12 @@ logging.basicConfig(level=logging.INFO)  # or DEBUG for more details
 # ----------------------------
 # Supabase setup
 # ----------------------------
-SUPABASE_URL = os.environ.get("SUPABASE_URL") or "https://zsuzncnguhtvevivbxrn.supabase.co"
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+
+if not SUPABASE_URL or not SUPABASE_KEY:
+    raise ValueError("SUPABASE_URL and SUPABASE_KEY must be set in environment variables")
+
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # ----------------------------

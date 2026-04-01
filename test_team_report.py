@@ -98,6 +98,13 @@ def test_team_pdf_generation(
             headers={"Content-Type": "application/json"},
             timeout=30
         )
+
+        # debug prints
+        print("STATUS CODE:", response.status_code)
+        print("RESPONSE BODY:", response.text)
+
+        # then parse JSON
+        result = response.json()
         
         if response.status_code != 200:
             print(f"❌ Error: HTTP {response.status_code}")

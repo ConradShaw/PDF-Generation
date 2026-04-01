@@ -7,6 +7,9 @@ uvicorn[standard]>=0.27.0
 python-multipart>=0.0.6
 supabase>=2.0.0
 
+# Database
+psycopg2-binary==2.9.9
+
 # Excel processing
 pandas>=2.0.0
 openpyxl>=3.1.0

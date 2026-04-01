@@ -43,7 +43,6 @@ from supabase import create_client, Client
 
 import requests
 import psycopg2
-import json
 from psycopg2 import OperationalError
 
 import smtplib

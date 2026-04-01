@@ -2075,7 +2075,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 upload_pdf_to_supabase(pdf_bytes, pdf_filename)
 
                 # Send email to user
-                send_pdf_email(user_email, pdf_bytes, pdf_filename
+                send_pdf_email(user_email, pdf_bytes, pdf_filename)
 
                 results_summary.append({"survey_id": survey_id, "status": "success"})
                 logger.info(f"Survey {survey_id} retried successfully for {user_email}.")

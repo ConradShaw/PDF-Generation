@@ -71,8 +71,7 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
-from pdf_helpers import generate_team_summary_pdf
-from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel  
+from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
 
 # ------------------------------
 # Secure Database Connection Helper

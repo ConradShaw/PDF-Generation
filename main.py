@@ -136,7 +136,6 @@ logging.basicConfig(level=logging.INFO)  # or DEBUG for more details
 # Set-up Supabase error logs
 print("SUPABASE_URL:", os.environ.get("SUPABASE_URL"))
 print("SUPABASE_KEY:", os.environ.get("SUPABASE_KEY"))
-print("SUPABASE_SERVICE_ROLE_KEY:", os.environ.get("SUPABASE_SERVICE_ROLE_KEY"))
 
 # ----------------------------
 # Supabase setup
@@ -2033,6 +2032,7 @@ async def health_check():
 logger = logging.getLogger("pdf_logger")
 
 # Suppose skipped_surveys holds the failed surveys
+skipped_surveys = []
 survey_ids = [s["survey_id"] for s in skipped_surveys if "survey_id" in s]
 print("Retrying surveys:", survey_ids)
 

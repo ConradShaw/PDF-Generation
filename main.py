@@ -2084,12 +2084,14 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
         # Update DB so we know if this assessment failed
         update_assessment_status(
             assessment_id, status="failed", last_error=str(e)
-
+        )
+        
         # Make sure the API responds as failed  
         return GeneratePDFResponse(
             success=False,
             message=f"PDF generation failed: {str(e)}"
-
+        )
+          
 @app.post("/generate-team-pdf", response_model=GenerateTeamPDFResponse)
 async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     """

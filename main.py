@@ -2128,7 +2128,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 print(f"[PDF DEBUG] Survey keys: {list(survey.keys())}")
 
                 # Optional: skip only if survey ID is missing
-                if not survey_id:
+                if survey_id is None:
                     skipped_surveys.append({
                         "survey_id": None,
                         "user_email": user_email,

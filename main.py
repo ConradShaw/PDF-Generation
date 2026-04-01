@@ -72,6 +72,11 @@ from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPa
 import logging
 logging.basicConfig(level=logging.INFO)  # or DEBUG for more details
 
+# Set-up Supabase error logs
+print("SUPABASE_URL:", os.environ.get("SUPABASE_URL"))
+print("SUPABASE_KEY:", os.environ.get("SUPABASE_KEY"))
+print("SUPABASE_SERVICE_ROLE_KEY:", os.environ.get("SUPABASE_SERVICE_ROLE_KEY"))
+
 # ----------------------------
 # Supabase setup
 # ----------------------------

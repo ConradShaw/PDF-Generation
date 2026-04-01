@@ -538,7 +538,7 @@ def parse_survey_flexible(xls_path: str, traits_set=None) -> Dict[str, Dict[str,
             return None, None
         return m.group(1).strip().title(), m.group(2).strip().title()
 
-    def row_has_X_anywhere(row) -> bool:
+    def row_has_X_anywhere(row) -> :
         for v in row.values:
             s = str(v).strip().upper()
             if s == "X":
@@ -2037,7 +2037,7 @@ skipped_surveys = []
 survey_ids = [s["survey_id"] for s in skipped_surveys if "survey_id" in s]
 print("Retrying surveys:", survey_ids)
 
-@app.post("/generate-pdf-base64", response_model=GeneratePDFResponse)
+@app.post("/generate-pdf-base64", response_model=GenerateTeamPDFResponse)
 async def generate_pdf_base64(request: GeneratePDFRequest):
     """
     Generate PDF from base64-encoded Excel file.

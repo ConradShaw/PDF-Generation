@@ -2,7 +2,7 @@
 # Dockerfile for Railway deployment
 
 # Use Python base image
-FROM 3.11.9-slim-bullseye
+FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app

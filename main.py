@@ -2119,16 +2119,26 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             # DEBUG: inspect incoming survey structure
             print(f"[PDF DEBUG] Survey keys: {list(survey.keys())}")
 
-            # Skip surveys with missing essential fields
-            required_fields = ["ordered_traits", "ranks"]
-            if not all(field in survey and survey[field] for field in required_fields):
-                skipped_surveys.append({
-                    "survey_id": survey_id,
-                    "user_email": user_email,
-                    "reason": "Incomplete data"
+            # Instead of skipping surveys due to missing fields
+            for survey in request.individual_results:
+                survey_id = survey.get("id")
+                user_email = survey.get("user_email", "unknown")
+
+                # DEBUG: inspect incoming survey structure
+                print(f"[PDF DEBUG] Survey keys: {list(survey.keys())}")
+
+                # Optional: skip only if survey ID is missing
+                if not survey_id:
+                    skipped_surveys.append({
+                        "survey_id": None,
+                        "user_email": user_email,
+                        "reason": "Missing survey ID"
                 })
-                logger.warning(f"Skipping survey {survey_id if survey else 'None'} for {user_email}: incomplete data.")
-                continue             
+                logger.warning(f"Skipping survey with missing ID for {user_email}")
+                continue
+
+    # Proceed to generate PDF even if ordered_traits/ranks are not yet calculated
+    # Main algorithm will calculate them inside generate_team_pdf          
 
             try:
                 # Prepare PDF output stream

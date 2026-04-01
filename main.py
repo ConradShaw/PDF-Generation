@@ -1996,11 +1996,12 @@ class GeneratePDFRequest(BaseModel):
     excel_base64: str
     filename: Optional[str] = "assessment.xlsx"
 
-class GeneratePDFResponse(BaseModel):
+class GenerateTeamPDFResponse(BaseModel):
     success: bool
+    results: List[dict]
+    skipped: List[dict]
     pdf_base64: Optional[str] = None
     filename: Optional[str] = None
-    message: Optional[str] = None
 
 class GenerateTeamPDFRequest(BaseModel):
     company_name: str

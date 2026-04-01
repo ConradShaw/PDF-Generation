@@ -2190,16 +2190,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         logger.error("Unexpected error in generate_team_pdf_endpoint:\n" + traceback.format_exc())
         raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")     
        
-        # Treat empty PDF as failure
-        if not pdf_bytes:
-            raise ValueError("Empty PDF buffer generated")
-
-        # TODO: save pdf_bytes or email PDF here
-        # Example: upload_pdf(pdf_bytes, survey_id)
-        # Example: send_email(user_email, pdf_bytes)
-
-        results_summary.append({"survey_id": survey_id, "status": "success"})
-
     except Exception as e:
         logger.error(
             f"PDF generation failed for survey_id={survey_id}, user_email={user_email}: {str(e)}\n"

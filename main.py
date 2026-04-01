@@ -2060,7 +2060,7 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
         # Process Excel and generate PDF
     try:
         pdf_bytes, pdf_filename = process_excel_to_pdf(excel_bytes, request.filename)
-
+    
         # Fail early if generator returns nothing
         if not pdf_bytes or len(pdf_bytes) == 0:
             raise ValueError("PDF generator returned empty bytes")
@@ -2080,12 +2080,12 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
         import traceback
         traceback.print_exc()
         print(f"[PDF ERROR] Assessment ID: {assessment_id} | Error: {str(e)}")
-
+    
         # Update DB so we know if this assessment failed
         update_assessment_status(
             assessment_id, status="failed", last_error=str(e)
         )
-        
+    
         # Make sure the API responds as failed  
         return GeneratePDFResponse(
             success=False,

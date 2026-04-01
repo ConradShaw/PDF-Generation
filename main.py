@@ -1971,6 +1971,8 @@ async def health_check():
 
 logger = logging.getLogger("pdf_logger")
 
+print("Retrying surveys:", survey_ids)
+
 @app.post("/generate-pdf-base64", response_model=GeneratePDFResponse)
 async def generate_pdf_base64(request: GeneratePDFRequest):
     """

@@ -2192,7 +2192,6 @@ async def generate_pdf_file(file: UploadFile = File(...)):
     
     Returns: PDF file download
     """
-    try:
         if not file.filename:
             raise HTTPException(status_code=400, detail="No file selected")
         

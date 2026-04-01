@@ -124,7 +124,8 @@ if __name__ == "__main__":
         if 'cursor' in locals():
             cursor.close()
         if 'conn' in locals():
-            conn.close()def get_db_connection():
+            conn.close()
+              
     """
     Returns a psycopg2 connection using literal values.
     Logs and raises errors if connection fails.
@@ -143,22 +144,6 @@ if __name__ == "__main__":
     except OperationalError as e:
         print(f"[ERROR] Database connection failed: {e}")
         raise
-
-# ----------------------------
-# Usage example
-# ----------------------------
-try:
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT 1;")
-    print(cursor.fetchone())
-except Exception as e:
-    print(f"[ERROR] Could not run query: {e}")
-finally:
-    if 'cursor' in locals():
-        cursor.close()
-    if 'conn' in locals():
-        conn.close()
 
 # ------------------------------
 # Error logs

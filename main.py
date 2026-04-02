@@ -167,7 +167,7 @@ SMTP_PORT = 587
 SMTP_USER = "noreply@yourdomain.com"
 SMTP_PASS = os.environ.get("SMTP_PASSWORD")  # secure your password
 
-# NOTE - this block may be redundant if queue_email works
+### NOTE - this whole block may be REDUNDANT if queue_email works as designed
 def send_pdf_email(to_email: str, pdf_bytes: bytes, filename: str):
     msg = EmailMessage()
     msg["Subject"] = f"Your ShawSight PDF Report - {filename}"
@@ -2102,14 +2102,14 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     - pdf_base64: Base64-encoded PDF file
     - filename: Suggested filename for the PDF
     """
+    results_summary = []
+    skipped_surveys = []
+    
     try:
         # Guard clause
         if not request.individual_results:
             raise HTTPException(status_code=400, detail="No individual results provided") 
         
-        results_summary = []
-        skipped_surveys = []
-
         for survey in request.individual_results:
             survey_id = survey.get("id")
             user_email = survey.get("user_email", "unknown")
@@ -2205,6 +2205,18 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         
         # Encode to base64 ---
         team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
+        #################################
+        # Upload to Supabase storage
+        upload_pdf_to_supabase(pdf_bytes, pdf_filename)
+
+        # Send email to user
+        try:
+            queue_email(user_email, pdf_bytes, pdf_filename)
+        except Exception as e:
+            logger.warning(f"Email failed for {user_email}: {e}")
+
+        results_summary.append({"survey_id": survey_id, "status": "success"})
+         #################################
         
         # Return with summary PDF ---
         return GenerateTeamPDFResponse(

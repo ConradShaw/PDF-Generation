@@ -74,8 +74,6 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
 from pdf_generator import generate_team_pdf
-from pdf_generator import generate_individual_pdf, generate_team_pdf
-print("TEAM PDF FUNC:", generate_team_pdf)
 
 # ------------------------------
 # Secure Database Connection Helper
@@ -2185,6 +2183,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             num_members=request.num_members,
             date_str=request.date_str,
             ordered_traits=team_ordered_traits,
+            team_ordered_traits=team_ordered_traits,
             ranks=team_ranks,
             distribution_data=team_distribution,
             output_stream=team_pdf_buffer    

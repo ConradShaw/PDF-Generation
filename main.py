@@ -2131,7 +2131,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     first=survey.get("first_name", ""),
                     last=survey.get("last_name", ""),
                     date_str=request.date_str,
-                    ordered_traits=survey["ordered_traits"],
+                    ordered_traits=["ordered_traits"],
                     ranks=survey["ranks"],
                     ONET_ACTIVITIES=survey.get("onet_activities", {})                    
                 )

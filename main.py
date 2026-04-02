@@ -868,8 +868,7 @@ def generate_individual_pdf(
     date_str: str,
     ordered_traits: list,
     ranks: dict,
-    ONET_ACTIVITIES: dict,
-    logo_path: str = LOGO_PATH,
+    ONET_ACTIVITIES: dict
 ):
     story = []
     styles = getSampleStyleSheet()

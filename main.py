@@ -2132,7 +2132,8 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     date_str=request.date_str,
                     ordered_traits=survey["ordered_traits"],
                     ranks=survey["ranks"],
-                    ONET_ACTIVITIES=survey.get("onet_activities", {})            
+                    ONET_ACTIVITIES=survey.get("onet_activities", {})
+                    logo_path=LOGO_PATH
                 )
 
                 pdf_bytes = pdf_buffer.getvalue()
@@ -2168,9 +2169,9 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             ranks=team_ranks,
             distribution_data=team_distribution,
             output_stream=team_pdf_buffer,
-            logo_path=survey.get("logo_path", LOGO_PATH)
+            logo_path=LOGO_PATH
         )
-        
+                
         team_pdf_bytes = team_pdf_buffer.getvalue()
         if not team_pdf_bytes:
             raise ValueError("Team summary PDF generation failed")

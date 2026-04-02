@@ -861,7 +861,16 @@ def generate_pdf(
         output_stream, pagesize=A4, leftMargin=40, rightMargin=40, topMargin=36, bottomMargin=36
     )
   
-def generate_individual_pdf(output_stream, first, last, date_str, ordered_traits, ranks, ONET_ACTIVITIES):
+def generate_individual_pdf(
+    output_stream,
+    first: str,
+    last: str,
+    date_str: str,
+    ordered_traits: list,
+    ranks: dict,
+    ONET_ACTIVITIES: dict,
+    logo_path: str = LOGO_PATH,
+)::
     story = []
     styles = getSampleStyleSheet()
 

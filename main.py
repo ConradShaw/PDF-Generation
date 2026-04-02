@@ -169,7 +169,7 @@ def send_pdf_email(to_email: str, pdf_bytes: bytes, filename: str):
 
 def upload_pdf_to_supabase(pdf_bytes: bytes, filename: str, folder: str = "reports"):
     path = f"{folder}/{filename}"
-    result = supabase.storage.from_("pdf_reports").upload(path, pdf_bytes, {"content-type": "application/pdf"})
+    result = supabase.storage.from_("reports").upload(path, pdf_bytes, {"content-type": "application/pdf"})
     return result
 
 # ---------------------------

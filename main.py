@@ -2035,19 +2035,6 @@ class GenerateTeamPDFResponse(BaseModel):
     pdf_base64: Optional[str] = None
     filename: Optional[str] = None
 
-class GenerateTeamPDFRequest(BaseModel):
-    company_name: str
-    team_name: str
-    num_members: int
-    date_str: str  # YYYY-MM-DD
-    individual_results: List[Dict[str, Any]]  # List of {'ordered_traits': [...], 'ranks': {...}}
-
-class GenerateTeamPDFResponse(BaseModel):
-    success: bool
-    pdf_base64: Optional[str] = None
-    filename: Optional[str] = None
-    message: Optional[str] = None
-
 class HealthResponse(BaseModel):
     status: str
     service: str
@@ -2064,14 +2051,9 @@ async def health_check():
 
 logger = logging.getLogger("pdf_logger")
 
-# Suppose skipped_surveys holds the failed surveys
-skipped_surveys = []
-survey_ids = [s["survey_id"] for s in skipped_surveys if "survey_id" in s]
-print("Retrying surveys:", survey_ids)
-
-### -----------------------------------------
-### Generate Individual and Team PDF Reports
-### -----------------------------------------
+# -----------------------------------------
+# Generate Individual and Team PDF Reports
+# -----------------------------------------
 @app.post("/generate-pdf-base64", response_model=GenerateTeamPDFResponse)
 async def generate_pdf_base64(request: GeneratePDFRequest):
     """
@@ -2082,41 +2064,42 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
     skipped_surveys = []
 
     try:
-        # Decode base64 Excel
+        # 1️⃣ Decode base64 Excel
         try:
             excel_bytes = base64.b64decode(request.excel_base64)
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Invalid base64 encoding: {str(e)}")
 
-        # Process Excel to extract individual survey results
-        individual_results = parse_excel_to_individual_results(excel_bytes)  # Existing function
-
+        # 2️⃣ Parse Excel → list of individual survey results
+        individual_results = parse_excel_to_individual_results(excel_bytes)
         if not individual_results:
             raise HTTPException(status_code=400, detail="No individual results found in Excel")
 
+        # 3️⃣ Generate today's date for PDFs
+        from datetime import datetime
+        date_str = datetime.now().strftime("%Y-%m-%d")
+
         # -----------------------------------------
-        # Generate PDFs for each individual
+        # 4️⃣ Generate Individual PDFs
         # -----------------------------------------
         for survey in individual_results:
-            survey_id = survey.get("id", "noid")
-            user_email = survey.get("user_email", "unknown")
+            survey_id = survey.get("id") or "noid"
+            user_email = survey.get("user_email") or "unknown"
             pdf_filename = f"individual_report_{survey_id}_{int(time.time())}.pdf"
 
             try:
-                # Prepare PDF buffer
                 pdf_buffer = io.BytesIO()
 
-                # Safe ONET activities
+                # Ensure ONET activities exist
                 onet_activities_data = dict(survey.get("onet_activities") or {})
                 if not isinstance(onet_activities_data, dict):
                     onet_activities_data = ONET_ACTIVITIES
 
-                # Generate individual PDF
                 generate_individual_pdf(
                     output_stream=pdf_buffer,
                     first=survey.get("first_name", ""),
                     last=survey.get("last_name", ""),
-                    date_str=request.date_str,
+                    date_str=date_str,
                     ordered_traits=survey["ordered_traits"],
                     ranks=survey["ranks"],
                     ONET_ACTIVITIES=onet_activities_data,
@@ -2127,10 +2110,8 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
                 if not pdf_bytes:
                     raise ValueError("Empty PDF buffer generated")
 
-                # Upload individual PDF to Supabase
+                # Upload and send email
                 upload_pdf_to_supabase(pdf_bytes, pdf_filename)
-
-                # send_pdf_email OR queue_email to individual
                 send_pdf_email(user_email, pdf_bytes, pdf_filename)
 
                 results_summary.append({"survey_id": survey_id, "status": "success"})
@@ -2143,21 +2124,21 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
 
         # -----------------------------------------
-        # If team data exists, generate Team PDF
+        # 5️⃣ Optional Team PDF (if data exists)
         # -----------------------------------------
-        if getattr(request, "company_name", None) and getattr(request, "team_name", None):
+        if len(individual_results) > 1:  # Only make team PDF if >1 member
             try:
                 team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(individual_results)
 
-                # Generate team PDF buffer
                 team_pdf_buffer = io.BytesIO()
                 team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
 
+                # Use placeholder names for company/team if not passed
                 generate_team_pdf(
-                    company_name=request.company_name,
-                    team_name=request.team_name,
+                    company_name="Company",  # could add these as request params later
+                    team_name="Team",
                     num_members=len(individual_results),
-                    date_str=request.date_str,
+                    date_str=date_str,
                     ordered_traits=team_ordered_traits,
                     team_ordered_traits=team_ordered_traits,
                     ranks=team_ranks,
@@ -2169,21 +2150,14 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
                 if not team_pdf_bytes:
                     raise ValueError("Team summary PDF generation failed")
 
-                # Upload team PDF to Supabase
                 upload_pdf_to_supabase(team_pdf_bytes, team_pdf_filename)
-
-                # send_pdf_email OR queue_email to **team purchaser only**
-                if hasattr(request, "purchaser_email") and request.purchaser_email:
-                    send_pdf_email(request.purchaser_email, team_pdf_bytes, team_pdf_filename)
 
             except Exception as e:
                 logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
-                skipped_surveys.append("team_pdf_failed")
+                skipped_surveys.append({"team_pdf_failed": str(e)})
 
         # -----------------------------------------
-        # Build final response
-        # This block finalizes the PDF generation endpoint, packages the results (including team PDF if generated), and ensures proper error reporting.
-        # It’s essential, because it handles the API response to return the PDF data or status to the caller.     
+        # 6️⃣ Build final response
         # -----------------------------------------
         overall_success = all(r["status"] == "success" for r in results_summary)
         team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None

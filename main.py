@@ -805,7 +805,7 @@ def category_for_rank_number(rank_num: float) -> str:
     return "Situational"
 
 # ---------------------------
-# PDF Generation
+# PDF Generation Helpers
 # ---------------------------
 def _parse_date_long(iso_date: str):
     """Parse a date from various incoming formats."""
@@ -841,12 +841,9 @@ def _parse_date_long(iso_date: str):
         )
     )
 
-    date = _parse_date_long(date_str)
-
-    doc = SimpleDocTemplate(
-        output_stream, pagesize=A4, leftMargin=40, rightMargin=40, topMargin=36, bottomMargin=36
-    )
-  
+# ---------------------------
+# Main PDF Function
+# ---------------------------
 def generate_individual_pdf(
     first: str,
     last: str,
@@ -858,10 +855,15 @@ def generate_individual_pdf(
     logo_path: str = LOGO_PATH
 ):
 
+"""Generate individual PDF report."""
     story = []
     styles = getSampleStyleSheet()
 
     date = _parse_date_long(date_str)
+
+    doc = SimpleDocTemplate(
+        output_stream, pagesize=A4, leftMargin=40, rightMargin=40, topMargin=36, bottomMargin=36
+    )
 
     header_style = ParagraphStyle(
         "SSMHeader", parent=styles["Title"], fontName="Helvetica-Bold",

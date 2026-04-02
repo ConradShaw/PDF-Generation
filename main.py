@@ -171,7 +171,7 @@ SMTP_PORT = 587
 SMTP_USER = "noreply@yourdomain.com"
 SMTP_PASS = os.environ.get("SMTP_PASSWORD")  # secure your password
 
-### NOTE - this whole block may be REDUNDANT if queue_email works as designed
+### NOTE - this whole block may becone redundant IF queue_email works as designed
 def send_pdf_email(to_email: str, pdf_bytes: bytes, filename: str):
     msg = EmailMessage()
     msg["Subject"] = f"Your ShawSight PDF Report - {filename}"
@@ -2112,8 +2112,8 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
                 # Upload individual PDF to Supabase
                 upload_pdf_to_supabase(pdf_bytes, pdf_filename)
 
-                # Queue email to individual
-                queue_email(user_email, pdf_bytes, pdf_filename)
+                # send_pdf_email OR queue_email to individual
+                send_pdf_email(user_email, pdf_bytes, pdf_filename)
 
                 results_summary.append({"survey_id": survey_id, "status": "success"})
 
@@ -2154,9 +2154,9 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
                 # Upload team PDF to Supabase
                 upload_pdf_to_supabase(team_pdf_bytes, team_pdf_filename)
 
-                # Queue email to **team purchaser only**
+                # send_pdf_email OR queue_email to **team purchaser only**
                 if hasattr(request, "purchaser_email") and request.purchaser_email:
-                    queue_email(request.purchaser_email, team_pdf_bytes, team_pdf_filename)
+                    send_pdf_email(request.purchaser_email, team_pdf_bytes, team_pdf_filename)
 
             except Exception as e:
                 logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")

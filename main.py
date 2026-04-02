@@ -825,20 +825,6 @@ def _parse_date_long(iso_date: str):
         except Exception:
             return iso_date
 
-def generate_pdf(
-    first: str,
-    last: str,
-    date_str: str,
-    ordered_traits: List[str],
-    ranks: Dict[str, float],
-    output_stream: io.BytesIO,
-    logo_path: str = LOGO_PATH,
-) -> str:
-    """
-    Generate PDF and write to output_stream.
-    Returns the suggested filename.
-    """
-
     def _fmt_rank(r):
         try:
             r = float(r)
@@ -862,14 +848,16 @@ def generate_pdf(
     )
   
 def generate_individual_pdf(
-    output_stream,
     first: str,
     last: str,
     date_str: str,
-    ordered_traits: list,
-    ranks: dict,
-    ONET_ACTIVITIES: dict
+    ordered_traits: List[str],
+    ranks: Dict[str, float],
+    ONET_ACTIVITIES: dict,
+    output_stream: io.BytesIO,
+    logo_path: str = LOGO_PATH
 ):
+
     story = []
     styles = getSampleStyleSheet()
 

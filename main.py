@@ -1434,10 +1434,6 @@ def generate_team_pdf(
     output_stream: io.BytesIO,
     logo_path: str = LOGO_PATH,
 ) -> str:
-    """
-    Generate team PDF report and write to output_stream.
-    Returns the suggested filename.
-    """
     
     def _fmt_rank(r):
         try:

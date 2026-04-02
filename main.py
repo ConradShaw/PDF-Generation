@@ -38,6 +38,7 @@ import base64
 import tempfile
 import itertools
 import re
+import time
 import traceback
 from supabase import create_client, Client
 
@@ -2122,7 +2123,10 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             try:
                 # Prepare PDF output stream
                 pdf_buffer = io.BytesIO()
-                pdf_filename = f"team_report_{survey_id}.pdf"
+            
+                # --- FIX: tidy pdf_filename, avoid None ---            
+                survey_id_safe = survey_id if survey_id else "noid"
+                pdf_filename = f"individual_report_{survey_id_safe}_{int(time.time())}.pdf"              
 
                 # Call your existing PDF generator
                 generate_individual_pdf(
@@ -2144,11 +2148,13 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 upload_pdf_to_supabase(pdf_bytes, pdf_filename)
 
                 # Send email to user
-                send_pdf_email(user_email, pdf_bytes, pdf_filename)
+                try:
+                    send_pdf_email(user_email, pdf_bytes, pdf_filename)
+                except Exception as e:
+                    logger.warning(f"Email failed for {user_email}: {e}")
 
                 results_summary.append({"survey_id": survey_id, "status": "success"})
-                logger.info(f"Survey {survey_id} retried successfully for {user_email}.")
-
+    
             except Exception as e:
                 logger.error(
                     f"PDF generation failed for survey {survey_id}, user_email={user_email}: {str(e)}\n"
@@ -2156,10 +2162,16 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
               
-        # Generate team summary PDF for HR ---
+        # Generate team summary PDF---
         overall_success = all(r["status"] == "success" for r in results_summary)
-        team_pdf_buffer = io.BytesIO()
         
+        # --- Prepare PDF output stream ---
+        team_pdf_buffer = io.BytesIO()
+
+        # Use a separate filename for team PDF
+        team_pdf_filename = "team_summary.pdf"
+      
+        # Call team PDF generator
         generate_team_pdf(
             company_name=request.company_name,
             team_name=request.team_name,

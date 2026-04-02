@@ -2107,9 +2107,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         if not request.individual_results:
             raise HTTPException(status_code=400, detail="No individual results provided") 
         
-        #######################################################
-        # --- Safe retry loop for failed/incomplete surveys ---
-        #######################################################
         results_summary = []
         skipped_surveys = []
 
@@ -2123,8 +2120,8 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             try:
                 # Prepare PDF output stream
                 pdf_buffer = io.BytesIO()
-            
-                # --- FIX: tidy pdf_filename, avoid None ---            
+               
+                # --- Tidy pdf_filename, avoid None ---            
                 survey_id_safe = survey_id if survey_id else "noid"
                 pdf_filename = f"individual_report_{survey_id_safe}_{int(time.time())}.pdf"              
 
@@ -2162,6 +2159,17 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
               
+        # -------------------------------
+        # Build team aggregates
+        # -------------------------------
+        try:
+            team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(
+                request.individual_results
+        )
+        except Exception as e:
+            logger.error(f"Team ranking calculation failed: {str(e)}")
+            raise HTTPException(status_code=500, detail="Failed to calculate team rankings")
+      
         # Generate team summary PDF---
         overall_success = all(r["status"] == "success" for r in results_summary)
         

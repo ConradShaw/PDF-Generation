@@ -825,21 +825,21 @@ def _parse_date_long(iso_date: str):
         except Exception:
             return iso_date
 
-    def _fmt_rank(r):
-        try:
-            r = float(r)
-            return str(int(r)) if r.is_integer() else f"{r:.1f}"
-        except Exception:
-            return str(r)
+def _fmt_rank(r):
+    try:
+        r = float(r)
+        return str(int(r)) if r.is_integer() else f"{r:.1f}"
+    except Exception:
+        return str(r)
 
-    def _color_for_category(cat: str):
-        return colors.HexColor(
-            "#4d93d9" if cat == "Signature" else (
-            "#94dcf8" if cat == "Supporting" else (
-            "#b7e4c7" if cat == "Stretch" else
-            "#d0d0d0")
-        )
+def _color_for_category(cat: str):
+    return colors.HexColor(
+        "#4d93d9" if cat == "Signature" else (
+        "#94dcf8" if cat == "Supporting" else (
+        "#b7e4c7" if cat == "Stretch" else
+        "#d0d0d0")
     )
+)
 
 # ---------------------------
 # Main PDF Function

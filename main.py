@@ -855,7 +855,7 @@ def generate_individual_pdf(
     logo_path: str = LOGO_PATH
 ):
 
-"""Generate individual PDF report."""
+    """Generate individual PDF report."""
     story = []
     styles = getSampleStyleSheet()
 

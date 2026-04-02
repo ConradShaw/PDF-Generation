@@ -2145,7 +2145,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     ordered_traits=survey["ordered_traits"],
                     ranks=survey["ranks"],
                     ONET_ACTIVITIES=survey.get("onet_activities", {}),
-                    logo_path: str = LOGO_PATH
+                    logo_path=LOGO_PATH
                 )
 
                 pdf_bytes = pdf_buffer.getvalue()

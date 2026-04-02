@@ -865,6 +865,8 @@ def generate_individual_pdf(output_stream, first, last, date_str, ordered_traits
     story = []
     styles = getSampleStyleSheet()
 
+    date = _parse_date_long(date_str)
+
     header_style = ParagraphStyle(
         "SSMHeader", parent=styles["Title"], fontName="Helvetica-Bold",
         fontSize=22, leading=27, alignment=TA_LEFT, spaceAfter=8

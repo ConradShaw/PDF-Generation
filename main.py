@@ -77,6 +77,7 @@ from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPa
 import asyncio
 from fastapi import FastAPI
 from email_service import email_worker  # your worker handles sending emails
+from email_service import queue_email
 
 # --- App setup ---
 app = FastAPI()
@@ -166,6 +167,7 @@ SMTP_PORT = 587
 SMTP_USER = "noreply@yourdomain.com"
 SMTP_PASS = os.environ.get("SMTP_PASSWORD")  # secure your password
 
+# NOTE - this block may be redundant if queue_email works
 def send_pdf_email(to_email: str, pdf_bytes: bytes, filename: str):
     msg = EmailMessage()
     msg["Subject"] = f"Your ShawSight PDF Report - {filename}"
@@ -2151,7 +2153,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
                 # Send email to user
                 try:
-                    send_pdf_email(user_email, pdf_bytes, pdf_filename)
+                    queue_email(user_email, pdf_bytes, pdf_filename)
                 except Exception as e:
                     logger.warning(f"Email failed for {user_email}: {e}")
 

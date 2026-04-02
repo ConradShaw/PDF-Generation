@@ -73,7 +73,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
-from email_service import queue_email, email_worker   #triggers email queuing to reduce timed-out risk
+
+import asyncio
+from fastapi import FastAPI
+from email_service import email_worker  # your worker handles sending emails
+
+# --- App setup ---
+app = FastAPI()
+@app.on_event("startup")
+async def startup_event():
+    # Start the email worker in the background
+    asyncio.create_task(email_worker())
 
 # ------------------------------
 # Secure Database Connection Helper

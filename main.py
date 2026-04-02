@@ -2071,12 +2071,6 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
       
         assessment_ref = getattr(request, "filename", "unknown")
         print(f"[PDF ERROR] Assessment: {assessment_ref} | Error: {str(e)}")           
-  
-        # Make sure the API responds as failed  
-        return GeneratePDFResponse(
-            success=False,
-            message=f"PDF generation failed: {str(e)}"
-        )
           
 @app.post("/generate-team-pdf", response_model=GenerateTeamPDFResponse)
 async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
@@ -2119,7 +2113,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 pdf_filename = f"individual_report_{survey_id_safe}_{int(time.time())}.pdf"              
 
                 # Safe ONET activities extraction
-                onet_activities_data = survey.get("onet_activities", {})
+                onet_activities_data = dict(survey.get("onet_activities") or {})                
 
                 # Ensure it's a dict; otherwise, use default ONET_ACTIVITIES
                 if not isinstance(onet_activities_data, dict):

@@ -78,10 +78,11 @@ from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPa
 # --- Email service setup ---
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-import asyncio
-from fastapi import FastAPI
-from email_service import email_worker  # your worker handles sending emails
-from email_service import queue_email
+### Currently inactive code
+###import asyncio
+###from fastapi import FastAPI
+###from email_service import email_worker  # your worker handles sending emails
+###from email_service import queue_email
 
 # --- Fast API setup ---
 app = FastAPI()

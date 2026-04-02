@@ -1162,8 +1162,6 @@ def generate_individual_pdf(
         """,
         style=body_compact_style
     ))
-      
-    story.append(Table([[Paragraph(info_text, style=body_compact_style)]], style=table_border))
 
     # Build PDF
     doc.build(story)

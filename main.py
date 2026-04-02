@@ -2169,7 +2169,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             ordered_traits=team_ordered_traits,
             ranks=team_ranks,
             distribution_data=team_distribution,
-            output_stream=team_pdf_buffer
+            output_stream=team_pdf_buffer,
             logo_path=survey.get("logo_path", LOGO_PATH)
         )
         

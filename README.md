@@ -1,6 +1,6 @@
 # Shaw Strengths Matrix™ PDF Generator - Cloud Run Service
 
-A stateless HTTP service that generates PDF reports from Excel assessment data. Designed for deployment on Google Cloud Run.
+A stateless HTTP service that generates PDF reports from Excel assessment data. Designed for deployment initially on Google Cloud Run, later Railway.
 
 ## Features
 

@@ -24,6 +24,7 @@ RUN apt-get update \
 # Copy application code
 COPY main.py .
 COPY pdf_helpers.py .
+COPY main.py email_service.
 COPY logo.png .
 
 # Expose port

@@ -2047,20 +2047,10 @@ skipped_surveys = []
 survey_ids = [s["survey_id"] for s in skipped_surveys if "survey_id" in s]
 print("Retrying surveys:", survey_ids)
 
+### Generate Individual PDF report
 @app.post("/generate-pdf-base64", response_model=GenerateTeamPDFResponse)
 async def generate_pdf_base64(request: GeneratePDFRequest):
-    """
-    Generate PDF from base64-encoded Excel file.
-    
-    Request body:
-    - excel_base64: Base64-encoded Excel file
-    - filename: Optional original filename
-    
-    Returns:
-    - success: Whether PDF generation succeeded
-    - pdf_base64: Base64-encoded PDF file
-    - filename: Suggested filename for the PDF
-    """
+
     try:
         # Decode base64 to bytes
         try:
@@ -2084,24 +2074,11 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
       
         assessment_ref = getattr(request, "filename", "unknown")
         print(f"[PDF ERROR] Assessment: {assessment_ref} | Error: {str(e)}")           
-          
+
+### Generate Team PDF report
 @app.post("/generate-team-pdf", response_model=GenerateTeamPDFResponse)
 async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
-    """
-    Generate team PDF report from individual assessment results.
-    
-    Request body:
-    - company_name: Company/organization name
-    - team_name: Team name
-    - num_members: Number of team members
-    - date_str: Report date (YYYY-MM-DD)
-    - individual_results: List of individual assessment results
-    
-    Returns:
-    - success: Whether PDF generation succeeded
-    - pdf_base64: Base64-encoded PDF file
-    - filename: Suggested filename for the PDF
-    """
+
     results_summary = []
     skipped_surveys = []
     
@@ -2166,9 +2143,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
               
-        # -------------------------------
         # Build team aggregates
-        # -------------------------------
         try:
             team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(
                 request.individual_results
@@ -2205,18 +2180,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         
         # Encode to base64 ---
         team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
-        #################################
-        # Upload to Supabase storage
-        upload_pdf_to_supabase(pdf_bytes, pdf_filename)
-
-        # Send email to user
-        try:
-            queue_email(user_email, pdf_bytes, pdf_filename)
-        except Exception as e:
-            logger.warning(f"Email failed for {user_email}: {e}")
-
-        results_summary.append({"survey_id": survey_id, "status": "success"})
-         #################################
         
         # Return with summary PDF ---
         return GenerateTeamPDFResponse(
@@ -2239,10 +2202,8 @@ async def generate_pdf_file(file: UploadFile = File(...)):
     """
     Generate PDF from uploaded Excel file.
     Returns the PDF file directly.
-    
     Form data:
     - file: Excel file upload (.xlsx)
-    
     Returns: PDF file download
     """
     if not file.filename:

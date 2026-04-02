@@ -91,6 +91,23 @@ async def startup_event():
     # Start the email worker in the background
     asyncio.create_task(email_worker())
 
+# Parse Excel definition
+def parse_excel_to_individual_results(excel_bytes):
+    import pandas as pd
+    from io import BytesIO
+
+    df = pd.read_excel(BytesIO(excel_bytes))
+
+    results = []
+
+    for _, row in df.iterrows():
+        results.append({
+            "id": row.get("ID"),
+            "user_email": row.get("Email"),
+            "answers": row.to_dict()  # raw answers
+        })
+
+    return results
 # ------------------------------
 # Secure Database Connection Helper
 # ------------------------------

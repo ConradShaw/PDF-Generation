@@ -32,6 +32,7 @@ Team Report Algorithm:
   Step 4: Generate team PDF with strength distribution chart
 """
 
+import sys
 import os
 import io
 import base64
@@ -74,12 +75,15 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
 
+# --- Email service setup ---
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 import asyncio
 from fastapi import FastAPI
 from email_service import email_worker  # your worker handles sending emails
 from email_service import queue_email
 
-# --- App setup ---
+# --- Fast API setup ---
 app = FastAPI()
 @app.on_event("startup")
 async def startup_event():

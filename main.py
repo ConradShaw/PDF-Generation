@@ -2132,8 +2132,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     date_str=request.date_str,
                     ordered_traits=survey["ordered_traits"],
                     ranks=survey["ranks"],
-                    ONET_ACTIVITIES=survey.get("onet_activities", {}),
-                    logo_path=LOGO_PATH
+                    ONET_ACTIVITIES=survey.get("onet_activities", {})                    
                 )
 
                 pdf_bytes = pdf_buffer.getvalue()
@@ -2168,8 +2167,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             ordered_traits=team_ordered_traits,
             ranks=team_ranks,
             distribution_data=team_distribution,
-            output_stream=team_pdf_buffer,
-            logo_path=LOGO_PATH
+            output_stream=team_pdf_buffer        
         )
                 
         team_pdf_bytes = team_pdf_buffer.getvalue()

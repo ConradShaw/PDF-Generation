@@ -870,7 +870,7 @@ def generate_individual_pdf(
     ranks: dict,
     ONET_ACTIVITIES: dict,
     logo_path: str = LOGO_PATH,
-)::
+):
     story = []
     styles = getSampleStyleSheet()
 

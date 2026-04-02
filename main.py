@@ -2068,11 +2068,12 @@ async def generate_pdf_base64(request: GeneratePDFRequest):
     except Exception as e:
         import traceback
         traceback.print_exc()
-        print(f"[PDF ERROR] Assessment ID: {assessment_id} | Error: {str(e)}")
-    
+        assessment_ref = getattr(request, "filename", "unknown")
+        print(f"[PDF ERROR] Assessment: {assessment_ref} | Error: {str(e)}")
+           
         # Update DB so we know if this assessment failed
         update_assessment_status(
-            assessment_id, status="failed", last_error=str(e)
+            assessment_ref, status="failed", last_error=str(e)
         )
     
         # Make sure the API responds as failed  

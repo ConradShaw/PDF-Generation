@@ -2161,7 +2161,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         try:
             team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(
                 request.individual_results
-        )
+            )
         except Exception as e:
             logger.error(f"Team ranking calculation failed: {str(e)}")
             raise HTTPException(status_code=500, detail="Failed to calculate team rankings")

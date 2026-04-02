@@ -1428,6 +1428,7 @@ def generate_team_pdf(
     num_members: int,
     date_str: str,
     ordered_traits: List[str],
+    team_ordered_traits: List[str],
     ranks: Dict[str, float],
     distribution_data: Dict[str, Dict[str, float]],
     output_stream: io.BytesIO,

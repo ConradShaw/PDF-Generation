@@ -2195,39 +2195,5 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
     except Exception as e:
         logger.error("Unexpected error in generate_team_pdf_endpoint:\n" + traceback.format_exc())
-        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")            
-                                 
-@app.post("/generate-pdf")
-async def generate_pdf_file(file: UploadFile = File(...)):
-    """
-    Generate PDF from uploaded Excel file.
-    Returns the PDF file directly.
-    Form data:
-    - file: Excel file upload (.xlsx)
-    Returns: PDF file download
-    """
-    if not file.filename:
-        raise HTTPException(status_code=400, detail="No file selected")
-    
-    if not file.filename.endswith('.xlsx'):
-        raise HTTPException(status_code=400, detail="File must be an Excel file (.xlsx)")
-    
-    # Read file bytes
-    excel_bytes = await file.read()
-    
-    # Process and generate PDF
-    pdf_bytes, pdf_filename = process_excel_to_pdf(excel_bytes, file.filename)
-    
-    # Return PDF file
-    return Response(
-        content=pdf_bytes,
-        media_type='application/pdf',
-        headers={
-            'Content-Disposition': f'attachment; filename="{pdf_filename}"'
-        }
-    )        
-
-if __name__ == '__main__':
-    import uvicorn
-    port = int(os.environ.get('PORT', 8080))
-    uvicorn.run(app, host='127.0.0.1', port=port)
+        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")   
+  

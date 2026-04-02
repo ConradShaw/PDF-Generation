@@ -861,7 +861,7 @@ def generate_pdf(
         output_stream, pagesize=A4, leftMargin=40, rightMargin=40, topMargin=36, bottomMargin=36
     )
   
-def build_individual_pdf(output_stream, first, last, date_str, ordered_traits, ranks, ONET_ACTIVITIES):
+def generate_individual_pdf(output_stream, first, last, date_str, ordered_traits, ranks, ONET_ACTIVITIES):
     styles = getSampleStyleSheet()
 
     header_style = ParagraphStyle(
@@ -2125,16 +2125,14 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 pdf_filename = f"team_report_{survey_id}.pdf"
 
                 # Call your existing PDF generator
-                generate_team_pdf(
-                    company_name=request.company_name,
-                    team_name=request.team_name,
-                    num_members=request.num_members,
+                generate_individual_pdf(
+                    output_stream=pdf_buffer,
+                    first=survey.get("first_name", ""),
+                    last=survey.get("last_name", ""),
                     date_str=request.date_str,
                     ordered_traits=survey["ordered_traits"],
                     ranks=survey["ranks"],
-                    distribution_data=survey.get("distribution_data", {}),
-                    output_stream=pdf_buffer,
-                    logo_path=survey.get("logo_path", LOGO_PATH)
+                    ONET_ACTIVITIES=survey.get("onet_activities", {})            
                 )
 
                 pdf_bytes = pdf_buffer.getvalue()

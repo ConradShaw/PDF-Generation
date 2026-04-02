@@ -862,6 +862,7 @@ def generate_pdf(
     )
   
 def generate_individual_pdf(output_stream, first, last, date_str, ordered_traits, ranks, ONET_ACTIVITIES):
+    story = []
     styles = getSampleStyleSheet()
 
     header_style = ParagraphStyle(

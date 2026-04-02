@@ -73,6 +73,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
+from email_service import queue_email, email_worker   #triggers email queuing to reduce timed-out risk
 
 # ------------------------------
 # Secure Database Connection Helper

@@ -2136,12 +2136,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                     output_stream=pdf_buffer,
                     logo_path=survey.get("logo_path", LOGO_PATH)
                 )
-  
-    num_members=len(request.individual_results),
-    ordered_traits=team_ordered_traits,
-    ranks=team_ranks,
-       
-
 
                 pdf_bytes = pdf_buffer.getvalue()
                 if not pdf_bytes:
@@ -2170,7 +2164,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         generate_team_pdf(
             company_name=request.company_name,
             team_name=request.team_name,
-            num_members=len(request.individual_results),
+            num_members=request.num_members,
             date_str=request.date_str,
             ordered_traits=team_ordered_traits,
             ranks=team_ranks,

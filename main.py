@@ -2167,7 +2167,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             # Get team rankings from the separate endpoint ---
             ordered_traits, ranks, distribution_data = calculate_team_rankings(individual_results)
 
-          team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(
+            team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(
             request.individual_results
         )
           

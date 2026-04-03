@@ -2118,9 +2118,6 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
                     ONET_ACTIVITIES=onet_activities_data,
                     logo_path=LOGO_PATH
                 )
-            except Exception as e:
-                logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
-                skipped_surveys.append({"team_pdf_failed": str(e)})
 
                 pdf_bytes = pdf_buffer.getvalue()
                 if not pdf_bytes:
@@ -2131,20 +2128,20 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
                 send_pdf_email(user_email, pdf_bytes, pdf_filename)
 
                 results_summary.append({"survey_id": survey_id, "status": "success"})
+              
             except Exception as e:
                 logger.error(
-                    f"Individual PDF generation failed for survey {survey_id}, user_email={user_email}: {str(e)}\n"
-                    f"{traceback.format_exc()}"
+                    f"Individual PDF failed for {survey_id}: {str(e)}\n{traceback.format_exc()}"
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
 
-                return GeneratePDFResponse(success=True, results=results_summary)
+        return GeneratePDFResponse(success=True, results=results_summary)
 
-            except HTTPException:
-                raise
-            except Exception as e:
-                logger.error("Unexpected error in generate_individual_pdf:\n" + traceback.format_exc())
-                raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.error("Unexpected error in generate_individual_pdf:\n" + traceback.format_exc())
+            raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
 
 # -----------------------------
 # Team PDF Endpoint

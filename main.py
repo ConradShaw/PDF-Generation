@@ -2138,76 +2138,59 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
         logger.error("Unexpected error in generate_individual_pdf:\n" + traceback.format_exc())
         raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
 
-
-
-
-
-
-
-
-
-
-
-# Team PDF
+# -----------------------------
+# Team PDF Endpoint
+# -----------------------------
 @app.post("/generate_team_pdf", response_model=GenerateTeamPDFResponse)
 async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
-    pass
-    """
-    Generate PDFs from base64-encoded Excel input.
-    Handles individual reports and optionally a team summary report.
-    """
-    results_summary = []
-    skipped_surveys = []
+    try:
+        # Generate team PDF buffer
+        team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(individual_results)
+        team_pdf_buffer = io.BytesIO()
+        team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
 
-        # -----------------------------------------
-        # 5️⃣ Optional Team PDF (if data exists)
-        # -----------------------------------------
-        if len(individual_results) > 1:  # Only make team PDF if >1 member
-            try:
-                team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(individual_results)
-
-                team_pdf_buffer = io.BytesIO()
-                team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
-
-                # Use placeholder names for company/team if not passed
-                generate_team_pdf(
-                    company_name="Company",  # could add these as request params later
-                    team_name="Team",
-                    num_members=len(individual_results),
-                    date_str=date_str,
-                    ordered_traits=team_ordered_traits,
-                    team_ordered_traits=team_ordered_traits,
-                    ranks=team_ranks,
-                    distribution_data=team_distribution,
-                    output_stream=team_pdf_buffer
-                )
-
-                team_pdf_bytes = team_pdf_buffer.getvalue()
-                if not team_pdf_bytes:
-                    raise ValueError("Team summary PDF generation failed")
-
-                upload_pdf_to_supabase(team_pdf_bytes, team_pdf_filename)
-
-            except Exception as e:
-                logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
-                skipped_surveys.append({"team_pdf_failed": str(e)})
-
-        # -----------------------------------------
-        # 6️⃣ Build final response
-        # -----------------------------------------
-        overall_success = all(r["status"] == "success" for r in results_summary)
-        team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
-
-        return GenerateTeamPDFResponse(
-            success=overall_success,
-            results=results_summary,
-            skipped=skipped_surveys,
-            pdf_base64=team_pdf_base64,
-            filename=team_pdf_filename if 'team_pdf_filename' in locals() else None
+        generate_team_pdf(
+            company_name=request.company_name,
+            team_name=request.team_name,
+            num_members=request.num_members,
+            date_str=request.date_str,
+            ordered_traits=request.ordered_traits,
+            team_ordered_traits=request.team_ordered_traits,
+            ranks=request.ranks,
+            distribution_data=request.distribution_data,
+            output_stream=team_pdf_buffer
         )
 
+        team_pdf_bytes = team_pdf_buffer.getvalue()
+        if not team_pdf_bytes:
+            raise ValueError("Team PDF generation failed")
+
+        # Upload to Supabase storage
+        upload_pdf_to_supabase(team_pdf_bytes, team_pdf_filename)
+
+        # Optional: send email to team contact
+        if team_contact_email:
+            send_pdf_email(team_contact_email, team_pdf_bytes, team_pdf_filename)
+
+        # Encode to base64 for API response (optional)
+        team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
+
+        # Calculate overall success relative to expected members
+        overall_success = (
+            len(individual_results) > 0 and
+            all("ordered_traits" in r and "ranks" in r for r in individual_results)
+        )
+
+        return GenerateTeamPDFResponse(
+            success=True,
+            pdf_base64=team_pdf_base64,
+            filename=team_pdf_filename
+        )
+      
     except HTTPException:
-        raise
+        raise    
     except Exception as e:
-        logger.error("Unexpected error in generate_pdf_base64:\n" + traceback.format_exc())
-        raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
+        logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")
+
+

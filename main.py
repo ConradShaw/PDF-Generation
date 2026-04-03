@@ -2152,9 +2152,9 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     try:
         # Calculate team-level rankings
         team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(individual_results)
-        except Exception as e:
-            logger.error(f"Team ranking calculation failed: {str(e)}\n{traceback.format_exc()}")
-            raise HTTPException(status_code=500, detail=f"Failed to calculate team rankings: {str(e)}")
+    except Exception as e:
+        logger.error(f"Team ranking calculation failed: {str(e)}\n{traceback.format_exc()}")
+        raise HTTPException(status_code=500, detail=f"Failed to calculate team rankings: {str(e)}")
         team_pdf_buffer = io.BytesIO()
         team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
 

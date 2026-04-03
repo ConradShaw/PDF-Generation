@@ -2133,7 +2133,11 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
                 logger.error(f"Failed to generate PDF for {survey_id}: {str(e)}\n{traceback.format_exc()}")
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
                 
-        return GeneratePDFResponse(success=True, results=results_summary)
+    except Exception as e:
+        logger.error(f"Failed to process request: {str(e)}\n{traceback.format_exc()}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
+         
+    return GeneratePDFResponse(success=True, results=results_summary)
 
 # -----------------------------
 # Team PDF Endpoint

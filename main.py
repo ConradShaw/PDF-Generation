@@ -2151,32 +2151,27 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
     # Extract individual_results from request
     individual_results = request.individual_results
-  
+
+    # Generate today's date
+    from datetime import datetime
+    date_str = datetime.now().strftime("%Y-%m-%d")
+
+    # 3️Generate the Team PDF
+    team_pdf_buffer = io.BytesIO()
+    team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
+
     try:
-        # Calculate team-level rankings
-        team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(individual_results)
-    except Exception as e:
-        logger.error(f"Team ranking calculation failed: {str(e)}\n{traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=f"Failed to calculate team rankings: {str(e)}")
-        team_pdf_buffer = io.BytesIO()
-        team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
-
-        # Generate today's date
-        from datetime import datetime
-        date_str = datetime.now().strftime("%Y-%m-%d")
-
-        # 3️Generate the Team PDF
-        team_pdf_buffer = io.BytesIO()
-        team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
-
+        # Get team rankings from the separate endpoint ---
+        ordered_traits, ranks, distribution_data = calculate_team_rankings(individual_results)
+      
         generate_team_pdf(
             company_name=request.company_name,
             team_name=request.team_name,
             num_members=len(individual_results),
-            date_str=request.date_str,            
-            team_ordered_traits=team_ordered_traits,
-            ranks=team_ranks,
-            distribution_data=team_distribution,
+            date_str=date_str,
+            team_ordered_traits=ordered_traits,
+            ranks=ranks,
+            distribution_data=distribution_data,
             output_stream=team_pdf_buffer
         )
 
@@ -2184,36 +2179,38 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         if not team_pdf_bytes:
             raise ValueError("Team PDF generation empty")
 
-        # Upload to Supabase storage
+    # Upload to Supabase storage
+    try:
         upload_pdf_to_supabase(team_pdf_bytes, team_pdf_filename)
     except Exception as e:
         logger.warning(f"Team PDF upload failed: {str(e)}")
         skipped_surveys.append({"team_pdf_email_failed": str(e)})
 
-        # Encode to base64 for API response (optional)
-        team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
+    # Send email to ShawSight email address
+    try:
+        send_pdf_email(
+            to_email="conraddshaw@outlook.com",
+            pdf_bytes=team_pdf_bytes,
+            filename=team_pdf_filename
+        )
+    except Exception as e:
+        logger.warning(f"Failed to send team PDF email: {str(e)}")
+        skipped_surveys.append({"team_pdf_email_failed": str(e)})
 
-        # Send email to ShawSight email address
-        try:
-            send_pdf_email(
-                to_email="conraddshaw@outlook.com",
-                pdf_bytes=team_pdf_bytes,
-                filename=team_pdf_filename
-            )
-        except Exception as e:
-          logger.warning(f"Failed to send team PDF email: {str(e)}")
-          skipped_surveys.append({"team_pdf_email_failed": str(e)})
-
-        # Build results summary per individual for portal tracking
-        for survey in individual_results:
-            results_summary.append({
-                "survey_id": survey.get("id", "unknown"),
-                "user_email": survey.get("user_email", "unknown"),
-                "status": "success" if "ordered_traits" in survey and "ranks" in survey else "failed"
-            })
+    # Build results summary per individual for portal tracking
+    for survey in individual_results:
+        results_summary.append({
+            "survey_id": survey.get("id", "unknown"),
+            "user_email": survey.get("user_email", "unknown"),
+            # Mark success if ranks were calculated
+            "status": "success" if "ordered_traits" in survey and "ranks" in survey else "failed"
+        })
 
         # Calculate overall success tracking
-        overall_success = all(r["status"] == "success" for r in results_summary)    
+        overall_success = all(r["status"] == "success" for r in results_summary)
+
+        # Encode to base64 for API response (optional)
+        team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
         
         return GenerateTeamPDFResponse(
             success=overall_success,
@@ -2229,3 +2226,20 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")
 
+# -----------------------------
+# Team Rankings Endpoint
+# -----------------------------
+@app.post("/calculate_team_rankings")
+async def calculate_team_rankings_endpoint(request: dict):
+    try:
+        individual_results = request.get("individual_results", [])
+
+        ordered_traits, ranks, distribution = calculate_team_rankings(individual_results)
+
+        return {
+            "ordered_traits": ordered_traits,
+            "ranks": ranks,
+            "distribution_data": distribution
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

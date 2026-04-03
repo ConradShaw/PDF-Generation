@@ -2168,9 +2168,17 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         # Upload to Supabase storage
         upload_pdf_to_supabase(team_pdf_bytes, team_pdf_filename)
 
-        # Optional: send email to team contact
-        if team_contact_email:
-            send_pdf_email(team_contact_email, team_pdf_bytes, team_pdf_filename)
+        # Send email to ShawSight email address
+        try:
+            send_pdf_email(
+                to_email="conraddshaw@outlook.com",
+                pdf_bytes=team_pdf_bytes,
+                filename=team_pdf_filename
+            )  
+
+        except Exception as e:
+            logger.warning(f"Failed to send team PDF email: {str(e)}")
+            skipped_surveys.append({"team_pdf_email_failed": str(e)})
 
         # Encode to base64 for API response (optional)
         team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None

@@ -93,7 +93,7 @@ def test_team_pdf_generation(
     print("📡 Calling team PDF generation endpoint...")
     try:
         response = requests.post(
-            f"{service_url}/generate-team-pdf",
+            f"{service_url}/generate_team_pdf",
             json=request_data,
             headers={"Content-Type": "application/json"},
             timeout=30

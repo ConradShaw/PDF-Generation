@@ -2179,13 +2179,13 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             distribution_data=distribution_data,
             output_stream=team_pdf_buffer
         )
-        except Exception as e:
-            logger.error(f"Team PDF generation failed: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")  
+    except Exception as e:
+        logger.error(f"Team PDF generation failed: {str(e)}")
+    raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")  
 
-        team_pdf_bytes = team_pdf_buffer.getvalue()
-        if not team_pdf_bytes:
-            raise ValueError("Team PDF generation empty")
+    team_pdf_bytes = team_pdf_buffer.getvalue()
+    if not team_pdf_bytes:
+        raise ValueError("Team PDF generation empty")
   
     # Upload to Supabase storage
     try:

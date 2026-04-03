@@ -2194,9 +2194,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             pdf_bytes=team_pdf_bytes,
             filename=team_pdf_filename
         )
-    except Exception as e:
-        logger.warning(f"Failed to send team PDF email: {str(e)}")
-        skipped_surveys.append({"team_pdf_email_failed": str(e)})
 
     # Build results summary per individual for portal tracking
     for survey in individual_results:
@@ -2221,11 +2218,10 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             filename=team_pdf_filename
         )
       
-    except HTTPException:
-        raise    
     except Exception as e:
-        logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")
+        logger.error(f"Failed to process request: {str(e)}\n{traceback.format_exc()}")
+        skipped_surveys.append({"team_pdf_email_failed": str(e)})
+        raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
 
 # -----------------------------
 # Team Rankings Endpoint

@@ -2027,6 +2027,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Individual survey result model
+class IndividualResult(BaseModel):
+    id: str
+    user_email: str
+    answers: Dict[str, Any]  # or more specific if you know the keys/types
+  
 # Pydantic models for request/response
 class GeneratePDFRequest(BaseModel):
     excel_base64: str   # Base64-encoded Excel with individual data
@@ -2037,15 +2043,12 @@ class GeneratePDFResponse(BaseModel):
     pdf_base64: Optional[str] = None
     filename: Optional[str] = None
 
-class GenerateTeamPDFRequest(BaseModel):
+class GenerateTeamPDFRequest(BaseModel): 
     company_name: str
     team_name: str
     num_members: int
-    date_str: str
-    ordered_traits: List[str]
-    team_ordered_traits: List[str]
-    ranks: Dict[str, float]
-    distribution_data: Dict[str, Dict[str, float]]
+    date_str: str  # YYYY-MM-DD
+    individual_results: List[IndividualResult]
 
 class SkippedSurvey(BaseModel):
     reason: str
@@ -2053,10 +2056,10 @@ class SkippedSurvey(BaseModel):
 
 class GenerateTeamPDFResponse(BaseModel):
     success: bool
-    results: List[dict]
-    skipped: List[dict]
-    pdf_base64: str
-    filename: str
+    pdf_base64: str = None
+    filename: str = None
+    results: List[Dict[str, Any]] = []
+    skipped: List[Dict[str, Any]] = []
 
 class HealthResponse(BaseModel):
     status: str

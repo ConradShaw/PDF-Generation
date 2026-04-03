@@ -34,6 +34,11 @@ Team Report Algorithm:
 
 import sys
 import os
+port = int(os.environ.get("PORT", 8080))
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
+  
 import io
 import base64
 import tempfile

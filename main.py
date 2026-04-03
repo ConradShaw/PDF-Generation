@@ -2046,18 +2046,19 @@ class GenerateTeamPDFRequest(BaseModel):
     company_name: str
     team_name: str
     date_str: str
-    individual_results: List[IndividualResult]
+    individual_results: Optional[List[IndividualResult]] = []
     num_members: Optional[int] = None
 
     @model_validator(mode="after")
     def validate_and_set_num_members(cls, values):
-        # Cross-field validation
-        if not values.get('individual_results'):
-            raise ValueError("individual_results cannot be empty")
+        # Ensure individual_results is always a list
+        individual_results = values.get('individual_results') or []
 
-        # Set num_members if not provided
-        if values.get('num_members') is None:
-            values['num_members'] = len(values['individual_results'])
+        # Automatically set num_members
+        values['num_members'] = len(individual_results)
+
+        # Optional: ensure all items are valid IndividualResult instances
+        # This will already be enforced by Pydantic if the type hints are correct
 
         return values
 

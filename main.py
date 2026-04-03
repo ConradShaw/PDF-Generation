@@ -77,7 +77,7 @@ from reportlab.graphics.shapes import Drawing, Rect, String, Line, Group
 from fastapi import FastAPI, HTTPException, UploadFile, File, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
 
 # --- Email service setup ---
@@ -2050,7 +2050,7 @@ class GenerateTeamPDFRequest(BaseModel):
     date_str: str
     individual_results: List[IndividualResult]
 
-    @root_validator
+    @model_validator
     def set_num_members(cls, values):
         if values.get('num_members') is None:
             values['num_members'] = len(values.get('individual_results', []))

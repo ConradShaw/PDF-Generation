@@ -1186,7 +1186,7 @@ def generate_individual_pdf(
     # Header for Page 7
     story.append(header_template(7, "Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
-    story.append(InfoPanel(      
+    story.append(InfoPanel(
         # Info panel table explaining the chart
         """
         <b>How to Read This Chart</b><br/><br/>
@@ -2024,6 +2024,10 @@ app.add_middleware(
 )
 
 # Pydantic models for request/response
+class GeneratePDFRequest(BaseModel):
+    excel_base64: str
+    filename: Optional[str] = "assessment.xlsx"
+  
 class GeneratePDFResponse(BaseModel):
     success: bool
     pdf_base64: Optional[str] = None

@@ -2028,6 +2028,16 @@ class GeneratePDFRequest(BaseModel):
     excel_base64: str
     filename: Optional[str] = "assessment.xlsx"
 
+class GenerateTeamPDFRequest(BaseModel):
+    company_name: str
+    team_name: str
+    num_members: int
+    date_str: str
+    ordered_traits: List[str]
+    team_ordered_traits: List[str]
+    ranks: Dict[str, float]
+    distribution_data: Dict[str, Dict[str, float]]
+
 class GenerateTeamPDFResponse(BaseModel):
     success: bool
     results: List[dict]

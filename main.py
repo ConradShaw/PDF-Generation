@@ -2135,12 +2135,6 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
                 
            return GeneratePDFResponse(success=True, results=results_summary)
 
-        except HTTPException:
-            raise
-        except Exception as e:
-            logger.error("Unexpected error in generate_individual_pdf:\n" + traceback.format_exc())
-            raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
-
 # -----------------------------
 # Team PDF Endpoint
 # -----------------------------

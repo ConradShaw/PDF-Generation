@@ -2048,18 +2048,14 @@ class GenerateTeamPDFRequest(BaseModel):
     date_str: str
     individual_results: Optional[List[IndividualResult]] = []
     num_members: Optional[int] = None
+    team_ordered_traits: List[str]
+    ranks: Dict[str, int]
+    distribution_data: Dict[str, Any]
 
     @model_validator(mode="after")
     def validate_and_set_num_members(cls, values):
-        # Ensure individual_results is always a list
         individual_results = values.get('individual_results') or []
-
-        # Automatically set num_members
         values['num_members'] = len(individual_results)
-
-        # Optional: ensure all items are valid IndividualResult instances
-        # This will already be enforced by Pydantic if the type hints are correct
-
         return values
 
 class SkippedSurvey(BaseModel):
@@ -2160,10 +2156,27 @@ def generate_individual_pdf(request: GeneratePDFRequest):
 # -----------------------------
 # Team PDF Endpoint
 # -----------------------------
-@app.post("/generate_team_pdf", response_model=GenerateTeamPDFResponse)
-def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest = Body(...)):
-    skipped_surveys = []
-    results_summary = []
+@app.post("/generate_team_pdf")
+def generate_team_pdf(request: GenerateTeamPDFRequest):
+    """
+    Minimal working PDF service stub:
+    - Accepts all ranking fields as-is
+    - Allows empty individual_results
+    - Returns dummy PDF for portal functionality
+    """
+    # Log inputs for debugging
+    print("Received GenerateTeamPDFRequest:")
+    print("Company:", request.company_name)
+    print("Team:", request.team_name)
+    print("Num Members:", request.num_members)
+    print("Individual Results Count:", len(request.individual_results))
+    print("Team Ordered Traits:", request.team_ordered_traits)
+    print("Distribution Data Keys:", list(request.distribution_data.keys()))
+
+    # Create dummy PDF (just a simple string)
+    dummy_pdf_bytes = f"Team Report for {request.team_name} ({request.company_name})".encode('utf-8')
+    pdf_base64 = base64.b64encode(dummy_pdf_bytes).decode('utf-8')
+
 
     try:
         # Extract individual_results from request
@@ -2238,13 +2251,11 @@ def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest = Body(...)):
             # Encode to base64 for API response (optional)
             team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
             
-            return GenerateTeamPDFResponse(
+            return {
                 success=True,
                 pdf_base64=team_pdf_base64,
                 filename=team_pdf_filename,
-                results=results_summary,
-                skipped=skipped_surveys
-            )
+            }
 
     except Exception as e:
         logger.error(f"Failed to process request: {str(e)}\n{traceback.format_exc()}")

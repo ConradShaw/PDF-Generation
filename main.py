@@ -2028,6 +2028,7 @@ class GeneratePDFRequest(BaseModel):
   
 class GeneratePDFResponse(BaseModel):
     success: bool
+    results: List[Dict[str, Any]]
     pdf_base64: Optional[str] = None
     filename: Optional[str] = None
 
@@ -2045,8 +2046,8 @@ class GenerateTeamPDFResponse(BaseModel):
     success: bool
     results: List[dict]
     skipped: List[dict]
-    pdf_base64: Optional[str] = None
-    filename: Optional[str] = None
+    pdf_base64: str
+    filename: str
 
 class HealthResponse(BaseModel):
     status: str
@@ -2065,43 +2066,30 @@ async def health_check():
 logger = logging.getLogger("pdf_logger")
 
 # -----------------------------------------
-# Generate Individual and Team PDF Reports
+# Individual PDF Endpoint
 # -----------------------------------------
 # Individual PDF
 @app.post("/generate_pdf_base64", response_model=GeneratePDFResponse)
 async def generate_individual_pdf(request: GeneratePDFRequest):
-    pass
-
-# Team PDF
-@app.post("/generate_team_pdf", response_model=GenerateTeamPDFResponse)
-async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
-    pass
-    """
-    Generate PDFs from base64-encoded Excel input.
-    Handles individual reports and optionally a team summary report.
-    """
     results_summary = []
-    skipped_surveys = []
 
     try:
-        # 1️⃣ Decode base64 Excel
+        # Decode Excel
         try:
             excel_bytes = base64.b64decode(request.excel_base64)
         except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Invalid base64 encoding: {str(e)}")
+            raise HTTPException(status_code=400, detail=f"Invalid base64 Excel: {str(e)}")
 
-        # 2️⃣ Parse Excel → list of individual survey results
+        # Parse Excel → individual results
         individual_results = parse_excel_to_individual_results(excel_bytes)
         if not individual_results:
-            raise HTTPException(status_code=400, detail="No individual results found in Excel")
+            raise HTTPException(status_code=400, detail="No individual results found")
 
-        # 3️⃣ Generate today's date for PDFs
+        # Generate today's date
         from datetime import datetime
         date_str = datetime.now().strftime("%Y-%m-%d")
 
-        # -----------------------------------------
-        # 4️⃣ Generate Individual PDFs
-        # -----------------------------------------
+        # Generate individual PDFs
         for survey in individual_results:
             survey_id = survey.get("id") or "noid"
             user_email = survey.get("user_email") or "unknown"
@@ -2110,7 +2098,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             try:
                 pdf_buffer = io.BytesIO()
 
-                # Ensure ONET activities exist
+                # ONET activities fallback
                 onet_activities_data = dict(survey.get("onet_activities") or {})
                 if not isinstance(onet_activities_data, dict):
                     onet_activities_data = ONET_ACTIVITIES
@@ -2135,13 +2123,41 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 send_pdf_email(user_email, pdf_bytes, pdf_filename)
 
                 results_summary.append({"survey_id": survey_id, "status": "success"})
-
             except Exception as e:
                 logger.error(
                     f"Individual PDF generation failed for survey {survey_id}, user_email={user_email}: {str(e)}\n"
                     f"{traceback.format_exc()}"
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
+
+        return GeneratePDFResponse(success=True, results=results_summary)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Unexpected error in generate_individual_pdf:\n" + traceback.format_exc())
+        raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
+
+
+
+
+
+
+
+
+
+
+
+# Team PDF
+@app.post("/generate_team_pdf", response_model=GenerateTeamPDFResponse)
+async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
+    pass
+    """
+    Generate PDFs from base64-encoded Excel input.
+    Handles individual reports and optionally a team summary report.
+    """
+    results_summary = []
+    skipped_surveys = []
 
         # -----------------------------------------
         # 5️⃣ Optional Team PDF (if data exists)

@@ -2183,9 +2183,9 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
         # Upload to Supabase storage
         upload_pdf_to_supabase(team_pdf_bytes, team_pdf_filename)
-        except Exception as e:
-            logger.warning(f"Team PDF upload failed: {str(e)}")
-            skipped_surveys.append({"team_pdf_email_failed": str(e)})
+    except Exception as e:
+        logger.warning(f"Team PDF upload failed: {str(e)}")
+        skipped_surveys.append({"team_pdf_email_failed": str(e)})
 
         # Encode to base64 for API response (optional)
         team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None

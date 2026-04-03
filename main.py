@@ -2138,13 +2138,13 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
 
-        return GeneratePDFResponse(success=True, results=results_summary)
+            return GeneratePDFResponse(success=True, results=results_summary)
 
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error("Unexpected error in generate_individual_pdf:\n" + traceback.format_exc())
-        raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
+            except HTTPException:
+                raise
+            except Exception as e:
+                logger.error("Unexpected error in generate_individual_pdf:\n" + traceback.format_exc())
+                raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
 
 # -----------------------------
 # Team PDF Endpoint
@@ -2220,13 +2220,13 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         # Encode to base64 for API response (optional)
         team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
         
-        return GenerateTeamPDFResponse(
-            success=overall_success,
-            results=results_summary,
-            skipped=skipped_surveys,
-            pdf_base64=team_pdf_base64,
-            filename=team_pdf_filename
-        )
+    return GenerateTeamPDFResponse(
+        success=overall_success,
+        results=results_summary,
+        skipped=skipped_surveys,
+        pdf_base64=team_pdf_base64,
+        filename=team_pdf_filename
+    )
       
     except HTTPException:
         raise    

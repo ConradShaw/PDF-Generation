@@ -2067,10 +2067,12 @@ logger = logging.getLogger("pdf_logger")
 # Individual PDF
 @app.post("/generate_pdf_base64", response_model=GeneratePDFResponse)
 async def generate_individual_pdf(request: GeneratePDFRequest):
+    pass
 
 # Team PDF
 @app.post("/generate_team_pdf", response_model=GenerateTeamPDFResponse)
-async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):  
+async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
+    pass
     """
     Generate PDFs from base64-encoded Excel input.
     Handles individual reports and optionally a team summary report.

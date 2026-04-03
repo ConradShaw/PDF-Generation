@@ -2046,9 +2046,15 @@ class GeneratePDFResponse(BaseModel):
 class GenerateTeamPDFRequest(BaseModel): 
     company_name: str
     team_name: str
-    num_members: int
-    date_str: str  # YYYY-MM-DD
+    num_members: Optional[int] = None
+    date_str: str
     individual_results: List[IndividualResult]
+
+    @root_validator
+    def set_num_members(cls, values):
+        if values.get('num_members') is None:
+            values['num_members'] = len(values.get('individual_results', []))
+        return values
 
 class SkippedSurvey(BaseModel):
     reason: str

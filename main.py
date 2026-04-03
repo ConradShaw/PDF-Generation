@@ -2047,6 +2047,10 @@ class GenerateTeamPDFRequest(BaseModel):
     ranks: Dict[str, float]
     distribution_data: Dict[str, Dict[str, float]]
 
+class SkippedSurvey(BaseModel):
+    reason: str
+    details: Optional[str] = None
+
 class GenerateTeamPDFResponse(BaseModel):
     success: bool
     results: List[dict]
@@ -2145,7 +2149,7 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
 @app.post("/generate_team_pdf", response_model=GenerateTeamPDFResponse)
 async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     results_summary = []
-    skipped_surveys = []
+    skipped_surveys: List[SkippedSurvey] = []
 
     try:
         # Extract individual_results from request
@@ -2162,15 +2166,19 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         try:
             # Get team rankings from the separate endpoint ---
             ordered_traits, ranks, distribution_data = calculate_team_rankings(individual_results)
+
+          team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(
+            request.individual_results
+        )
           
             generate_team_pdf(
                 company_name=request.company_name,
                 team_name=request.team_name,
                 num_members=len(individual_results),
                 date_str=date_str,
-                team_ordered_traits=ordered_traits,
-                ranks=ranks,
-                distribution_data=distribution_data,
+                team_ordered_traits=team_ordered_traits,
+                ranks=team_ranks,
+                distribution_data=team_distribution,
                 output_stream=team_pdf_buffer
             )
         except Exception as e:
@@ -2215,11 +2223,10 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
             
             return GenerateTeamPDFResponse(
-                success=overall_success,
-                results=results_summary,
-                skipped=skipped_surveys,
-                pdf_base64=team_pdf_base64,
-                filename=team_pdf_filename
+                  success=True,
+                  pdf_base64=base64.b64encode(team_pdf_bytes).decode("utf-8"),
+                  filename=team_pdf_filename,
+                  skipped_surveys=skipped_surveys if skipped_surveys else None
             )
 
     except Exception as e:

@@ -1353,9 +1353,6 @@ def create_distribution_chart_drawing(
     
     return drawing
 
-def calculate_team_rankings(
-    individual_results: List[Dict[str, Any]]
-) -> Tuple[List[str], Dict[str, float], Dict[str, Dict[str, float]]]:
     """
     Calculate team-level rankings by averaging individual rankings.
     
@@ -1379,7 +1376,9 @@ def calculate_team_rankings(
 from statistics import mean, median
 from itertools import groupby
 
-def calculate_team_rankings(individual_results):
+def calculate_team_rankings(
+    individual_results: List[Dict[str, Any]]
+) -> Tuple[List[str], Dict[str, float], Dict[str, Dict[str, float]]]:
 
     # --- Step 1: Aggregate individual ranks ---
     rank_sums = {trait: 0.0 for trait in TRAITS}

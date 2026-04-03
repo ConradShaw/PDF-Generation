@@ -2138,7 +2138,7 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
                 )
                 results_summary.append({"survey_id": survey_id, "status": "failed"})
 
-            return GeneratePDFResponse(success=True, results=results_summary)
+                return GeneratePDFResponse(success=True, results=results_summary)
 
             except HTTPException:
                 raise

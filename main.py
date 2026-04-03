@@ -2024,9 +2024,10 @@ app.add_middleware(
 )
 
 # Pydantic models for request/response
-class GeneratePDFRequest(BaseModel):
-    excel_base64: str
-    filename: Optional[str] = "assessment.xlsx"
+class GeneratePDFResponse(BaseModel):
+    success: bool
+    pdf_base64: Optional[str] = None
+    filename: Optional[str] = None
 
 class GenerateTeamPDFRequest(BaseModel):
     company_name: str

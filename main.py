@@ -2113,9 +2113,9 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
                     ONET_ACTIVITIES=onet_activities_data,
                     logo_path=LOGO_PATH
                 )
-              except Exception as e:
-                  logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
-                  skipped_surveys.append({"team_pdf_failed": str(e)})
+            except Exception as e:
+                logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
+                skipped_surveys.append({"team_pdf_failed": str(e)})
 
                 pdf_bytes = pdf_buffer.getvalue()
                 if not pdf_bytes:

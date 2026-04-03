@@ -74,7 +74,7 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
 from reportlab.graphics.shapes import Drawing, Rect, String, Line, Group
-from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi import FastAPI, HTTPException, UploadFile, File, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
@@ -2082,7 +2082,7 @@ logger = logging.getLogger("pdf_logger")
 # -----------------------------------------
 # Individual PDF
 @app.post("/generate_pdf_base64", response_model=GeneratePDFResponse)
-async def generate_individual_pdf(request: GeneratePDFRequest):
+def generate_individual_pdf(request: GeneratePDFRequest):
     results_summary = []
 
     try:
@@ -2114,9 +2114,8 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
                 onet_activities_data = dict(survey.get("onet_activities") or {})
                 if not isinstance(onet_activities_data, dict):
                     onet_activities_data = ONET_ACTIVITIES
-
-                generate_individual_pdf(
-                    output_stream=pdf_buffer,
+               
+                pdf_bytes = generate_individual_pdf(             
                     first=survey.get("first_name", ""),
                     last=survey.get("last_name", ""),
                     date_str=date_str,
@@ -2150,9 +2149,9 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
 # Team PDF Endpoint
 # -----------------------------
 @app.post("/generate_team_pdf", response_model=GenerateTeamPDFResponse)
-async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
+def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest = Body(...)):
+    skipped_surveys = []
     results_summary = []
-    skipped_surveys: List[SkippedSurvey] = []
 
     try:
         # Extract individual_results from request
@@ -2168,25 +2167,25 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     
         try:
             # Get team rankings from the separate endpoint ---
-            ordered_traits, ranks, distribution_data = calculate_team_rankings(individual_results)
-
             team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(
             request.individual_results
-        )
-          
-            generate_team_pdf(
+            )
+
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Team ranking failed: {str(e)}")
+
+        try:  
+            team_pdf_bytes, team_pdf_filename = generate_team_pdf(
                 company_name=request.company_name,
                 team_name=request.team_name,
-                num_members=len(individual_results),
+                num_members=len(request.individual_results),
                 date_str=date_str,
                 team_ordered_traits=team_ordered_traits,
                 ranks=team_ranks,
-                distribution_data=team_distribution,
-                output_stream=team_pdf_buffer
+                distribution_data=team_distribution          
             )
         except Exception as e:
-            logger.error(f"Team PDF generation failed: {str(e)}")
-            raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")  
+            raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
     
         team_pdf_bytes = team_pdf_buffer.getvalue()
         if not team_pdf_bytes:
@@ -2207,8 +2206,10 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 filename=team_pdf_filename
             )
         except Exception as e:
-            logger.error(f"Failed to send team PDF email: {str(e)}\n{traceback.format_exc()}")
-            skipped_surveys.append({"team_pdf_email_failed": str(e)})      
+            skipped_surveys.append({"team_pdf_email_failed": str(e)})
+            # Don't fail the entire request for email errors - log instead
+            import logging
+            logging.error(f"Email send failed: {str(e)}\n{traceback.format_exc()}")
     
         # Build results summary per individual for portal tracking
         for survey in individual_results:
@@ -2223,13 +2224,14 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             overall_success = all(r["status"] == "success" for r in results_summary)
     
             # Encode to base64 for API response (optional)
-            team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
+            team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
             
             return GenerateTeamPDFResponse(
-                  success=True,
-                  pdf_base64=base64.b64encode(team_pdf_bytes).decode("utf-8"),
-                  filename=team_pdf_filename,
-                  skipped_surveys=skipped_surveys if skipped_surveys else None
+                success=True,
+                pdf_base64=team_pdf_base64,
+                filename=team_pdf_filename,
+                results=results_summary,
+                skipped=skipped_surveys
             )
 
     except Exception as e:

@@ -2149,6 +2149,9 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     results_summary = []
     skipped_surveys = []
 
+    # Extract individual_results from request
+    individual_results = request.individual_results
+  
     try:
         # Calculate team-level rankings
         team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(individual_results)

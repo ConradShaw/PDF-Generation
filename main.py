@@ -2143,42 +2143,57 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
 # -----------------------------
 @app.post("/generate_team_pdf", response_model=GenerateTeamPDFResponse)
 async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
+    results_summary = []
+    skipped_surveys = []
+
     try:
         # Generate team PDF buffer
         team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(individual_results)
+        except Exception as e:
+            logger.error(f"Team ranking calculation failed: {str(e)}\n{traceback.format_exc()}")
+            raise HTTPException(status_code=500, detail=f"Failed to calculate team rankings: {str(e)}")
+        team_pdf_buffer = io.BytesIO()
+        team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
+
+        # Generate today's date
+        from datetime import datetime
+        date_str = datetime.now().strftime("%Y-%m-%d")
+
+        # 3️Generate the Team PDF
         team_pdf_buffer = io.BytesIO()
         team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
 
         generate_team_pdf(
             company_name=request.company_name,
             team_name=request.team_name,
-            num_members=request.num_members,
-            date_str=request.date_str,
-            ordered_traits=request.ordered_traits,
-            team_ordered_traits=request.team_ordered_traits,
-            ranks=request.ranks,
-            distribution_data=request.distribution_data,
+            num_members=len(individual_results),
+            date_str=request.date_str,            
+            team_ordered_traits=team_ordered_traits,
+            ranks=team_ranks,
+            distribution_data=team_distribution,
             output_stream=team_pdf_buffer
         )
 
         team_pdf_bytes = team_pdf_buffer.getvalue()
         if not team_pdf_bytes:
-            raise ValueError("Team PDF generation failed")
+            raise ValueError("Team PDF generation empty")
 
         # Upload to Supabase storage
         upload_pdf_to_supabase(team_pdf_bytes, team_pdf_filename)
-
+        except Exception as e:
+            logger.warning(f"Team PDF upload failed: {str(e)}")
+            skipped_surveys.append({"team_pdf_email_failed": str(e)})
+   
         # Send email to ShawSight email address
         try:
             send_pdf_email(
                 to_email="conraddshaw@outlook.com",
                 pdf_bytes=team_pdf_bytes,
                 filename=team_pdf_filename
-            )  
-
+            )
         except Exception as e:
-            logger.warning(f"Failed to send team PDF email: {str(e)}")
-            skipped_surveys.append({"team_pdf_email_failed": str(e)})
+          logger.warning(f"Failed to send team PDF email: {str(e)}")
+          skipped_surveys.append({"team_pdf_email_failed": str(e)})
 
         # Encode to base64 for API response (optional)
         team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
@@ -2190,7 +2205,9 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         )
 
         return GenerateTeamPDFResponse(
-            success=True,
+            success=overall_success,
+            results=results_summary,
+            skipped=skipped_surveys,
             pdf_base64=team_pdf_base64,
             filename=team_pdf_filename
         )

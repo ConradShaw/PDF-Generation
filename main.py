@@ -2027,12 +2027,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Individual survey result model
-class IndividualResult(BaseModel):
-    id: str
-    user_email: str
-    answers: Dict[str, Any]  # or more specific if you know the keys/types
-  
 # Pydantic models for request/response
 class GeneratePDFRequest(BaseModel):
     excel_base64: str   # Base64-encoded Excel with individual data
@@ -2043,17 +2037,28 @@ class GeneratePDFResponse(BaseModel):
     pdf_base64: Optional[str] = None
     filename: Optional[str] = None
 
-class GenerateTeamPDFRequest(BaseModel): 
+class IndividualResult(BaseModel):
+    id: str
+    user_email: str
+    answers: Dict[str, Any]  # or more specific if you know the keys/types
+
+class GenerateTeamPDFRequest(BaseModel):
     company_name: str
     team_name: str
-    num_members: Optional[int] = None
     date_str: str
     individual_results: List[IndividualResult]
+    num_members: Optional[int] = None
 
-    @model_validator
-    def set_num_members(cls, values):
+    @model_validator(mode="after")
+    def validate_and_set_num_members(cls, values):
+        # Cross-field validation
+        if not values.get('individual_results'):
+            raise ValueError("individual_results cannot be empty")
+
+        # Set num_members if not provided
         if values.get('num_members') is None:
-            values['num_members'] = len(values.get('individual_results', []))
+            values['num_members'] = len(values['individual_results'])
+
         return values
 
 class SkippedSurvey(BaseModel):

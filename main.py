@@ -2178,7 +2178,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             ranks=ranks,
             distribution_data=distribution_data,
             output_stream=team_pdf_buffer
-          )
+        )
         except Exception as e:
             logger.error(f"Team PDF generation failed: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")  
@@ -2241,7 +2241,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 async def calculate_team_rankings_endpoint(request: dict):
     try:
         individual_results = request.get("individual_results", [])
-
+  
         ordered_traits, ranks, distribution = calculate_team_rankings(individual_results)
 
         return {

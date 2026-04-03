@@ -8,9 +8,9 @@ import json
 SUPABASE_URL = "https://zsuzncnguhtvevivbxrn.supabase.co"
 SUPABASE_KEY = "PASTE_YOUR_SERVICE_ROLE_KEY_HERE"
 
-PDF_ENDPOINT = "https://YOUR-SERVICE-URL/generate-team-pdf"
+PDF_ENDPOINT = "https://YOUR-SERVICE-URL/generate_team_pdf"
 # Example:
-# PDF_ENDPOINT = "https://your-cloud-run-url/generate-team-pdf"
+# PDF_ENDPOINT = "https://your-cloud-run-url/generate_team_pdf"
 
 # --- Init Supabase ---
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)

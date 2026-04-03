@@ -2113,6 +2113,9 @@ async def generate_individual_pdf(request: GeneratePDFRequest):
                     ONET_ACTIVITIES=onet_activities_data,
                     logo_path=LOGO_PATH
                 )
+                except Exception as e:
+                    logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
+                    skipped_surveys.append({"team_pdf_failed": str(e)})
 
                 pdf_bytes = pdf_buffer.getvalue()
                 if not pdf_bytes:
@@ -2147,7 +2150,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     skipped_surveys = []
 
     try:
-        # Generate team PDF buffer
+        # Calculate team-level rankings
         team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(individual_results)
         except Exception as e:
             logger.error(f"Team ranking calculation failed: {str(e)}\n{traceback.format_exc()}")
@@ -2183,7 +2186,10 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         except Exception as e:
             logger.warning(f"Team PDF upload failed: {str(e)}")
             skipped_surveys.append({"team_pdf_email_failed": str(e)})
-   
+
+        # Encode to base64 for API response (optional)
+        team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
+
         # Send email to ShawSight email address
         try:
             send_pdf_email(
@@ -2195,15 +2201,17 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
           logger.warning(f"Failed to send team PDF email: {str(e)}")
           skipped_surveys.append({"team_pdf_email_failed": str(e)})
 
-        # Encode to base64 for API response (optional)
-        team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8") if 'team_pdf_bytes' in locals() else None
+        # Build results summary per individual for portal tracking
+        for survey in individual_results:
+            results_summary.append({
+                "survey_id": survey.get("id", "unknown"),
+                "user_email": survey.get("user_email", "unknown"),
+                "status": "success" if "ordered_traits" in survey and "ranks" in survey else "failed"
+            })
 
-        # Calculate overall success relative to expected members
-        overall_success = (
-            len(individual_results) > 0 and
-            all("ordered_traits" in r and "ranks" in r for r in individual_results)
-        )
-
+        # Calculate overall success tracking
+        overall_success = all(r["status"] == "success" for r in results_summary)    
+        
         return GenerateTeamPDFResponse(
             success=overall_success,
             results=results_summary,
@@ -2217,5 +2225,4 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
     except Exception as e:
         logger.error(f"Team PDF generation failed: {str(e)}\n{traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=f"Failed to generate team PDF: {str(e)}")
-
 

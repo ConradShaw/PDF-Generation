@@ -74,7 +74,7 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
 from reportlab.graphics.shapes import Drawing, Rect, String, Line, Group
-from fastapi import FastAPI, HTTPException, UploadFile, File, Body
+from fastapi import FastAPI, HTTPException, Request, UploadFile, File, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel, model_validator
@@ -2267,11 +2267,14 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
 # Team Rankings Endpoint
 # -----------------------------
 @app.post("/calculate_team_rankings")
-async def calculate_team_rankings_endpoint(request: dict):
+async def calculate_team_rankings_endpoint(request: Request):
     try:
-        individual_results = request.get("individual_results", [])
-  
-        ordered_traits, ranks, distribution = calculate_team_rankings(individual_results)
+        # Get the raw team data payload
+        payload = await request.json()
+        team_data = payload.get("team_data")  # could be individual rankings or other structure
+
+        # calculate_team_rankings now handles the aggregation
+        ordered_traits, ranks, distribution = calculate_team_rankings(team_data)
 
         return {
             "ordered_traits": ordered_traits,

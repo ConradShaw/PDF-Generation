@@ -2266,8 +2266,6 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
 # -----------------------------
 # Team Rankings Endpoint
 # -----------------------------
-# Team Rankings Endpoint
-# -----------------------------
 @app.post("/calculate_team_rankings")
 async def calculate_team_rankings_endpoint(request: Request):
     try:

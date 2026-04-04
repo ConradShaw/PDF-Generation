@@ -2266,20 +2266,25 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
 # -----------------------------
 # Team Rankings Endpoint
 # -----------------------------
+# Team Rankings Endpoint
+# -----------------------------
 @app.post("/calculate_team_rankings")
 async def calculate_team_rankings_endpoint(request: Request):
     try:
-        # Get the raw team data payload
+        # Get the raw payload
         payload = await request.json()
-        team_data = payload.get("team_data")  # could be individual rankings or other structure
+        individual_results = payload.get("individual_results", [])
 
-        # calculate_team_rankings now handles the aggregation
-        ordered_traits, ranks, distribution = calculate_team_rankings(team_data)
+        if not individual_results:
+            raise HTTPException(status_code=400, detail="Missing individual_results in request")
+
+        # Calculate aggregated team rankings
+        team_ordered_traits, final_ranks, distribution_data = calculate_team_rankings(individual_results)
 
         return {
-            "ordered_traits": ordered_traits,
-            "ranks": ranks,
-            "distribution_data": distribution
+            "team_ordered_traits": team_ordered_traits,
+            "final_ranks": final_ranks,
+            "distribution_data": distribution_data
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

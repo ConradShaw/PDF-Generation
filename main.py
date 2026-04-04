@@ -2038,9 +2038,9 @@ class GeneratePDFResponse(BaseModel):
     filename: Optional[str] = None
 
 class IndividualResult(BaseModel):
-    id: str
     user_email: str
-    answers: Dict[str, Any]  # or more specific if you know the keys/types
+    ordered_traits: List[str]
+    ranks: Dict[str, int]
 
 class GenerateTeamPDFRequest(BaseModel):
     company_name: str

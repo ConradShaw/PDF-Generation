@@ -2252,9 +2252,9 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
             team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
             
             return {
-                success=True,
-                pdf_base64=team_pdf_base64,
-                filename=team_pdf_filename,
+                "success": True,
+                "pdf_base64": team_pdf_base64,
+                "filename": team_pdf_filename
             }
 
     except Exception as e:

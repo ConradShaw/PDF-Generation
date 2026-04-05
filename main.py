@@ -79,7 +79,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, JSONResponse
 from pydantic import BaseModel, model_validator
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
-pdf
+
 # --- Email service setup ---
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 

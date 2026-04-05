@@ -2088,7 +2088,6 @@ logger = logging.getLogger("pdf_logger")
 # -----------------------------------------
 # Individual PDF Endpoint
 # -----------------------------------------
-# Individual PDF
 @app.post("/generate_pdf_base64", response_model=GeneratePDFResponse)
 def generate_individual_pdf(request: GeneratePDFRequest):
     results_summary = []

@@ -2266,52 +2266,46 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
 # -----------------------------
 # Team Rankings Endpoint
 # -----------------------------
-@app.post("/calculate_team_rankings")
-async def calculate_team_rankings_endpoint(request: Request):
+@app.post("/generate_team_report")
+async def generate_team_report(request: Request):
     try:
-        # Get the raw payload
+        # Get the raw payload from the frontend (team details)
         payload = await request.json()
-        individual_results = payload.get("individual_results", [])
+        company_name = payload.get('company_name', 'Acme Inc')  # Actual company data or fallback
+        team_name = payload.get('team_name', 'Acme Inc')  # Actual team data or fallback
+        num_members = payload.get('num_members', 5)  # Actual team size or fallback
+        date_str = payload.get('date_str', '2026-04-04')  # Actual date or fallback
+        team_ordered_traits = payload.get('team_ordered_traits', [])
+        ranks = payload.get('ranks', {})
+        distribution_data = payload.get('distribution_data', {})
 
-        if not individual_results:
-            raise HTTPException(status_code=400, detail="Missing individual_results in request")
+        # Validate the required fields
+        if not company_name or not team_name or not num_members or not date_str:
+            raise HTTPException(status_code=400, detail="Missing required fields.")
 
-        # Calculate aggregated team rankings
-        team_ordered_traits, final_ranks, distribution_data = calculate_team_rankings(individual_results)
-
-        # Generate PDF (you may need a PDF generation function here)######################
-        pdf_base64, filename = generate_team_pdf(team_ordered_traits, final_ranks, distribution_data)
-
-        # Get company information (or mock data for now) ######################
-        company_name = payload.get('company_name', 'Acme Inc')  # Replace with actual company data
-        team_name = payload.get('team_name', 'Acme Inc')  # Replace with actual team data
-        num_members = payload.get('num_members', 5)  # Replace with actual team size
-        date_str = payload.get('date_str', '2026-04-04')  # Replace with actual date
-
-        # Generate PDF using the existing generate_team_pdf function
-        pdf_bytes, filename = generate_team_pdf(
+        # Now generate the PDF using the team data passed to generate_team_pdf
+        output_stream = io.BytesIO()
+        pdf_filename = generate_team_pdf(
             company_name=company_name,
             team_name=team_name,
             num_members=num_members,
             date_str=date_str,
-            ordered_traits=team_ordered_traits,
             team_ordered_traits=team_ordered_traits,
-            ranks=final_ranks,
+            ranks=ranks,
             distribution_data=distribution_data,
-            output_stream=io.BytesIO()
+            output_stream=output_stream,
         )
 
-        # Convert PDF bytes to base64
-        pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
+        # Convert the PDF content into a base64 string to return to the frontend
+        pdf_bytes = output_stream.getvalue()
+        pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
 
-        return JSONResponse(content={
+        return {
             "success": True,
-            "team_ordered_traits": team_ordered_traits,
-            "final_ranks": final_ranks,
-            "distribution_data": distribution_data,
             "pdf_base64": pdf_base64,
-            "filename": filename
-        })
+            "filename": pdf_filename,
+            "message": "Team report generated successfully."
+        }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

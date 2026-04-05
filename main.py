@@ -79,7 +79,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, JSONResponse
 from pydantic import BaseModel, model_validator
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
-
+pdf
 # --- Email service setup ---
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -99,7 +99,7 @@ async def startup_event():
 # Parse Excel definition
 def parse_excel_to_individual_results(excel_bytes):
     import pandas as pd
-    from io import BytesIO
+    from io import BytesIO   
 
     df = pd.read_excel(BytesIO(excel_bytes))
 
@@ -2177,7 +2177,6 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
     dummy_pdf_bytes = f"Team Report for {request.team_name} ({request.company_name})".encode('utf-8')
     pdf_base64 = base64.b64encode(dummy_pdf_bytes).decode('utf-8')
 
-
     try:
         # Extract individual_results from request
         individual_results = request.individual_results
@@ -2297,6 +2296,7 @@ async def generate_team_report(request: Request):
             ranks=ranks,
             distribution_data=distribution_data,
             output_stream=output_stream,
+            logo_path=LOGO_PATH
         )
 
         # Convert the PDF content into a base64 string to return to the frontend

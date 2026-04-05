@@ -2117,12 +2117,12 @@ def generate_individual_pdf(request: GeneratePDFRequest):
             try:
                 pdf_buffer = io.BytesIO()
 
-                # ONET activities fallback
+                # ONET activities fallback                    
                 onet_activities_data = dict(survey.get("onet_activities") or {})
                 if not isinstance(onet_activities_data, dict):
                     onet_activities_data = ONET_ACTIVITIES
-               
-                pdf_bytes = generate_individual_pdf(             
+                
+                pdf_filename = generate_individual_pdf(             
                     first=survey.get("first_name", ""),
                     last=survey.get("last_name", ""),
                     date_str=date_str,
@@ -2131,11 +2131,13 @@ def generate_individual_pdf(request: GeneratePDFRequest):
                     ONET_ACTIVITIES=onet_activities_data,
                     output_stream=pdf_buffer, 
                     logo_path=LOGO_PATH
-                ) 
-
+                )
+                
+                pdf_buffer.seek(0)
                 pdf_bytes = pdf_buffer.getvalue()
+                
                 if not pdf_bytes:
-                    raise ValueError("Empty PDF buffer generated")
+                    raise ValueError("Empty PDF buffer generated")              
 
                 # Upload and send email
                 upload_pdf_to_supabase(pdf_bytes, pdf_filename)

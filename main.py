@@ -2279,8 +2279,30 @@ async def calculate_team_rankings_endpoint(request: Request):
         # Calculate aggregated team rankings
         team_ordered_traits, final_ranks, distribution_data = calculate_team_rankings(individual_results)
 
-        # Generate PDF (you may need a PDF generation function here)***************
+        # Generate PDF (you may need a PDF generation function here)######################
         pdf_base64, filename = generate_team_pdf(team_ordered_traits, final_ranks, distribution_data)
+
+        # Get company information (or mock data for now) ######################
+        company_name = payload.get('company_name', 'Acme Inc')  # Replace with actual company data
+        team_name = payload.get('team_name', 'Acme Inc')  # Replace with actual team data
+        num_members = payload.get('num_members', 5)  # Replace with actual team size
+        date_str = payload.get('date_str', '2026-04-04')  # Replace with actual date
+
+        # Generate PDF using the existing generate_team_pdf function
+        pdf_bytes, filename = generate_team_pdf(
+            company_name=company_name,
+            team_name=team_name,
+            num_members=num_members,
+            date_str=date_str,
+            ordered_traits=team_ordered_traits,
+            team_ordered_traits=team_ordered_traits,
+            ranks=final_ranks,
+            distribution_data=distribution_data,
+            output_stream=io.BytesIO()
+        )
+
+        # Convert PDF bytes to base64
+        pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
 
         return JSONResponse(content={
             "success": True,
@@ -2294,18 +2316,3 @@ async def calculate_team_rankings_endpoint(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# -----------------------------
-# Helper function to generate PDF ******************
-# -----------------------------
-def generate_team_pdf(team_ordered_traits, final_ranks, distribution_data):
-    # Mock PDF generation - you can replace this with actual PDF generation logic
-    pdf_content = f"Team Report\n\nOrdered Traits: {team_ordered_traits}\nRanks: {final_ranks}\nDistribution Data: {distribution_data}"
-
-    # Convert the content into PDF and then to base64
-    pdf_bytes = pdf_content.encode('utf-8')  # Placeholder for actual PDF content
-    pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
-    
-    # Generate a filename (you can use a dynamic one)
-    filename = "team_report.pdf"
-
-    return pdf_base64, filename

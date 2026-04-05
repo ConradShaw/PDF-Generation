@@ -2279,10 +2279,33 @@ async def calculate_team_rankings_endpoint(request: Request):
         # Calculate aggregated team rankings
         team_ordered_traits, final_ranks, distribution_data = calculate_team_rankings(individual_results)
 
-        return {
+        # Generate PDF (you may need a PDF generation function here)***************
+        pdf_base64, filename = generate_team_pdf(team_ordered_traits, final_ranks, distribution_data)
+
+        return JSONResponse(content={
+            "success": True,
             "team_ordered_traits": team_ordered_traits,
             "final_ranks": final_ranks,
-            "distribution_data": distribution_data
-        }
+            "distribution_data": distribution_data,
+            "pdf_base64": pdf_base64,
+            "filename": filename
+        })
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+# -----------------------------
+# Helper function to generate PDF ******************
+# -----------------------------
+def generate_team_pdf(team_ordered_traits, final_ranks, distribution_data):
+    # Mock PDF generation - you can replace this with actual PDF generation logic
+    pdf_content = f"Team Report\n\nOrdered Traits: {team_ordered_traits}\nRanks: {final_ranks}\nDistribution Data: {distribution_data}"
+
+    # Convert the content into PDF and then to base64
+    pdf_bytes = pdf_content.encode('utf-8')  # Placeholder for actual PDF content
+    pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
+    
+    # Generate a filename (you can use a dynamic one)
+    filename = "team_report.pdf"
+
+    return pdf_base64, filename

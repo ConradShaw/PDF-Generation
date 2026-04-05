@@ -76,7 +76,7 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
 from reportlab.graphics.shapes import Drawing, Rect, String, Line, Group
 from fastapi import FastAPI, HTTPException, Request, UploadFile, File, Body
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import Response, JSONResponse
 from pydantic import BaseModel, model_validator
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
 

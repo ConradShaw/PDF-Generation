@@ -2129,8 +2129,9 @@ def generate_individual_pdf(request: GeneratePDFRequest):
                     ordered_traits=survey["ordered_traits"],
                     ranks=survey["ranks"],
                     ONET_ACTIVITIES=onet_activities_data,
+                    output_stream=pdf_buffer, 
                     logo_path=LOGO_PATH
-                )
+                ) 
 
                 pdf_bytes = pdf_buffer.getvalue()
                 if not pdf_bytes:

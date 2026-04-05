@@ -6,7 +6,7 @@ This is a stateless HTTP service that generates PDF reports from Excel assessmen
 Designed for deployment on Google Cloud Run, later transferred to Railway.
 
 Endpoints:
-  POST /generate_pdf_base64
+  POST /generate-pdf-base64
     Body: { "excel_base64": "...", "filename": "..." }
     Returns: { "success": true, "pdf_base64": "...", "filename": "..." }
   
@@ -2088,7 +2088,7 @@ logger = logging.getLogger("pdf_logger")
 # -----------------------------------------
 # Individual PDF Endpoint
 # -----------------------------------------
-@app.post("/generate_pdf_base64", response_model=GeneratePDFResponse)
+@app.post("/generate-pdf-base64", response_model=GeneratePDFResponse)
 def generate_individual_pdf(request: GeneratePDFRequest):
     results_summary = []
 

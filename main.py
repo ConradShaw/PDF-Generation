@@ -2199,6 +2199,9 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Team ranking failed: {str(e)}")
 
+        payload = await request.json()
+        print(payload)  # Debug the incoming payload to ensure it's correct
+
         try:  
             team_pdf_bytes, team_pdf_filename = generate_team_pdf(
                 company_name=request.company_name,

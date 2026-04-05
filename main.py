@@ -2157,7 +2157,7 @@ def generate_individual_pdf(request: GeneratePDFRequest):
 # Team PDF Endpoint
 # -----------------------------
 @app.post("/generate_team_pdf")
-async def generate_team_pdf(request: GenerateTeamPDFRequest):
+def generate_team_pdf(request: GenerateTeamPDFRequest):
     """
     Minimal working PDF service stub:
     - Accepts all ranking fields as-is
@@ -2198,7 +2198,7 @@ async def generate_team_pdf(request: GenerateTeamPDFRequest):
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Team ranking failed: {str(e)}")
 
-        payload = await request.json()
+        payload = request.json()
         print(payload)  # Debug the incoming payload to ensure it's correct
 
         try:  

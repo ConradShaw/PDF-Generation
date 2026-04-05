@@ -2100,9 +2100,17 @@ def generate_individual_pdf(request: GeneratePDFRequest):
             raise HTTPException(status_code=400, detail=f"Invalid base64 Excel: {str(e)}")
 
         # Parse Excel → individual results
-        individual_results = parse_excel_to_individual_results(excel_bytes)
-        if not individual_results:
-            raise HTTPException(status_code=400, detail="No individual results found")
+        pdf_bytes, pdf_filename = process_excel_to_pdf(excel_bytes)
+      
+        upload_pdf_to_supabase(pdf_bytes, pdf_filename)
+        send_pdf_email(user_email, pdf_bytes, pdf_filename)
+        
+        return GeneratePDFResponse(
+            success=True,
+            results=[{"survey_id": "single", "status": "success"}],
+            pdf_base64=base64.b64encode(pdf_bytes).decode(),
+            filename=pdf_filename
+        )
 
         # Generate today's date
         from datetime import datetime
@@ -2172,8 +2180,6 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
     print("Team:", request.team_name)
     print("Num Members:", request.num_members)
     print("Individual Results Count:", len(request.individual_results))
-    print("Team Ordered Traits:", request.team_ordered_traits)
-    print("Distribution Data Keys:", list(request.distribution_data.keys()))
 
     # Create dummy PDF (just a simple string)
     dummy_pdf_bytes = f"Team Report for {request.team_name} ({request.company_name})".encode('utf-8')

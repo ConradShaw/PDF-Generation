@@ -2157,7 +2157,7 @@ def generate_individual_pdf(request: GeneratePDFRequest):
 # Team PDF Endpoint
 # -----------------------------
 @app.post("/generate_team_pdf")
-def generate_team_pdf(request: GenerateTeamPDFRequest):
+async def generate_team_pdf(request: GenerateTeamPDFRequest):
     """
     Minimal working PDF service stub:
     - Accepts all ranking fields as-is

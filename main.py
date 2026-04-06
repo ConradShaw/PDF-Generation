@@ -2115,8 +2115,11 @@ def generate_individual_pdf(request: GeneratePDFRequest):
 
         # 4. Loop: 1 survey → 1 PDF → upload → email
         for survey in individual_results:
+            survey = survey.model_dump()
+            
             survey_id = survey.get("id", "noid")
             user_email = survey.get("user_email")
+            ordered_traits = survey.get("ordered_traits", [])  # fallback to empty list
 
             try:
                 pdf_buffer = io.BytesIO()
@@ -2261,6 +2264,7 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
     
         # Build results summary per individual for portal tracking
         for survey in individual_results:
+            survey = survey.model_dump()  # <-- convert Pydantic model → dict
             results_summary.append({
                 "survey_id": survey.get("id", "unknown"),
                 "user_email": survey.get("user_email", "unknown"),

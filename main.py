@@ -2100,11 +2100,21 @@ def generate_individual_pdf(request: GeneratePDFRequest):
             raise HTTPException(status_code=400, detail=f"Invalid base64 Excel: {str(e)}")
 
         # Parse Excel → individual results
-        pdf_bytes, pdf_filename = process_excel_to_pdf(excel_bytes)
-      
-        upload_pdf_to_supabase(pdf_bytes, pdf_filename)
-        send_pdf_email(user_email, pdf_bytes, pdf_filename)
+        # 1. Parse Excel → individual results (SOURCE OF TRUTH)
+        individual_results = process_excel_to_individual_results(excel_bytes)        
+
+        if not individual_results:
+            raise ValueError("No individual results generated from Excel")
         
+        # 2. Generate PDF from processed results
+        pdf_bytes, pdf_filename = generate_pdf_from_results(individual_results)
+        
+        # 3. Upload + email
+        upload_pdf_to_supabase(pdf_bytes, pdf_filename)
+        
+        user_email = request.user_email  # or derive from results if needed
+        send_pdf_email(user_email, pdf_bytes, pdf_filename)
+     
         return GeneratePDFResponse(
             success=True,
             results=[{"survey_id": "single", "status": "success"}],
@@ -2117,6 +2127,26 @@ def generate_individual_pdf(request: GeneratePDFRequest):
         date_str = datetime.now().strftime("%Y-%m-%d")
 
         # Generate individual PDFs
+        results = []
+
+        for survey in individual_results:
+            survey_id = survey.get("id", "noid")
+            user_email = survey.get("user_email")
+        
+            pdf_bytes, pdf_filename = generate_pdf_from_results([survey])  # pass single survey
+        
+            # Upload each PDF
+            upload_pdf_to_supabase(pdf_bytes, pdf_filename)
+        
+            # Email each person individually
+            if user_email:
+                send_pdf_email(user_email, pdf_bytes, pdf_filename)
+        
+            results.append({
+                "survey_id": survey_id,
+                "status": "success" if pdf_bytes else "failed"
+            })
+      
         for survey in individual_results:
             survey_id = survey.get("id") or "noid"
             user_email = survey.get("user_email") or "unknown"

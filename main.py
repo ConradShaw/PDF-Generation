@@ -2090,6 +2090,30 @@ async def health_check():
 logger = logging.getLogger("pdf_logger")
 
 # -----------------------------------------
+# Helper: convert Excel → list of IndividualResult
+# -----------------------------------------
+def process_excel_to_individual_results(excel_bytes) -> list[IndividualResult]:
+    import pandas as pd
+    from io import BytesIO
+
+    df = pd.read_excel(BytesIO(excel_bytes))
+    results = []
+
+    for _, row in df.iterrows():
+        survey = IndividualResult(
+            id=row.get("id", "noid"),
+            first_name=row.get("first_name", ""),
+            last_name=row.get("last_name", ""),
+            user_email=row.get("user_email"),
+            ordered_traits=row.get("ordered_traits", []),
+            ranks=row.get("ranks", {}),
+            onet_activities=row.get("onet_activities", {})
+        )
+        results.append(survey)
+
+    return results
+
+# -----------------------------------------
 # Individual PDF Endpoint
 # -----------------------------------------
 @app.post("/generate_pdf_base64", response_model=GeneratePDFResponse)

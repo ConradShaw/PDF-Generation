@@ -2034,14 +2034,18 @@ class GeneratePDFRequest(BaseModel):
 class GeneratePDFResponse(BaseModel):
     success: bool
     results: List[Dict[str, Any]]
-    pdf_base64: Optional[str] = None
+    pdf_base64: Optional[str] = None   # now always None for multi-PDF
     filename: Optional[str] = None
 
-class IndividualResult(BaseModel):
-    user_email: str
+class IndividualResult(BaseModel):individual_results.append(
+    id: Optional[str] = "noid"
+    first_name: Optional[str] = ""
+    last_name: Optional[str] = ""
+    user_email: Optional[str] = None
     ordered_traits: List[str]
     ranks: Dict[str, int]
-
+    onet_activities: Optional[Dict[str, Any]] = {}
+  
 class GenerateTeamPDFRequest(BaseModel):
     company_name: str
     team_name: str

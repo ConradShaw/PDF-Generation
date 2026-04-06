@@ -885,7 +885,7 @@ def _color_for_category(cat: str):
 # ---------------------------
 # Main PDF Function
 # ---------------------------
-def generate_individual_pdf(
+def generate_individual_pdf_file(
     first: str,
     last: str,
     date_str: str,
@@ -2154,12 +2154,12 @@ def generate_individual_pdf(request: GeneratePDFRequest):
                     onet_activities_data = ONET_ACTIVITIES
 
                 # Generate PDF
-                pdf_filename = generate_individual_pdf(
+                pdf_filename = generate_individual_pdf_file(
                     first=survey.get("first_name", ""),
                     last=survey.get("last_name", ""),
                     date_str=date_str,
-                    ordered_traits=survey["ordered_traits"],   # ✅ guaranteed now
-                    ranks=survey["ranks"],                     # ✅ guaranteed now
+                    ordered_traits=survey["ordered_traits"],
+                    ranks=survey["ranks"],
                     ONET_ACTIVITIES=onet_activities_data,
                     output_stream=pdf_buffer,
                     logo_path=LOGO_PATH

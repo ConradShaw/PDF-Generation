@@ -2000,7 +2000,7 @@ def process_excel_to_pdf(excel_bytes: bytes, original_filename: str = "assessmen
 
         # Generate PDF to memory
         pdf_buffer = io.BytesIO()
-        pdf_filename = generate_individual_pdf(first, last, date_str, ordered_traits, ranks, pdf_buffer, LOGO_PATH)
+        pdf_filename = generate_individual_pdf_file(first, last, date_str, ordered_traits, ranks, pdf_buffer, LOGO_PATH)
         
         pdf_bytes = pdf_buffer.getvalue()
         return pdf_bytes, pdf_filename

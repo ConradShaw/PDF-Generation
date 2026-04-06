@@ -2176,7 +2176,8 @@ def generate_individual_pdf(request: GeneratePDFRequest):
         success=all(r["status"] == "success" for r in results_summary),
         results=results_summary,
         pdf_base64=None,   # ❗ no longer returning a single PDF
-        filename=None
+        filename=None,
+        individual_results=individual_results
     )  
  
 # -----------------------------

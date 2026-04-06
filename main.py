@@ -2093,9 +2093,6 @@ logger = logging.getLogger("pdf_logger")
 # Helper: convert Excel → list of IndividualResult
 # -----------------------------------------
 def process_excel_to_individual_results(excel_bytes) -> list[IndividualResult]:
-    import pandas as pd
-    from io import BytesIO
-
     df = pd.read_excel(BytesIO(excel_bytes))
     results = []
 
@@ -2293,8 +2290,8 @@ def generate_team_pdf(request: GenerateTeamPDFRequest):
             results_summary.append({
                 "survey_id": survey.get("id", "unknown"),
                 "user_email": survey.get("user_email", "unknown"),
-                # Mark success if ranks were calculated
-                "status": "success" if "ordered_traits" in survey and "ranks" in survey else "failed"
+                # Mark success if ranks were calculated      
+                "status": "success" if survey.get("ordered_traits") and survey.get("ranks") else "failed"  #avoids marking empty data as success
             })
     
             # Calculate overall success tracking

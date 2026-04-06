@@ -2093,106 +2093,85 @@ def generate_individual_pdf(request: GeneratePDFRequest):
     results_summary = []
 
     try:
-        # Decode Excel
+        # 1. Decode Excel
         try:
             excel_bytes = base64.b64decode(request.excel_base64)
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Invalid base64 Excel: {str(e)}")
 
-        # Parse Excel → individual results
-        # 1. Parse Excel → individual results (SOURCE OF TRUTH)
-        individual_results = process_excel_to_individual_results(excel_bytes)        
+        # 2. Process Excel → individual_results (SOURCE OF TRUTH)
+        individual_results = process_excel_to_individual_results(excel_bytes)
 
         if not individual_results:
             raise ValueError("No individual results generated from Excel")
-        
-        # 2. Generate PDF from processed results
-        pdf_bytes, pdf_filename = generate_pdf_from_results(individual_results)
-        
-        # 3. Upload + email
-        upload_pdf_to_supabase(pdf_bytes, pdf_filename)
-        
-        user_email = request.user_email  # or derive from results if needed
-        send_pdf_email(user_email, pdf_bytes, pdf_filename)
-     
-        return GeneratePDFResponse(
-            success=True,
-            results=[{"survey_id": "single", "status": "success"}],
-            pdf_base64=base64.b64encode(pdf_bytes).decode(),
-            filename=pdf_filename
-        )
 
-        # Generate today's date
+        # 3. Generate today's date (once)
         from datetime import datetime
         date_str = datetime.now().strftime("%Y-%m-%d")
 
-        # Generate individual PDFs
-        results = []
-
+        # 4. Loop: 1 survey → 1 PDF → upload → email
         for survey in individual_results:
             survey_id = survey.get("id", "noid")
             user_email = survey.get("user_email")
-        
-            pdf_bytes, pdf_filename = generate_pdf_from_results([survey])  # pass single survey
-        
-            # Upload each PDF
-            upload_pdf_to_supabase(pdf_bytes, pdf_filename)
-        
-            # Email each person individually
-            if user_email:
-                send_pdf_email(user_email, pdf_bytes, pdf_filename)
-        
-            results.append({
-                "survey_id": survey_id,
-                "status": "success" if pdf_bytes else "failed"
-            })
-      
-        for survey in individual_results:
-            survey_id = survey.get("id") or "noid"
-            user_email = survey.get("user_email") or "unknown"
-            pdf_filename = f"individual_report_{survey_id}_{int(time.time())}.pdf"
 
             try:
                 pdf_buffer = io.BytesIO()
 
-                # ONET activities fallback                    
-                onet_activities_data = dict(survey.get("onet_activities") or {})
+                # ONET activities fallback
+                onet_activities_data = survey.get("onet_activities") or {}
                 if not isinstance(onet_activities_data, dict):
                     onet_activities_data = ONET_ACTIVITIES
-                
-                pdf_filename = generate_individual_pdf(             
+
+                # Generate PDF
+                pdf_filename = generate_individual_pdf(
                     first=survey.get("first_name", ""),
                     last=survey.get("last_name", ""),
                     date_str=date_str,
-                    ordered_traits=survey["ordered_traits"],
-                    ranks=survey["ranks"],
+                    ordered_traits=survey["ordered_traits"],   # ✅ guaranteed now
+                    ranks=survey["ranks"],                     # ✅ guaranteed now
                     ONET_ACTIVITIES=onet_activities_data,
-                    output_stream=pdf_buffer, 
+                    output_stream=pdf_buffer,
                     logo_path=LOGO_PATH
                 )
-                
+
                 pdf_buffer.seek(0)
                 pdf_bytes = pdf_buffer.getvalue()
-                
+
                 if not pdf_bytes:
-                    raise ValueError("Empty PDF buffer generated")              
+                    raise ValueError("Empty PDF buffer generated")
 
-                # Upload and send email
+                # Upload
                 upload_pdf_to_supabase(pdf_bytes, pdf_filename)
-                send_pdf_email(user_email, pdf_bytes, pdf_filename)
 
-                results_summary.append({"survey_id": survey_id, "status": "success"})
-              
+                # Email (only if available)
+                if user_email:
+                    send_pdf_email(user_email, pdf_bytes, pdf_filename)
+
+                results_summary.append({
+                    "survey_id": survey_id,
+                    "status": "success"
+                })
+
             except Exception as e:
-                logger.error(f"Failed to generate PDF for {survey_id}: {str(e)}\n{traceback.format_exc()}")
-                results_summary.append({"survey_id": survey_id, "status": "failed"})
-                
+                logger.error(
+                    f"Failed to generate PDF for {survey_id}: {str(e)}\n{traceback.format_exc()}"
+                )
+                results_summary.append({
+                    "survey_id": survey_id,
+                    "status": "failed"
+                })
+
     except Exception as e:
         logger.error(f"Failed to process request: {str(e)}\n{traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
-         
-    return GeneratePDFResponse(success=True, results=results_summary)
 
+    return GeneratePDFResponse(
+        success=all(r["status"] == "success" for r in results_summary),
+        results=results_summary,
+        pdf_base64=None,   # ❗ no longer returning a single PDF
+        filename=None
+    )  
+ 
 # -----------------------------
 # Team PDF Endpoint
 # -----------------------------

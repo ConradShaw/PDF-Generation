@@ -1883,7 +1883,7 @@ def generate_team_pdf(
         ),
         "Prudence": (
             "<b>Avoidance</b> – over-weighting risk delays action and stalls progress",
-            "<b>Confidence</b> - to recalibrate risk perceptions and project trust in capabilities with self-assurance",
+            "<b>Confidence</b> - to balance risk with opportunity and project self-assured capability",
         ),
         "Tenacity": (
             "<b>Obsession</b> – narrow goal fixation limits perspective and risks misaligned effort",

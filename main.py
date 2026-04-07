@@ -1858,7 +1858,7 @@ def generate_team_pdf(
             "<b>Fairness</b> - to restore proportionality, context, and balanced perspective",
         ),
         "Discipline": (
-            "<b>Rigidity</b> – inflexible adherence to established methods reduces responsiveness to change",
+            "<b>Rigidity</b> – inflexible attachment to established methods and status reduces adaptability to change",
             "<b>Objectivity</b> - to assess options using fact-based insights and determine the best course of action",
         ),
         "Empathy": (
@@ -1875,7 +1875,7 @@ def generate_team_pdf(
         ),
         "Objectivity": (
             "<b>Disconnection</b> – over-reliance on logic weakens emotional engagement and reduces buy-in",
-            "<b>Empathy</b> - to connect with others’ lived experience and foster engagement",
+            "<b>Empathy</b> - to emotionally connect with others’ lived experience and foster engagement",
         ),
         "Practicality": (
             "<b>Stubbornness</b> – over-reliance on familiar solutions and reluctance to consider alternatives",

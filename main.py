@@ -1909,8 +1909,8 @@ def generate_team_pdf(
     
     # 1. Header row (override last two column titles)
     header_row = results_table_data[0] + [
-        Paragraph("<b>Change-Resistance Behaviours</b>", style=cell_center_style),
-        Paragraph("<b>Reframing Intervention (SSM™)</b>", style=cell_center_style),
+        Paragraph("<b>Change-Resistance Behaviour</b>", style=cell_center_style),
+        Paragraph("<b>Reframing Strength (SSM™)</b>", style=cell_center_style),
     ]
     table_data.append(header_row)
     

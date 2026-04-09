@@ -2101,7 +2101,7 @@ def process_excel_to_individual_results(excel_bytes) -> list[IndividualResult]:
         )
         results.append(survey)
 
-    return results
+    return results      
 
 # -----------------------------------------
 # Individual PDF Endpoint

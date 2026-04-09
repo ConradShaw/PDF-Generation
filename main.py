@@ -45,7 +45,9 @@ import tempfile
 import itertools
 import re
 import time
+import logging
 import traceback
+from datetime import datetime
 from supabase import create_client, Client
 
 import requests
@@ -77,7 +79,7 @@ from reportlab.graphics.shapes import Drawing, Rect, String, Line, Group
 from fastapi import FastAPI, HTTPException, Request, UploadFile, File, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, JSONResponse
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, Field, model_validator
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
 
 # --- Email service setup ---
@@ -218,6 +220,7 @@ def upload_pdf_to_supabase(pdf_bytes: bytes, filename: str, folder: str = "repor
 # ---------------------------
 # Logo path - should be in the same directory as this script in Cloud Run
 LOGO_PATH = os.path.join(os.path.dirname(__file__), "logo.png")
+ONET_ACTIVITIES = {}
 
 TRAITS = [
     "Courage",
@@ -2035,7 +2038,7 @@ class IndividualResult(BaseModel):
     user_email: Optional[str] = None
     ordered_traits: List[str] = Field(default_factory=list)
     ranks: Dict[str, int] = Field(default_factory=dict)
-    onet_activities: Optional[Dict[str, Any]] = Field(default_factory=dict)
+    onet_activities: [Dict[str, Any]] = Field(default_factory=dict)
 
 class GeneratePDFResponse(BaseModel):
     success: bool
@@ -2048,8 +2051,7 @@ class GenerateTeamPDFRequest(BaseModel):
     team_name: str
     date_str: str
     individual_results: Optional[List[IndividualResult]] = Field(default_factory=list)
-    num_members = len(request.individual_results)
-
+    
     @model_validator(mode="after")
     def set_num_members(cls, values):
         values["num_members"] = len(values.get("individual_results") or [])
@@ -2120,10 +2122,9 @@ def generate_individual_pdf_endpoint(request: GeneratePDFRequest):
         individual_results = process_excel_to_individual_results(excel_bytes)
 
         if not individual_results:
-            raise ValueError("No individual results generated from Excel")
-
-        from datetime import datetime
-        date_str = datetime.now().strftime("%Y-%m-%d")
+            raise ValueError("No individual results generated from Excel")        
+      
+        date_str = datetime.today().strftime("%Y-%m-%d")
 
         for survey in individual_results:
             survey = survey.model_dump()
@@ -2187,7 +2188,7 @@ def generate_individual_pdf_endpoint(request: GeneratePDFRequest):
 # Team PDF Endpoint
 # -----------------------------
 @app.post("/generate_team_pdf")
-def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
+async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
     results_summary = []
     skipped_surveys = []
@@ -2207,9 +2208,8 @@ def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             logger.error(f"Team ranking failed: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Ranking failed: {str(e)}")
 
-        # Step 2: Generate date
-        from datetime import datetime
-        date_str = datetime.now().strftime("%Y-%m-%d")
+        # Step 2: Generate date        
+        date_str = datetime.today().strftime("%Y-%m-%d")
 
         # Step 3: Generate team PDF (NO recursion)
         try:
@@ -2247,67 +2247,3 @@ def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 "user_email": survey_dict.get("user_email"),
                 "status": "success" if survey_dict.get("ordered_traits") else "failed"
             })
-
-        # Step 7: Return response (keeping base64 per your instruction)
-        team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
-
-        return {
-            "success": True,
-            "pdf_base64": team_pdf_base64,
-            "filename": team_pdf_filename,
-            "storage_path": storage_path,
-            "results": results_summary
-        }
-
-    except Exception as e:
-        logger.error(f"Team processing failed: {str(e)}\n{traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-# -----------------------------
-# Team Rankings Endpoint
-# -----------------------------
-@app.post("/generate_team_pdf")
-async def generate_team_report(request: Request):
-    try:
-        # Get the raw payload from the frontend (team details)
-        payload = await request.json()
-        company_name = payload.get('company_name', 'Acme Inc')  # Actual company data or fallback
-        team_name = payload.get('team_name', 'Acme Inc')  # Actual team data or fallback
-        num_members = payload.get('num_members', 5)  # Actual team size or fallback
-        date_str = payload.get('date_str', '2026-04-04')  # Actual date or fallback
-        team_ordered_traits = payload.get('team_ordered_traits', [])
-        ranks = payload.get('ranks', {})
-        distribution_data = payload.get('distribution_data', {})
-
-        # Validate the required fields
-        if not company_name or not team_name or not num_members or not date_str:
-            raise HTTPException(status_code=400, detail="Missing required fields.")
-
-        # Now generate the PDF using the team data passed to generate_team_pdf
-        output_stream = io.BytesIO()
-        pdf_filename = generate_team_pdf(
-            company_name=company_name,
-            team_name=team_name,
-            num_members=num_members,
-            date_str=date_str,
-            team_ordered_traits=team_ordered_traits,
-            ranks=ranks,
-            distribution_data=distribution_data,
-            output_stream=output_stream,
-            logo_path=LOGO_PATH
-        )
-
-        # Convert the PDF content into a base64 string to return to the frontend
-        pdf_bytes = output_stream.getvalue()
-        pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
-
-        return {
-            "success": True,
-            "pdf_base64": pdf_base64,
-            "filename": pdf_filename,
-            "message": "Team report generated successfully."
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-

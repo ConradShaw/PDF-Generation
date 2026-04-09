@@ -2187,117 +2187,86 @@ def generate_individual_pdf_endpoint(request: GeneratePDFRequest):
 # Team PDF Endpoint
 # -----------------------------
 @app.post("/generate_team_pdf")
-def generate_team_pdf(request: GenerateTeamPDFRequest):
-    """
-    Minimal working PDF service stub:
-    - Accepts all ranking fields as-is
-    - Allows empty individual_results
-    - Returns dummy PDF for portal functionality
-    """
-    # Log inputs for debugging
-    print("Received GenerateTeamPDFRequest:")
-    print("Company:", request.company_name)
-    print("Team:", request.team_name)
-    print("Num Members:", request.num_members)
-    print("Individual Results Count:", len(request.individual_results))
+def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
-    # Create dummy PDF (just a simple string)
-    dummy_pdf_bytes = f"Team Report for {request.team_name} ({request.company_name})".encode('utf-8')
-    pdf_base64 = base64.b64encode(dummy_pdf_bytes).decode('utf-8')
+    results_summary = []
+    skipped_surveys = []
 
     try:
-        # Extract individual_results from request
-        individual_results = request.individual_results
-    
-        # Generate today's date
+        logger.info(
+            f"Generating team PDF | company={request.company_name}, "
+            f"team={request.team_name}, members={len(request.individual_results)}"
+        )
+
+        # Step 1: Calculate rankings INSIDE Python
+        try:
+            team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(
+                request.individual_results
+            )
+        except Exception as e:
+            logger.error(f"Team ranking failed: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Ranking failed: {str(e)}")
+
+        # Step 2: Generate date
         from datetime import datetime
         date_str = datetime.now().strftime("%Y-%m-%d")
-    
-        # 3️Generate the Team PDF
-        team_pdf_buffer = io.BytesIO()
-        team_pdf_filename = f"team_summary_{int(time.time())}.pdf"
-    
+
+        # Step 3: Generate team PDF (NO recursion)
         try:
-            # Get team rankings from the separate endpoint ---
-            team_ordered_traits, team_ranks, team_distribution = calculate_team_rankings(
-            request.individual_results
-            )
-
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Team ranking failed: {str(e)}")
-
-        payload = request.json()
-        print(payload)  # Debug the incoming payload to ensure it's correct
-
-        try:  
-            team_pdf_bytes, team_pdf_filename = generate_team_pdf(
+            team_pdf_bytes, team_pdf_filename = generate_team_pdf_file(
                 company_name=request.company_name,
                 team_name=request.team_name,
                 num_members=len(request.individual_results),
                 date_str=date_str,
                 team_ordered_traits=team_ordered_traits,
                 ranks=team_ranks,
-                distribution_data=team_distribution          
+                distribution_data=team_distribution
             )
         except Exception as e:
+            logger.error(f"PDF generation failed: {str(e)}")
             raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
-    
-        team_pdf_bytes = team_pdf_buffer.getvalue()
+
+        # Step 4: Validate PDF
         if not team_pdf_bytes:
-            raise ValueError("Team PDF generation empty")
-      
-        # Upload to Supabase storage
+            raise ValueError("Empty team PDF generated")
+
+        # Step 5: Upload to Supabase (structured path)
         try:
-            upload_pdf_to_supabase(team_pdf_bytes, team_pdf_filename)
+            storage_path = f"team_reports/{request.company_name}/{team_pdf_filename}"
+            upload_pdf_to_supabase(team_pdf_bytes, storage_path)
         except Exception as e:
-            logger.warning(f"Team PDF upload failed: {str(e)}")
-            skipped_surveys.append({"team_pdf_email_failed": str(e)})
-    
-        # Send email to ShawSight email address
-        try:
-            send_pdf_email(
-                to_email="conraddshaw@outlook.com",
-                pdf_bytes=team_pdf_bytes,
-                filename=team_pdf_filename
-            )
-        except Exception as e:
-            skipped_surveys.append({"team_pdf_email_failed": str(e)})
-            # Don't fail the entire request for email errors - log instead
-            import logging
-            logging.error(f"Email send failed: {str(e)}\n{traceback.format_exc()}")
-    
-        # Build results summary per individual for portal tracking
-        for survey in individual_results:
-            survey = survey.model_dump()  # <-- convert Pydantic model → dict
+            logger.error(f"Upload failed: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
+
+        # Step 6: Build results summary
+        for survey in request.individual_results:
+            survey_dict = survey.model_dump()
+
             results_summary.append({
-                "survey_id": survey.get("id", "unknown"),
-                "user_email": survey.get("user_email", "unknown"),
-                # Mark success if ranks were calculated      
-                "status": "success" if survey.get("ordered_traits") and survey.get("ranks") else "failed"  #avoids marking empty data as success
+                "survey_id": survey_dict.get("id", "unknown"),
+                "user_email": survey_dict.get("user_email"),
+                "status": "success" if survey_dict.get("ordered_traits") else "failed"
             })
-    
-            # Calculate overall success tracking
-            overall_success = all(r["status"] == "success" for r in results_summary)
-    
-            # Encode to base64 for API response (optional)
-            team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
-            
-            return {
-                "success": True,
-                "pdf_base64": team_pdf_base64,
-                "filename": team_pdf_filename
-            }
+
+        # Step 7: Return response (keeping base64 per your instruction)
+        team_pdf_base64 = base64.b64encode(team_pdf_bytes).decode("utf-8")
+
+        return {
+            "success": True,
+            "pdf_base64": team_pdf_base64,
+            "filename": team_pdf_filename,
+            "storage_path": storage_path,
+            "results": results_summary
+        }
 
     except Exception as e:
-        logger.error(f"Failed to process request: {str(e)}\n{traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
-         
-    return GenerateTeamPDFResponse(success=True, results=results_summary)
+        logger.error(f"Team processing failed: {str(e)}\n{traceback.format_exc()}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 # -----------------------------
 # Team Rankings Endpoint
 # -----------------------------
-@app.post("/generate_team_report")
+@app.post("/generate_team_pdf")
 async def generate_team_report(request: Request):
     try:
         # Get the raw payload from the frontend (team details)

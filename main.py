@@ -2107,50 +2107,45 @@ def process_excel_to_individual_results(excel_bytes) -> list[IndividualResult]:
 # Individual PDF Endpoint
 # -----------------------------------------
 @app.post("/generate_pdf_base64", response_model=GeneratePDFResponse)
-def generate_individual_pdf(request: GeneratePDFRequest):
+def generate_individual_pdf_endpoint(request: GeneratePDFRequest):
     results_summary = []
 
     try:
-        # 1. Decode Excel
+        # Decode Excel
         try:
             excel_bytes = base64.b64decode(request.excel_base64)
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Invalid base64 Excel: {str(e)}")
 
-        # 2. Process Excel → individual_results (SOURCE OF TRUTH)
         individual_results = process_excel_to_individual_results(excel_bytes)
 
         if not individual_results:
             raise ValueError("No individual results generated from Excel")
 
-        # 3. Generate today's date (once)
         from datetime import datetime
         date_str = datetime.now().strftime("%Y-%m-%d")
 
-        # 4. Loop: 1 survey → 1 PDF → upload → email
         for survey in individual_results:
             survey = survey.model_dump()
-            
             survey_id = survey.get("id", "noid")
-            user_email = survey.get("user_email")
-            ordered_traits = survey.get("ordered_traits", [])  # fallback to empty list
 
             try:
+                if not survey["ordered_traits"] or not survey["ranks"]:
+                    raise ValueError("Missing traits or ranks")
+
                 pdf_buffer = io.BytesIO()
 
-                # ONET activities fallback
-                onet_activities_data = survey.get("onet_activities") or {}
-                if not isinstance(onet_activities_data, dict):
-                    onet_activities_data = ONET_ACTIVITIES
+                onet_data = survey.get("onet_activities") or {}
+                if not isinstance(onet_data, dict):
+                    onet_data = ONET_ACTIVITIES
 
-                # Generate PDF
                 pdf_filename = generate_individual_pdf_file(
                     first=survey.get("first_name", ""),
                     last=survey.get("last_name", ""),
                     date_str=date_str,
                     ordered_traits=survey["ordered_traits"],
                     ranks=survey["ranks"],
-                    ONET_ACTIVITIES=onet_activities_data,
+                    ONET_ACTIVITIES=onet_data,
                     output_stream=pdf_buffer,
                     logo_path=LOGO_PATH
                 )
@@ -2159,40 +2154,34 @@ def generate_individual_pdf(request: GeneratePDFRequest):
                 pdf_bytes = pdf_buffer.getvalue()
 
                 if not pdf_bytes:
-                    raise ValueError("Empty PDF buffer generated")
+                    raise ValueError("Empty PDF generated")
 
-                # Upload
-                upload_pdf_to_supabase(pdf_bytes, pdf_filename)
-
-                # Email (only if available)
-                if user_email:
-                    send_pdf_email(user_email, pdf_bytes, pdf_filename)
+                # Structured storage path
+                storage_path = f"individual_reports/{survey_id}/{pdf_filename}"
+                upload_pdf_to_supabase(pdf_bytes, storage_path)
 
                 results_summary.append({
                     "survey_id": survey_id,
-                    "status": "success"
+                    "status": "success",
+                    "storage_path": storage_path,
+                    "user_email": survey.get("user_email")
                 })
 
             except Exception as e:
-                logger.error(
-                    f"Failed to generate PDF for {survey_id}: {str(e)}\n{traceback.format_exc()}"
-                )
+                logger.error(f"Failed survey {survey_id}: {str(e)}")
                 results_summary.append({
                     "survey_id": survey_id,
                     "status": "failed"
                 })
 
     except Exception as e:
-        logger.error(f"Failed to process request: {str(e)}\n{traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate PDFs: {str(e)}")
+        logger.error(f"Processing failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
     return GeneratePDFResponse(
         success=all(r["status"] == "success" for r in results_summary),
-        results=results_summary,
-        pdf_base64=None,   # ❗ no longer returning a single PDF
-        filename=None,
-        individual_results=individual_results
-    )  
+        results=results_summary
+    )            
  
 # -----------------------------
 # Team PDF Endpoint

@@ -2028,50 +2028,43 @@ app.add_middleware(
 )
 
 # Pydantic models for request/response
-class GeneratePDFRequest(BaseModel):
-    excel_base64: str   # Base64-encoded Excel with individual data
-  
-class GeneratePDFResponse(BaseModel):
-    success: bool
-    results: List[Dict[str, Any]]
-    pdf_base64: Optional[str] = None   # now always None for multi-PDF
-    filename: Optional[str] = None
-
 class IndividualResult(BaseModel):
     id: Optional[str] = "noid"
     first_name: Optional[str] = ""
     last_name: Optional[str] = ""
     user_email: Optional[str] = None
-    ordered_traits: List[str] = []       # default empty list
-    ranks: Dict[str, int] = {}           # default empty dict
-    onet_activities: Optional[Dict[str, Any]] = {}
-  
+    ordered_traits: List[str] = Field(default_factory=list)
+    ranks: Dict[str, int] = Field(default_factory=dict)
+    onet_activities: Optional[Dict[str, Any]] = Field(default_factory=dict)
+
+class GeneratePDFResponse(BaseModel):
+    success: bool
+    results: List[Dict[str, Any]]
+    pdf_base64: Optional[str] = None
+    filename: Optional[str] = None
+
 class GenerateTeamPDFRequest(BaseModel):
     company_name: str
     team_name: str
     date_str: str
-    individual_results: Optional[List[IndividualResult]] = []
-    num_members: Optional[int] = None
-    team_ordered_traits: List[str]
-    ranks: Dict[str, int]
-    distribution_data: Dict[str, Any]
+    individual_results: Optional[List[IndividualResult]] = Field(default_factory=list)
+    num_members = len(request.individual_results)
 
     @model_validator(mode="after")
-    def validate_and_set_num_members(cls, values):
-        individual_results = values.get('individual_results') or []
-        values['num_members'] = len(individual_results)
+    def set_num_members(cls, values):
+        values["num_members"] = len(values.get("individual_results") or [])
         return values
 
-class SkippedSurvey(BaseModel):
-    reason: str
-    details: Optional[str] = None
+class GeneratePDFRequest(BaseModel):
+    excel_base64: str   # Base64-encoded Excel with individual data    
 
 class GenerateTeamPDFResponse(BaseModel):
     success: bool
-    pdf_base64: str = None
-    filename: str = None
-    results: List[Dict[str, Any]] = []
-    skipped: List[Dict[str, Any]] = []
+    pdf_base64: Optional[str] = None
+    filename: Optional[str] = None
+    storage_path: Optional[str] = None
+    results: List[Dict[str, Any]] = Field(default_factory=list)
+    skipped: List[Dict[str, Any]] = Field(default_factory=list)
 
 class HealthResponse(BaseModel):
     status: str

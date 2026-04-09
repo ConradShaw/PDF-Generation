@@ -2247,3 +2247,4 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 "user_email": survey_dict.get("user_email"),
                 "status": "success" if survey_dict.get("ordered_traits") else "failed"
             })
+          );

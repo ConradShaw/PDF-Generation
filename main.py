@@ -2255,6 +2255,5 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
               "filename": team_pdf_filename,
               "storage_path": storage_path,
               "results": results_summary
-          }
-        };
+          };
       

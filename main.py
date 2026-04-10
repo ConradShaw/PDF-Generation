@@ -2228,7 +2228,7 @@ def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         # Step 5: Upload to Supabase
         try:
             safe_company = re.sub(r'[^a-zA-Z0-9_-]', '_', request.company_name)
-            storage_path = f"team_reports/{safe_company}/{team_pdf_filename}      
+            storage_path = f"team_reports/{safe_company}/{team_pdf_filename}"               
             upload_pdf_to_supabase(team_pdf_bytes, storage_path)
         except Exception as e:
             logger.error(f"Upload failed: {str(e)}")

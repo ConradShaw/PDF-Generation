@@ -2051,11 +2051,6 @@ class GenerateTeamPDFRequest(BaseModel):
     team_name: str
     date_str: str
     individual_results: Optional[List[IndividualResult]] = Field(default_factory=list)
-    
-    @model_validator(mode="after")
-    def set_num_members(cls, values):
-        values["num_members"] = len(values.get("individual_results") or [])
-        return values
 
 class GeneratePDFRequest(BaseModel):
     excel_base64: str   # Base64-encoded Excel with individual data    
@@ -2188,7 +2183,7 @@ def generate_individual_pdf_endpoint(request: GeneratePDFRequest):
 # Team PDF Endpoint
 # -----------------------------
 @app.post("/generate_team_pdf")
-async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
+def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
     results_summary = []
     skipped_surveys = []
@@ -2232,15 +2227,14 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
         # Step 5: Upload to Supabase
         try:
-            storage_path = f"team_reports/{request.company_name}/{team_pdf_filename}"
+            safe_company = re.sub(r'[^a-zA-Z0-9_-]', '_', request.company_name)
+            storage_path = f"team_reports/{safe_company}/{team_pdf_filename}      
             upload_pdf_to_supabase(team_pdf_bytes, storage_path)
         except Exception as e:
             logger.error(f"Upload failed: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
         
-        # Step 6: Build results summary
-        results_summary = []
-        
+        # Step 6: Build results summary        
         for survey in request.individual_results:
             survey_dict = survey.model_dump()
         

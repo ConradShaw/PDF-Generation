@@ -2257,6 +2257,6 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 "results": results_summary
             }
           
-      except Exception as e:
-      logger.error(f"Upload failed: {str(e)}")
-      raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
+        except Exception as e:
+        logger.error(f"Upload failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")

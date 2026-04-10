@@ -2259,3 +2259,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
             "results": results_summary
         }
 
+    except Exception as e:
+        logger.error(f"Team endpoint failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+

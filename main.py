@@ -79,7 +79,7 @@ from reportlab.graphics.shapes import Drawing, Rect, String, Line, Group
 from fastapi import FastAPI, HTTPException, Request, UploadFile, File, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, JSONResponse
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, model_validator, ConfigDict
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
 
 # --- Email service setup ---
@@ -2037,8 +2037,8 @@ class IndividualResult(BaseModel):
     last_name: Optional[str] = ""
     user_email: Optional[str] = None
     ordered_traits: List[str] = Field(default_factory=list)
-    ranks: Dict[str, int] = Field(default_factory=dict)
-    onet_activities: [Dict[str, Any]] = Field(default_factory=dict)
+    ranks: Dict[str, int] = Field(default_factory=dict)   
+    onet_activities: dict[str, Any] = Field(default_factory=dict)
 
 class GeneratePDFResponse(BaseModel):
     success: bool

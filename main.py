@@ -2230,24 +2230,21 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         if not team_pdf_bytes:
             raise ValueError("Empty team PDF generated")
 
-        # Step 5: Upload to Supabase (structured path)
+        # Step 5: Upload to Supabase
         try:
             storage_path = f"team_reports/{request.company_name}/{team_pdf_filename}"
             upload_pdf_to_supabase(team_pdf_bytes, storage_path)
-        except Exception as e:
-            logger.error(f"Upload failed: {str(e)}")
-            raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
-
+        
             # Step 6: Build results summary
             for survey in request.individual_results:
                 survey_dict = survey.model_dump()
-    
+        
                 results_summary.append({
                     "survey_id": survey_dict.get("id", "unknown"),
                     "user_email": survey_dict.get("user_email"),
                     "status": "success" if survey_dict.get("ordered_traits") else "failed"
                 })
-    
+        
             # Step 7: Return response
             return {
                 "success": True,
@@ -2256,7 +2253,7 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 "storage_path": storage_path,
                 "results": results_summary
             }
-
+        
         except Exception as e:
             logger.error(f"Upload failed: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")

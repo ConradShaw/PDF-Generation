@@ -2248,12 +2248,12 @@ async def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
                 "status": "success" if survey_dict.get("ordered_traits") else "failed"
             })
 
-          # Step 7: Return response
-          return {
-              "success": True,
-              "pdf_base64": base64.b64encode(team_pdf_bytes).decode("utf-8"),
-              "filename": team_pdf_filename,
-              "storage_path": storage_path,
-              "results": results_summary
-          };
+        # Step 7: Return response
+        return {
+            "success": True,
+            "pdf_base64": base64.b64encode(team_pdf_bytes).decode("utf-8"),
+            "filename": team_pdf_filename,
+            "storage_path": storage_path,
+            "results": results_summary
+        };
       

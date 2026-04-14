@@ -1,35 +1,30 @@
 #!/usr/bin/env python3
 """
-Shaw Strengths Matrix™ PDF Generator - Cloud Run Service
+Shaw Strengths Matrix™ PDF Generator Service
 
-This is a stateless HTTP service that generates PDF reports from Excel assessment data.
-Designed for deployment on Google Cloud Run, later transferred to Railway.
+Generates individual and team PDF reports. Reads assessment data directly
+from Supabase, performs all scoring/ranking, uploads PDFs to Supabase Storage,
+and emails reports via Resend.
 
-Endpoints:
-  POST /generate_pdf_base64
-    Body: { "excel_base64": "...", "filename": "..." }
-    Returns: { "success": true, "pdf_base64": "...", "filename": "..." }
-  
-  POST /generate_team_pdf
-    Body: { "company_name": "...", "team_name": "...", "num_members": N, 
-            "date_str": "YYYY-MM-DD", "individual_results": [...] }
-    Returns: { "success": true, "pdf_base64": "...", "filename": "..." }
-    
-  GET /health
-    Returns: { "status": "healthy" }
+Primary endpoints (Supabase-integrated pipeline):
+  POST /process-assessment     { "assessment_id": "..." }
+  POST /process-team-report    { "company_id": "...", "force": false }
+
+Legacy endpoints (Excel-based, no Supabase):
+  POST /generate-pdf-base64    { "excel_base64": "...", "filename": "..." }
+  POST /generate-team-pdf      { "company_name": "...", ... "individual_results": [...] }
+  POST /generate-pdf            multipart file upload
+  GET  /health
+
+Env vars required:
+  SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY
 
 Team Report Algorithm:
-  Step 1: Calculate average ranks across all team members
-  Step 2: Sort traits by average rank
-  Step 2.1: Convert ranked averages to 1-12 rankings
-  Step 2.2: Team Tie-Breaker using Median Rank
-    - When two or more traits have the same mean rank, use median of individual ranks
-    - Lower median = stronger placement (ranks higher)
-  Step 2.3: Average Rankings for remaining ties
-    - If traits still tie after median comparison, assign average of nominal positions
-    - Example: 3 traits tied for 3rd → ranks (3+4+5)/3 = 4.0 for all three
-  Step 3: Calculate distribution data (percentage in each category)
-  Step 4: Generate team PDF with strength distribution chart
+  1. Calculate average ranks across all team members
+  2. Sort traits by (mean rank, median rank, name)
+  3. Assign final ranks with average-of-positions for ties
+  4. Calculate distribution data (percentage in each category)
+  5. Generate team PDF with strength distribution chart
 """
 
 import sys
@@ -40,27 +35,22 @@ if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=port)
   
 import io
+import asyncio
 import base64
 import tempfile
 import itertools
 import re
-import time
 import logging
-import traceback
-from datetime import datetime
-from supabase import create_client, Client
-
-import requests
-import psycopg2
-from psycopg2 import OperationalError
-
-import smtplib
-from email.message import EmailMessage
 from datetime import datetime
 from statistics import mean
 from typing import Optional, Tuple, Dict, List, Any
 
+from dotenv import load_dotenv
+load_dotenv()
+
+import httpx
 import pandas as pd
+from supabase import create_client, Client as SupabaseClient
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch
 from reportlab.platypus import (
@@ -214,6 +204,35 @@ def upload_pdf_to_supabase(pdf_bytes: bytes, filename: str, folder: str = "repor
     path = f"{folder}/{filename}"
     result = supabase.storage.from_("reports").upload(path, pdf_bytes, {"content-type": "application/pdf"})
     return result
+
+logger = logging.getLogger("ssm-pdf-generator")
+logging.basicConfig(level=logging.INFO)
+
+# ---------------------------
+# EXTERNAL SERVICE CLIENTS
+# ---------------------------
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
+SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+
+_supabase_client: Optional[SupabaseClient] = None
+
+
+def get_supabase() -> SupabaseClient:
+    global _supabase_client
+    if _supabase_client is None:
+        if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY:
+            raise RuntimeError(
+                "SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set"
+            )
+        _supabase_client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
+    return _supabase_client
+
+
+# Limit concurrent PDF generations to avoid OOM under burst traffic.
+# With --workers 2, each worker gets its own semaphore, so max total = 2 * MAX.
+MAX_CONCURRENT_PDFS = int(os.environ.get("MAX_CONCURRENT_PDFS", "4"))
+_pdf_semaphore = asyncio.Semaphore(MAX_CONCURRENT_PDFS)
 
 # ---------------------------
 # CONFIG
@@ -590,7 +609,6 @@ def parse_survey_flexible(xls_path: str, traits_set=None) -> Dict[str, Dict[str,
         return False
 
     results = {t: {u: 0 for u in TRAITS if u != t} for t in TRAITS}
-    wins = 0
 
     for _, g in df.groupby(col_q, dropna=True):
         g = g.copy()
@@ -670,7 +688,6 @@ def parse_survey_flexible(xls_path: str, traits_set=None) -> Dict[str, Dict[str,
 
         loser = R if winner == L else L
         results[winner][loser] = 1
-        wins += 1
 
     return results
 # ---------------------------
@@ -1090,7 +1107,7 @@ def generate_individual_pdf_file(
     last_category = None
     category_start = len(results_table_data)
     
-    for idx, trait in enumerate(ordered_traits):
+    for trait in ordered_traits:
         rank = ranks[trait]
         category = category_for_rank_number(rank)
 
@@ -1361,32 +1378,21 @@ def create_distribution_chart_drawing(
     
     return drawing
 
-    """
-    Calculate team-level rankings by averaging individual rankings.
-    
-    Algorithm steps:
-    1. Calculate average ranks across all team members
-    2. Sort traits by average rank
-    2.1. Convert ranked averages to 1-12 rankings
-    2.2. Apply median tie-breaker for traits with same mean rank
-    2.3. Apply average ranking for remaining ties (same mean and median)
-    3. Calculate distribution data (percentage in each category)
-    
-    Args:
-        individual_results: List of dicts containing 'ordered_traits' and 'ranks' for each person
-    
-    Returns:
-        Tuple of (ordered_traits, ranks, distribution_data)
-            - ordered_traits: List of traits ordered by team average rank
-            - ranks: Dict mapping trait to final team rank (1-12, may include .5 for ties)
-            - distribution_data: Dict mapping trait to category distribution
-    """
-from statistics import mean, median
-from itertools import groupby
 
 def calculate_team_rankings(
-    individual_results: List[Dict[str, Any]]
+    individual_results: List[Dict[str, Any]],
 ) -> Tuple[List[str], Dict[str, float], Dict[str, Dict[str, float]]]:
+    """
+    Calculate team-level rankings by averaging individual rankings.
+
+    Algorithm:
+    1. Calculate average ranks across all team members
+    2. Sort traits by (mean rank, median rank, name)
+    3. Assign final ranks with average-of-positions for ties
+    4. Calculate distribution data (percentage in each category)
+    """
+    from statistics import median
+    from itertools import groupby
 
     # --- Step 1: Aggregate individual ranks ---
     rank_sums = {trait: 0.0 for trait in TRAITS}
@@ -1682,7 +1688,7 @@ def generate_team_pdf(
     last_category = None
     category_start = len(results_table_data)
     
-    for idx, trait in enumerate(ordered_traits):
+    for trait in ordered_traits:
         rank = ranks[trait]
         category = category_for_rank_number(rank)
         
@@ -2013,6 +2019,280 @@ def process_excel_to_pdf(excel_bytes: bytes, original_filename: str = "assessmen
         os.unlink(tmp_excel_path)
 
 # ---------------------------
+# SUPABASE DATA HELPERS
+# ---------------------------
+
+def _safe_execute(query):
+    """Execute a supabase query and return .data, handling None responses."""
+    result = query.execute()
+    if result is None:
+        return None
+    return result.data
+
+
+def fetch_assessment_data(assessment_id: str) -> Dict[str, Any]:
+    """
+    Fetch all data needed to generate an individual PDF directly from Supabase.
+    Returns a dict with 'assessment', 'demographics', 'answers', 'questions',
+    and 'team_member' (if part of a team).
+    """
+    sb = get_supabase()
+
+    assessment = _safe_execute(
+        sb.table("assessments")
+        .select("*")
+        .eq("id", assessment_id)
+        .single()
+    )
+    if not assessment:
+        raise ValueError(f"Assessment {assessment_id} not found")
+
+    demo_resp = _safe_execute(
+        sb.table("assessment_demographics")
+        .select("demographic_data")
+        .eq("assessment_id", assessment_id)
+        .maybe_single()
+    )
+
+    answers_rows = _safe_execute(
+        sb.table("assessment_answers")
+        .select("question_id, option_id")
+        .eq("assessment_id", assessment_id)
+        .order("question_id")
+    ) or []
+
+    questions_rows = _safe_execute(
+        sb.table("assessment_questions")
+        .select("id, question, type")
+        .order("id")
+    ) or []
+
+    options_rows = _safe_execute(
+        sb.table("assessment_question_options")
+        .select("id, question_id, option_text, construct")
+        .order("question_id")
+        .order("id")
+    ) or []
+
+    team_member = _safe_execute(
+        sb.table("team_assessment_members")
+        .select("*")
+        .eq("assessment_id", assessment_id)
+        .maybe_single()
+    )
+
+    return {
+        "assessment": assessment,
+        "demographics": demo_resp.get("demographic_data") if demo_resp else {},
+        "answers": {str(a["question_id"]): a["option_id"] for a in answers_rows},
+        "questions": questions_rows,
+        "options": options_rows,
+        "team_member": team_member,
+    }
+
+
+def build_survey_results_from_db(
+    answers: Dict[str, str],
+    questions: List[Dict],
+    options: List[Dict],
+) -> Dict[str, Dict[str, int]]:
+    """
+    Build the win/loss results dict directly from DB data,
+    bypassing the Excel intermediary entirely.
+    """
+    options_by_question: Dict[int, List[Dict]] = {}
+    for opt in options:
+        qid = opt["question_id"]
+        options_by_question.setdefault(qid, []).append(opt)
+
+    results = {t: {u: 0 for u in TRAITS if u != t} for t in TRAITS}
+    traits_set = set(TRAITS)
+
+    for q in questions:
+        qid = q["id"]
+        chosen_option_id = answers.get(str(qid))
+        if not chosen_option_id:
+            continue
+
+        q_opts = options_by_question.get(qid, [])
+        if len(q_opts) != 2:
+            continue
+
+        construct_a = q_opts[0]["construct"].strip().title()
+        construct_b = q_opts[1]["construct"].strip().title()
+
+        if construct_a not in traits_set or construct_b not in traits_set:
+            continue
+        if construct_a == construct_b:
+            continue
+
+        if chosen_option_id == q_opts[0]["id"]:
+            winner, loser = construct_a, construct_b
+        elif chosen_option_id == q_opts[1]["id"]:
+            winner, loser = construct_b, construct_a
+        else:
+            continue
+
+        results[winner][loser] = 1
+
+    return results
+
+
+def update_assessment_status(
+    assessment_id: str,
+    status: str,
+    extra: Optional[Dict[str, Any]] = None,
+) -> None:
+    sb = get_supabase()
+    data: Dict[str, Any] = {"status": status}
+    if extra:
+        data.update(extra)
+    sb.table("assessments").update(data).eq("id", assessment_id).execute()
+
+
+def upload_pdf_to_storage(
+    bucket: str, path: str, pdf_bytes: bytes
+) -> None:
+    """Upload PDF bytes to Supabase Storage for archival / admin access."""
+    sb = get_supabase()
+    sb.storage.from_(bucket).upload(
+        path, pdf_bytes, {"content-type": "application/pdf", "upsert": "true"}
+    )
+
+
+def send_email_via_resend(
+    to: str,
+    subject: str,
+    html: str,
+    attachments: Optional[List[Dict[str, str]]] = None,
+) -> None:
+    """Send an email through the Resend HTTP API, optionally with attachments."""
+    if not RESEND_API_KEY:
+        logger.warning("RESEND_API_KEY not set – skipping email to %s", to)
+        return
+
+    payload: Dict[str, Any] = {
+        "from": "support@shawsight.com",
+        "to": [to],
+        "subject": subject,
+        "html": html,
+    }
+    if attachments:
+        payload["attachments"] = attachments
+
+    resp = httpx.post(
+        "https://api.resend.com/emails",
+        headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
+        json=payload,
+        timeout=60,
+    )
+    resp.raise_for_status()
+    logger.info("Email sent to %s  (resend id: %s)", to, resp.json().get("id"))
+
+
+def send_individual_report_email(
+    email: str,
+    name: str,
+    assessment_id: str,
+    pdf_bytes: bytes,
+    pdf_filename: str,
+) -> None:
+    html = f"""\
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Your SSM Assessment Report</title></head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h1 style="color: #007697;">Your SSM&#8482; Assessment is Ready!</h1>
+  <p>Hello{(' ' + name) if name else ''},</p>
+  <p>Thank you for completing the Shaw Strengths Matrix&#8482; Assessment.
+     Your personalised assessment is attached to this email.</p>
+
+  <div style="background-color: #e6f7f8; border-left: 4px solid #007697;
+              padding: 15px; margin: 20px 0;">
+    <h2 style="margin-top: 0; color: #007697;">What&#8217;s Inside Your Report:</h2>
+    <ul style="margin-bottom: 0;">
+      <li>Your ranked profile of 12 strengths</li>
+      <li>Insights into your top three Signature strengths</li>
+      <li>Mapping to O*NET Work Styles and Activities</li>
+    </ul>
+  </div>
+
+  <p><strong>Assessment ID:</strong> {assessment_id}</p>
+
+  <p style="margin-top: 30px;">
+    If you have any questions about your report or would like to explore team workshops,
+    please don't hesitate to reach out to us at
+    <a href="mailto:support@shawsight.com" style="color: #007697;">support@shawsight.com</a>
+  </p>
+
+  <p style="margin-top: 30px;">
+    Best regards,<br><strong>Conrad Shaw</strong><br>Shaw Strengths Matrix&#8482;
+  </p>
+</div>
+</body>
+</html>"""
+    send_email_via_resend(
+        email,
+        "Your SSM\u2122 Assessment \u2013 Shaw Strengths Matrix",
+        html,
+        attachments=[{
+            "filename": pdf_filename,
+            "content": base64.b64encode(pdf_bytes).decode("utf-8"),
+        }],
+    )
+
+
+def send_team_report_email(
+    email: str,
+    company_name: str,
+    company_code: str,
+    team_size: int,
+    pdf_bytes: bytes,
+    pdf_filename: str,
+) -> None:
+    html = f"""\
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Team Assessment Report</title></head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h1 style="color: #007697;">Team Assessment Report Ready!</h1>
+  <p>Hello,</p>
+  <p>The team assessment report for <strong>{company_name}</strong> has been
+     generated and is now available.</p>
+
+  <div style="background-color: #e6f7f8; border-left: 4px solid #007697;
+              padding: 15px; margin: 20px 0;">
+    <p style="margin: 0;"><strong>Report Details:</strong></p>
+    <ul style="margin: 10px 0; padding-left: 20px;">
+      <li>Company: {company_name}</li>
+      <li>Company Code: {company_code}</li>
+      <li>Team Members: {team_size}</li>
+      <li>Generated: {datetime.now().strftime('%d %B %Y, %H:%M')}</li>
+    </ul>
+  </div>
+
+  <p>If you have any questions about your team report, please contact us at
+    <a href="mailto:support@shawsight.com" style="color: #007697;">support@shawsight.com</a>
+  </p>
+
+  <p>Best regards,<br><strong>Shaw Strengths Matrix&#8482; Team</strong></p>
+</div>
+</body>
+</html>"""
+    send_email_via_resend(
+        email,
+        f"Team Assessment Report \u2013 {company_name}",
+        html,
+        attachments=[{
+            "filename": pdf_filename,
+            "content": base64.b64encode(pdf_bytes).decode("utf-8"),
+        }],
+    )
+
+
+# ---------------------------
 # FastAPI Application
 # ---------------------------
 app = FastAPI(
@@ -2171,8 +2451,11 @@ def generate_individual_pdf_endpoint(request: GeneratePDFRequest):
                 })
 
     except Exception as e:
-        logger.error(f"Processing failed: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.exception("PDF generation failed")
+        return GeneratePDFResponse(
+            success=False,
+            message=f"PDF generation failed: {str(e)}"
+        )
 
     return GeneratePDFResponse(
         success=all(r["status"] == "success" for r in results_summary),
@@ -2254,6 +2537,344 @@ def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         }
 
     except Exception as e:
-        logger.error(f"Team endpoint failed: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.exception("Team PDF generation failed")
+        return GenerateTeamPDFResponse(
+            success=False,
+            message=f"Team PDF generation failed: {str(e)}"
+        )
 
+
+@app.post("/generate-pdf")
+async def generate_pdf_file(file: UploadFile = File(...)):
+    """
+    Generate PDF from uploaded Excel file.
+    Returns the PDF file directly.
+    
+    Form data:
+    - file: Excel file upload (.xlsx)
+    
+    Returns: PDF file download
+    """
+    try:
+        if not file.filename:
+            raise HTTPException(status_code=400, detail="No file selected")
+        
+        if not file.filename.endswith('.xlsx'):
+            raise HTTPException(status_code=400, detail="File must be an Excel file (.xlsx)")
+        
+        # Read file bytes
+        excel_bytes = await file.read()
+        
+        # Process and generate PDF
+        pdf_bytes, pdf_filename = process_excel_to_pdf(excel_bytes, file.filename)
+        
+        # Return PDF file
+        return Response(
+            content=pdf_bytes,
+            media_type='application/pdf',
+            headers={
+                'Content-Disposition': f'attachment; filename="{pdf_filename}"'
+            }
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("PDF file generation failed")
+        raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
+
+
+class ProcessAssessmentRequest(BaseModel):
+    assessment_id: str
+
+
+class ProcessAssessmentResponse(BaseModel):
+    success: bool
+    pdf_url: Optional[str] = None
+    message: Optional[str] = None
+
+
+class ProcessTeamReportRequest(BaseModel):
+    company_id: str
+    force: bool = False
+
+
+class ProcessTeamReportResponse(BaseModel):
+    success: bool
+    pdf_url: Optional[str] = None
+    message: Optional[str] = None
+
+
+@app.post("/process-assessment", response_model=ProcessAssessmentResponse)
+async def process_assessment(request: ProcessAssessmentRequest):
+    """
+    End-to-end individual assessment pipeline.
+    Reads data from Supabase, scores, generates PDF, uploads to storage,
+    updates status, sends email with download link, and checks team completion.
+    """
+    assessment_id = request.assessment_id
+    try:
+        try:
+            await asyncio.wait_for(_pdf_semaphore.acquire(), timeout=60)
+        except asyncio.TimeoutError:
+            logger.warning("[process-assessment] Queue full, rejecting %s", assessment_id)
+            return ProcessAssessmentResponse(
+                success=False, message="Server busy – please retry in a minute"
+            )
+
+        logger.info("[process-assessment] Starting %s", assessment_id)
+        update_assessment_status(assessment_id, "processing")
+
+        data = fetch_assessment_data(assessment_id)
+        assessment = data["assessment"]
+        demographics = data["demographics"] or {}
+
+        first_name = ""
+        last_name = ""
+        full_name = str(demographics.get("name", "") or assessment.get("participant_name", ""))
+        if full_name.strip():
+            parts = full_name.strip().split()
+            first_name = parts[0]
+            last_name = " ".join(parts[1:]) if len(parts) > 1 else parts[0]
+        else:
+            first_name, last_name = "Participant", "Name"
+
+        date_str = (
+            (assessment.get("submitted_at") or "")[:10]
+            or datetime.today().strftime("%Y-%m-%d")
+        )
+
+        results = build_survey_results_from_db(
+            data["answers"], data["questions"], data["options"]
+        )
+
+        tb = TieBreaker(TRAITS, results)
+        ordered_traits, ranks = tb.rank_with_average_ranks()
+
+        pdf_buffer = io.BytesIO()
+        pdf_filename = generate_pdf(
+            first_name, last_name, date_str,
+            ordered_traits, ranks, pdf_buffer, LOGO_PATH,
+        )
+        pdf_bytes = pdf_buffer.getvalue()
+
+        storage_path = f"{assessment_id}/{pdf_filename}"
+        upload_pdf_to_storage("reports", storage_path, pdf_bytes)
+
+        update_assessment_status(assessment_id, "completed", {
+            "pdf_storage_path": storage_path,
+            "processed_at": datetime.utcnow().isoformat(),
+        })
+        logger.info("[process-assessment] PDF uploaded: %s", storage_path)
+
+        participant_email = (
+            str(demographics.get("email", ""))
+            or assessment.get("participant_email", "")
+        )
+        if participant_email:
+            try:
+                send_individual_report_email(
+                    participant_email, first_name, assessment_id,
+                    pdf_bytes, pdf_filename,
+                )
+            except Exception as email_err:
+                logger.error("Email failed (non-fatal): %s", email_err)
+
+        _check_and_trigger_team_report(assessment_id, assessment, data.get("team_member"))
+
+        return ProcessAssessmentResponse(
+            success=True,
+            pdf_url=storage_path,
+            message="Assessment processed successfully",
+        )
+
+    except Exception as exc:
+        logger.exception("[process-assessment] Failed for %s", assessment_id)
+        try:
+            update_assessment_status(assessment_id, "failed")
+        except Exception:
+            pass
+        return ProcessAssessmentResponse(success=False, message=str(exc))
+    finally:
+        try:
+            _pdf_semaphore.release()
+        except ValueError:
+            pass
+
+
+def _check_and_trigger_team_report(
+    assessment_id: str,
+    assessment: Dict[str, Any],
+    team_member: Optional[Dict[str, Any]],
+) -> None:
+    """After an individual completes, check if the whole team is done."""
+    if not team_member:
+        return
+
+    sb = get_supabase()
+    company_id = assessment.get("company_id") or team_member.get("company_id")
+    if not company_id:
+        return
+
+    company = (
+        sb.table("companies").select("*").eq("id", company_id).single().execute()
+    ).data
+    if not company or not company.get("team_size"):
+        return
+
+    completed = (
+        sb.table("team_assessment_members")
+        .select("*", count="exact")
+        .eq("company_id", company_id)
+        .eq("status", "completed")
+        .execute()
+    )
+    completed_count = completed.count or 0
+    team_size = company["team_size"]
+
+    logger.info(
+        "[team-check] company=%s  completed=%d/%d", company_id, completed_count, team_size
+    )
+    if completed_count < team_size:
+        return
+
+    lock = (
+        sb.table("companies")
+        .update({
+            "team_report_generated": True,
+            "team_report_generated_at": datetime.utcnow().isoformat(),
+        })
+        .eq("id", company_id)
+        .eq("team_report_generated", False)
+        .execute()
+    )
+    if not lock.data:
+        logger.info("[team-check] Already generated for %s – skipping", company_id)
+        return
+
+    logger.info("[team-check] All members complete – generating team report for %s", company_id)
+    try:
+        _do_team_report(company_id, force=False)
+    except Exception:
+        logger.exception("[team-check] Team report generation failed for %s", company_id)
+
+
+@app.post("/process-team-report", response_model=ProcessTeamReportResponse)
+async def process_team_report(request: ProcessTeamReportRequest):
+    """
+    End-to-end team report pipeline.
+    Fetches all completed individual results, calculates team rankings,
+    generates PDF, uploads to storage, updates company, and sends email.
+    """
+    try:
+        await asyncio.wait_for(_pdf_semaphore.acquire(), timeout=120)
+    except asyncio.TimeoutError:
+        return ProcessTeamReportResponse(
+            success=False, message="Server busy – please retry shortly"
+        )
+    try:
+        result = _do_team_report(request.company_id, request.force)
+        return result
+    except Exception as exc:
+        logger.exception("[process-team-report] Failed for %s", request.company_id)
+        return ProcessTeamReportResponse(success=False, message=str(exc))
+    finally:
+        _pdf_semaphore.release()
+
+
+def _do_team_report(company_id: str, force: bool = False) -> ProcessTeamReportResponse:
+    sb = get_supabase()
+
+    company = (
+        sb.table("companies").select("*").eq("id", company_id).single().execute()
+    ).data
+    if not company:
+        return ProcessTeamReportResponse(success=False, message="Company not found")
+
+    if company.get("team_report_generated") and not force:
+        return ProcessTeamReportResponse(
+            success=True,
+            pdf_url=company.get("team_pdf_url"),
+            message="Team report already generated",
+        )
+
+    members = (
+        sb.table("team_assessment_members")
+        .select("assessment_id")
+        .eq("company_id", company_id)
+        .execute()
+    ).data or []
+
+    individual_results = []
+    for member in members:
+        aid = member["assessment_id"]
+        try:
+            adata = fetch_assessment_data(aid)
+            if adata["assessment"].get("status") != "completed":
+                continue
+            survey = build_survey_results_from_db(
+                adata["answers"], adata["questions"], adata["options"]
+            )
+            tb = TieBreaker(TRAITS, survey)
+            ordered, rnk = tb.rank_with_average_ranks()
+            individual_results.append({"ordered_traits": ordered, "ranks": rnk})
+        except Exception as e:
+            logger.warning("[team-report] Skipping assessment %s: %s", aid, e)
+
+    if not individual_results:
+        return ProcessTeamReportResponse(
+            success=False, message="No completed individual results found"
+        )
+
+    ordered_traits, ranks, distribution_data = calculate_team_rankings(individual_results)
+
+    pdf_buffer = io.BytesIO()
+    pdf_filename = generate_team_pdf(
+        company_name=company.get("company_name", "Company"),
+        team_name=company.get("team_name") or company.get("company_name", "Team"),
+        num_members=company.get("team_size", len(individual_results)),
+        date_str=datetime.today().strftime("%Y-%m-%d"),
+        ordered_traits=ordered_traits,
+        ranks=ranks,
+        distribution_data=distribution_data,
+        output_stream=pdf_buffer,
+        logo_path=LOGO_PATH,
+    )
+    pdf_bytes = pdf_buffer.getvalue()
+
+    storage_path = f"team_reports/{company_id}/{pdf_filename}"
+    upload_pdf_to_storage("reports", storage_path, pdf_bytes)
+
+    sb.table("companies").update({
+        "team_report_generated": True,
+        "team_report_generated_at": datetime.utcnow().isoformat(),
+        "team_pdf_url": storage_path,
+        "team_pdf_storage_path": storage_path,
+    }).eq("id", company_id).execute()
+
+    logger.info("[team-report] PDF uploaded: %s", storage_path)
+
+    contact_email = company.get("contact_email")
+    if contact_email:
+        try:
+            send_team_report_email(
+                contact_email,
+                company.get("company_name", ""),
+                company.get("company_code", ""),
+                company.get("team_size", 0),
+                pdf_bytes, pdf_filename,
+            )
+        except Exception as email_err:
+            logger.error("Team email failed (non-fatal): %s", email_err)
+
+    return ProcessTeamReportResponse(
+        success=True,
+        pdf_url=storage_path,
+        message="Team report generated successfully",
+    )
+
+
+if __name__ == '__main__':
+    import uvicorn
+    port = int(os.environ.get('PORT', 8080))
+    uvicorn.run(app, host='127.0.0.1', port=port)

@@ -16,3 +16,12 @@ openpyxl>=3.1.0
 
 # PDF generation
 reportlab>=4.0.0
+
+# Supabase (direct DB + storage access)
+supabase>=2.0.0
+
+# HTTP client (for Resend email API)
+httpx>=0.27.0
+
+# .env file loading for local development
+python-dotenv>=1.0.0

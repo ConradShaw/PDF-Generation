@@ -1,4 +1,4 @@
-# Shaw Strengths Matrix™ PDF Generator - Cloud Run Service
+# Shaw Strengths Matrix™ PDF Generator
 
 A stateless HTTP service that generates PDF reports from Excel assessment data. Designed for deployment initially on Google Cloud Run, later Railway.
 

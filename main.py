@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Shaw Strengths Matrix™ PDF Generator - Cloud Run Service
+Shaw Strengths Matrix® PDF Generator - Cloud Run Service
 
 This is a stateless HTTP service that generates PDF reports from Excel assessment data.
 Designed for deployment on Google Cloud Run, later transferred to Railway.
@@ -931,7 +931,7 @@ def generate_individual_pdf_file(
     
     # Page 1 - Title page 
     story.append(Table(
-        [[Paragraph("Shaw Strengths Matrix™ (SSM™)<br/>Assessment", header_style)]],
+        [[Paragraph("Shaw Strengths Matrix® (SSM)<br/>Assessment", header_style)]],
         colWidths=[None],  # or doc.width if you want full width
         style=table_border
     ))
@@ -981,10 +981,10 @@ def generate_individual_pdf_file(
     def header_template(page_num: int, subtitle: str) -> Table:
         return Table(
             [[
-                Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
+                Paragraph("Shaw Strengths Matrix® Assessment", style=body_style),
                 Paragraph(f"{first} {last} | Page {page_num}", style=body_right_style),
             ], [
-                Paragraph(f"Shaw Strengths Matrix™<br/>{subtitle}", style=header_style),
+                Paragraph(f"Shaw Strengths Matrix<br/>{subtitle}", style=header_style),
                 ""
             ]],
             style=TableStyle([
@@ -1001,13 +1001,13 @@ def generate_individual_pdf_file(
         """
         <b>About This Report</b><br/>
         <br/>
-        This report provides an overview of your <b>SSM™ Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
+        This report provides an overview of your <b>SSM Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
         <br/>
-        The <b>SSM™ Assessment</b> measures <b>personality</b> — how you tend to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
+        The <b>SSM Assessment</b> measures <b>personality</b> — how you tend to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
         While the Assessment is grounded in established <b>personality and work style research</b> and has passed <b>content and face validity testing</b>, it is currently undergoing further psychometric validation. Results should therefore be interpreted as <b>insightful tendencies</b> rather than predictive measures, and are <b>not intended</b> for hiring, promotion, or other HR decision-making.<br/>
         <br/>
-        In this report, your <b>SSM™ Assessment</b> profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
+        In this report, your <b>SSM Assessment</b> profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,
@@ -1018,10 +1018,10 @@ def generate_individual_pdf_file(
     story.append(Table([[Paragraph(
         """
         <b>Report Contents</b><br/><br/>
-        1) Shaw Strengths Matrix™<br/>
-        2) Shaw Strengths Matrix™ Assessment Table<br/>
-        3) Shaw Strengths Matrix™ Mapping to O*NET Work Styles<br/>
-        4) Shaw Strengths Matrix™ Mapping to O*NET Work Activities
+        1) Shaw Strengths Matrix<br/>
+        2) Shaw Strengths Matrix Assessment Table<br/>
+        3) Shaw Strengths Matrix Mapping to O*NET Work Styles<br/>
+        4) Shaw Strengths Matrix Mapping to O*NET Work Activities
         """,        
     )]], style=table_border))
     story.append(PageBreak())
@@ -1035,7 +1035,7 @@ def generate_individual_pdf_file(
     story.append(Spacer(1, 60))  # external gap
 
     table_data = [
-            ["Shaw Strengths Matrix™","","","",""],
+            ["Shaw Strengths Matrix®","","","",""],
             ["Character Strengths","","Temporal Preferences","",""],
             ["","", "Past Reflections", "Present Awareness", "Future Anticipations"],
             ["Cognitive\nPreferences", "Intuition", "Foresight", "Confidence", "Courage"],
@@ -1067,7 +1067,7 @@ def generate_individual_pdf_file(
         • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i><br/>
         • <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
         Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
-        SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
+        SSM defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
         Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
         These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
         """,
@@ -1080,7 +1080,7 @@ def generate_individual_pdf_file(
     story.append(header_template(4, "Assessment Table"))
     story.append(Spacer(1, 12))
 
-    results_table_data = [["Rank", "Category", "SSM\nStrength™"]]
+    results_table_data = [["Rank", "Category", "SSM\nStrength®"]]
     results_table_style = [
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
@@ -1114,7 +1114,7 @@ def generate_individual_pdf_file(
         ("BACKGROUND", (0, category_start), (1, -1), _color_for_category(category)),
     ])
 
-    descriptions = {"SSM\nStrength™": "<b>Description</b>", "": ""} | DESCRIPTIONS
+    descriptions = {"SSM\nStrength®": "<b>Description</b>", "": ""} | DESCRIPTIONS
     story.append(Table(
         [row + [Paragraph(descriptions[row[2]], style=cell_style)] for row in results_table_data],
         style=results_table_style,
@@ -1126,8 +1126,8 @@ def generate_individual_pdf_file(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        The <b>SSM™ Assessment Table</b> presents a high-level summary of the results from your completed assessment.<br/>
-        It ranks the measured presence of the <b>12 SSM™ strengths</b> in your personality — based on your responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
+        The <b>SSM Assessment Table</b> presents a high-level summary of the results from your completed assessment.<br/>
+        It ranks the measured presence of the <b>12 SSM strengths</b> in your personality — based on your responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
         <br/>
         Your strengths are grouped into four categories:<br/>
         <br/>
@@ -1141,11 +1141,11 @@ def generate_individual_pdf_file(
     
     story.append(PageBreak())
 
-    # Page 5 - O*NET Work Styles
+    # Page 5 - O*NET® Work Styles
     story.append(header_template(5, "Mapping to O*NET Work Styles"))
     story.append(Spacer(1, 12))
     
-    work_styles = {"SSM\nStrength™": ("Work Style (O*NET)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
+    work_styles = {"SSM\nStrength®": ("Work Style (O*NET®)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
     story.append(Table(
         [row + [Paragraph(work_styles[row[2]][0], style=cell_bold_center_style), Paragraph(work_styles[row[2]][1], style=cell_style)]
          for row in results_table_data],
@@ -1158,9 +1158,9 @@ def generate_individual_pdf_file(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart maps your 12 ranked <b>SSM™ strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how your strengths translate into observable workplace behaviours.<br/>
+        This chart maps your 12 ranked <b>SSM strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how your strengths translate into observable workplace behaviours.<br/>
         <br/>
-        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Styles</b> listed here.<br/>
+        Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
@@ -1171,12 +1171,12 @@ def generate_individual_pdf_file(
     ))
     story.append(PageBreak())
 
-    # Page 6 - O*NET Work Activities
+    # Page 6 - O*NET® Work Activities
     story.append(header_template(6, "Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 12))
 
     # Merge header with ONET activities
-    activities = {"SSM\nStrength™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
+    activities = {"SSM\nStrength®": "<b>Work Activities (O*NET®)</b>", "": ""} | ONET_ACTIVITIES
 
     # Build results table
     table_data = [
@@ -1199,8 +1199,8 @@ def generate_individual_pdf_file(
         # Info panel table explaining the chart
         """
         <b>How to Read This Chart</b><br/><br/>
-        This chart maps your 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
-        Your <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
+        This chart maps your 12 ranked <b>SSM strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
+        Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/><br/>
         Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
@@ -1526,7 +1526,7 @@ def generate_team_pdf(
     
     # Page 1 - Title page
     story.append(Table(
-        [[Paragraph("Shaw Strengths Matrix™ (SSM™)<br/>Assessment", header_style)]],
+        [[Paragraph("Shaw Strengths Matrix® (SSM)<br/>Assessment", header_style)]],
         style=table_border
     ))
     
@@ -1561,12 +1561,12 @@ def generate_team_pdf(
     
     legal_notices = Paragraph(
         """
-        <i>Shaw Strengths Matrix™ Framework</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
-        <i>Shaw Strengths Matrix™ Assessment</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
+        <i>Shaw Strengths Matrix® Framework</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
+        <i>Shaw Strengths Matrix® Assessment</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
         <i>ShawSight</i> logo is Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
         No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>
         O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.<br/>
-        The Shaw Strengths Matrix™ is a developmental, strengths-based framework and is not intended for psychological diagnosis, clinical use, or performance benchmarking.""",
+        The Shaw Strengths Matrix® is a developmental, strengths-based framework and is not intended for psychological diagnosis, clinical use, or performance benchmarking.""",
     
     )
     story.append(Table([[legal_notices]], style=table_border))
@@ -1577,10 +1577,10 @@ def generate_team_pdf(
     def header_template(page_num: int, subtitle: str) -> Table:
         return Table(
             [[
-                Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
+                Paragraph("Shaw Strengths Matrix® Assessment", style=body_style),
                 Paragraph(f"{team_name} | Page {page_num}", style=body_right_style),
             ], [
-                Paragraph(f"Shaw Strengths Matrix™<br/>{subtitle}", style=header_style),
+                Paragraph(f"Shaw Strengths Matrix®<br/>{subtitle}", style=header_style),
                 ""
             ]],
             style=TableStyle([
@@ -1597,13 +1597,13 @@ def generate_team_pdf(
         """
         <b>About This Report</b><br/>
         <br/>
-        This report provides an overview of the team's <b>SSM™ Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
+        This report provides an overview of the team's <b>SSM Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
         <br/>
-        The <b>SSM™ Assessment</b> measures <b>personality</b> — how the team collectively tends to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
+        The <b>SSM Assessment</b> measures <b>personality</b> — how the team collectively tends to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
         While the Assessment is grounded in established <b>personality and work style research</b> and has passed <b>content and face validity testing</b>, it is currently undergoing further psychometric validation. Results should therefore be interpreted as <b>insightful tendencies</b> rather than predictive measures, and are <b>not intended</b> for hiring, promotion, or other HR decision-making.<br/>
         <br/>
-        In this report, your <b>SSM™ Assessment</b> strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
+        In this report, your <b>SSM Assessment</b> strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,    
@@ -1614,12 +1614,12 @@ def generate_team_pdf(
     story.append(Table([[Paragraph(
         """
         <b>Report Contents</b><br/><br/>
-        1) Shaw Strengths Matrix™<br/>
-        2) Shaw Strengths Matrix™ Team Assessment Table<br/>
-        3) Shaw Strengths Matrix™ Team Mapping to O*NET Work Styles<br/>
-        4) Shaw Strengths Matrix™ Team Mapping to O*NET Work Activities<br/>
-        5) Shaw Strengths Matrix™ Team Strength Distribution<br/>
-        6) Shaw Strengths Matrix™ Change Alignment Guide - Team
+        1) Shaw Strengths Matrix<br/>
+        2) Shaw Strengths Matrix Team Assessment Table<br/>
+        3) Shaw Strengths Matrix Team Mapping to O*NET Work Styles<br/>
+        4) Shaw Strengths Matrix Team Mapping to O*NET Work Activities<br/>
+        5) Shaw Strengths Matrix Team Strength Distribution<br/>
+        6) Shaw Strengths Matrix Change Alignment Guide - Team
         """,    
     )]], style=table_border))
     story.append(PageBreak())
@@ -1630,7 +1630,7 @@ def generate_team_pdf(
     
     story.append(Table(
         [
-            ["Shaw Strengths Matrix™","","","",""],
+            ["Shaw Strengths Matrix®","","","",""],
             ["Character Strengths","","Temporal Preferences","",""],
             ["","", "Past Reflections", "Present Awareness", "Future Anticipations"],
             ["Cognitive\nPreferences", "Intuition", "Foresight", "Confidence", "Courage"],
@@ -1660,7 +1660,7 @@ def generate_team_pdf(
         • <b>Express these across our Temporal Preferences</b> — <i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>, and<br/>
         • <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>strengths</b>.<br/><br/>
         Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflections</i>, <i>Present Awareness</i>, and <i>Future Anticipations</i>).<br/><br/>
-        SSM™ defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
+        SSM defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
         Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
         These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s stable cognitive-affective processes generate predictably different “if–then” behavioural responses across situations. Your higher-ranked Strengths represent cognitive-affective processes that are <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
         """,
@@ -1672,7 +1672,7 @@ def generate_team_pdf(
     story.append(header_template(4, "Team Assessment Table"))
     story.append(Spacer(1, 12))
     
-    results_table_data = [["Rank", "Category", "SSM\nStrength™"]]
+    results_table_data = [["Rank", "Category", "SSM\nStrength®"]]
     results_table_style = [
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
@@ -1706,7 +1706,7 @@ def generate_team_pdf(
         ("BACKGROUND", (0, category_start), (1, -1), _color_for_category(category)),
     ])
     
-    descriptions = {"SSM\nStrength™": "<b>Description</b>", "": ""} | DESCRIPTIONS
+    descriptions = {"SSM\nStrength®": "<b>Description</b>", "": ""} | DESCRIPTIONS
     story.append(Table(
         [row + [Paragraph(descriptions[row[2]], style=cell_style)] for row in results_table_data],
         style=results_table_style,
@@ -1718,8 +1718,8 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        The <b>SSM™ Assessment Table</b> presents a high-level summary of the results from the averaged rankings across the team for all included assessments.<br/>
-        It ranks the measured presence of the <b>12 SSM™ strengths</b> in your personality — based on the team's collective responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
+        The <b>SSM Assessment Table</b> presents a high-level summary of the results from the averaged rankings across the team for all included assessments.<br/>
+        It ranks the measured presence of the <b>12 SSM strengths</b> in your personality — based on the team's collective responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/>
         <br/>
         The team's collective strengths are grouped into four categories:<br/>
         <br/>
@@ -1732,11 +1732,11 @@ def generate_team_pdf(
     ))
     story.append(PageBreak())
     
-    # Page 5 - O*NET Work Styles
+    # Page 5 - O*NET® Work Styles
     story.append(header_template(5, "Team Mapping to O*NET Work Styles"))
     story.append(Spacer(1, 12))
     
-    work_styles = {"SSM\nStrength™": ("Work Style (O*NET)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
+    work_styles = {"SSM\nStrength®": ("Work Style (O*NET®)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
     story.append(Table(
         [row + [Paragraph(work_styles[row[2]][0], style=cell_bold_center_style), Paragraph(work_styles[row[2]][1], style=cell_style)]
          for row in results_table_data],
@@ -1749,9 +1749,9 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart maps the team's 12 ranked <b>SSM™ strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how overall team strengths translate into observable workplace behaviours.<br/>
+        This chart maps the team's 12 ranked <b>SSM strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how overall team strengths translate into observable workplace behaviours.<br/>
         <br/>
-        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Styles</b> listed here.<br/>
+        The team <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Styles</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
         They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
@@ -1762,7 +1762,7 @@ def generate_team_pdf(
     ))
     story.append(PageBreak())
     
-    # Page 6 - O*NET Work Activities
+    # Page 6 - O*NET® Work Activities
     story.append(header_template(6, "Team Mapping to O*NET Work Activities"))
     story.append(Spacer(1, 8))  # Reduced from 12 to 8
     
@@ -1774,7 +1774,7 @@ def generate_team_pdf(
         ("RIGHTPADDING", (0, 0), (-1, -1), 3),
     ]
     
-    activities = {"SSM\nStrength™": "<b>Work Activities (O*NET)</b>", "": ""} | ONET_ACTIVITIES
+    activities = {"SSM\nStrength®": "<b>Work Activities (O*NET®)</b>", "": ""} | ONET_ACTIVITIES
     
     story.append(Table(
         [row + [Paragraph(activities[row[2]], style=cell_center_style)] for row in results_table_data],
@@ -1790,9 +1790,9 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart maps the team's 12 ranked <b>SSM™ strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
+        This chart maps the team's 12 ranked <b>SSM strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
         <br/>
-        The team <b>SSM™ Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/>
+        The team <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/>
         <br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
@@ -1805,13 +1805,13 @@ def generate_team_pdf(
     # Page 8 - Team Strength Distribution
     story.append(PageBreak())
     story.append(Table([[
-        Paragraph("Shaw Strengths Matrix™ Assessment", style=body_style),
+        Paragraph("Shaw Strengths Matrix® Assessment", style=body_style),
         Paragraph(f"{team_name} | Page 8", style=body_right_style),
     ]]))
     story.append(Spacer(1, 6))
     
     story.append(Table([[Paragraph(
-        "Shaw Strengths Matrix™<br/>Team Strength Distribution",
+        "Shaw Strengths Matrix®<br/>Team Strength Distribution",
         style=header_style
     )]], style=table_border))
     story.append(Spacer(1, 12))
@@ -1914,7 +1914,7 @@ def generate_team_pdf(
     # 1. Header row (override last two column titles)
     header_row = results_table_data[0] + [
         Paragraph("<b>Change-Resistance Behaviour</b>", style=cell_center_style),
-        Paragraph("<b>Reframing Strength (SSM™)</b>", style=cell_center_style),
+        Paragraph("<b>Reframing Strength (SSM®)</b>", style=cell_center_style),
     ]
     table_data.append(header_row)
     
@@ -1959,13 +1959,13 @@ def generate_team_pdf(
         <br/>
         This chart highlights key change-resistant behaviours and the corresponding levers to reframe and mitigate them. It shows how overall team strengths can translate, under pressure, into change-resistant behaviours—while also providing reframing guidance to mitigate these potential risks.<br/>
         <br/>
-        The chart maps the team’s 12 identically ranked <b>SSM™ Strengths</b> (from the previous chart) to the 12 corresponding <b>Change-Resistant Behaviours</b> that may emerge under change pressure.<br/>
+        The chart maps the team’s 12 identically ranked <b>SSM Strengths</b> (from the previous chart) to the 12 corresponding <b>Change-Resistant Behaviours</b> that may emerge under change pressure.<br/>
         <br/>
         Note that not all change-resistant behaviour indicates risk. A degree of resistance is a natural human response as people go through the cycle of change at their own pace. Change resistance only becomes a risk when it persistently repeats, is widely shared and does not diminish following targeted change interventions.<br/>
         <br/>
-        Alongside each behaviour are the <b>Reframing Interventions</b> found to most effectively alleviate them. These reframings offer a fresh perspective and leverage a balancing SSM™ Strength. They may be applied by individuals to their own behaviour or introduced by a change practitioner or leader.<br/>
+        Alongside each behaviour are the <b>Reframing Interventions</b> found to most effectively alleviate them. These reframings offer a fresh perspective and leverage a balancing SSM Strength. They may be applied by individuals to their own behaviour or introduced by a change practitioner or leader.<br/>
         <br/>
-        The team's average <b>Signatory Strengths</b> reveal clusters of <b>Change-Resistant Behaviour</b> that are most likely to arise when the corresponding <b>SSM™ Strengths</b> are overused or misapplied beyond appropriate situations.<br/>
+        The team's average <b>Signatory Strengths</b> reveal clusters of <b>Change-Resistant Behaviour</b> that are most likely to arise when the corresponding <b>SSM Strengths</b> are overused or misapplied beyond appropriate situations.<br/>
         <br/>       
         The associated <b>Reframing Interventions</b> linked to these top three change-resistant behaviours therefore indicate the likely most necessary reframing conversations to address potential behavioural risks during change initiative discussions. A change practitioner or leader should only apply such interventions if they note that there has been insufficient progress in change alignment over time.<br/>
         """,
@@ -2018,7 +2018,7 @@ def process_excel_to_pdf(excel_bytes: bytes, original_filename: str = "assessmen
 # ---------------------------
 app = FastAPI(
     title="SSM PDF Generator",
-    description="Shaw Strengths Matrix™ PDF Generator - Cloud Run Service",
+    description="Shaw Strengths Matrix® PDF Generator - Cloud Run Service",
     version="1.0.0"
 )
 

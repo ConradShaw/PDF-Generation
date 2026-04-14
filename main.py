@@ -176,7 +176,7 @@ SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 if not SUPABASE_URL or not SUPABASE_KEY:
     raise ValueError("SUPABASE_URL and SUPABASE_KEY must be set in environment variables")
 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+supabase: SupabaseClient = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # ----------------------------
 # Email setup (SMTP)

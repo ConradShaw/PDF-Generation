@@ -238,12 +238,12 @@ TRAITS = [
 ]
 
 DESCRIPTIONS = {
-    "Fairness": "The <b>thinking</b> ability to apply balanced perspective, impartiality and equitable treatment, guided by <b>anticipation</b> of imminent outcomes.",
-    "Empathy": "The <b>feeling</b> ability understand and connect with others’ perspectives and lived experience, guided by <b>reflection</b> on recent signals.",
-    "Discernment": "The <b>sensory</b> ability to apply critical judgment to relevant details and verify assumptions against reality, guided by <b>reflection</b> on recent signals.",
-    "Objectivity": "The <b>thinking</b> ability to process information rationally and without bias to achieve fact-based insights, guided by <b>awareness</b> of the current situation.",
-    "Tenacity": "The <b>feeling</b> ability to commit persistent and determined effort to overcome obstacles, guided by <b>awareness</b> of the current situation.",
-    "Courage": "The <b>intuitive</b> ability to decide on and take purposeful action despite fear or uncertainty. guided by <b>anticipation</b> of imminent outcomes.",
+    "Fairness": "The <b>thinking</b> capacity to apply balanced perspective, impartiality and equitable treatment, guided by <b>anticipation</b> of outcomes.",
+    "Empathy": "The <b>feeling</b> capacity to understand and connect with others’ perspectives and lived experience, informed by <b>interpretation</b> of observed signals.",
+    "Discernment": "The <b>sensory</b> capacity to apply critical judgment to relevant details and verify assumptions against reality, informed by <b>interpretation</b> of observed signals.",
+    "Objectivity": "The <b>thinking</b> capacity to process information rationally and without bias to achieve fact-based insights, <b>calibrated</b> to current conditions.",
+    "Tenacity": "The <b>feeling</b> capacity to commit persistent and determined effort to overcome obstacles, <b>calibrated</b> to current conditions.",
+    "Courage": "The <b>intuitive</b> capacity to decide on and take purposeful action despite fear or uncertainty, guided by <b>anticipation</b> of outcomes.",
     "Confidence": "The <b>intuitive</b> ability to recognise opportunities and project self-assured trust in one’s ability to realise them, guided by <b>awareness</b> of the current situation.",
     "Prudence": "The <b>feeling</b> ability to exercise caution, apply restraint, and act with discretion, guided by <b>anticipation</b> of imminent outcomes.",
     "Foresight": "The <b>intuitive</b> ability to project future trends within a longer-term vision and apply creative problem-solving, guided by reflection on recent signals., guided by <b>reflection</b> on recent signals.",

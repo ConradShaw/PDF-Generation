@@ -227,7 +227,7 @@ TRAITS = [
     "Practicality",
     "Curiosity",
     "Prudence",
-    "Confidence",
+    "nce",
     "Discernment",
     "Fairness",
     "Tenacity",
@@ -244,12 +244,12 @@ DESCRIPTIONS = {
     "Objectivity": "The <b>thinking</b> capacity to process information rationally and without bias to achieve fact-based insights, <b>calibrated</b> to current conditions.",
     "Tenacity": "The <b>feeling</b> capacity to commit persistent and determined effort to overcome obstacles, <b>calibrated</b> to current conditions.",
     "Courage": "The <b>intuitive</b> capacity to decide on and take purposeful action despite fear or uncertainty, guided by <b>anticipation</b> of outcomes.",
-    "Confidence": "The <b>intuitive</b> ability to recognise opportunities and project self-assured trust in one’s ability to realise them, guided by <b>awareness</b> of the current situation.",
-    "Prudence": "The <b>feeling</b> ability to exercise caution, apply restraint, and act with discretion, guided by <b>anticipation</b> of imminent outcomes.",
-    "Foresight": "The <b>intuitive</b> ability to project future trends within a longer-term vision and apply creative problem-solving, guided by reflection on recent signals., guided by <b>reflection</b> on recent signals.",
-    "Practicality": "The <b>sensory</b> ability to take common-sense actions that reliably and effectively address real-world needs, guided by <b>awareness</b> of the current situation.",
-    "Curiosity": "The <b>thinking</b> ability to explore and learn new information, guided by <b>reflection</b> on recent signals.",
-    "Discipline": "The <b>sensory</b> ability to apply self-regulation in executing plans with composure and consistency, guided by <b>anticipation</b> of imminent outcomes.",
+    "Confidence": "The <b>intuitive</b> capacity to act with self-assured belief in one’s ability to achieve desired outcomes, <b>calibrated</b> to current conditions.",
+    "Prudence": "The <b>feeling</b> capacity to exercise caution, apply restraint, and act with discretion, guided by <b>anticipation</b> of outcomes.",
+    "Foresight": "The <b>intuitive</b> capacity to recognise patterns across time and project them into future directions, informed by <b>interpretation</b> of observed signals.",
+    "Practicality": "The <b>sensory</b> capacity to take common-sense actions that reliably and effectively address real-world needs, <b>calibrated</b> to current conditions.",
+    "Curiosity": "The <b>thinking</b> capacity to explore and learn new information, informed by <b>interpretation</b> of observed signals.",
+    "Discipline": "The <b>sensory</b> capacity to apply self-regulation in executing plans with composure and consistency, guided by <b>anticipation</b> of outcomes.",
 }
 
 ONET_STYLES = {

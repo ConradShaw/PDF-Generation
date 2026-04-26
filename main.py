@@ -238,18 +238,18 @@ TRAITS = [
 ]
 
 DESCRIPTIONS = {
-    "Fairness": "The <b>thinking</b> capacity to apply balanced perspective, impartiality and equitable treatment, guided by <b>anticipation</b> of outcomes.",
-    "Empathy": "The <b>feeling</b> capacity to understand and connect with others’ perspectives and lived experience, informed by <b>interpretation</b> of observed signals.",
-    "Discernment": "The <b>sensory</b> capacity to apply critical judgment to relevant details and verify assumptions against reality, informed by <b>interpretation</b> of observed signals.",
-    "Objectivity": "The <b>thinking</b> capacity to process information rationally and without bias to achieve fact-based insights, grounded in present <b>engagement</b>.",
-    "Tenacity": "The <b>feeling</b> capacity to sustain persistent and determined effort to overcome obstacles, grounded in present <b>engagement</b>.",
-    "Courage": "The <b>intuitive</b> capacity to decide on and take purposeful action despite fear or uncertainty, guided by <b>anticipation</b> of outcomes.",
-    "Confidence": "The <b>intuitive</b> capacity to act with self-assured belief in one’s ability to achieve desired outcomes, grounded in present <b>engagement</b>.",
-    "Prudence": "The <b>feeling</b> capacity to exercise caution, apply restraint, and act with discretion, guided by <b>anticipation</b> of outcomes.",
-    "Foresight": "The <b>intuitive</b> capacity to recognise patterns across time and project them into future directions, informed by <b>interpretation</b> of observed signals.",
-    "Practicality": "The <b>sensory</b> capacity to take common-sense actions that reliably and effectively address real-world needs, grounded in present <b>engagement</b>.",
-    "Curiosity": "The <b>thinking</b> capacity to explore and learn new information, informed by <b>interpretation</b> of observed signals.",
-    "Discipline": "The <b>sensory</b> capacity to apply self-regulation in executing plans with composure and consistency, guided by <b>anticipation</b> of outcomes.",
+    "Fairness": "The capacity to weigh a balanced range of perspectives and exercise impartial, equitable judgement.",
+    "Empathy": "The capacity to understand and connect with others’ perspectives and lived experience.",
+    "Discernment": "The capacity to critically evaluate information, test assumptions, and distinguish what is valid.",
+    "Objectivity": "The capacity to assess information logically and without personal bias, producing fact-based insights.",
+    "Tenacity": "The capacity to persist with effort and maintain commitment in the face of obstacles.",
+    "Courage": "The capacity to make and act on purposeful decisions in the presence of fear, uncertainty, or risk.",
+    "Confidence": "The capacity to trust in one’s own abilities and judgement, enabling self-assured action.",
+    "Prudence": "The capacity to act with care and restraint, applying cautious judgement to avoid unnecessary risk.",
+    "Foresight": "The capacity to recognise patterns over time and project possible future developments.",
+    "Practicality": "The capacity to appropriately choose and apply effective solutions to address real-world needs.",
+    "Curiosity": "The capacity to seek out new information, explore ideas, and deepen understanding.",
+    "Discipline": "The capacity to consistently execute planned actions with reliability and follow-through.",
 }
 
 ONET_STYLES = {

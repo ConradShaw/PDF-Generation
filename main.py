@@ -1847,11 +1847,11 @@ def generate_team_pdf(
     SSM_RISK_REFRAME = {
         "Confidence": (
             "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
-            "<b>Discernment</b> - to apply critical judgment and verify assumptions against reality",
+            "<b>Discernment</b> - to apply critical judgment and test assumptions against reality",
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action with insufficient evaluation creates avoidable risks",
-            "<b>Practicality</b> - to focus on common-sense, effective actions that deliver measurable benefit",
+            "<b>Practicality</b> - to focus on appropriate and effective actions that deliver measurable benefit",
         ),
         "Curiosity": (
             "<b>Scatteredness</b> – diffused focus on numerous priorities weakens execution and follow-through",
@@ -1863,7 +1863,7 @@ def generate_team_pdf(
         ),
         "Discipline": (
             "<b>Rigidity</b> – inflexible attachment to established methods and status reduces adaptability to change",
-            "<b>Objectivity</b> - to assess options using fact-based insights and determine the best course of action",
+            "<b>Objectivity</b> - to assess options logically and produce fact-based recommendations",
         ),
         "Empathy": (
             "<b>Enmeshment</b> – over-identification with others’ emotions blurs boundaries, undermining judgment",
@@ -1891,7 +1891,7 @@ def generate_team_pdf(
         ),
         "Tenacity": (
             "<b>Obsession</b> – narrow goal fixation limits perspective and risks misaligned effort",
-            "<b>Foresight</b> - to refocus on longer-term vision and ensure strategic alignment of current efforts",
+            "<b>Foresight</b> - to refocus on longer-term vision and ensure alignment of current efforts",
         ),
     }
     

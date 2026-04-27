@@ -1847,7 +1847,7 @@ def generate_team_pdf(
     SSM_RISK_REFRAME = {
         "Confidence": (
             "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
-            "<b>Discernment</b> - to apply critical judgment and test assumptions against reality",
+            "<b>Discernment</b> - to apply critical judgment and test assumptions for validity",
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action with insufficient evaluation creates avoidable risks",

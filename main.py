@@ -72,139 +72,6 @@ from fastapi.responses import Response, JSONResponse
 from pydantic import BaseModel, Field, model_validator, ConfigDict
 from pdf_helpers import InfoPanel  # make sure pdf_helpers.py exists with InfoPanel
 
-# --- Email service setup ---
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-### Currently inactive code
-###import asyncio
-###from fastapi import FastAPI
-###from email_service import email_worker  # your worker handles sending emails
-###from email_service import queue_email
-
-# --- Fast API setup ---
-app = FastAPI()
-@app.on_event("startup")
-async def startup_event():
-    # Start the email worker in the background
-    asyncio.create_task(email_worker())
-
-# Parse Excel definition
-def parse_excel_to_individual_results(excel_bytes):
-    import pandas as pd
-    from io import BytesIO   
-
-    df = pd.read_excel(BytesIO(excel_bytes))
-
-    results = []
-
-    for _, row in df.iterrows():
-        results.append({
-            "id": row.get("ID"),
-            "user_email": row.get("Email"),
-            "answers": row.to_dict()  # raw answers
-        })
-
-    return results
-# ------------------------------
-# Secure Database Connection Helper
-# ------------------------------
-def get_db_connection():
-    """
-    Returns a psycopg2 connection using environment variables.
-    Expects the following environment variables to be set:
-      - DB_HOST
-      - DB_PORT (optional, defaults to 5432)
-      - DB_NAME
-      - DB_USER
-      - DB_PASSWORD
-    Raises ValueError if any required environment variable is missing.
-    Logs and raises OperationalError if connection fails.
-    """
-    required_vars = ["DB_HOST", "DB_NAME", "DB_USER", "DB_PASSWORD"]
-    missing_vars = [var for var in required_vars if not os.environ.get(var)]
-    if missing_vars:
-        raise ValueError(f"Missing required environment variables: {', '.join(missing_vars)}")
-
-    try:
-        conn = psycopg2.connect(
-            host=os.environ["DB_HOST"],
-            port=int(os.environ.get("DB_PORT", 5432)),
-            dbname=os.environ["DB_NAME"],
-            user=os.environ["DB_USER"],
-            password=os.environ["DB_PASSWORD"],
-            connect_timeout=10
-        )
-        print("[INFO] Database connection established.")
-        return conn
-    except OperationalError as e:
-        print(f"[ERROR] Database connection failed: {e}")
-        raise
-
-# ----------------------------
-# Usage Example
-# ----------------------------
-if __name__ == "__main__":
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute("SELECT 1;")
-        print("[INFO] Test query result:", cursor.fetchone())
-    except Exception as e:
-        print(f"[ERROR] Could not run test query: {e}")
-    finally:
-        if 'cursor' in locals():
-            cursor.close()
-        if 'conn' in locals():
-            conn.close()              
-
-# ------------------------------
-# Error logs
-# ------------------------------
-# Set-up PDF file error logs
-import logging
-logging.basicConfig(level=logging.INFO)  # or DEBUG for more details
-
-# Set-up Supabase error logs
-print("SUPABASE_URL:", os.environ.get("SUPABASE_URL"))
-print("SUPABASE_KEY:", os.environ.get("SUPABASE_KEY"))
-
-# ----------------------------
-# Supabase setup
-# ----------------------------
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
-if not SUPABASE_URL or not SUPABASE_KEY:
-    raise ValueError("SUPABASE_URL and SUPABASE_KEY must be set in environment variables")
-
-supabase: SupabaseClient = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-# ----------------------------
-# Email setup (SMTP)
-# ----------------------------
-SMTP_HOST = "smtp.yourdomain.com"
-SMTP_PORT = 587
-SMTP_USER = "noreply@yourdomain.com"
-SMTP_PASS = os.environ.get("SMTP_PASSWORD")  # secure your password
-
-### NOTE - this whole block may becone redundant IF queue_email works as designed
-def send_pdf_email(to_email: str, pdf_bytes: bytes, filename: str):
-    msg = EmailMessage()
-    msg["Subject"] = f"Your ShawSight PDF Report - {filename}"
-    msg["From"] = SMTP_USER
-    msg["To"] = to_email
-    msg.set_content("Please find your regenerated PDF report attached.")
-    msg.add_attachment(pdf_bytes, maintype="application", subtype="pdf", filename=filename)
-
-    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-        server.starttls()
-        server.login(SMTP_USER, SMTP_PASS)
-        server.send_message(msg)
-
-def upload_pdf_to_supabase(pdf_bytes: bytes, filename: str, folder: str = "reports"):
-    path = f"{folder}/{filename}"
-    result = supabase.storage.from_("reports").upload(path, pdf_bytes, {"content-type": "application/pdf"})
-    return result
-
 logger = logging.getLogger("ssm-pdf-generator")
 logging.basicConfig(level=logging.INFO)
 
@@ -214,6 +81,9 @@ logging.basicConfig(level=logging.INFO)
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+DISABLE_REPORT_EMAILS = os.environ.get("DISABLE_REPORT_EMAILS", "").lower() in {
+    "1", "true", "yes", "on"
+}
 
 _supabase_client: Optional[SupabaseClient] = None
 
@@ -239,8 +109,6 @@ _pdf_semaphore = asyncio.Semaphore(MAX_CONCURRENT_PDFS)
 # ---------------------------
 # Logo path - should be in the same directory as this script in Cloud Run
 LOGO_PATH = os.path.join(os.path.dirname(__file__), "logo.png")
-ONET_ACTIVITIES = {}
-
 TRAITS = [
     "Courage",
     "Practicality",
@@ -1380,7 +1248,7 @@ def create_distribution_chart_drawing(
 
 
 def calculate_team_rankings(
-    individual_results: List[Dict[str, Any]],
+    individual_results: List[Any],
 ) -> Tuple[List[str], Dict[str, float], Dict[str, Dict[str, float]]]:
     """
     Calculate team-level rankings by averaging individual rankings.
@@ -1399,11 +1267,25 @@ def calculate_team_rankings(
     rank_counts = {trait: 0 for trait in TRAITS}
     individual_ranks_by_trait = {trait: [] for trait in TRAITS}
 
+    normalized_results: List[Dict[str, Any]] = []
     for result in individual_results:
-        for trait, rank in result['ranks'].items():
-            rank_sums[trait] += rank
+        # Accept both plain dict payloads and Pydantic model instances.
+        if hasattr(result, "model_dump"):
+            result_dict = result.model_dump()
+        elif isinstance(result, dict):
+            result_dict = result
+        else:
+            raise TypeError(f"Unsupported individual result type: {type(result)!r}")
+
+        normalized_results.append(result_dict)
+        ranks = result_dict.get("ranks", {}) or {}
+        for trait, rank in ranks.items():
+            if trait not in rank_sums:
+                continue
+            numeric_rank = float(rank)
+            rank_sums[trait] += numeric_rank
             rank_counts[trait] += 1
-            individual_ranks_by_trait[trait].append(rank)
+            individual_ranks_by_trait[trait].append(numeric_rank)
 
     avg_ranks = {
         trait: (rank_sums[trait] / rank_counts[trait]) if rank_counts[trait] > 0 else 12.0
@@ -1458,8 +1340,8 @@ def calculate_team_rankings(
             "Situational": 0,
         }
 
-        for result in individual_results:
-            rank = result['ranks'].get(trait, 12)
+        for result in normalized_results:
+            rank = float((result.get("ranks", {}) or {}).get(trait, 12))
             category = category_for_rank_number(rank)
             category_counts[category] += 1
 
@@ -1476,7 +1358,6 @@ def generate_team_pdf(
     num_members: int,
     date_str: str,
     ordered_traits: List[str],
-    team_ordered_traits: List[str],
     ranks: Dict[str, float],
     distribution_data: Dict[str, Dict[str, float]],
     output_stream: io.BytesIO,
@@ -1982,6 +1863,31 @@ def generate_team_pdf(
     filename = f"SSM_Team_{company_name}_{team_name}_{date_str}_v1.pdf"
     return filename
 
+
+def generate_team_pdf_file(
+    company_name: str,
+    team_name: str,
+    num_members: int,
+    date_str: str,
+    team_ordered_traits: List[str],
+    ranks: Dict[str, float],
+    distribution_data: Dict[str, Dict[str, float]],
+) -> Tuple[bytes, str]:
+    """Compatibility wrapper that returns in-memory PDF bytes + filename."""
+    output_stream = io.BytesIO()
+    filename = generate_team_pdf(
+        company_name=company_name,
+        team_name=team_name,
+        num_members=num_members,
+        date_str=date_str,
+        ordered_traits=team_ordered_traits,
+        ranks=ranks,
+        distribution_data=distribution_data,
+        output_stream=output_stream,
+        logo_path=LOGO_PATH,
+    )
+    return output_stream.getvalue(), filename
+
 def process_excel_to_pdf(excel_bytes: bytes, original_filename: str = "assessment.xlsx") -> Tuple[bytes, str]:
     """
     Process Excel file bytes and return PDF bytes and filename.
@@ -2325,6 +2231,7 @@ class GeneratePDFResponse(BaseModel):
     results: List[Dict[str, Any]]
     pdf_base64: Optional[str] = None
     filename: Optional[str] = None
+    message: Optional[str] = None
 
 class GenerateTeamPDFRequest(BaseModel):
     company_name: str
@@ -2363,7 +2270,7 @@ logger = logging.getLogger("pdf_logger")
 # Helper: convert Excel → list of IndividualResult
 # -----------------------------------------
 def process_excel_to_individual_results(excel_bytes) -> list[IndividualResult]:
-    df = pd.read_excel(BytesIO(excel_bytes))
+    df = pd.read_excel(io.BytesIO(excel_bytes))
     results = []
 
     for _, row in df.iterrows():
@@ -2434,7 +2341,7 @@ def generate_individual_pdf_endpoint(request: GeneratePDFRequest):
 
                 # Structured storage path
                 storage_path = f"individual_reports/{survey_id}/{pdf_filename}"
-                upload_pdf_to_supabase(pdf_bytes, storage_path)
+                upload_pdf_to_storage("reports", storage_path, pdf_bytes)
 
                 results_summary.append({
                     "survey_id": survey_id,
@@ -2512,7 +2419,7 @@ def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
         try:
             safe_company = re.sub(r'[^a-zA-Z0-9_-]', '_', request.company_name)
             storage_path = f"team_reports/{safe_company}/{team_pdf_filename}"               
-            upload_pdf_to_supabase(team_pdf_bytes, storage_path)
+            upload_pdf_to_storage("reports", storage_path, team_pdf_bytes)
         except Exception as e:
             logger.error(f"Upload failed: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
@@ -2538,10 +2445,7 @@ def generate_team_pdf_endpoint(request: GenerateTeamPDFRequest):
 
     except Exception as e:
         logger.exception("Team PDF generation failed")
-        return GenerateTeamPDFResponse(
-            success=False,
-            message=f"Team PDF generation failed: {str(e)}"
-        )
+        raise HTTPException(status_code=500, detail=f"Team PDF generation failed: {str(e)}")
 
 
 @app.post("/generate-pdf")
@@ -2652,9 +2556,15 @@ async def process_assessment(request: ProcessAssessmentRequest):
         ordered_traits, ranks = tb.rank_with_average_ranks()
 
         pdf_buffer = io.BytesIO()
-        pdf_filename = generate_pdf(
-            first_name, last_name, date_str,
-            ordered_traits, ranks, pdf_buffer, LOGO_PATH,
+        pdf_filename = generate_individual_pdf_file(
+            first=first_name,
+            last=last_name,
+            date_str=date_str,
+            ordered_traits=ordered_traits,
+            ranks=ranks,
+            ONET_ACTIVITIES=ONET_ACTIVITIES,
+            output_stream=pdf_buffer,
+            logo_path=LOGO_PATH,
         )
         pdf_bytes = pdf_buffer.getvalue()
 
@@ -2671,7 +2581,7 @@ async def process_assessment(request: ProcessAssessmentRequest):
             str(demographics.get("email", ""))
             or assessment.get("participant_email", "")
         )
-        if participant_email:
+        if participant_email and not DISABLE_REPORT_EMAILS:
             try:
                 send_individual_report_email(
                     participant_email, first_name, assessment_id,
@@ -2679,6 +2589,8 @@ async def process_assessment(request: ProcessAssessmentRequest):
                 )
             except Exception as email_err:
                 logger.error("Email failed (non-fatal): %s", email_err)
+        elif DISABLE_REPORT_EMAILS:
+            logger.info("[process-assessment] Email disabled; skipping %s", assessment_id)
 
         _check_and_trigger_team_report(assessment_id, assessment, data.get("team_member"))
 
@@ -2722,10 +2634,24 @@ def _check_and_trigger_team_report(
     if not company or not company.get("team_size"):
         return
 
-    completed = (
+    members = (
         sb.table("team_assessment_members")
-        .select("*", count="exact")
+        .select("assessment_id")
         .eq("company_id", company_id)
+        .execute()
+    ).data or []
+    assessment_ids = [
+        member["assessment_id"]
+        for member in members
+        if member.get("assessment_id")
+    ]
+    if not assessment_ids:
+        return
+
+    completed = (
+        sb.table("assessments")
+        .select("id", count="exact")
+        .in_("id", assessment_ids)
         .eq("status", "completed")
         .execute()
     )
@@ -2754,9 +2680,19 @@ def _check_and_trigger_team_report(
 
     logger.info("[team-check] All members complete – generating team report for %s", company_id)
     try:
-        _do_team_report(company_id, force=False)
+        result = _do_team_report(company_id, force=True)
+        if not result.success:
+            sb.table("companies").update({
+                "team_report_generated": False,
+                "team_report_generated_at": None,
+            }).eq("id", company_id).execute()
+            logger.error("[team-check] Team report failed for %s: %s", company_id, result.message)
     except Exception:
         logger.exception("[team-check] Team report generation failed for %s", company_id)
+        sb.table("companies").update({
+            "team_report_generated": False,
+            "team_report_generated_at": None,
+        }).eq("id", company_id).execute()
 
 
 @app.post("/process-team-report", response_model=ProcessTeamReportResponse)
@@ -2855,7 +2791,7 @@ def _do_team_report(company_id: str, force: bool = False) -> ProcessTeamReportRe
     logger.info("[team-report] PDF uploaded: %s", storage_path)
 
     contact_email = company.get("contact_email")
-    if contact_email:
+    if contact_email and not DISABLE_REPORT_EMAILS:
         try:
             send_team_report_email(
                 contact_email,
@@ -2866,6 +2802,8 @@ def _do_team_report(company_id: str, force: bool = False) -> ProcessTeamReportRe
             )
         except Exception as email_err:
             logger.error("Team email failed (non-fatal): %s", email_err)
+    elif DISABLE_REPORT_EMAILS:
+        logger.info("[team-report] Email disabled; skipping %s", company_id)
 
     return ProcessTeamReportResponse(
         success=True,

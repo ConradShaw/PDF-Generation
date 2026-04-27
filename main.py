@@ -1032,7 +1032,7 @@ def generate_individual_pdf_file(
         return header  # no internal gap
 
     story.append(header_template(3, ""))
-    story.append(Spacer(1, 60))  # external gap
+    story.append(Spacer(1, 12))
 
     table_data = [
             ["Shaw Strengths Matrix®","","","",""],

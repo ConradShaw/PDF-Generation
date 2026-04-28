@@ -246,7 +246,7 @@ DESCRIPTIONS = {
     "Courage": "The capacity to make and act on purposeful decisions in the presence of fear, uncertainty, or risk.",
     "Confidence": "The capacity to trust in one’s own abilities and judgement, enabling self-assured action.",
     "Prudence": "The capacity to act with care and restraint, applying cautious judgement to avoid unnecessary risk.",
-    "Foresight": "The capacity to recognise patterns over time and project possible future developments.",
+    "Foresight": "The capacity to project future outcomes from current conditions and causal dynamics.",
     "Practicality": "The capacity to appropriately choose and apply effective solutions to address real-world needs.",
     "Curiosity": "The capacity to seek out new information, explore ideas, and deepen understanding.",
     "Discipline": "The capacity to consistently execute planned actions with reliability and follow-through.",

@@ -238,7 +238,7 @@ TRAITS = [
 ]
 
 DESCRIPTIONS = {
-    "Fairness": "The capacity to weigh a balanced range of perspectives and exercise impartial, equitable judgement.",
+    "Fairness": "The capacity to weigh competing perspectives and make equitable judgements about people and outcomes.",
     "Empathy": "The capacity to understand and connect with others’ perspectives and lived experience.",
     "Discernment": "The capacity to critically evaluate information, test assumptions, and distinguish what is valid.",
     "Objectivity": "The capacity to assess information logically and without personal bias, producing fact-based insights.",
@@ -246,7 +246,7 @@ DESCRIPTIONS = {
     "Courage": "The capacity to make and act on purposeful decisions in the presence of fear, uncertainty, or risk.",
     "Confidence": "The capacity to trust in one’s own abilities and judgement, enabling self-assured action.",
     "Prudence": "The capacity to act with care and restraint, applying cautious judgement to avoid unnecessary risk.",
-    "Foresight": "The capacity to project future outcomes from current conditions and causal dynamics.",
+    "Foresight": "The capacity to project future outcomes from current conditions and their underlying causes.",
     "Practicality": "The capacity to appropriately choose and apply effective solutions to address real-world needs.",
     "Curiosity": "The capacity to seek out new information, explore ideas, and deepen understanding.",
     "Discipline": "The capacity to consistently execute planned actions with reliability and follow-through.",

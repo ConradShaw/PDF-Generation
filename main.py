@@ -1000,8 +1000,23 @@ def generate_individual_pdf_file(
     ])
 
     descriptions = {"SSM\nStrength®": "<b>Description</b>", "": ""} | DESCRIPTIONS
+    description_rows = []
+    unknown_description_keys: set[str] = set()
+    for row in results_table_data:
+        trait_key = row[2] if isinstance(row, list) and len(row) >= 3 else ""
+        if trait_key not in descriptions:
+            unknown_description_keys.add(str(trait_key))
+        description_rows.append(
+            row + [Paragraph(descriptions.get(trait_key, ""), style=cell_style)]
+        )
+    if unknown_description_keys:
+        logger.warning(
+            "[team-pdf] Unknown description keys encountered: %s | sample rows=%s",
+            sorted(unknown_description_keys),
+            [r for r in results_table_data if len(r) >= 3 and str(r[2]) in unknown_description_keys][:3],
+        )
     story.append(Table(
-        [row + [Paragraph(descriptions[row[2]], style=cell_style)] for row in results_table_data],
+        description_rows,
         style=results_table_style,
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None],
     ))
@@ -1031,9 +1046,26 @@ def generate_individual_pdf_file(
     story.append(Spacer(1, 12))
     
     work_styles = {"SSM\nStrength®": ("Work Style (O*NET®)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
+    work_style_rows = []
+    unknown_work_style_keys: set[str] = set()
+    for row in results_table_data:
+        trait_key = row[2] if isinstance(row, list) and len(row) >= 3 else ""
+        if trait_key not in work_styles:
+            unknown_work_style_keys.add(str(trait_key))
+        style_name, style_desc = work_styles.get(trait_key, ("", ""))
+        work_style_rows.append(
+            row + [
+                Paragraph(style_name, style=cell_bold_center_style),
+                Paragraph(style_desc, style=cell_style),
+            ]
+        )
+    if unknown_work_style_keys:
+        logger.warning(
+            "[team-pdf] Unknown work-style keys encountered: %s",
+            sorted(unknown_work_style_keys),
+        )
     story.append(Table(
-        [row + [Paragraph(work_styles[row[2]][0], style=cell_bold_center_style), Paragraph(work_styles[row[2]][1], style=cell_style)]
-         for row in results_table_data],
+        work_style_rows,
         style=results_table_style,
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, 1.1*inch, None],
     ))
@@ -1662,9 +1694,23 @@ def generate_team_pdf(
     ]
     
     activities = {"SSM\nStrength®": "<b>Work Activities (O*NET®)</b>", "": ""} | ONET_ACTIVITIES
-    
+    activity_rows = []
+    unknown_activity_keys: set[str] = set()
+    for row in results_table_data:
+        trait_key = row[2] if isinstance(row, list) and len(row) >= 3 else ""
+        if trait_key not in activities:
+            unknown_activity_keys.add(str(trait_key))
+        activity_rows.append(
+            row + [Paragraph(activities.get(trait_key, ""), style=cell_center_style)]
+        )
+    if unknown_activity_keys:
+        logger.warning(
+            "[team-pdf] Unknown activity keys encountered: %s",
+            sorted(unknown_activity_keys),
+        )
+
     story.append(Table(
-        [row + [Paragraph(activities[row[2]], style=cell_center_style)] for row in results_table_data],
+        activity_rows,
         style=compact_table_style,
         colWidths=[0.4*inch, 1.0*inch, 1.0*inch, None],  # Slightly reduced column widths
     ))

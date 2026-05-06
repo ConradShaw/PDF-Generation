@@ -869,7 +869,7 @@ def generate_individual_pdf_file(
                 Paragraph("Shaw Strengths Matrix® Assessment", style=body_style),
                 Paragraph(f"{first} {last} | Page {page_num}", style=body_right_style),
             ], [
-                Paragraph(f"Shaw Strengths Matrix®<br/>{subtitle}", style=header_style),
+                Paragraph(subtitle, style=header_style),
                 ""
             ]],
             style=TableStyle([
@@ -912,7 +912,7 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Page 3 - Matrix explanation
-    story.append(header_template(3, ""))
+    story.append(header_template(3, "Shaw Strengths Matrix®"))
     story.append(Spacer(1, 12))
 
     table_data = [
@@ -1495,7 +1495,7 @@ def generate_team_pdf(
                 Paragraph("Shaw Strengths Matrix® Assessment", style=body_style),
                 Paragraph(f"{team_name} | Page {page_num}", style=body_right_style),
             ], [
-                Paragraph(f"Shaw Strengths Matrix®<br/>{subtitle}", style=header_style),
+                Paragraph(subtitle, style=header_style),
                 ""
             ]],
             style=TableStyle([
@@ -1540,7 +1540,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     
     # Page 3 - Matrix explanation
-    story.append(header_template(3, ""))
+    story.append(header_template(3, "Shaw Strengths Matrix®"))
     story.append(Spacer(1, 12))
     
     story.append(Table(

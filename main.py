@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Shaw Strengths Matrix™ PDF Generator Service
+Shaw Strengths Matrix® PDF Generator Service
 
 Generates individual and team PDF reports. Reads assessment data directly
 from Supabase, performs all scoring/ranking, uploads PDFs to Supabase Storage,
@@ -904,19 +904,19 @@ def generate_individual_pdf_file(
         """
         <b>Report Contents</b><br/><br/>
         1) Shaw Strengths Matrix<br/>
-        2) Shaw Strengths Matrix Assessment Table<br/>
-        3) Shaw Strengths Matrix Mapping to O*NET Work Styles<br/>
-        4) Shaw Strengths Matrix Mapping to O*NET Work Activities
+        2) Assessment Table<br/>
+        3) Mapping to O*NET Work Styles<br/>
+        4) Mapping to O*NET Work Activities
         """,        
     )]], style=table_border))
     story.append(PageBreak())
 
-    # Page 3 - Matrix explanation
+    # Page 3 - Matrix explanation  
     def header_template(level, text):
         header = Paragraph(text, header_style)
         return header  # no internal gap
 
-    story.append(header_template(3, ""))
+    story.append(header_template(3, "Shaw Strengths Matrix"))
     story.append(Spacer(1, 12))
 
     table_data = [

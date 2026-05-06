@@ -1538,7 +1538,7 @@ def generate_team_pdf(
         3) Team Mapping to O*NET Work Styles<br/>
         4) Team Mapping to O*NET Work Activities<br/>
         5) Team Strength Distribution<br/>
-        6) Change Alignment Guide - Team
+        6) Change Alignment Guide
         """,    
     )]], style=table_border))
     story.append(PageBreak())
@@ -1847,9 +1847,9 @@ def generate_team_pdf(
         ),
     }
     
-    # Page 8 - Change Alignment Guide – Team
+    # Page 8 - Change Alignment Guide
     story.append(PageBreak())
-    story.append(header_template(9, "Change Alignment Guide - Team"))
+    story.append(header_template(9, "Change Alignment Guide"))
     story.append(Spacer(1, 8))  # Reduced from 12 to 8
     
     # Create compact table style with reduced padding
@@ -1903,7 +1903,7 @@ def generate_team_pdf(
     story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
     story.append(PageBreak())
-    story.append(header_template(10, "Change Alignment Guide - Team"))
+    story.append(header_template(10, "Change Alignment Guide"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         """

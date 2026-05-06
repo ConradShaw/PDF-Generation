@@ -911,11 +911,7 @@ def generate_individual_pdf_file(
     )]], style=table_border))
     story.append(PageBreak())
 
-    # Page 3 - Matrix explanation  
-    def header_template(level, text):
-        header = Paragraph(text, header_style)
-        return header  # no internal gap
-
+    # Page 3 - Matrix explanation
     story.append(header_template(3, ""))
     story.append(Spacer(1, 12))
 

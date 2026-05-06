@@ -114,7 +114,7 @@ TRAITS = [
     "Practicality",
     "Curiosity",
     "Prudence",
-    "nce",
+    "Confidence",
     "Discernment",
     "Fairness",
     "Tenacity",
@@ -1626,8 +1626,16 @@ def generate_team_pdf(
     ])
     
     descriptions = {"SSM\nStrength®": "<b>Description</b>", "": ""} | DESCRIPTIONS
+    description_rows = []
+    for row in results_table_data:
+        trait_key = row[2] if isinstance(row, list) and len(row) >= 3 else ""
+        if trait_key not in descriptions:
+            logger.warning("[team-pdf] Unknown description key=%r row=%r", trait_key, row)
+        description_rows.append(
+            row + [Paragraph(descriptions.get(trait_key, ""), style=cell_style)]
+        )
     story.append(Table(
-        [row + [Paragraph(descriptions[row[2]], style=cell_style)] for row in results_table_data],
+        description_rows,
         style=results_table_style,
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None],
     ))
@@ -1656,9 +1664,20 @@ def generate_team_pdf(
     story.append(Spacer(1, 12))
     
     work_styles = {"SSM\nStrength®": ("Work Style (O*NET®)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
+    work_style_rows = []
+    for row in results_table_data:
+        trait_key = row[2] if isinstance(row, list) and len(row) >= 3 else ""
+        if trait_key not in work_styles:
+            logger.warning("[team-pdf] Unknown work-style key=%r row=%r", trait_key, row)
+        style_name, style_desc = work_styles.get(trait_key, ("", ""))
+        work_style_rows.append(
+            row + [
+                Paragraph(style_name, style=cell_bold_center_style),
+                Paragraph(style_desc, style=cell_style),
+            ]
+        )
     story.append(Table(
-        [row + [Paragraph(work_styles[row[2]][0], style=cell_bold_center_style), Paragraph(work_styles[row[2]][1], style=cell_style)]
-         for row in results_table_data],
+        work_style_rows,
         style=results_table_style,
         colWidths=[0.45*inch, 1.1*inch, 1.1*inch, 1.1*inch, None],
     ))

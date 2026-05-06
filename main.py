@@ -1534,17 +1534,17 @@ def generate_team_pdf(
         """
         <b>Report Contents</b><br/><br/>
         1) Shaw Strengths Matrix<br/>
-        2) Shaw Strengths Matrix Team Assessment Table<br/>
-        3) Shaw Strengths Matrix Team Mapping to O*NET Work Styles<br/>
-        4) Shaw Strengths Matrix Team Mapping to O*NET Work Activities<br/>
-        5) Shaw Strengths Matrix Team Strength Distribution<br/>
-        6) Shaw Strengths Matrix Change Alignment Guide - Team
+        2) Team Assessment Table<br/>
+        3) Team Mapping to O*NET Work Styles<br/>
+        4) Team Mapping to O*NET Work Activities<br/>
+        5) Team Strength Distribution<br/>
+        6) Change Alignment Guide - Team
         """,    
     )]], style=table_border))
     story.append(PageBreak())
     
     # Page 3 - Matrix explanation
-    story.append(header_template(3, ""))
+    story.append(header_template(3, "Shaw Strengths Matrix"))
     story.append(Spacer(1, 12))
     
     story.append(Table(

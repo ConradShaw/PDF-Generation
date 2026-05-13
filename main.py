@@ -154,7 +154,7 @@ ONET_STYLES = {
     ),
     "Discernment": (
         "Attention to Detail",
-        "A tendency to be detail-oriented, organized, and thorough in completing work."
+        "A tendency to be detail-oriented, organised, and thorough in completing work."
     ),
     "Discipline": (
         "Self-Control",

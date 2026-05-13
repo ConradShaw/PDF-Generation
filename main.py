@@ -194,11 +194,11 @@ ONET_ACTIVITIES = {
     "Confidence":
         "Selling or Influencing Others<br/>Guiding, Directing, and Motivating Subordinates<br/>Communicating with People Outside the Organisation<br/>Performing for or Working Directly with the Public",
     "Courage":
-        "Coordinating the Work and Activities of Others<br/>Scheduling Work and Activities<br/>Performing General Physical Activities",
+        "Coordinating the Work and Activities of Others<br/>Scheduling Work and Activities<br/>Organising, Planning, and Prioritising Work",
     "Curiosity":
-        "Getting Information<br/>Updating and Using Relevant Knowledge<br/>Training and Teaching Others<br/>Interpreting the Meaning of Information for Others",
+        "Updating and Using Relevant Knowledge<br/>Getting Information<br/>Training and Teaching Others<br/>Interpreting the Meaning of Information for Others",
     "Discernment":
-        "Inspecting Equipment, Structures, or Materials<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment<br/>Identifying Objects, Actions, and Events<br/>Making Decisions and Solving Problems",
+        "Inspecting Equipment, Structures, or Materials<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment<br/>Identifying Objects, Actions, and Events<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
     "Discipline":
         "Controlling Machines and Processes<br/>Monitoring Processes, Materials, or Surroundings<br/>Evaluating Information to Determine Compliance with Standards",
     "Empathy":
@@ -206,15 +206,15 @@ ONET_ACTIVITIES = {
     "Fairness":
         "Establishing and Maintaining Interpersonal Relationships<br/>Developing and Building Teams<br/>Communicating with Supervisors, Peers, or Subordinates<br/>Staffing Organisational Units",
     "Foresight":
-        "Thinking Creatively<br/>Developing Objectives and Strategies<br/>Organising, Planning, and Prioritising Work<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
+        "Thinking Creatively<br/>Making Decisions and Solving Problems<br/>Developing Objectives and Strategies",
     "Objectivity":
         "Providing Consultation and Advice to Others<br/>Working with Computers<br/>Analysing Data or Information<br/>Processing Information",
     "Practicality":
-        "Performing Administrative Activities<br/>Documenting/Recording Information<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Handling and Moving Objects",
+        "Performing Administrative Activities<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Documenting/Recording Information<br/>Handling and Moving Objects",
     "Prudence":
         "Monitoring and Controlling Resources<br/>Judging the Qualities of Objects, Services, or People",
     "Tenacity":
-        "Resolving Conflicts and Negotiating with Others<br/>Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment",
+        "Resolving Conflicts and Negotiating with Others<br/>Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment<br/>Performing General Physical Activities",
 }
 
 # ---------------------------

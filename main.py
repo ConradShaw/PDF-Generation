@@ -198,7 +198,7 @@ ONET_ACTIVITIES = {
     "Curiosity":
         "Updating and Using Relevant Knowledge<br/>Getting Information<br/>Training and Teaching Others<br/>Interpreting the Meaning of Information for Others",
     "Discernment":
-        "Inspecting Equipment, Structures, or Materials<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment<br/>Identifying Objects, Actions, and Events<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
+        "Inspecting Equipment, Structures, or Materials<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment<br/>Identifying Objects, Actions, and Events<br/>Processing Information<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
     "Discipline":
         "Controlling Machines and Processes<br/>Monitoring Processes, Materials, or Surroundings<br/>Evaluating Information to Determine Compliance with Standards",
     "Empathy":
@@ -208,7 +208,7 @@ ONET_ACTIVITIES = {
     "Foresight":
         "Thinking Creatively<br/>Making Decisions and Solving Problems<br/>Developing Objectives and Strategies",
     "Objectivity":
-        "Providing Consultation and Advice to Others<br/>Working with Computers<br/>Analysing Data or Information<br/>Processing Information",
+        "Providing Consultation and Advice to Others<br/>Working with Computers<br/>Analysing Data or Information",
     "Practicality":
         "Performing Administrative Activities<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Documenting/Recording Information<br/>Handling and Moving Objects",
     "Prudence":

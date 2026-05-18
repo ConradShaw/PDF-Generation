@@ -1646,8 +1646,8 @@ def generate_team_pdf(
         <br/>
         The team's collective strengths are grouped into four categories:<br/>
         <br/>
-        a) <b>Signature Strengths</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
-        b) <b>Supporting Strengths</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
+        a) <b>Signature Strengths</b> – are the team’s core strengths that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
+        b) <b>Supporting Strengths</b> – are strengths the team can readily access to reinforce its core strengths — reliable when needed, though not the team’s primary focus.<br/>
         c) <b>Stretch Strengths</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>
         d) <b>Situational Strengths</b> – are strengths the team uses primarily in specific situations. They can be effectively applied, but are energy-intensive and not sustainable for long periods.<br/>
         """,
@@ -1776,10 +1776,10 @@ def generate_team_pdf(
         The chart displays the team’s strength distribution, with strengths arranged from the highest average expressed strength on the left to the lowest on the right.<br/>
         Each bar represents a strength and is divided into coloured segments showing how team members ranked it across four categories. Together, the segments total 100% of responses.<br/>
         <br/>
-        • <b>Signature strengths (#1-#3)</b> – are the team’s core capabilities that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
+        • <b>Signature strengths (#1-#3)</b> – are the team’s core strengths that it consistently demonstrates — abilities the team naturally leans on and that define how it performs at its best.<br/>
         A tall Signature segment indicates that many team members naturally rely on that strength.<br/>
         <br/>
-        • <b>Supporting strengths (#4-#6)</b> – are strengths the team can readily access to reinforce its core capabilities — reliable when needed, though not the team’s primary focus.<br/>
+        • <b>Supporting strengths (#4-#6)</b> – are strengths the team can readily access to reinforce its core strengths — reliable when needed, though not the team’s primary focus.<br/>
         A tall Supporting segment indicates that many team members placed that strength in the upper mid-range of their overall tendencies.<br/>
         <br/>
         • <b>Stretch strengths (#7-#9)</b> – are strengths the team can deploy effectively when required, but which take extra coordination, focus, or effort to use well.<br/>

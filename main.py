@@ -1442,7 +1442,7 @@ def generate_team_pdf(
     # Page 1 - Title page
     story.append(Table(
         [[Paragraph("Shaw Strengths Matrix® Assessment", header_style)]],
-        style=table_border
+        style=TableStyle([])  # empty style, no black outline borders
     ))
     
     story.append(Spacer(1, 6))    

@@ -872,12 +872,11 @@ def generate_individual_pdf_file(
                 Paragraph(subtitle, style=header_style),
                 ""
             ]],
-            style=TableStyle([
-                ("BOX", (0, 1), (1, 1), 0, colors.black), # Option: explicitly set header box outline thickness to 0
-                ("SPAN", (0, 1), (1, 1)),
+            style=TableStyle([     
+                ("SPAN", (0, 1), (1, 1)), # keeps subtitle spanning two columns
             ]),
         )
-
+  
     # Page 2 - Overview    
     story.append(header_template(2, "Overview"))
     story.append(Spacer(1, 6))
@@ -1499,11 +1498,10 @@ def generate_team_pdf(
                 ""
             ]],
             style=TableStyle([
-                ("BOX", (0, 1), (1, 1), 0, colors.black),# Option: explicitly set header box outline thickness to 0
-                ("SPAN", (0, 1), (1, 1)),
+                ("SPAN", (0, 1), (1, 1)), # keeps subtitle spanning two columns
             ]),
         )
-    
+  
     # Page 2 - Overview
     story.append(header_template(2, "Overview"))
     story.append(Spacer(1, 6))

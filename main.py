@@ -1504,7 +1504,7 @@ def generate_team_pdf(
   
     # Page 2 - Overview
     story.append(header_template(2, "Overview"))
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 12))
     
     story.append(Table([[Paragraph(
         """
@@ -1747,20 +1747,17 @@ def generate_team_pdf(
         """,
         style=body_compact_style
     ))
-     
+  
     # Page 8 - Team Strength Distribution
     story.append(PageBreak())
     story.append(Table([[
         Paragraph("Shaw Strengths Matrix® Assessment", style=body_style),
         Paragraph(f"{team_name} | Page 8", style=body_right_style),
     ]]))
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 6))  
     
-    story.append(Table([[Paragraph(
-        "Team Strength Distribution",
-        style=header_style
-    )]], style=table_border))
-    story.append(Spacer(1, 12))
+    story.append(header_template(5, "Team Strength Distribution"))
+    story.append(Spacer(1, 12))  
     
     # Add strength distribution chart (ordered by team ranking: rank 1 first, rank 12 last)
     chart_drawing = create_distribution_chart_drawing(distribution_data, ordered_traits, width=500, height=300)

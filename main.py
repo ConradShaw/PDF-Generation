@@ -1748,15 +1748,8 @@ def generate_team_pdf(
         style=body_compact_style
     ))
   
-    # Page 8 - Team Strength Distribution
-    story.append(PageBreak())
-    story.append(Table([[
-        Paragraph("Shaw Strengths Matrix® Assessment", style=body_style),
-        Paragraph(f"{team_name} | Page 8", style=body_right_style),
-    ]]))
-    story.append(Spacer(1, 6))  
-    
-    story.append(header_template(5, "Team Strength Distribution"))
+    # Page 8 - Team Strength Distribution    
+    story.append(header_template(8, "Team Strength Distribution"))
     story.append(Spacer(1, 12))  
     
     # Add strength distribution chart (ordered by team ranking: rank 1 first, rank 12 last)

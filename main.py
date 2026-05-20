@@ -818,7 +818,7 @@ def generate_individual_pdf_file(
     story.append(Table(
         [[Paragraph("Shaw Strengths Matrix® Assessment", header_style)]],
         colWidths=[None],  # or doc.width if you want full width
-        style=table_border
+        style=TableStyle([])  # empty style, no black outline borders
     ))
   
     story.append(Spacer(1, 6))

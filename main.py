@@ -1696,7 +1696,7 @@ def generate_team_pdf(
     
     # Page 6 - O*NET® Work Activities
     story.append(header_template(6, "Team Mapping to O*NET Work Activities"))
-    story.append(Spacer(1, 8))  # Reduced from 12 to 8
+    story.append(Spacer(1, 12))
     
     # Create compact table style with reduced padding
     compact_table_style = list(results_table_style) + [
@@ -1844,7 +1844,7 @@ def generate_team_pdf(
     # Page 8 - Change Alignment Guide
     story.append(PageBreak())
     story.append(header_template(9, "Change Alignment Guide"))
-    story.append(Spacer(1, 8))  # Reduced from 12 to 8
+    story.append(Spacer(1, 12))
     
     # Create compact table style with reduced padding
     compact_table_style = list(results_table_style) + [

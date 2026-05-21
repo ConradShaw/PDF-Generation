@@ -862,7 +862,7 @@ def generate_individual_pdf_file(
     story.append(Table([[legal_notices]], style=table_border))
     story.append(PageBreak())
 
-    # Header template for pages 2-6
+    # Header template for pages 2-10
     def header_template(page_num: int, subtitle: str) -> Table:
         return Table(
             [[
@@ -911,7 +911,7 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Page 3 - Matrix explanation
-    story.append(header_template(3, "Shaw Strengths Matrix"))
+    story.append(header_template(3, "Shaw Strengths Matrix®"))
     story.append(Spacer(1, 12))
 
     table_data = [
@@ -1037,7 +1037,7 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Page 5 - O*NET® Work Styles
-    story.append(header_template(5, "Mapping to O*NET Work Styles"))
+    story.append(header_template(5, "Mapping to O*NET® Work Styles"))
     story.append(Spacer(1, 12))
     
     work_styles = {"SSM\nStrength®": ("Work Style (O*NET®)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
@@ -1084,7 +1084,7 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Page 6 - O*NET® Work Activities
-    story.append(header_template(6, "Mapping to O*NET Work Activities"))
+    story.append(header_template(6, "Mapping to O*NET® Work Activities"))
     story.append(Spacer(1, 12))
 
     # Merge header with ONET activities
@@ -1105,7 +1105,7 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Header for Page 7
-    story.append(header_template(7, "Mapping to O*NET Work Activities"))
+    story.append(header_template(7, "Mapping to O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         # Info panel table explaining the chart
@@ -1538,7 +1538,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     
     # Page 3 - Matrix explanation
-    story.append(header_template(3, "Shaw Strengths Matrix"))
+    story.append(header_template(3, "Shaw Strengths Matrix®"))
     story.append(Spacer(1, 12))
     
     story.append(Table(
@@ -1654,7 +1654,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     
     # Page 5 - O*NET® Work Styles
-    story.append(header_template(5, "Team Mapping to O*NET Work Styles"))
+    story.append(header_template(5, "Team Mapping to O*NET® Work Styles"))
     story.append(Spacer(1, 12))
     
     work_styles = {"SSM\nStrength®": ("Work Style (O*NET®)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
@@ -1695,7 +1695,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     
     # Page 6 - O*NET® Work Activities
-    story.append(header_template(6, "Team Mapping to O*NET Work Activities"))
+    story.append(header_template(6, "Team Mapping to O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     
     # Create compact table style with reduced padding
@@ -1730,7 +1730,7 @@ def generate_team_pdf(
     story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
     story.append(PageBreak())
-    story.append(header_template(7, "Team Mapping to O*NET Work Activities"))
+    story.append(header_template(7, "Team Mapping to O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         """

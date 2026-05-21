@@ -889,7 +889,7 @@ def generate_individual_pdf_file(
         <br/>
         The <b>SSM Assessment</b> measures <b>personality</b> — how you tend to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
-        While the Assessment is grounded in established <b>personality and work style research</b> and has passed <b>content and face validity testing</b>, it is currently undergoing further psychometric validation. Results should therefore be interpreted as <b>insightful tendencies</b> rather than predictive measures, and are <b>not intended</b> for hiring, promotion, or other HR decision-making.<br/>
+        The Assessment is grounded in established personality research and has completed <b>phase one psychometric validation</b>. Report insights should still be interpreted as indicative tendencies rather than definitive predictive measures, and the tool is not intended for hiring, promotion, or related HR decisions.<br/>
         <br/>
         In this report, your <b>SSM Assessment</b> profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
@@ -1111,7 +1111,7 @@ def generate_individual_pdf_file(
         # Info panel table explaining the chart
         """
         <b>How to Read This Chart</b><br/><br/>
-        This chart maps your 12 ranked <b>SSM strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
+        This chart maps your 12 ranked <b>SSM strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 41 <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
         Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/><br/>
@@ -1514,7 +1514,7 @@ def generate_team_pdf(
         <br/>
         The <b>SSM Assessment</b> measures <b>personality</b> — how the team collectively tends to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
-        While the Assessment is grounded in established <b>personality and work style research</b> and has passed <b>content and face validity testing</b>, it is currently undergoing further psychometric validation. Results should therefore be interpreted as <b>insightful tendencies</b> rather than predictive measures, and are <b>not intended</b> for hiring, promotion, or other HR decision-making.<br/>
+        The Assessment is grounded in established personality research and has completed <b>phase one psychometric validation</b>. Report insights should still be interpreted as indicative tendencies rather than definitive predictive measures, and the tool is not intended for hiring, promotion, or related HR decisions.<br/>
         <br/>
         In this report, your <b>SSM Assessment</b> strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
         <br/>
@@ -1736,7 +1736,7 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart maps the team's 12 ranked <b>SSM strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 36 core <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
+        This chart maps the team's 12 ranked <b>SSM strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 41 <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
         <br/>
         The team <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/>
         <br/>

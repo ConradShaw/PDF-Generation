@@ -1747,6 +1747,7 @@ def generate_team_pdf(
         """,
         style=body_compact_style
     ))
+    story.append(PageBreak())
   
     # Page 8 - Team Strength Distribution    
     story.append(header_template(8, "Team Strength Distribution"))

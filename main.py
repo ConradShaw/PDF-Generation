@@ -885,7 +885,7 @@ def generate_individual_pdf_file(
         """
         <b>About This Report</b><br/>
         <br/>
-        This report provides an overview of your <b>SSM Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
+        This report provides an overview of your <b>SSM Assessment&reg; strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
         <br/>
         The <b>SSM Assessment</b> measures <b>personality</b> — how you tend to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
@@ -942,7 +942,7 @@ def generate_individual_pdf_file(
     story.append(Spacer(1, 60))
     story.append(InfoPanel(
         """<b>How to Read This Chart</b><br/><br/>
-        The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
+        The <b>Shaw Strengths Matrix (SSM)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
         • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
         • <b>Express these across our Temporal Preferences</b> — <i>Past Interpretation</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i><br/>
         • <b>Combine these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>character strengths</b>.<br/><br/>
@@ -1510,7 +1510,7 @@ def generate_team_pdf(
         """
         <b>About This Report</b><br/>
         <br/>
-        This report provides an overview of the team's <b>SSM Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
+        This report provides an overview of the team's <b>SSM&reg; Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/>
         <br/>
         The <b>SSM Assessment</b> measures <b>personality</b> — how the team collectively tends to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
@@ -1568,7 +1568,7 @@ def generate_team_pdf(
     story.append(InfoPanel(
         """
         <b>How to Read This Chart</b><br/><br/>
-        The <b>Shaw Strengths Matrix&#8482; (SSM&#8482;)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:<br/><br/>
+        The <b>Shaw Strengths Matrix (SSM)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:<br/><br/>
         • <b>Apply our Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i> —<br/>
         • <b>Express these across our Temporal Preferences</b> — <i>Past Interpretation</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i>, and<br/>
         • <b>Combines these two dimensions</b> into <b>cognitive–affective units</b> which, when aggregated across multiple situations, define your ranked suite of <b>strengths</b>.<br/><br/>
@@ -2160,9 +2160,9 @@ def send_individual_report_email(
 <head><meta charset="utf-8"><title>Your SSM Assessment Report</title></head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
 <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-  <h1 style="color: #007697;">Your SSM&#8482; Assessment is Ready!</h1>
+  <h1 style="color: #007697;">Your SSM&reg; Assessment is Ready!</h1>
   <p>Hello{(' ' + name) if name else ''},</p>
-  <p>Thank you for completing the Shaw Strengths Matrix&#8482; Assessment.
+  <p>Thank you for completing the Shaw Strengths Matrix&reg; Assessment.
      Your personalised assessment is attached to this email.</p>
 
   <div style="background-color: #e6f7f8; border-left: 4px solid #007697;
@@ -2184,7 +2184,7 @@ def send_individual_report_email(
   </p>
 
   <p style="margin-top: 30px;">
-    Best regards,<br><strong>Conrad Shaw</strong><br>Shaw Strengths Matrix&#8482;
+    Best regards,<br><strong>Conrad Shaw</strong><br>Shaw Strengths Matrix&reg;
   </p>
 </div>
 </body>
@@ -2234,7 +2234,7 @@ def send_team_report_email(
     <a href="mailto:support@shawsight.com" style="color: #007697;">support@shawsight.com</a>
   </p>
 
-  <p>Best regards,<br><strong>Shaw Strengths Matrix&#8482; Team</strong></p>
+  <p>Best regards,<br><strong>Shaw Strengths Matrix&reg; Team</strong></p>
 </div>
 </body>
 </html>"""

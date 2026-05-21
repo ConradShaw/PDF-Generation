@@ -917,7 +917,7 @@ def generate_individual_pdf_file(
     table_data = [
             ["Shaw Strengths Matrix®","","","",""],
             ["Character Strengths","","Temporal Preferences","",""],
-            ["","", "Past Interpretation", "Present Engagement", "Future Anticipation"],
+            ["","", "Past Reflection", "Present Engagement", "Future Anticipation"],
             ["Cognitive\nPreferences", "Intuition", "Foresight", "Confidence", "Courage"],
             ["", "Thinking", "Curiosity", "Objectivity", "Fairness"],
             ["", "Feeling", "Empathy", "Tenacity", "Prudence"],
@@ -944,9 +944,9 @@ def generate_individual_pdf_file(
         """<b>How to Read This Chart</b><br/><br/>
         The <b>Shaw Strengths Matrix (SSM)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>
         • Apply our <b>Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>
-        • Express these across our <b>Temporal Preferences</b> — <i>Past Interpretation</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i><br/>
+        • Express these across our <b>Temporal Preferences</b> — <i>Past Reflection</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i><br/>
         • Intersects these into 12 <b>character strengths</b>, uniquely ranked per individual into 479 million possible combinations.<br/><br/>
-        Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Interpretation</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i>).<br/><br/>
+        Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflection</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i>).<br/><br/>
         SSM defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
         Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
         These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s behaviour varies by situation but forms stable “if–then” personality patterns over time. Your higher-ranked Strengths are those <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>
@@ -1545,7 +1545,7 @@ def generate_team_pdf(
         [
             ["Shaw Strengths Matrix®","","","",""],
             ["Character Strengths","","Temporal Preferences","",""],
-            ["","", "Past Interpretation", "Present Engagement", "Future Anticipation"],
+            ["","", "Past Reflection", "Present Engagement", "Future Anticipation"],
             ["Cognitive\nPreferences", "Intuition", "Foresight", "Confidence", "Courage"],
             ["", "Thinking", "Curiosity", "Objectivity", "Fairness"],
             ["", "Feeling", "Empathy", "Tenacity", "Prudence"],
@@ -1570,9 +1570,9 @@ def generate_team_pdf(
         <b>How to Read This Chart</b><br/><br/>
         The <b>Shaw Strengths Matrix (SSM)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:<br/><br/>
         • Apply our <b>Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i> —<br/>
-        • Express these across our <b>Temporal Preferences</b> — <i>Past Interpretation</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i>, and<br/>
+        • Express these across our <b>Temporal Preferences</b> — <i>Past Reflection</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i>, and<br/>
         • Intersects these into 12 <b>character strengths</b>, uniquely ranked per individual into 479 million possible combinations.<br/><br/>
-        Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Interpretation</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i>).<br/><br/>
+        Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> (<i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i>) and <b>Temporal Preference</b> (<i>Past Reflection</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i>).<br/><br/>
         SSM defines <b>character strengths</b> as "Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time."<br/><br/>
         Individual survey responses were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/> 
         These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda), which explains how an individual’s behaviour varies by situation but forms stable “if–then” personality patterns over time. Your higher-ranked Strengths are those <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.<br/>

@@ -828,13 +828,13 @@ def generate_individual_pdf_file(
     ])))
     
     story.append(Table([
-        [Paragraph("Report prepared for:", style=body_bold_style)],
+        [Paragraph("Report prepared for", style=body_bold_style)],
         [Paragraph(f"Name: {first} {last}", style=body_bold_style)],
         [Paragraph(f"Date: {date: %d %B %Y}", style=body_bold_style)],
         ],
         style=table_border,
     ))
-    story.append(Spacer(1, 420))
+    story.append(Spacer(1, 300))
 
     if os.path.exists(logo_path):
         logo_img = Image(logo_path, width=1.54*inch, height=0.79*inch, kind="proportional")
@@ -1450,7 +1450,7 @@ def generate_team_pdf(
     ])))
     
     story.append(Table([
-        [Paragraph("Report prepared for:", style=body_bold_style)],
+        [Paragraph("Report prepared for", style=body_bold_style)],
         [Paragraph(f"Organisation: {company_name}", style=body_bold_style)],
         [Paragraph(f"Team: {team_name}", style=body_bold_style)],
         [Paragraph(f"Number of Team members: {num_members}", style=body_bold_style)],

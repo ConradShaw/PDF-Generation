@@ -1850,8 +1850,8 @@ def generate_team_pdf(
     
     # 1. Header row (override last two column titles)
     header_row = results_table_data[0] + [
-        Paragraph("<b>Change-Resistance Behaviour</b>", style=cell_center_style),
-        Paragraph("<b>Reframing Strength (SSM®)</b>", style=cell_center_style),
+        Paragraph("<b>Resistant Behaviour risk</b>", style=cell_center_style),
+        Paragraph("<b>Reframing Strength narrative</b>", style=cell_center_style),
     ]
     table_data.append(header_row)
     
@@ -1874,8 +1874,8 @@ def generate_team_pdf(
         0.45 * inch,   # Col 1 (narrow label/index)
         1.05 * inch,   # Col 2
         1.05 * inch,   # Col 3
-        2.21 * inch,    # Col 4 (Change-Resistant Behaviours)
-        2.21 * inch,    # Col 5 (Reframing Interventions)
+        2.21 * inch,    # Col 4 (Resistant Behaviour risk)
+        2.21 * inch,    # Col 5 (Reframing Strength narrative)
     ]
     
     story.append(Table(

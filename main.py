@@ -1845,34 +1845,26 @@ def generate_team_pdf(
         "Discernment": (
             "<b>Discernment</b> – highlights concerns that the change design does not fully account for edge cases.",
         ),
-        ),
         "Discipline": (
             "<b>Discipline</b> – expresses unease that change could diminish the value of their job knowledge, reducing influence, status, or job security.",
-        ),
         ),
         "Empathy": (
             "<b>Empathy</b> – raises concern about the human impact of role changes or reductions on colleagues’ morale and wellbeing.",
         ),
-        ),
         "Fairness": (
             "<b>Fairness</b> – regards change as a chance to strengthen collaboration and inclusive alignment.",
-        ),
         ),
         "Foresight": (
             "<b>Foresight</b> – emphasises the long-term benefits of change, with limited focus on near-term transition costs.",
         ),
-        ),
         "Objectivity": (
             "<b>Objectivity</b> – advocates for continuous, adaptive change as essential for competitiveness.",
-        ),
         ),
         "Practicality": (
             "<b>Practicality</b> – perceives change as introducing additional tasks or process overhead that could reduce short-term productivity.",
         ),
-        ),
         "Prudence": (
             "<b>Prudence</b> – flags risks that moving too quickly could expose the organisation to financial, legal or reputational loss.",
-        ),
         ),
         "Tenacity": (
             "<b>Tenacity</b> – questions whether the change will distract from core responsibilities and near-term performance targets.",

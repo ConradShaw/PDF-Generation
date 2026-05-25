@@ -1840,14 +1840,14 @@ def generate_team_pdf(
             "<b>Courage</b> – actively embraces uncertainty and disruption, viewing unpredictable outcomes as energising.",
         ),
         "Curiosity": (
-            "<b>Curiosity</b> – rapidly explores multiple new approaches and ideas, prioritising openness to learning and experimentation over convergence.",
+            "<b>Curiosity</b> – rapidly explores multiple new approaches and ideas, prioritising learning and experimentation over convergence.",
         ),
         "Discernment": (
             "<b>Discernment</b> – highlights concerns that the change design does not fully account for edge cases.",
         ),
         "Discipline": (
-            "<b>Discipline</b> – expresses unease that change could diminish the value of their job knowledge, reducing influence, status, or job security.",
-        ),
+            "<b>Discipline</b> – expresses concern that change may reduce the value of their job knowledge, influence, status, or security.",
+        ),  
         "Empathy": (
             "<b>Empathy</b> – raises concern about the human impact of role changes or reductions on colleagues’ morale and wellbeing.",
         ),

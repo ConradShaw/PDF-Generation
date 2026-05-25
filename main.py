@@ -1831,7 +1831,29 @@ def generate_team_pdf(
             "<b>Foresight</b> - to refocus on longer-term vision and ensure alignment of current efforts",
         ),
     }
-    
+
+    strength_response = {
+        "Confidence": (
+            "<b>Confidence</b> - expresses strong conviction that the change will deliver significant new opportunities.",
+        ),
+        "Courage": (
+            "<b>Courage</b> – actively embraces uncertainty and disruption, viewing unpredictable outcomes as energising.",
+        ),
+        "Curiosity": (
+            "<b>Curiosity</b> – rapidly explores multiple new approaches and ideas, prioritising openness to learning and experimentation over convergence.",
+        ),
+        "Discernment": (
+            "<b>Discernment</b> – highlights concerns that the change design does not fully account for edge cases.",
+        ),
+
+
+
+
+
+
+
+
+  
     # Page 8 - Change Alignment Guide
     story.append(PageBreak())
     story.append(header_template(9, "Change Alignment Guide"))

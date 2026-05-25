@@ -1863,10 +1863,10 @@ def generate_team_pdf(
     
     # 2. Body rows (dynamic mapping based on Strength response in column 3)
     for row in results_table_data[1:]:
-        strength = row[2]
+        strength_response = row[2]  # renamed locally (formerly SSM Strength)
     
         risk_text, reframe_text = SSM_RISK_REFRAME.get(
-            strength,
+            strength_response,
             ("", "")  # fallback if something unexpected appears
         )
     

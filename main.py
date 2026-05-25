@@ -1869,6 +1869,7 @@ def generate_team_pdf(
         "Tenacity": (
             "<b>Tenacity</b> – questions whether the change will distract from core responsibilities and near-term performance targets.",
         ),
+        }
   
     # Page 8 - Change Alignment Guide
     story.append(PageBreak())

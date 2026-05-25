@@ -1787,7 +1787,7 @@ def generate_team_pdf(
             "<b>Discernment</b> - to apply critical judgment and test assumptions for validity",
         ),
         "Courage": (
-            "<b>Recklessness</b> – rapid action with insufficient evaluation creates avoidable risks",
+            "<b>Recklessness</b> – rapid action without adequate sense-checking, increasing avoidable risk",
             "<b>Practicality</b> - to focus on appropriate and effective actions that deliver measurable benefit",
         ),
         "Curiosity": (

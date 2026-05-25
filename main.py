@@ -1900,19 +1900,29 @@ def generate_team_pdf(
     ]
     table_data.append(header_row)
     
-    # 2. Body rows (dynamic mapping based on Strength response in column 3)
-    for row in results_table_data[1:]:
-        strength_response = row[2]  # renamed locally (formerly SSM Strength)
-    
+    # 2. Body rows (replace Strength with Strength Response text in column 3)
+    for row in results_table_data[1:]: 
+        new_row = row[:]  # copy so other tables remain unchanged
+
+        strength = row[2]
+
+        # Replace column 3 text
+        response_text = strength_response.get(
+            strength,
+            (strength,)
+        )[0]
+
+        new_row[2] = Paragraph(response_text, style=cell_center_style)
+      
         risk_text, reframe_text = SSM_RISK_REFRAME.get(
-            strength_response,
+            strength,
             ("", "")  # fallback if something unexpected appears
         )
     
         risk_para = Paragraph(risk_text, style=cell_center_style)
         reframe_para = Paragraph(reframe_text, style=cell_center_style)
     
-        table_data.append(row + [risk_para, reframe_para])
+        table_data.append(new_row + [risk_para, reframe_para])
     
     # Column widths tuned to fit page width (A4 portrait safe)
     col_widths = [

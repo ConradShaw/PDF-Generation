@@ -1890,8 +1890,8 @@ def generate_team_pdf(
     # 1. Header row (override last three column titles)
     header_row = results_table_data[0][:]
     
-    # rename ONLY this column (SSM Strength → Strength Response)
-    header_row[2] = Paragraph("<b>Strength Response</b>", style=cell_center_style)
+    # rename ONLY this column (SSM Strength → Strength response)
+    header_row[2] = Paragraph("<b>Strength response</b>", style=cell_center_style)
     
     # append two new headers 
     header_row += [

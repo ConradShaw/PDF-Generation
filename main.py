@@ -1849,14 +1849,19 @@ def generate_team_pdf(
     table_data = []
     
     # 1. Header row (override last three column titles)
-    header_row = results_table_data[0] + [
-        header_row[2] = Paragraph("<b>Strength Response</b>", style=cell_center_style)
+    header_row = results_table_data[0][:]
+    
+    # rename ONLY this column (SSM Strength → Strength Response)
+    header_row[2] = Paragraph("<b>Strength Response</b>", style=cell_center_style)
+    
+    # append two new headers 
+    header_row += [
         Paragraph("<b>Resistant Behaviour risk</b>", style=cell_center_style),
         Paragraph("<b>Reframing Strength narrative</b>", style=cell_center_style),
     ]
     table_data.append(header_row)
     
-    # 2. Body rows (dynamic mapping based on SSM Strength in column 3)
+    # 2. Body rows (dynamic mapping based on Strength response in column 3)
     for row in results_table_data[1:]:
         strength = row[2]
     
@@ -1875,8 +1880,8 @@ def generate_team_pdf(
         0.45 * inch,   # Col 1 (narrow label/index)
         1.05 * inch,   # Col 2
         1.83 * inch,   # Col 3 (Strength response)
-        1.83 * inch,    # Col 4 (Resistant Behaviour risk)
-        1.83 * inch,    # Col 5 (Reframing Strength narrative)
+        1.83 * inch,   # Col 4 (Resistant Behaviour risk)
+        1.83 * inch,   # Col 5 (Reframing Strength narrative)
     ]
     
     story.append(Table(

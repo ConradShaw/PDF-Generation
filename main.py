@@ -1848,8 +1848,9 @@ def generate_team_pdf(
     # --- Build table data ---
     table_data = []
     
-    # 1. Header row (override last two column titles)
+    # 1. Header row (override last three column titles)
     header_row = results_table_data[0] + [
+        header_row[2] = Paragraph("<b>Strength Response</b>", style=cell_center_style)
         Paragraph("<b>Resistant Behaviour risk</b>", style=cell_center_style),
         Paragraph("<b>Reframing Strength narrative</b>", style=cell_center_style),
     ]

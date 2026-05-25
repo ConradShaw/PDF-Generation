@@ -1898,7 +1898,7 @@ def generate_team_pdf(
         <br/>
         The chart illustrates which SSM Strengths can potentially translate, under pressure, into Resistant Behaviour risks. It also introduces Reframing Strength narratives that best guide interventions to rebalance risky exhibited behaviours towards positive change alignment.<br/>
         <br/>
-        Note that •	Reframing Strength narratives counter overextended behaviour only. The process of rebalancing behaviours via reframing Strengths, does not disqualify the original instinctive Strength response and also allows for acknowledgment of the Resistant Behaviour.<br/>
+        Note that Reframing Strength narratives counter overextended behaviour only. The process of rebalancing behaviours via reframing Strengths, does not disqualify the original instinctive Strength response and also allows for acknowledgment of the Resistant Behaviour.<br/>
         <br/>
         Alongside each behaviour are the <b>Reframing Strength narratives</b> found to most effectively alleviate them. These reframings offer a fresh perspective and leverage a balancing SSM Strength. They may be applied by individuals to their own behaviour or introduced by a change practitioner or leader.<br/>
         <br/>

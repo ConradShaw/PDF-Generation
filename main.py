@@ -1896,7 +1896,7 @@ def generate_team_pdf(
         <br/>
         The chart maps the team’s 12 identically ranked <b>SSM Strengths</b> (from the previous chart) to the 12 corresponding <b>Resistant Behaviour risks</b> that may emerge under change pressure.<br/>
         <br/>
-        This chart highlights Resistant Behaviour risks and the corresponding Reframing Strength narratives. It shows how overall team strengths can translate, under pressure, into Resistant Behaviours—while also providing reframing guidance to mitigate these potential risks.<br/>
+        The chart illustrates which SSM Strengths can potentially translate, under pressure, into Resistant Behaviour risks. It also introduces Reframing Strength narratives that best guide interventions to rebalance risky exhibited behaviours towards positive change alignment.<br/>
         <br/>
         Note that •	Reframing Strength narratives counter overextended behaviour only. The process of rebalancing behaviours via reframing Strengths, does not disqualify the original instinctive Strength response and also allows for acknowledgment of the Resistant Behaviour.<br/>
         <br/>

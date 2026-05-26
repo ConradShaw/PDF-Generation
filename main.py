@@ -1954,7 +1954,9 @@ def generate_team_pdf(
         The chart also introduces those <b>Reframing Strength narratives</b> that offer the best perspective to guide interventions to rebalance risky exhibited behaviours towards positive change alignment. These reframngs may be introduced by a change practitioner or leader, or even applied by individuals to their own behaviour.<br/>
         <br/>
         Note that Reframing Strength narratives counter overextended behaviours only. The process of rebalancing behaviours via Reframing Strengths, does not in any way disqualify the original instinctive Strength Response to change and also allows for acknowledgment of the Resistant Behaviour.<br/>
-        <br/>              
+        <br/>
+        This chart shows how Resistance Behaviours are most likely to cluster within a team. It also provides guidance to change practitioners and leaders on the Reframing Strength narratives most likely to be required to support team realignment and change adoption.<br/>
+        <br/>
         """,
         style=body_compact_style
     ))

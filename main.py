@@ -1815,7 +1815,7 @@ def generate_team_pdf(
             "<b>Discipline</b> - to convert vision into structured, resource-backed plans",
         ),
         "Objectivity": (
-            "<b>Disconnection</b> – over-reliance on logic weakens emotional engagement and reduces buy-in",
+            "<b>Disconnection</b> – over-reliance on logic weakens emotional engagement and reduces others' buy-in",
             "<b>Empathy</b> - to emotionally connect with others’ lived experience and foster engagement",
         ),
         "Practicality": (
@@ -1890,8 +1890,8 @@ def generate_team_pdf(
     # 1. Header row (override last three column titles)
     header_row = results_table_data[0][:]
     
-    # rename ONLY this column (SSM Strength → Strength response)
-    header_row[2] = Paragraph("<b>Strength response</b>", style=cell_center_style)
+    # rename ONLY this column (SSM Strength → Strength Response to change)
+    header_row[2] = Paragraph("<b>Strength Response to change</b>", style=cell_center_style)
     
     # append two new headers 
     header_row += [
@@ -1900,7 +1900,7 @@ def generate_team_pdf(
     ]
     table_data.append(header_row)
     
-    # 2. Body rows (replace Strength with Strength Response text in column 3)
+    # 2. Body rows (replace Strength with Strength Response to change text in column 3)
     for row in results_table_data[1:]: 
         new_row = row[:]  # copy so other tables remain unchanged
 
@@ -1928,7 +1928,7 @@ def generate_team_pdf(
     col_widths = [
         0.45 * inch,   # Col 1 (narrow label/index)
         1.05 * inch,   # Col 2
-        2.10 * inch,   # Col 3 (Strength response)
+        2.10 * inch,   # Col 3 (Strength Response to change)
         1.83 * inch,   # Col 4 (Resistant Behaviour risk)
         1.83 * inch,   # Col 5 (Reframing Strength narrative)
     ]
@@ -1949,11 +1949,11 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        The chart relabels the team’s 12 ranked <b>SSM Strengths</b> (from the previous charts) to <b>12 Strength reponses</b>. The chart ranks, on average, which team Strength responses are most likely to be overextended, under pressure, into <b>Resistant Behaviour risks</b>.<br/>
+        The chart relabels the team’s 12 ranked <b>SSM Strengths</b> (from the previous charts) to <b>12 Strength reponses</b>. The chart ranks, on average, which team Strength Responses to change are most likely to be overextended, under pressure, into <b>Resistant Behaviour risks</b>.<br/>
         <br/>
         The chart also introduces those <b>Reframing Strength narratives</b> that offer the best perspective to guide interventions to rebalance risky exhibited behaviours towards positive change alignment. These reframngs may be introduced by a change practitioner or leader, or even applied by individuals to their own behaviour.<br/>
         <br/>
-        Note that Reframing Strength narratives counter overextended behaviours only. The process of rebalancing behaviours via Reframing Strengths, does not in any way disqualify the original instinctive Strength response and also allows for acknowledgment of the Resistant Behaviour.<br/>
+        Note that Reframing Strength narratives counter overextended behaviours only. The process of rebalancing behaviours via Reframing Strengths, does not in any way disqualify the original instinctive Strength Response to change and also allows for acknowledgment of the Resistant Behaviour.<br/>
         <br/>              
         """,
         style=body_compact_style

@@ -1949,13 +1949,11 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        The chart relabels the team’s 12 ranked <b>SSM Strengths</b> (from the previous charts) to <b>12 Strength reponses</b>. The chart ranks, on average, which team Strength Responses to change are most likely to be overextended, under pressure, into <b>Resistant Behaviour risks</b>.<br/>
+        This chart relabels the team’s 12 ranked <b>SSM Strengths</b> (from the previous charts) into <b>12 Strength Responses to change</b>. It ranks which Strength Responses to change are most likely to cluster within a team and become overextended under pressure, manifesting as <b>Resistant Behaviour risks</b>.<br/>
         <br/>
-        The chart also introduces those <b>Reframing Strength narratives</b> that offer the best perspective to guide interventions to rebalance risky exhibited behaviours towards positive change alignment. These reframngs may be introduced by a change practitioner or leader, or even applied by individuals to their own behaviour.<br/>
+        The chart further introduces the <b>Reframing Strength narratives</b> most likely to support realignment and change adoption. These Reframing Strength narratives can guide interventions of rebalancing Behaviour Resistant risks towards positive change alignment, and may be introduced by change practitioners or leaders.<br/>
         <br/>
-        Note that Reframing Strength narratives counter overextended behaviours only. The process of rebalancing behaviours via Reframing Strengths, does not in any way disqualify the original instinctive Strength Response to change and also allows for acknowledgment of the Resistant Behaviour.<br/>
-        <br/>
-        This chart shows how Resistance Behaviours are most likely to cluster within a team. It also provides guidance to change practitioners and leaders on the Reframing Strength narratives most likely to be required to support team realignment and change adoption.<br/>
+        Note that Reframing Strength narratives are designed only to counter overextended behaviours. Applying these narratives does not disqualify the original instinctive Strength Response to change.<br/>
         <br/>
         """,
         style=body_compact_style

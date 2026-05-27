@@ -1949,11 +1949,11 @@ def generate_team_pdf(
         """
         <b>How to Read This Chart</b><br/>
         <br/>
-        This chart relabels the team’s 12 ranked <b>SSM Strengths</b> (from the previous charts) into <b>12 Strength Responses to change</b>. It ranks which Strength Responses to change are most likely to cluster within a team and become overextended under pressure, translating into <b>Resistant Behaviour risks</b>.<br/>
+        This chart relabels the team’s 12 ranked <b>SSM Strengths</b> (from the previous charts) into <b>12 Strength Responses to change</b>. It ranks which Strength Responses to change are most likely to cluster within a team and become overexpressed under pressure, translating into <b>Resistant Behaviour risks</b>.<br/>
         <br/>
         The chart further introduces the <b>Reframing Strength narratives</b> most likely to support realignment and change adoption. These Reframing Strength narratives can guide interventions of rebalancing Behaviour Resistant risks towards positive change alignment, and may be introduced by change practitioners or leaders.<br/>
         <br/>
-        Note that Reframing Strength narratives are designed only to counter overextended behaviours. Applying these narratives does not disqualify the original instinctive Strength Response to change.<br/>
+        Note that Reframing Strength narratives are designed only to counter overexpressed behaviours. Applying these narratives does not disqualify the original instinctive Strength Response to change.<br/>
         <br/>
         """,
         style=body_compact_style

@@ -206,9 +206,9 @@ ONET_ACTIVITIES = {
     "Fairness":
         "Establishing and Maintaining Interpersonal Relationships<br/>Developing and Building Teams<br/>Communicating with Supervisors, Peers, or Subordinates<br/>Staffing Organisational Units",
     "Foresight":
-        "Thinking Creatively<br/>Making Decisions and Solving Problems<br/>Developing Objectives and Strategies",
+        "Making Decisions and Solving Problems<br/>Developing Objectives and Strategies",
     "Objectivity":
-        "Providing Consultation and Advice to Others<br/>Working with Computers<br/>Analysing Data or Information",
+        "Thinking Creatively<br/>Providing Consultation and Advice to Others<br/>Analysing Data or Information<br/>Working with Computers",
     "Practicality":
         "Performing Administrative Activities<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Documenting/Recording Information<br/>Handling and Moving Objects",
     "Prudence":

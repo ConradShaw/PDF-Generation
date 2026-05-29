@@ -141,7 +141,7 @@ DESCRIPTIONS = {
 
 ONET_STYLES = {
     "Confidence": (
-        "Self-<br/>Confidence",
+        "Self-Confidence",
         "A tendency to believe in one's work-related capabilities and ability to control one's work-related outcomes."
     ),
     "Courage": (
@@ -169,12 +169,12 @@ ONET_STYLES = {
         "A tendency to be pleasant, helpful, and willing to assist others at work."
     ),
     "Foresight": (
-        "Innovative",
-        "A tendency to be inventive, to be imaginative, and to adopt new perspectives on ways to accomplish work."
-    ),
-    "Objectivity": (
         "Adaptability",
         "A tendency to be open to and comfortable with change, new experiences, or ideas at work."
+    ),
+    "Objectivity": (
+        "Innovative",
+        "A tendency to be inventive, to be imaginative, and to adopt new perspectives on ways to accomplish work."
     ),
     "Practicality": (
         "Dependability",

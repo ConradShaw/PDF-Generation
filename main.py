@@ -141,7 +141,7 @@ DESCRIPTIONS = {
 
 ONET_STYLES = {
     "Confidence": (
-        "Self-Confidence",
+        "Self-<br/>Confidence",
         "A tendency to believe in one's work-related capabilities and ability to control one's work-related outcomes."
     ),
     "Courage": (

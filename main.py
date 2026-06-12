@@ -157,8 +157,8 @@ ONET_STYLES = {
         "A tendency to be detail-oriented, organised, and thorough in completing work."
     ),
     "Discipline": (
-        "Self-Control",
-        "A tendency to remain calm and composed and to manage emotions effectively in response to criticism or difficult situations at work."
+        "Dependability",
+        "A tendency to be reliable, responsible, and consistent in meeting work-related obligations."
     ),
     "Empathy": (
         "Empathy",
@@ -177,8 +177,8 @@ ONET_STYLES = {
         "A tendency to be inventive, to be imaginative, and to adopt new perspectives on ways to accomplish work."
     ),
     "Practicality": (
-        "Dependability",
-        "A tendency to be reliable, responsible, and consistent in meeting work-related obligations."
+        "Self-Control",
+        "A tendency to remain calm and composed and to manage emotions effectively in response to criticism or difficult situations at work."
     ),
     "Prudence": (
         "Cautiousness",

@@ -127,8 +127,8 @@ TRAITS = [
 DESCRIPTIONS = {
     "Fairness": "The capacity to weigh competing perspectives and make equitable judgements about people and outcomes.",
     "Empathy": "The capacity to understand and connect with others’ perspectives and lived experience.",
-    "Discernment": "The capacity to critically evaluate information, test assumptions, and distinguish what is valid.",
-    "Objectivity": "The capacity to assess information logically and without personal bias, producing fact-based insights.",
+    "Discernment": "The capacity to critically evaluate information, assess its accuracy and reliability, and distinguish what is valid.",
+    "Objectivity": "The capacity to independently assess evidence, challenge assumptions, and generate unbiased insights.",
     "Tenacity": "The capacity to persist with effort and maintain commitment in the face of obstacles.",
     "Courage": "The capacity to make and act on purposeful decisions in the presence of fear, uncertainty, or risk.",
     "Confidence": "The capacity to trust in one’s own abilities and judgement, enabling self-assured action.",
@@ -1784,7 +1784,7 @@ def generate_team_pdf(
     SSM_RISK_REFRAME = {
         "Confidence": (
             "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
-            "<b>Discernment</b> - to apply critical judgment and test assumptions for validity",
+            "<b>Discernment</b> - to apply critical judgment and test information for accuracy and reliability",
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action without adequate sense-checking, increasing avoidable risk",
@@ -1800,7 +1800,7 @@ def generate_team_pdf(
         ),
         "Discipline": (
             "<b>Rigidity</b> – inflexible attachment to established methods and status reduces adaptability to change",
-            "<b>Objectivity</b> - to assess options logically and produce fact-based recommendations",
+            "<b>Objectivity</b> - to assess options independently and generate unbiased recommendations",
         ),
         "Empathy": (
             "<b>Enmeshment</b> – over-identification with others’ emotions blurs boundaries, undermining judgment",

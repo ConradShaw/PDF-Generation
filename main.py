@@ -134,7 +134,7 @@ DESCRIPTIONS = {
     "Confidence": "The capacity to trust in one’s own abilities and judgement, enabling self-assured action.",
     "Prudence": "The capacity to act with care and restraint, applying cautious judgement to avoid unnecessary risk.",
     "Foresight": "The capacity to project future outcomes from current conditions and their underlying causes.",
-    "Practicality": "The capacity to appropriately choose and apply effective solutions to address real-world needs.",
+    "Practicality": "The capacity to apply effective, workable solutions within real-world constraints, including one's own composure.",
     "Curiosity": "The capacity to seek out new information, explore ideas, and deepen understanding.",
     "Discipline": "The capacity to consistently execute planned actions with reliability and follow-through.",
 }
@@ -1788,7 +1788,7 @@ def generate_team_pdf(
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action without adequate sense-checking, increasing avoidable risk",
-            "<b>Practicality</b> - to focus on appropriate and effective actions that deliver measurable benefit",
+            "<b>Practicality</b> - to focus on workable solutions within real-world constraints, including one's own composure.",
         ),
         "Curiosity": (
             "<b>Scatteredness</b> – diffused focus on numerous priorities weakens execution and follow-through",

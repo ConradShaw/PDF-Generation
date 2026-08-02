@@ -1788,7 +1788,7 @@ def generate_team_pdf(
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action without adequate sense-checking, increasing avoidable risk",
-            "<b>Practicality</b> - to focus on effective, workable solutions together with personal composure.",
+            "<b>Practicality</b> - to remain composed and focus on effective, workable solutions.",
         ),
         "Curiosity": (
             "<b>Scatteredness</b> – diffused focus on numerous priorities weakens execution and follow-through",

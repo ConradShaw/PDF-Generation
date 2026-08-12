@@ -1112,6 +1112,7 @@ def generate_individual_pdf_file(
         """
         <b>How to Read This Chart</b><br/><br/>
         This chart maps your 12 ranked <b>SSM strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 41 <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
+        Note, the <b>Work Activity mappings</b> reflect ShawSight's interpretive synthesis of O*NET Work Style and Work Activity data, curated to present a balanced range of task preferences across your strength profile.<br/>
         Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
         They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/><br/>

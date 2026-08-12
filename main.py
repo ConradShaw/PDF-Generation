@@ -1478,7 +1478,7 @@ def generate_team_pdf(
         <i>Shaw Strengths Matrix® Framework</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
         <i>Shaw Strengths Matrix® Assessment</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
         <i>ShawSight</i> logo is Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>
-        No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>
+        No part of this publication may be reproduced or shared publicly, including on websites, forums, or social media, without prior written permission from ShawSight Pty Ltd.<br/>
         O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.<br/>
         The Shaw Strengths Matrix® is a developmental, strengths-based framework and is not intended for psychological diagnosis, clinical use, or performance benchmarking.""",
     

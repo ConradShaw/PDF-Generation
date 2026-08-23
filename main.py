@@ -1785,11 +1785,11 @@ def generate_team_pdf(
     SSM_RISK_REFRAME = {
         "Confidence": (
             "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
-            "<b>Discernment</b> - to apply critical judgment and test information for accuracy and reliability",
+            "<b>Discernment</b> - to apply critical judgment and identify what is truly relevant",
         ),
         "Courage": (
             "<b>Recklessness</b> – rapid action without adequate sense-checking, increasing avoidable risk",
-            "<b>Practicality</b> - to remain grounded and composed, focusing on effective, workable solutions.",
+            "<b>Practicality</b> - to remain grounded and composed, focusing on effective, workable solutions",
         ),
         "Curiosity": (
             "<b>Scatteredness</b> – diffused focus on numerous priorities weakens execution and follow-through",
@@ -1809,7 +1809,7 @@ def generate_team_pdf(
         ),
         "Fairness": (
             "<b>Indecisiveness</b> – over-weighting perspectives delays decisions and risks lack of closure",
-            "<b>Tenacity</b> - to drive clear, time-bound commitments and enforce follow-through",
+            "<b>Tenacity</b> - to drive clear, time-bound commitments and persist through obstacles",
         ),
         "Foresight": (
             "<b>Idealisation</b> – overly optimistic vision lacks grounding in execution and constraints",

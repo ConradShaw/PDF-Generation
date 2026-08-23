@@ -1835,7 +1835,7 @@ def generate_team_pdf(
 
     strength_response = {
         "Confidence": (
-            "<b>Confidence</b> - expresses strong conviction that the change will deliver significant new opportunities.",
+            "<b>Confidence</b> - expresses strong self-belief in their own and the team’s ability to deliver the change successfully.",
         ),
         "Courage": (
             "<b>Courage</b> – actively embraces uncertainty and disruption, viewing unpredictable outcomes as energising.",
@@ -1847,22 +1847,22 @@ def generate_team_pdf(
             "<b>Discernment</b> – highlights concerns that the change design does not fully account for edge cases.",
         ),
         "Discipline": (
-            "<b>Discipline</b> – expresses concern that change may reduce the value of their job knowledge, influence, status, or security.",
+            "<b>Discipline</b> – expresses concern that change may disrupt the reliable execution of established processes and plans.",
         ),  
         "Empathy": (
             "<b>Empathy</b> – raises concern about the human impact of role changes or reductions on colleagues’ morale and wellbeing.",
         ),
         "Fairness": (
-            "<b>Fairness</b> – regards change as a chance to strengthen collaboration and inclusive alignment.",
+            "<b>Fairness</b> – regards change as an opportunity to strengthen inclusive, equitable alignment of competing stakeholder interests.",
         ),
         "Foresight": (
             "<b>Foresight</b> – emphasises the long-term benefits of change, with limited focus on near-term transition costs.",
         ),
         "Objectivity": (
-            "<b>Objectivity</b> – advocates for continuous, adaptive change as essential for competitiveness.",
+            "<b>Objectivity</b> – advocates for continuous, evidence-based change as essential for competitiveness, unclouded by bias toward the status quo.",
         ),
         "Practicality": (
-            "<b>Practicality</b> – perceives change as introducing additional tasks or process overhead that could reduce short-term productivity.",
+            "<b>Practicality</b> – weighs change against real-world constraints, favouring workable solutions that keep the team grounded and productive.",
         ),
         "Prudence": (
             "<b>Prudence</b> – flags risks that moving too quickly could expose the organisation to financial, legal or reputational loss.",

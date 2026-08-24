@@ -194,7 +194,7 @@ ONET_ACTIVITIES = {
     "Confidence":
         "Selling or Influencing Others<br/>Guiding, Directing, and Motivating Subordinates<br/>Communicating with People Outside the Organisation",
     "Courage":
-        "Updating and Using Relevant Knowledge<br/>Establishing and Maintaining Interpersonal Relationships<br/>Coordinating the Work and Activities of Others",
+        "Updating and Using Relevant Knowledge<br/>Establishing and Maintaining Interpersonal Relationships,
     "Curiosity":
         "Getting Information<br/>Training and Teaching Others<br/>Interpreting the Meaning of Information for Others",
     "Discernment":
@@ -204,7 +204,7 @@ ONET_ACTIVITIES = {
     "Empathy":
         "Assisting and Caring for Others<br/>Coaching and Developing Others",
     "Fairness":
-        "Developing and Building Teams<br/>Communicating with Supervisors, Peers, or Subordinates<br/>Staffing Organisational Units",
+        "Developing and Building Teams<br/>Coordinating the Work and Activities of Others<br/>Communicating with Supervisors, Peers, or Subordinates<br/>Staffing Organisational Units",
     "Foresight":
         "Making Decisions and Solving Problems<br/>Developing Objectives and Strategies",
     "Objectivity":

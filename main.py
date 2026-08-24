@@ -194,7 +194,7 @@ ONET_ACTIVITIES = {
     "Confidence":
         "Selling or Influencing Others<br/>Guiding, Directing, and Motivating Subordinates<br/>Communicating with People Outside the Organisation",
     "Courage":
-        "Updating and Using Relevant Knowledge<br/>Establishing and Maintaining Interpersonal Relationships,
+        "Updating and Using Relevant Knowledge<br/>Establishing and Maintaining Interpersonal Relationships",
     "Curiosity":
         "Getting Information<br/>Training and Teaching Others<br/>Interpreting the Meaning of Information for Others",
     "Discernment":

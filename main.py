@@ -902,10 +902,9 @@ def generate_individual_pdf_file(
     story.append(Table([[Paragraph(
         """
         <b>Report Contents</b><br/><br/>
-        1) Shaw Strengths Matrix<br/>
+        1) Shaw Strengths Matrix®<br/>
         2) Assessment Table<br/>
-        3) Mapping to O*NET Work Styles<br/>
-        4) Mapping to O*NET Work Activities
+        3) SSM® Strengths and Strongest O*NET® Work Activities
         """,        
     )]], style=table_border))
     story.append(PageBreak())
@@ -1084,7 +1083,7 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Page 6 - O*NET® Work Activities
-    story.append(header_template(6, "Mapping to O*NET® Work Activities"))
+    story.append(header_template(6, "SSM® Strengths and Strongest O*NET® Work Activities"))
     story.append(Spacer(1, 12))
 
     # Merge header with ONET activities
@@ -1105,13 +1104,13 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Header for Page 7
-    story.append(header_template(7, "Mapping to O*NET® Work Activities"))
+    story.append(header_template(7, "SSM® Strengths and Strongest O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         # Info panel table explaining the chart
         """
         <b>How to Read This Chart</b><br/><br/>
-        This chart maps your 12 ranked <b>SSM strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 41 <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
+        This chart maps your 12 ranked <b>SSM strengths</b> to the 41 <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
         Note, the <b>Work Activity mappings</b> reflect ShawSight's interpretive synthesis of O*NET Work Style and Work Activity data, curated to present a balanced range of task preferences across your strength profile.<br/>
         Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
@@ -1528,10 +1527,10 @@ def generate_team_pdf(
     story.append(Table([[Paragraph(
         """
         <b>Report Contents</b><br/><br/>
-        1) Shaw Strengths Matrix<br/>
+        1) Shaw Strengths Matrix®<br/>
         2) Team Assessment Table<br/>
-        3) Team Mapping to O*NET Work Styles<br/>
-        4) Team Mapping to O*NET Work Activities<br/>
+        3) Team Mapping to O*NET® Work Styles<br/>
+        4) SSM® Strengths and Strongest O*NET® Work Activities<br/>
         5) Team Strength Distribution<br/>
         6) Change Alignment Guide
         """,    
@@ -1696,7 +1695,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     
     # Page 6 - O*NET® Work Activities
-    story.append(header_template(6, "Team Mapping to O*NET® Work Activities"))
+    story.append(header_template(6, "SSM® Strengths and Strongest O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     
     # Create compact table style with reduced padding
@@ -1731,7 +1730,7 @@ def generate_team_pdf(
     story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
     story.append(PageBreak())
-    story.append(header_template(7, "Team Mapping to O*NET® Work Activities"))
+    story.append(header_template(7, "SSM® Strengths and Strongest O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         """
@@ -2222,7 +2221,7 @@ def send_individual_report_email(
     <ul style="margin-bottom: 0;">
       <li>Your ranked profile of 12 strengths</li>
       <li>Insights into your top three Signature strengths</li>
-      <li>Mapping to O*NET Work Styles and Activities</li>
+      <li>Alignment with strongest O*NET Work Activities</li>
     </ul>
   </div>
 

@@ -128,7 +128,7 @@ DESCRIPTIONS = {
     "Fairness": "The capacity to weigh competing interests, make equitable judgements, and cooperate constructively with others.",
     "Empathy": "The capacity to understand and connect with others’ perspectives and lived experience.",
     "Discernment": "The capacity to critically examine details, distinguish what is relevant, and identify meaningful distinctions.",
-    "Objectivity": "The capacity to assess information against factual evidence, minimise bias and assumptions, and generate independent insights.",
+    "Objectivity": "The capacity to evaluate claims against evidence, minimise bias and assumptions, and generate independent insights.",
     "Tenacity": "The capacity to persist in the face of obstacles, exert high effort, and maintain commitment to achieve immediate goals.",
     "Courage": "The capacity to proactively initiate and act on self-directed, purposeful decisions, regardless of fear, uncertainty, or risk.",
     "Confidence": "The capacity to trust in one’s own abilities and judgement, enabling self-assured action.",

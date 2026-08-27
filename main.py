@@ -125,18 +125,18 @@ TRAITS = [
 ]
 
 DESCRIPTIONS = {
-    "Fairness": "The capacity to weigh competing interests and make equitable judgements about people and outcomes.",
+    "Fairness": "The capacity to weigh competing interests, make equitable judgements, and cooperate constructively with others.",
     "Empathy": "The capacity to understand and connect with others’ perspectives and lived experience.",
-    "Discernment": "The capacity to critically analyse information, distinguish what is relevant, and identify meaningful distinctions.",
+    "Discernment": "The capacity to critically examine details, distinguish what is relevant, and identify meaningful distinctions.",
     "Objectivity": "The capacity to assess information against factual evidence, minimise bias and assumptions, and generate independent insights.",
-    "Tenacity": "The capacity to persist with effort and maintain commitment in the face of obstacles.",
-    "Courage": "The capacity to make and act on purposeful decisions in the presence of fear, uncertainty, or risk.",
+    "Tenacity": "The capacity to persist in the face of obstacles, exert high effort, and maintain commitment to achieve immediate goals.",
+    "Courage": "The capacity to proactively initiate and act on self-directed, purposeful decisions, regardless of fear, uncertainty, or risk.",
     "Confidence": "The capacity to trust in one’s own abilities and judgement, enabling self-assured action.",
     "Prudence": "The capacity to act with care and restraint, applying cautious judgement to avoid unnecessary risk.",
-    "Foresight": "The capacity to project future outcomes from current conditions and their underlying causes.",
+    "Foresight": "The capacity to reflect on current conditions, project future outcomes, and pre-emptively adapt to change.",
     "Practicality": "The capacity to respond to real-world constraints with effective, workable solutions and grounded composure.",
-    "Curiosity": "The capacity to seek out new information, explore ideas, and deepen understanding.",
-    "Discipline": "The capacity to consistently execute planned actions with reliability and follow-through.",
+    "Curiosity": "The capacity to seek out new information, explore ideas, deepen understanding, and communicate findings.",
+    "Discipline": "The capacity to consistently execute planned actions with reliability and thoroughness.",
 }
 
 ONET_STYLES = {

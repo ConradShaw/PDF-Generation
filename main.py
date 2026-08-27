@@ -212,7 +212,7 @@ ONET_ACTIVITIES = {
     "Practicality":
         "Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment",
     "Prudence":
-        "Monitoring and Controlling Resources<br/>"Operating Vehicles, Mechanised Devices, or Equipment<br/>Controlling Machines and Processes",
+        "Monitoring and Controlling Resources<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Controlling Machines and Processes",
     "Tenacity":
         "Performing General Physical Activities<br/>Handling and Moving Objects",
 }

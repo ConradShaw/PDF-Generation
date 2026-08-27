@@ -904,7 +904,7 @@ def generate_individual_pdf_file(
         <b>Report Contents</b><br/><br/>
         1) Shaw Strengths Matrix®<br/>
         2) Assessment Table<br/>
-        3) SSM® Strengths and Strongest O*NET® Work Activities
+        3) express O*NET® Work Activities
         """,        
     )]], style=table_border))
     story.append(PageBreak())
@@ -1083,7 +1083,7 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Page 6 - O*NET® Work Activities
-    story.append(header_template(6, "SSM® Strengths and Strongest O*NET® Work Activities"))
+    story.append(header_template(6, "express O*NET® Work Activities"))
     story.append(Spacer(1, 12))
 
     # Merge header with ONET activities
@@ -1104,19 +1104,19 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Header for Page 7
-    story.append(header_template(7, "SSM® Strengths and Strongest O*NET® Work Activities"))
+    story.append(header_template(7, "express O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         # Info panel table explaining the chart
         """
         <b>How to Read This Chart</b><br/><br/>
-        This chart maps your 12 ranked <b>SSM strengths</b> to the 41 <b>O*NET Work Activities</b>, illustrating how your strengths translate into observable task preferences.<br/><br/>
-        Note, the <b>Work Activity mappings</b> reflect ShawSight's interpretive synthesis of O*NET Work Style and Work Activity data, curated to present a balanced range of task preferences across your strength profile.<br/>
-        Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/><br/>
+        This chart shows your 12 ranked <b>SSM strengths</b> alongside the <b>O*NET Work Activities</b> most strongly aligned with each strength, illustrating how your strengths may be expressed through different types of work tasks.<br/><br/>
+        Note, the <b>Work Activity alignments</b> reflect ShawSight's LLM-based interpretation of O*NET Work Activity data, identifying the Work Activities with the strongest alignment to each SSM strength.<br/>
+        Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) are shown alongside the corresponding <b>O*NET Work Activities</b>.<br/><br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
-        They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/><br/>
-        Your <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind your approach to completing work tasks.<br/>
-        """,
+        They represent the <b>task-level expression</b> of your strengths — showing how your underlying preferences can manifest in different types of work tasks.<br/><br/>
+        Your <b>Work Activities</b> describe the <b>"how"</b> — the types of tasks and activities through which your strengths are most likely to be expressed.      
+        """,      
         style=body_compact_style
     ))
 
@@ -1530,7 +1530,7 @@ def generate_team_pdf(
         1) Shaw Strengths Matrix®<br/>
         2) Team Assessment Table<br/>
         3) Team Mapping to O*NET® Work Styles<br/>
-        4) SSM® Strengths and Strongest O*NET® Work Activities<br/>
+        4) express O*NET® Work Activities<br/>
         5) Team Strength Distribution<br/>
         6) Change Alignment Guide
         """,    
@@ -1695,7 +1695,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     
     # Page 6 - O*NET® Work Activities
-    story.append(header_template(6, "SSM® Strengths and Strongest O*NET® Work Activities"))
+    story.append(header_template(6, "express O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     
     # Create compact table style with reduced padding
@@ -1730,20 +1730,17 @@ def generate_team_pdf(
     story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
     story.append(PageBreak())
-    story.append(header_template(7, "SSM® Strengths and Strongest O*NET® Work Activities"))
+    story.append(header_template(7, "express O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
-        """
-        <b>How to Read This Chart</b><br/>
-        <br/>
-        This chart maps the team's 12 ranked <b>SSM strengths</b> and 12 ranked <b>O*NET Work Styles</b> to the 41 <b>O*NET Work Activities</b>, illustrating how overall team strengths translate into observable task preferences.<br/>
-        <br/>
-        The team <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Activities</b> listed here.<br/>
-        <br/>
+        """ 
+        <b>How to Read This Chart</b><br/><br/>
+        This chart shows the team's 12 ranked <b>SSM strengths</b> alongside the <b>O*NET Work Activities</b> most strongly aligned with each strength, illustrating how overall team strengths may be expressed through different types of work tasks.<br/><br/>
+        Note, the <b>Work Activity alignments</b> reflect ShawSight's LLM-based interpretation of O*NET Work Activity data, identifying the Work Activities with the strongest alignment to each SSM strength.<br/>
+        The team <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) are shown alongside the corresponding <b>O*NET Work Activities</b>.<br/><br/>
         <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
-        They represent the <b>task-level expression</b> of your strengths and Work Styles — showing how your inner traits and workplace behaviours manifest as more or less preferred types of tasks.<br/>
-        <br/>
-        The team <b>Work Activities</b> ranking defines the <b>"how"</b> — the method and style behind the team's overall approach to completing work tasks.<br/>
+        They represent the <b>task-level expression</b> of team strengths — showing how underlying team preferences can manifest in different types of work tasks.<br/><br/>
+        The team <b>Work Activities</b> describe the <b>"how"</b> — the types of tasks and activities through which the team's strengths are most likely to be expressed.
         """,
         style=body_compact_style
     ))

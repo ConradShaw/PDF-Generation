@@ -192,29 +192,29 @@ ONET_STYLES = {
 
 ONET_ACTIVITIES = {
     "Confidence":
-        "Selling or Influencing Others<br/>Guiding, Directing, and Motivating Subordinates<br/>Communicating with People Outside the Organisation",
+        "Selling or Influencing Others<br/>Communicating with People Outside the Organisation",
     "Courage":
-        "Updating and Using Relevant Knowledge<br/>Establishing and Maintaining Interpersonal Relationships",
+        "Making Decisions and Solving Problems<br/>Guiding, Directing, and Motivating Subordinates",
     "Curiosity":
-        "Getting Information<br/>Training and Teaching Others<br/>Interpreting the Meaning of Information for Others",
+        "Updating and Using Relevant Knowledge<br/>Getting Information",
     "Discernment":
-        "Inspecting Equipment, Structures, or Materials<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment<br/>Identifying Objects, Actions, and Events<br/>Processing Information<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
+        "Analysing Data or Information<br/>Identifying Objects, Actions, and Events<br/>Inspecting Equipment, Structures, or Materials<br/>Monitoring Processes, Materials, or Surroundings<br/>Interpreting the Meaning of Information for Others<br/>Processing Information<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment",
     "Discipline":
-        "Organising, Planning, and Prioritising Work<br/>Scheduling Work and Activities<br/>Monitoring Processes, Materials, or Surroundings<br/>Controlling Machines and Processes<br/>Evaluating Information to Determine Compliance with Standards",
+        "Organising, Planning, and Prioritising Work<br/>Scheduling Work and Activities<br/>Documenting/Recording Information<br/>Performing Administrative Activities>",
     "Empathy":
-        "Assisting and Caring for Others<br/>Coaching and Developing Others",
+        "Assisting and Caring for Others<br/>Establishing and Maintaining Interpersonal Relationships<br/>Coaching and Developing Others<br/>Training and Teaching Others<br/>Performing for or Working Directly with the Public",
     "Fairness":
-        "Developing and Building Teams<br/>Coordinating the Work and Activities of Others<br/>Communicating with Supervisors, Peers, or Subordinates<br/>Staffing Organisational Units",
+        "Resolving Conflicts and Negotiating with Others<br/>Staffing Organisational Units<br/>Developing and Building Teams<br/>Coordinating the Work and Activities of Others<br/>Communicating with Supervisors, Peers, or Subordinates",
     "Foresight":
-        "Making Decisions and Solving Problems<br/>Developing Objectives and Strategies",
+        "Developing Objectives and Strategies<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
     "Objectivity":
-        "Thinking Creatively<br/>Providing Consultation and Advice to Others<br/>Analysing Data or Information<br/>Working with Computers",
+        "Evaluating Information to Determine Compliance with Standards<br/>Judging the Qualities of Objects, Services, or People<br/>Thinking Creatively<br/>Providing Consultation and Advice to Others<br/>Working with Computers",
     "Practicality":
-        "Performing for or Working Directly with the Public<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Handling and Moving Objects",
+        "Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment",
     "Prudence":
-        "Monitoring and Controlling Resources<br/>Documenting/Recording Information<br/>Judging the Qualities of Objects, Services, or People<br/>Performing Administrative Activities",
+        "Monitoring and Controlling Resources<br/>"Operating Vehicles, Mechanised Devices, or Equipment<br/>Controlling Machines and Processes",
     "Tenacity":
-        "Resolving Conflicts and Negotiating with Others<br/>Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment<br/>Performing General Physical Activities",
+        "Performing General Physical Activities<br/>Handling and Moving Objects",
 }
 
 # ---------------------------

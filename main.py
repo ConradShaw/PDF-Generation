@@ -1864,7 +1864,7 @@ def generate_team_pdf(
             "<b>Prudence</b> – flags risks that moving too quickly could expose the organisation to financial, legal or reputational loss.",
         ),
         "Tenacity": (
-            "<b>Tenacity</b> – questions whether the change will distract from core responsibilities and near-term performance targets.",
+            "<b>Tenacity</b> – sustains effort and remains committed to achieving goals despite obstacles created by change.",
         ),
         }
   

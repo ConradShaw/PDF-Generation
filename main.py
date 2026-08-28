@@ -129,7 +129,7 @@ DESCRIPTIONS = {
     "Empathy": "The capacity to understand and connect with others’ perspectives and lived experience.",
     "Discernment": "The capacity to critically examine details, distinguish what is relevant, and identify meaningful distinctions.",
     "Objectivity": "The capacity to evaluate claims against evidence, minimise bias and assumptions, and generate independent insights.",
-    "Tenacity": "The capacity to persist in the face of obstacles, exert high effort, and maintain commitment to achieve immediate goals.",
+    "Tenacity": "The capacity to persist through obstacles, sustain effort, and remain committed to achieving goals.",
     "Courage": "The capacity to proactively initiate and act on self-directed, purposeful decisions, undaunted by uncertainty or risk.",
     "Confidence": "The capacity to trust in one’s own abilities and judgement, enabling self-assured action.",
     "Prudence": "The capacity to act with care and restraint, applying cautious judgement to avoid unnecessary risk.",

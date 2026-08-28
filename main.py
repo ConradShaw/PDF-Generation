@@ -1801,7 +1801,7 @@ def generate_team_pdf(
         ),
         "Empathy": (
             "<b>Enmeshment</b> – over-identification with others’ emotions blurs boundaries, undermining judgment",
-            "<b>Courage</b> - to maintain clear boundaries and act decisively even in the face of discomfort",
+            "<b>Courage</b> - to maintain focus on self-directed actions even in the face of others’ discomfort due to factors beyond your control",
         ),
         "Fairness": (
             "<b>Indecisiveness</b> – over-weighting perspectives delays decisions and risks lack of closure",
@@ -1831,13 +1831,13 @@ def generate_team_pdf(
 
     strength_response = {
         "Confidence": (
-            "<b>Confidence</b> - expresses strong self-belief in their own and the team’s ability to deliver the change successfully.",
+            "<b>Confidence</b> - expresses strong self-belief in their ability to support the change successfully.",
         ),
         "Courage": (
-            "<b>Courage</b> – actively embraces uncertainty and disruption, viewing unpredictable outcomes as energising.",
+            "<b>Courage</b> – acts purposefully even in the face of uncertainty and risk, undaunted by unpredictable outcomes.",
         ),
         "Curiosity": (
-            "<b>Curiosity</b> – rapidly explores multiple new approaches and ideas, prioritising learning and experimentation over convergence.",
+            "<b>Curiosity</b> – rapidly explores multiple new approaches and ideas, prioritising learning and sharing over convergence.",
         ),
         "Discernment": (
             "<b>Discernment</b> – highlights concerns that the change design does not fully account for edge cases.",
@@ -1858,7 +1858,7 @@ def generate_team_pdf(
             "<b>Objectivity</b> – advocates for continuous, evidence-based change as essential for competitiveness, unclouded by bias toward the status quo.",
         ),
         "Practicality": (
-            "<b>Practicality</b> – weighs change against real-world constraints, favouring workable solutions that keep the team grounded and productive.",
+            "<b>Practicality</b> – weighs change against real-world constraints, favouring workable solutions that keep the team productive.",
         ),
         "Prudence": (
             "<b>Prudence</b> – flags risks that moving too quickly could expose the organisation to financial, legal or reputational loss.",

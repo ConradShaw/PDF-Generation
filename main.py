@@ -136,7 +136,7 @@ DESCRIPTIONS = {
     "Foresight": "The capacity to reflect on current conditions, project future outcomes, and pre-emptively adapt to change.",
     "Practicality": "The capacity to respond to real-world constraints with grounded composure and apply effective, workable solutions.",
     "Curiosity": "The capacity to seek out new information, explore ideas, deepen understanding, and communicate findings.",
-    "Discipline": "The capacity to consistently execute planned actions with reliability and thoroughness.",
+    "Discipline": "The capacity to consistently execute planned actions and meet obligations, reliably and responsibly.",
 }
 
 ONET_STYLES = {

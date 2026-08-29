@@ -131,7 +131,7 @@ DESCRIPTIONS = {
     "Objectivity": "The capacity to evaluate claims against evidence, minimise bias and assumptions, and generate independent insights.",
     "Tenacity": "The capacity to persist through obstacles, sustain effort, and remain committed to achieving goals.",
     "Courage": "The capacity to proactively initiate and act on self-directed, purposeful decisions, undaunted by uncertainty or risk.",
-    "Confidence": "The capacity to trust in one’s own abilities and judgement, enabling self-assured action.",
+    "Confidence": "The capacity to believe in one’s own abilities and judgement, enabling self-assured action.",
     "Prudence": "The capacity to act with care and restraint, applying cautious judgement to avoid unnecessary risk.",
     "Foresight": "The capacity to reflect on current conditions, project future outcomes, and pre-emptively adapt to change.",
     "Practicality": "The capacity to respond to real-world constraints with grounded composure and apply effective, workable solutions.",

@@ -904,7 +904,7 @@ def generate_individual_pdf_file(
         <b>Report Contents</b><br/><br/>
         1) Shaw Strengths Matrix®<br/>
         2) Assessment Table<br/>
-        3) express O*NET® Work Activities
+        3) Mapping to O*NET® Work Activities
         """,        
     )]], style=table_border))
     story.append(PageBreak())
@@ -1083,7 +1083,7 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Page 6 - O*NET® Work Activities
-    story.append(header_template(6, "express O*NET® Work Activities"))
+    story.append(header_template(6, "Mapping  O*NET® Work Activities"))
     story.append(Spacer(1, 12))
 
     # Merge header with ONET activities
@@ -1104,7 +1104,7 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Header for Page 7
-    story.append(header_template(7, "express O*NET® Work Activities"))
+    story.append(header_template(7, "Mapping to O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         # Info panel table explaining the chart
@@ -1530,7 +1530,7 @@ def generate_team_pdf(
         1) Shaw Strengths Matrix®<br/>
         2) Team Assessment Table<br/>
         3) Team Mapping to O*NET® Work Styles<br/>
-        4) express O*NET® Work Activities<br/>
+        4) Mapping to O*NET® Work Activities<br/>
         5) Team Strength Distribution<br/>
         6) Change Alignment Guide
         """,    
@@ -1695,7 +1695,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     
     # Page 6 - O*NET® Work Activities
-    story.append(header_template(6, "express O*NET® Work Activities"))
+    story.append(header_template(6, "Mapping to O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     
     # Create compact table style with reduced padding
@@ -1730,7 +1730,7 @@ def generate_team_pdf(
     story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
     story.append(PageBreak())
-    story.append(header_template(7, "express O*NET® Work Activities"))
+    story.append(header_template(7, "Mapping to O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         """ 

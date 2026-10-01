@@ -1784,7 +1784,7 @@ def generate_team_pdf(
             "<b>Discernment</b> - to apply critical judgment and identify what is truly relevant",
         ),
         "Initiative": (
-            "<b>Recklessness</b> – rapid action without adequate sense-checking, increasing avoidable risk",
+            "<b>Hastiness</b> – acting prematurely without sufficient consideration of consequences.",
             "<b>Practicality</b> - to remain composed, consider consequences, and focus on workable solutions",
         ),
         "Curiosity": (

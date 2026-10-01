@@ -110,7 +110,7 @@ _pdf_semaphore = asyncio.Semaphore(MAX_CONCURRENT_PDFS)
 # Logo path - should be in the same directory as this script in Cloud Run
 LOGO_PATH = os.path.join(os.path.dirname(__file__), "logo.png")
 TRAITS = [
-    "Courage",
+    "Initiative",
     "Practicality",
     "Curiosity",
     "Prudence",
@@ -130,7 +130,7 @@ DESCRIPTIONS = {
     "Discernment": "The capacity to critically examine details, distinguish what is relevant, and identify meaningful distinctions.",
     "Objectivity": "The capacity to evaluate claims against evidence, minimise bias and assumptions, and generate independent insights.",
     "Tenacity": "The capacity to persist through obstacles, sustain effort, and remain committed to achieving goals.",
-    "Courage": "The capacity to proactively initiate and act on self-directed, purposeful decisions, undaunted by uncertainty or risk.",
+    "Initiative": "The capacity to proactively commence action toward a goal or opportunity, without waiting for external direction.",
     "Confidence": "The capacity to believe in one’s own abilities and judgement, enabling self-assured action.",
     "Prudence": "The capacity to act with care and restraint, applying cautious judgement to avoid unnecessary risk.",
     "Foresight": "The capacity to reflect on current conditions, project future outcomes, and pre-emptively adapt to change.",
@@ -144,7 +144,7 @@ ONET_STYLES = {
         "Self-<br/>Confidence",
         "A tendency to believe in one's work-related capabilities and ability to control one's work-related outcomes."
     ),
-    "Courage": (
+    "Initiative": (
         "Initiative",
         "A tendency to be proactive and take on extra responsibilities and tasks that may fall outside of one's required work role."
     ),
@@ -193,7 +193,7 @@ ONET_STYLES = {
 ONET_ACTIVITIES = {
     "Confidence":
         "Selling or Influencing Others<br/>Communicating with People Outside the Organisation",
-    "Courage":
+    "Initiative":
         "Making Decisions and Solving Problems<br/>Guiding, Directing, and Motivating Subordinates",
     "Curiosity":
         "Updating and Using Relevant Knowledge<br/>Getting Information",
@@ -917,7 +917,7 @@ def generate_individual_pdf_file(
             ["Shaw Strengths Matrix®","","","",""],
             ["Character Strengths","","Temporal Preferences","",""],
             ["","", "Past Reflection", "Present Engagement", "Future Anticipation"],
-            ["Cognitive\nPreferences", "Intuition", "Foresight", "Confidence", "Courage"],
+            ["Cognitive\nPreferences", "Intuition", "Foresight", "Confidence", "Initiative"],
             ["", "Thinking", "Curiosity", "Objectivity", "Fairness"],
             ["", "Feeling", "Empathy", "Tenacity", "Prudence"],
             ["", "Sensing", "Discernment", "Practicality", "Discipline"]
@@ -1546,7 +1546,7 @@ def generate_team_pdf(
             ["Shaw Strengths Matrix®","","","",""],
             ["Character Strengths","","Temporal Preferences","",""],
             ["","", "Past Reflection", "Present Engagement", "Future Anticipation"],
-            ["Cognitive\nPreferences", "Intuition", "Foresight", "Confidence", "Courage"],
+            ["Cognitive\nPreferences", "Intuition", "Foresight", "Confidence", "Initiative"],
             ["", "Thinking", "Curiosity", "Objectivity", "Fairness"],
             ["", "Feeling", "Empathy", "Tenacity", "Prudence"],
             ["", "Sensing", "Discernment", "Practicality", "Discipline"]
@@ -1783,7 +1783,7 @@ def generate_team_pdf(
             "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
             "<b>Discernment</b> - to apply critical judgment and identify what is truly relevant",
         ),
-        "Courage": (
+        "Initiative": (
             "<b>Recklessness</b> – rapid action without adequate sense-checking, increasing avoidable risk",
             "<b>Practicality</b> - to remain grounded and composed, focusing on effective, workable solutions",
         ),
@@ -1801,7 +1801,7 @@ def generate_team_pdf(
         ),
         "Empathy": (
             "<b>Enmeshment</b> – over-identification with others’ emotions blurs boundaries, undermining judgment",
-            "<b>Courage</b> - to maintain focus on self-directed actions even in the face of others’ discomfort due to factors beyond your control",
+            "<b>Initiative</b> - to maintain focus on self-directed action and personal agency, despite others’ emotional state",
         ),
         "Fairness": (
             "<b>Indecisiveness</b> – over-weighting perspectives delays decisions and risks lack of closure",
@@ -1833,8 +1833,8 @@ def generate_team_pdf(
         "Confidence": (
             "<b>Confidence</b> - expresses strong self-belief in their ability to support the change successfully.",
         ),
-        "Courage": (
-            "<b>Courage</b> – acts purposefully even in the face of uncertainty and risk, undaunted by unpredictable outcomes.",
+        "Initiative": (
+            "<b>Initiative</b> – proactively identify opportunities and commence purposeful action without awaiting external direction.",
         ),
         "Curiosity": (
             "<b>Curiosity</b> – rapidly explores multiple new approaches and ideas, prioritising learning and sharing over convergence.",

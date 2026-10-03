@@ -904,7 +904,7 @@ def generate_individual_pdf_file(
         1) Shaw Strengths Matrix®<br/>
         2) Your Work Archetype<br/>
         3) Assessment Table<br/>
-        4) ONET® Interest Profile
+        4) ONET® Interest Profile<br/>
         5) Top 25 O*NET® Career Matches
         """,        
     )]], style=table_border))

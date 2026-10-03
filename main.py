@@ -1516,8 +1516,7 @@ def generate_team_pdf(
         The <b>SSM Assessment</b> measures <b>personality</b> — how the team collectively tends to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/>
         <br/>
         The Assessment is grounded in established personality research and has completed <b>phase one psychometric validation</b>. Report insights should still be interpreted as indicative tendencies rather than definitive predictive measures, and the tool is not intended for hiring, promotion, or related HR decisions.<br/>
-        <br/>
-        In this report, your <b>SSM Assessment</b> strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/>
+        <br/>        
         <br/>
         The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.
         """,    
@@ -2218,7 +2217,7 @@ def send_individual_report_email(
     <ul style="margin-bottom: 0;">
       <li>Your ranked profile of 12 strengths</li>
       <li>Insights into your top three Signature strengths</li>
-      <li>Alignment with strongest O*NET Work Activities</li>
+      <li>Decsription of your Work Archetype</li>
     </ul>
   </div>
 

@@ -1068,23 +1068,19 @@ def generate_individual_pdf_file(
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         """
-        <b>How to Read This Chart</b><br/>
-        <br/>
-        This chart maps your 12 ranked <b>SSM strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how your strengths translate into observable workplace behaviours.<br/>
-        <br/>
-        Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Styles</b> listed here.<br/>
-        <br/>
-        <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
-        They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
-        <br/>
-        Your <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — your motivation and natural approach to work.<br/>
+        <b>How to Read This Chart</b><br/><br/>
+        TEXT.<br/><br/>
+        TEXT.<br/>
+        Your <b>TEXT</b> rankings (1–12) and <b>TEXT</b> <b>TEXT</b>.<br/><br/>    
+        TEXT.<br/><br/>           
         """,
+
         style=body_compact_style
     ))
     story.append(PageBreak())
 
-    # Page 6 - O*NET® Work Activities
-    story.append(header_template(6, "Mapping  O*NET® Work Activities"))
+    # Page 6 - Your Work Archetype
+    story.append(header_template(6, "Your Work Archetype"))
     story.append(Spacer(1, 12))
 
     # Merge header with ONET activities
@@ -1105,18 +1101,16 @@ def generate_individual_pdf_file(
     story.append(PageBreak())
 
     # Header for Page 7
-    story.append(header_template(7, "Mapping to O*NET® Work Activities"))
+    story.append(header_template(7, "O*NET® Interest Profile"))
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         # Info panel table explaining the chart
         """
         <b>How to Read This Chart</b><br/><br/>
-        This chart shows your 12 ranked <b>SSM strengths</b> alongside the <b>O*NET Work Activities</b> most strongly aligned with each strength, illustrating how your strengths may be expressed through different types of work tasks.<br/><br/>
-        Note, the <b>Work Activity alignments</b> reflect ShawSight's LLM-based interpretation of O*NET Work Activity data, identifying the Work Activities with the strongest alignment to each SSM strength.<br/>
-        Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) are shown alongside the corresponding <b>O*NET Work Activities</b>.<br/><br/>
-        <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
-        They represent the <b>task-level expression</b> of your strengths — showing how your underlying preferences can manifest in different types of work tasks.<br/><br/>
-        Your <b>Work Activities</b> describe the <b>"how"</b> — the types of tasks and activities through which your strengths are most likely to be expressed.      
+        TEXT.<br/><br/>
+        TEXT.<br/>
+        Your <b>TEXT</b> rankings (1–12) and <b>TEXT</b> <b>TEXT</b>.<br/><br/>    
+        TEXT.<br/><br/>           
         """,      
         style=body_compact_style
     ))
@@ -1679,16 +1673,12 @@ def generate_team_pdf(
     story.append(InfoPanel(
         """
         <b>How to Read This Chart</b><br/>
-        <br/>
-        This chart maps the team's 12 ranked <b>SSM strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how overall team strengths translate into observable workplace behaviours.<br/>
-        <br/>
-        The team <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i> and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Styles</b> listed here.<br/>
-        <br/>
-        <b>O*NET</b> defines Work Styles as "personal characteristics that can affect how well someone performs a job."<br/>
-        They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/>
-        <br/>
-        The team <b>Work Styles</b> ranking reveals the underlying <b>"why"</b> — the team's overall motivation and natural approach to work.<br/>
+        TEXT.<br/><br/>
+        TEXT.<br/>
+        Your <b>TEXT</b> rankings (1–12) and <b>TEXT</b> <b>TEXT</b>.<br/><br/>    
+        TEXT.<br/><br/>           
         """,
+
         style=body_compact_style
     ))
     story.append(PageBreak())
@@ -1734,13 +1724,11 @@ def generate_team_pdf(
     story.append(InfoPanel(
         """ 
         <b>How to Read This Chart</b><br/><br/>
-        This chart shows the team's 12 ranked <b>SSM strengths</b> alongside the <b>O*NET Work Activities</b> most strongly aligned with each strength, illustrating how overall team strengths may be expressed through different types of work tasks.<br/><br/>
-        Note, the <b>Work Activity alignments</b> reflect ShawSight's LLM-based interpretation of O*NET Work Activity data, identifying the Work Activities with the strongest alignment to each SSM strength.<br/>
-        The team <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) are shown alongside the corresponding <b>O*NET Work Activities</b>.<br/><br/>
-        <b>O*NET</b> defines Work Activities as "general types of job behaviours occurring on multiple jobs."<br/>
-        They represent the <b>task-level expression</b> of team strengths — showing how underlying team preferences can manifest in different types of work tasks.<br/><br/>
-        The team <b>Work Activities</b> describe the <b>"how"</b> — the types of tasks and activities through which the team's strengths are most likely to be expressed.
-        """,
+        TEXT.<br/><br/>
+        TEXT.<br/>
+        Your <b>TEXT</b> rankings (1–12) and <b>TEXT</b> <b>TEXT</b>.<br/><br/>    
+        TEXT.<br/><br/>           
+        """, 
         style=body_compact_style
     ))
     story.append(PageBreak())

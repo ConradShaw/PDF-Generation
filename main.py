@@ -902,8 +902,10 @@ def generate_individual_pdf_file(
         """
         <b>Report Contents</b><br/><br/>
         1) Shaw Strengths Matrix®<br/>
-        2) Assessment Table<br/>
-        3) Mapping to O*NET® Work Activities
+        2) Your Work Archetype<br/>
+        3) Assessment Table<br/>
+        4) ONET® Interest Profile
+        5) Top 25 O*NET® Career Matches
         """,        
     )]], style=table_border))
     story.append(PageBreak())
@@ -1527,11 +1529,10 @@ def generate_team_pdf(
         """
         <b>Report Contents</b><br/><br/>
         1) Shaw Strengths Matrix®<br/>
-        2) Team Assessment Table<br/>
-        3) Team Mapping to O*NET® Work Styles<br/>
-        4) Mapping to O*NET® Work Activities<br/>
-        5) Team Strength Distribution<br/>
-        6) Change Alignment Guide
+        2) Team Assessment Table<br/> 
+        3) Team Strength Distribution<br/>
+        4) Team Work Archetype Overview<br/>
+        6) Team Change Alignment Guide
         """,    
     )]], style=table_border))
     story.append(PageBreak())

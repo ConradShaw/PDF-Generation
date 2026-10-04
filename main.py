@@ -1024,13 +1024,17 @@ def generate_individual_pdf_file(
     
     story.append(PageBreak())
 
-    # Page 5 - O*NET® Interest Profile
+    # Page 5 - Your Work Archetype
+    story.append(header_template(6, "Your Work Archetype"))
+    story.append(Spacer(1, 12))
+
+    # Page 6 - O*NET® Interest Profile
     story.append(header_template(5, "O*NET® Interest Profile"))
     story.append(Spacer(1, 12))
     
-    # Page 6 - Your Work Archetype
-    story.append(header_template(6, "Your Work Archetype"))
-    story.append(Spacer(1, 12))
+    # Page 7 - Top 25 O*NET® Careeer Matches
+    story.append(header_template(5, "Top 25 O*NET® Careeer Matches"))
+    story.append(Spacer(1, 12))    
 
     # Build PDF
     doc.build(story)

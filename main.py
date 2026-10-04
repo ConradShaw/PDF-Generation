@@ -1024,84 +1024,13 @@ def generate_individual_pdf_file(
     
     story.append(PageBreak())
 
-    # Page 5 - O*NET® Work Styles
-    story.append(header_template(5, "Mapping to O*NET® Work Styles"))
+    # Page 5 - O*NET® Interest Profile
+    story.append(header_template(5, "O*NET® Interest Profile"))
     story.append(Spacer(1, 12))
     
-    work_styles = {"SSM\nStrength®": ("Work Style (O*NET®)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
-    work_style_rows = []
-    unknown_work_style_keys: set[str] = set()
-    for row in results_table_data:
-        trait_key = row[2] if isinstance(row, list) and len(row) >= 3 else ""
-        if trait_key not in work_styles:
-            unknown_work_style_keys.add(str(trait_key))
-        style_name, style_desc = work_styles.get(trait_key, ("", ""))
-        work_style_rows.append(
-            row + [
-                Paragraph(style_name, style=cell_bold_center_style),
-                Paragraph(style_desc, style=cell_style),
-            ]
-        )
-    if unknown_work_style_keys:
-        logger.warning(
-            "[team-pdf] Unknown work-style keys encountered: %s",
-            sorted(unknown_work_style_keys),
-        )
-    story.append(Table(
-        work_style_rows,
-        style=results_table_style,
-        colWidths=[0.45*inch, 1.1*inch, 1.1*inch, 1.1*inch, None],
-    ))
-    
-    story.append(Spacer(1, 12))
-    story.append(InfoPanel(
-        """
-        <b>How to Read This Chart</b><br/><br/>
-        TEXT.<br/><br/>
-        TEXT.<br/>
-        Your <b>TEXT</b> rankings (1–12) and <b>TEXT</b> <b>TEXT</b>.<br/><br/>    
-        TEXT.<br/><br/>           
-        """,
-
-        style=body_compact_style
-    ))
-    story.append(PageBreak())
-
     # Page 6 - Your Work Archetype
     story.append(header_template(6, "Your Work Archetype"))
     story.append(Spacer(1, 12))
-
-    # Merge header with ONET activities
-    activities = {"SSM\nStrength®": "<b>Work Activities (O*NET®)</b>", "": ""} | ONET_ACTIVITIES
-
-    # Build results table
-    table_data = [
-        row + [Paragraph(activities.get(row[2], ""), style=cell_center_style)]
-        for row in results_table_data
-    ]
-    story.append(Table(
-        table_data,
-        style=results_table_style,
-        colWidths=[0.45*inch, 1.1*inch, 1.1*inch, None]
-    ))
-
-    # Page break
-    story.append(PageBreak())
-
-    # Header for Page 7
-    story.append(header_template(7, "O*NET® Interest Profile"))
-    story.append(Spacer(1, 12))
-    story.append(InfoPanel(
-        # Info panel table explaining the chart
-        """
-        <b>How to Read This Chart</b><br/><br/>
-        TEXT.<br/><br/>
-        TEXT.<br/>
-        Your <b>TEXT</b> rankings (1–12) and <b>TEXT</b> <b>TEXT</b>.<br/><br/>    
-        TEXT.<br/><br/>           
-        """,      
-        style=body_compact_style
-    ))
 
     # Build PDF
     doc.build(story)

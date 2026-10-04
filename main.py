@@ -190,31 +190,19 @@ WORK_ARCHETYPES = {
     ),
 }
 
-ONET_ACTIVITIES = {
-    "Confidence":
-        "Selling or Influencing Others<br/>Communicating with People Outside the Organisation",
-    "Initiative":
-        "Making Decisions and Solving Problems<br/>Guiding, Directing, and Motivating Subordinates",
-    "Curiosity":
-        "Updating and Using Relevant Knowledge<br/>Getting Information",
-    "Discernment":
-        "Analysing Data or Information<br/>Identifying Objects, Actions, and Events<br/>Inspecting Equipment, Structures, or Materials<br/>Monitoring Processes, Materials, or Surroundings<br/>Interpreting the Meaning of Information for Others<br/>Processing Information<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment",
-    "Discipline":
-        "Organising, Planning, and Prioritising Work<br/>Scheduling Work and Activities<br/>Documenting/Recording Information<br/>Performing Administrative Activities>",
-    "Empathy":
-        "Assisting and Caring for Others<br/>Establishing and Maintaining Interpersonal Relationships<br/>Coaching and Developing Others<br/>Training and Teaching Others<br/>Performing for or Working Directly with the Public",
-    "Fairness":
-        "Resolving Conflicts and Negotiating with Others<br/>Staffing Organisational Units<br/>Developing and Building Teams<br/>Coordinating the Work and Activities of Others<br/>Communicating with Supervisors, Peers, or Subordinates",
-    "Foresight":
-        "Developing Objectives and Strategies<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
-    "Objectivity":
-        "Evaluating Information to Determine Compliance with Standards<br/>Judging the Qualities of Objects, Services, or People<br/>Thinking Creatively<br/>Providing Consultation and Advice to Others<br/>Working with Computers",
-    "Practicality":
-        "Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment",
-    "Prudence":
-        "Monitoring and Controlling Resources<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Controlling Machines and Processes",
-    "Tenacity":
-        "Performing General Physical Activities<br/>Handling and Moving Objects",
+ONET_INTERESTPROFILE = {
+    "Realistic":
+        "People with Realistic interests like work that includes practical, hands-on problems and answers. Often people with Realistic interests do not like careers that involve paperwork or working closely with others. They like working with plants and animals; real-world materials like wood, tools, and machinery; and outside work.",
+    "Investigative":
+        "People with Investigative interests like work that has to do with ideas and thinking rather than physical activity or leading people. They like searching for facts and figuring out problems.",
+    "Artistic":
+        "People with Artistic interests like work that deals with the artistic side of things, such as acting, music, art, and design. They like creativity in their work and work that can be done without following a set of rules.",
+    "Social":
+        "People with Social interests like working with others to help them learn and grow. They like working with people more than working with objects, machines, or information. They like teaching, giving advice, and helping and being of service to people.",
+    "Enterprising":
+        "People with Enterprising interests like work that has to do with starting up and carrying out business projects. These people like taking action rather than thinking about things. They like persuading and leading people, making decisions, and taking risks for profits.",
+    "Conventional":
+        "People with Conventional interests like work that follows set procedures and routines. They prefer working with information and paying attention to details rather than working with ideas. They like working with clear rules and following a strong leader.",      
 }
 
 # ---------------------------

@@ -139,53 +139,53 @@ DESCRIPTIONS = {
     "Discipline": "The capacity to consistently execute planned actions and meet obligations, reliably and responsibly.",
 }
 
-ONET_STYLES = {
+WORK_ARCHETYPES = {
     "Confidence": (
-        "Self-<br/>Confidence",
+        "The Champuon - Believes",
         "A tendency to believe in one's work-related capabilities and ability to control one's work-related outcomes."
     ),
-    "Initiative": (
-        "Initiative",
-        "A tendency to be proactive and take on extra responsibilities and tasks that may fall outside of one's required work role."
-    ),
     "Curiosity": (
-        "Intellectual Curiosity",
+        "The Explorer - Discovers",
         "A tendency to seek out and acquire new work-related knowledge and obtain a deep understanding of work-related subjects."
     ),
     "Discernment": (
-        "Attention to Detail",
+        "The Analyst — Distinguishes",
         "A tendency to be detail-oriented, organised, and thorough in completing work."
     ),
     "Discipline": (
-        "Dependability",
+        "The Achiever — Delivers",
         "A tendency to be reliable, responsible, and consistent in meeting work-related obligations."
     ),
     "Empathy": (
-        "Empathy",
+        "The Confidant - Relates",
         "A tendency to show concern for others and be sensitive to others' needs and feelings at work."
     ),
     "Fairness": (
-        "Cooperation",
+        "The Diplomat — Balances",
         "A tendency to be pleasant, helpful, and willing to assist others at work."
     ),
     "Foresight": (
-        "Adaptability",
+        "The Forecaster — Envisions",
         "A tendency to be open to and comfortable with change, new experiences, or ideas at work."
     ),
+    "Initiative": (
+        "The Catalyst - Activates",
+        "A tendency to be proactive and take on extra responsibilities and tasks that may fall outside of one's required work role."
+    ),
     "Objectivity": (
-        "Innovative",
+        "The Innovator — Challenges",
         "A tendency to be inventive, to be imaginative, and to adopt new perspectives on ways to accomplish work."
     ),
     "Practicality": (
-        "Self-Control",
+        "The Realist — Solves",
         "A tendency to remain calm and composed and to manage emotions effectively in response to criticism or difficult situations at work."
     ),
     "Prudence": (
-        "Cautiousness",
+        "The Steward — Safeguards",
         "A tendency to be careful, deliberate, and risk-avoidant when making work-related decisions or doing work."
     ),
     "Tenacity": (
-        "Perseverance",
+        "The Dynamo — Persists",
         "A tendency to exhibit determination and resolve to perform or complete tasks in the face of difficult circumstances or obstacles at work."
     ),
 }

@@ -1568,28 +1568,7 @@ def generate_team_pdf(
     story.append(PageBreak())
     
     # Page 5 - O*NET® Work Styles
-    story.append(header_template(5, "Team Mapping to O*NET® Work Styles"))
-    story.append(Spacer(1, 12))
-    
-    work_styles = {"SSM\nStrength®": ("Work Style (O*NET®)", "<b>Description</b>"), "": ("","")} | ONET_STYLES
-    work_style_rows = []
-    for row in results_table_data:
-        trait_key = row[2] if isinstance(row, list) and len(row) >= 3 else ""
-        if trait_key not in work_styles:
-            logger.warning("[team-pdf] Unknown work-style key=%r row=%r", trait_key, row)
-        style_name, style_desc = work_styles.get(trait_key, ("", ""))
-        work_style_rows.append(
-            row + [
-                Paragraph(style_name, style=cell_bold_center_style),
-                Paragraph(style_desc, style=cell_style),
-            ]
-        )
-    story.append(Table(
-        work_style_rows,
-        style=results_table_style,
-        colWidths=[0.45*inch, 1.1*inch, 1.1*inch, 1.1*inch, None],
-    ))
-    
+   
     story.append(Spacer(1, 12))
     story.append(InfoPanel(
         """
@@ -1608,35 +1587,6 @@ def generate_team_pdf(
     story.append(header_template(6, "Mapping to O*NET® Work Activities"))
     story.append(Spacer(1, 12))
     
-    # Create compact table style with reduced padding
-    compact_table_style = list(results_table_style) + [
-        ("TOPPADDING", (0, 0), (-1, -1), 2),    # Reduced padding
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
-        ("LEFTPADDING", (0, 0), (-1, -1), 3),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
-    ]
-    
-    activities = {"SSM\nStrength®": "<b>Work Activities (O*NET®)</b>", "": ""} | ONET_ACTIVITIES
-    activity_rows = []
-    unknown_activity_keys: set[str] = set()
-    for row in results_table_data:
-        trait_key = row[2] if isinstance(row, list) and len(row) >= 3 else ""
-        if trait_key not in activities:
-            unknown_activity_keys.add(str(trait_key))
-        activity_rows.append(
-            row + [Paragraph(activities.get(trait_key, ""), style=cell_center_style)]
-        )
-    if unknown_activity_keys:
-        logger.warning(
-            "[team-pdf] Unknown activity keys encountered: %s",
-            sorted(unknown_activity_keys),
-        )
-
-    story.append(Table(
-        activity_rows,
-        style=compact_table_style,
-        colWidths=[0.4*inch, 1.0*inch, 1.0*inch, None],  # Slightly reduced column widths
-    ))
     story.append(Spacer(1, 6))  # Reduced spacing before explanation
     
     story.append(PageBreak())

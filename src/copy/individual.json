@@ -1,0 +1,97 @@
+{
+  "descriptions": {
+    "Fairness": "The capacity to weigh competing interests, make equitable judgements, and cooperate constructively with others.",
+    "Empathy": "The capacity to understand and connect with others’ perspectives and lived experience.",
+    "Discernment": "The capacity to critically examine details, distinguish what is relevant, and identify meaningful distinctions.",
+    "Objectivity": "The capacity to evaluate claims against evidence, minimise bias and assumptions, and generate independent insights.",
+    "Tenacity": "The capacity to persist through obstacles, sustain effort, and remain committed to achieving goals.",
+    "Courage": "The capacity to proactively initiate and act on self-directed, purposeful decisions, undaunted by uncertainty or risk.",
+    "Confidence": "The capacity to believe in one’s own abilities and judgement, enabling self-assured action.",
+    "Prudence": "The capacity to act with care and restraint, applying cautious judgement to avoid unnecessary risk.",
+    "Foresight": "The capacity to reflect on current conditions, project future outcomes, and pre-emptively adapt to change.",
+    "Practicality": "The capacity to respond to real-world constraints with grounded composure and apply effective, workable solutions.",
+    "Curiosity": "The capacity to seek out new information, explore ideas, deepen understanding, and communicate findings.",
+    "Discipline": "The capacity to consistently execute planned actions and meet obligations, reliably and responsibly."
+  },
+  "onetStyles": {
+    "Confidence": {
+      "label": "Self-<br/>Confidence",
+      "description": "A tendency to believe in one's work-related capabilities and ability to control one's work-related outcomes."
+    },
+    "Courage": {
+      "label": "Initiative",
+      "description": "A tendency to be proactive and take on extra responsibilities and tasks that may fall outside of one's required work role."
+    },
+    "Curiosity": {
+      "label": "Intellectual Curiosity",
+      "description": "A tendency to seek out and acquire new work-related knowledge and obtain a deep understanding of work-related subjects."
+    },
+    "Discernment": {
+      "label": "Attention to Detail",
+      "description": "A tendency to be detail-oriented, organised, and thorough in completing work."
+    },
+    "Discipline": {
+      "label": "Dependability",
+      "description": "A tendency to be reliable, responsible, and consistent in meeting work-related obligations."
+    },
+    "Empathy": {
+      "label": "Empathy",
+      "description": "A tendency to show concern for others and be sensitive to others' needs and feelings at work."
+    },
+    "Fairness": {
+      "label": "Cooperation",
+      "description": "A tendency to be pleasant, helpful, and willing to assist others at work."
+    },
+    "Foresight": {
+      "label": "Adaptability",
+      "description": "A tendency to be open to and comfortable with change, new experiences, or ideas at work."
+    },
+    "Objectivity": {
+      "label": "Innovative",
+      "description": "A tendency to be inventive, to be imaginative, and to adopt new perspectives on ways to accomplish work."
+    },
+    "Practicality": {
+      "label": "Self-Control",
+      "description": "A tendency to remain calm and composed and to manage emotions effectively in response to criticism or difficult situations at work."
+    },
+    "Prudence": {
+      "label": "Cautiousness",
+      "description": "A tendency to be careful, deliberate, and risk-avoidant when making work-related decisions or doing work."
+    },
+    "Tenacity": {
+      "label": "Perseverance",
+      "description": "A tendency to exhibit determination and resolve to perform or complete tasks in the face of difficult circumstances or obstacles at work."
+    }
+  },
+  "onetActivities": {
+    "Confidence": "Selling or Influencing Others<br/>Communicating with People Outside the Organisation",
+    "Courage": "Making Decisions and Solving Problems<br/>Guiding, Directing, and Motivating Subordinates",
+    "Curiosity": "Updating and Using Relevant Knowledge<br/>Getting Information",
+    "Discernment": "Analysing Data or Information<br/>Identifying Objects, Actions, and Events<br/>Inspecting Equipment, Structures, or Materials<br/>Monitoring Processes, Materials, or Surroundings<br/>Interpreting the Meaning of Information for Others<br/>Processing Information<br/>Drafting, Laying Out, and Specifying Technical Devices, Parts, and Equipment",
+    "Discipline": "Organising, Planning, and Prioritising Work<br/>Scheduling Work and Activities<br/>Documenting/Recording Information<br/>Performing Administrative Activities",
+    "Empathy": "Assisting and Caring for Others<br/>Establishing and Maintaining Interpersonal Relationships<br/>Coaching and Developing Others<br/>Training and Teaching Others<br/>Performing for or Working Directly with the Public",
+    "Fairness": "Resolving Conflicts and Negotiating with Others<br/>Staffing Organisational Units<br/>Developing and Building Teams<br/>Coordinating the Work and Activities of Others<br/>Communicating with Supervisors, Peers, or Subordinates",
+    "Foresight": "Developing Objectives and Strategies<br/>Estimating the Quantifiable Characteristics of Products, Events, or Information",
+    "Objectivity": "Evaluating Information to Determine Compliance with Standards<br/>Judging the Qualities of Objects, Services, or People<br/>Thinking Creatively<br/>Providing Consultation and Advice to Others<br/>Working with Computers",
+    "Practicality": "Repairing and Maintaining Mechanical Equipment<br/>Repairing and Maintaining Electronic Equipment",
+    "Prudence": "Monitoring and Controlling Resources<br/>Operating Vehicles, Mechanised Devices, or Equipment<br/>Controlling Machines and Processes",
+    "Tenacity": "Performing General Physical Activities<br/>Handling and Moving Objects"
+  },
+  "legal": "<i>Shaw Strengths Matrix®</i> is a registered trademark of ShawSight Pty Ltd.<br/>O*NET® is a trademark of the U.S. Department of Labor, Employment and Training Administration.<br/><i>Shaw Strengths Matrix® Framework</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/><i>Shaw Strengths Matrix® Assessment</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/><i>ShawSight</i> logo is Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.<br/>The Shaw Strengths Matrix® is a developmental, strengths-based framework and is not intended for psychological diagnosis, clinical use, or performance benchmarking.",
+  "overview": "<b>About This Report</b><br/><br/>This report provides an overview of your <b>SSM Assessment® strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/><br/>The <b>SSM Assessment</b> measures <b>personality</b> — how you tend to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/><br/>The Assessment is grounded in established personality research and has completed <b>phase one psychometric validation</b>. Report insights should still be interpreted as indicative tendencies rather than definitive predictive measures, and the tool is not intended for hiring, promotion, or related HR decisions.<br/><br/>In this report, your <b>SSM Assessment</b> profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/><br/>The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.",
+  "contents": "<b>Report Contents</b><br/><br/>1) Shaw Strengths Matrix®<br/>2) Assessment Table<br/>3) Mapping to O*NET® Work Activities",
+  "howToReadMatrix": "<b>How to Read This Chart</b><br/><br/>The <b>Shaw Strengths Matrix (SSM)</b> synthesises four interrelated frameworks into one, providing nuanced insights into your unique preference rankings. It integrates how we:<br/><br/>• Apply our <b>Cognitive Preferences</b> — <i>Intuition</i>, <i>Thinking</i>, <i>Feeling</i>, and <i>Sensing</i><br/>• Express these across our <b>Temporal Preferences</b> — <i>Past Reflection</i>, <i>Present Engagement</i>, and <i>Future Anticipation</i><br/>• Intersects these into 12 <b>character strengths</b>, uniquely ranked per individual into 479 million possible combinations.<br/><br/>Each Strength is therefore a <b>composite</b> of both <b>Cognitive Preference</b> and <b>Temporal Preference</b>.<br/><br/>SSM defines <b>character strengths</b> as \"Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing. While their expression varies across situations, our overall strength profile remains relatively stable over time.\"<br/><br/>Your <b>survey responses</b> were scored and ranked using a <b>standardised algorithm</b> designed to ensure consistent comparison across all Strengths.<br/><br/>These rankings reflect patterns described in the <b>CAPS model</b> (Mischel &amp; Shoda). Your higher-ranked Strengths are those <b>more readily accessible</b> to you and therefore guide your responses in real-world situations more often.",
+  "howToReadAssessmentTable": "<b>How to Read This Chart</b><br/><br/>The <b>SSM Assessment Table</b> presents a high-level summary of the results from your completed assessment.<br/>It ranks the measured presence of the <b>12 SSM strengths</b> in your personality — based on your responses to workplace scenario questions — from <b>1 (strongest)</b> to <b>12 (least expressed)</b>.<br/><br/>Your strengths are grouped into four categories:<br/><br/>a) <b>Signature Strengths (#1-#3)</b> – core strengths you naturally and consistently use—your go-to abilities that define how you operate in flow and at your best.<br/>b) <b>Supporting Strengths (#4-#6)</b> – readily accessible strengths that reinforce your core abilities—dependable when needed, but not primary.<br/>c) <b>Stretch Strengths (#7-#9)</b> – strengths you deploy which are effective when needed, but requiring more focus and effort than the first two categories.<br/>d) <b>Situational Strengths (#10-#12)</b> – lesser used strengths that emerge only in specific situations, and are energy-intensive to deploy over longer periods.",
+  "howToReadWorkStyles": "<b>How to Read This Chart</b><br/><br/>This chart maps your 12 ranked <b>SSM strengths</b> to the 12 core <b>O*NET Work Styles</b>, illustrating how your strengths translate into observable workplace behaviours.<br/><br/>Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> (<i>Signature</i>, <i>Supporting</i>, <i>Stretch</i>, and <i>Situational</i>) align directly with the closest matched <b>O*NET Work Styles</b> listed here.<br/><br/><b>O*NET</b> defines Work Styles as \"personal characteristics that can affect how well someone performs a job.\"<br/>They represent the <b>workplace expression</b> of your strengths — showing how your inner traits are activated and applied in professional settings.<br/><br/>Your <b>Work Styles</b> ranking reveals the underlying <b>\"why\"</b> — your motivation and natural approach to work.",
+  "howToReadWorkActivities": "<b>How to Read This Chart</b><br/><br/>This chart shows your 12 ranked <b>SSM strengths</b> alongside the <b>O*NET Work Activities</b> most strongly aligned with each strength, illustrating how your strengths may be expressed through different types of work tasks.<br/><br/>Note, the <b>Work Activity alignments</b> reflect ShawSight's LLM-based interpretation of O*NET Work Activity data, identifying the Work Activities with the strongest alignment to each SSM strength.<br/>Your <b>SSM Assessment</b> rankings (1–12) and <b>Categories</b> are shown alongside the corresponding <b>O*NET Work Activities</b>.<br/><br/><b>O*NET</b> defines Work Activities as \"general types of job behaviours occurring on multiple jobs.\"<br/>They represent the <b>task-level expression</b> of your strengths.<br/><br/>Your <b>Work Activities</b> describe the <b>\"how\"</b> — the types of tasks and activities through which your strengths are most likely to be expressed.",
+  "email": {
+    "subject": "Your SSM™ Assessment – Shaw Strengths Matrix",
+    "heading": "Your SSM® Assessment is Ready!",
+    "intro": "Thank you for completing the Shaw Strengths Matrix® Assessment. Your personalised assessment is attached to this email.",
+    "bullets": [
+      "Your ranked profile of 12 strengths",
+      "Insights into your top three Signature strengths",
+      "Alignment with strongest O*NET Work Activities"
+    ]
+  }
+}

@@ -1,29 +1,9 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-venv/
-.venv/
-ENV/
+node_modules
+.git
 .env
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Git
-.git/
-.gitignore
-
-# Local dev files
-*.log
-*.tmp
-
+.env.*
+*.md
+__pycache__
+.venv
+venv
+dist

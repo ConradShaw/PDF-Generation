@@ -1,0 +1,79 @@
+{
+  "legal": "<i>Shaw Strengths Matrix® Framework</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/><i>Shaw Strengths Matrix® Assessment</i> Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/><i>ShawSight</i> logo is Copyright 2025 by ShawSight Pty Ltd. All rights reserved.<br/>No part of this publication may be reproduced or shared publicly, including on websites, forums, or social media, without prior written permission from ShawSight Pty Ltd.<br/>O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration.<br/>The Shaw Strengths Matrix® is a developmental, strengths-based framework and is not intended for psychological diagnosis, clinical use, or performance benchmarking.",
+  "overview": "<b>About This Report</b><br/><br/>This report provides an overview of the team's <b>SSM® Assessment strengths</b> profile and how it may relate to patterns of <b>communication, collaboration, and overall team dynamics</b> at work. It is designed to support <b>self-awareness, reflection, and developmental discussion</b> in team and workshop settings.<br/><br/>The <b>SSM Assessment</b> measures <b>personality</b> — how the team collectively tends to behave — rather than <b>abilities or skills</b> (what you are good at) or <b>interests</b> (what you enjoy doing). It is <b>not</b> intended to provide any clinical diagnosis.<br/><br/>The Assessment is grounded in established personality research and has completed <b>phase one psychometric validation</b>. Report insights should still be interpreted as indicative tendencies rather than definitive predictive measures, and the tool is not intended for hiring, promotion, or related HR decisions.<br/><br/>In this report, your <b>SSM Assessment</b> strengths profile is also conceptually aligned to <b>O*NET Work Styles</b> and <b>Work Activities</b>.<br/><br/>The <b>O*NET Resource Center</b> is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a <b>global standard in workplace metrics</b>.",
+  "contents": "<b>Report Contents</b><br/><br/>1) Shaw Strengths Matrix®<br/>2) Team Assessment Table<br/>3) Team Mapping to O*NET® Work Styles<br/>4) Mapping to O*NET® Work Activities<br/>5) Team Strength Distribution<br/>6) Change Alignment Guide",
+  "howToReadMatrix": "<b>How to Read This Chart</b><br/><br/>The <b>Shaw Strengths Matrix (SSM)</b> synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings.<br/><br/>SSM defines <b>character strengths</b> as \"Stable, positive traits expressed in our behaviour that contribute to wellbeing and flourishing.\" Individual survey responses were scored and ranked using a <b>standardised algorithm</b>. Higher-ranked Strengths are those <b>more readily accessible</b> and guide responses in real-world situations more often.",
+  "howToReadAssessmentTable": "<b>How to Read This Chart</b><br/><br/>The <b>Team Assessment Table</b> ranks the team's averaged presence of the <b>12 SSM strengths</b> from <b>1 (strongest)</b> to <b>12 (least expressed)</b>, grouped into Signature, Supporting, Stretch, and Situational categories.",
+  "howToReadWorkStyles": "<b>How to Read This Chart</b><br/><br/>This chart maps the team's 12 ranked <b>SSM strengths</b> to the 12 core <b>O*NET Work Styles</b>.",
+  "howToReadWorkActivities": "<b>How to Read This Chart</b><br/><br/>This chart shows the team's 12 ranked <b>SSM strengths</b> alongside the <b>O*NET Work Activities</b> most strongly aligned with each strength.",
+  "howToReadDistribution": "<b>How to Read This Chart</b><br/><br/>The chart displays the team's strength distribution, with strengths arranged from the highest average expressed strength on the left to the lowest on the right.<br/>Each bar represents a strength and is divided into coloured segments showing how team members ranked it across four categories. Together, the segments total 100% of responses.<br/><br/>• <b>Signature strengths (#1-#3)</b> – core strengths the team consistently demonstrates.<br/>• <b>Supporting strengths (#4-#6)</b> – readily accessible reinforcements of core strengths.<br/>• <b>Stretch strengths (#7-#9)</b> – effective when required but needing extra effort.<br/>• <b>Situational strengths (#10-#12)</b> – used primarily in specific situations.",
+  "howToReadChangeAlignment": "<b>How to Read This Chart</b><br/><br/>This chart relabels the team's 12 ranked <b>SSM Strengths</b> into <b>12 Strength Responses to change</b>. It ranks which Strength Responses to change are most likely to cluster within a team and become overexpressed under pressure, translating into <b>Resistant Behaviour risks</b>. The <b>Reframing Strength narrative</b> suggests a complementary strength that can balance that risk.",
+  "riskReframe": {
+    "Confidence": {
+      "risk": "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
+      "reframe": "<b>Discernment</b> - to apply critical judgment and identify what is truly relevant"
+    },
+    "Courage": {
+      "risk": "<b>Recklessness</b> – rapid action without adequate sense-checking, increasing avoidable risk",
+      "reframe": "<b>Practicality</b> - to remain grounded and composed, focusing on effective, workable solutions"
+    },
+    "Curiosity": {
+      "risk": "<b>Scatteredness</b> – diffused focus on numerous priorities weakens execution and follow-through",
+      "reframe": "<b>Prudence</b> - to exercise caution, constrain scope, and mitigate risk"
+    },
+    "Discernment": {
+      "risk": "<b>Hypercriticality</b> – excessive focus on flaws reduces perspective and undermines balanced judgment",
+      "reframe": "<b>Fairness</b> - to restore proportionality, context, and balanced perspective"
+    },
+    "Discipline": {
+      "risk": "<b>Rigidity</b> – inflexible attachment to established methods and status reduces adaptability to change",
+      "reframe": "<b>Objectivity</b> - to assess options independently and generate unbiased recommendations"
+    },
+    "Empathy": {
+      "risk": "<b>Enmeshment</b> – over-identification with others’ emotions blurs boundaries, undermining judgment",
+      "reframe": "<b>Courage</b> - to maintain focus on self-directed actions even in the face of others’ discomfort due to factors beyond your control"
+    },
+    "Fairness": {
+      "risk": "<b>Indecisiveness</b> – over-weighting perspectives delays decisions and risks lack of closure",
+      "reframe": "<b>Tenacity</b> - to drive clear, time-bound commitments and persist through obstacles"
+    },
+    "Foresight": {
+      "risk": "<b>Idealisation</b> – overly optimistic vision lacks grounding in execution and constraints",
+      "reframe": "<b>Discipline</b> - to convert vision into structured, resource-backed plans"
+    },
+    "Objectivity": {
+      "risk": "<b>Disconnection</b> – over-reliance on logic weakens emotional engagement and reduces others' buy-in",
+      "reframe": "<b>Empathy</b> - to emotionally connect with others’ lived experience and foster engagement"
+    },
+    "Practicality": {
+      "risk": "<b>Stubbornness</b> – over-reliance on familiar solutions and reluctance to consider alternatives",
+      "reframe": "<b>Curiosity</b> - to explore alternative solutions and incorporate new information to improve outcomes"
+    },
+    "Prudence": {
+      "risk": "<b>Avoidance</b> – over-weighting risk delays action and stalls progress",
+      "reframe": "<b>Confidence</b> - to balance risk with opportunity and project self-assured capability"
+    },
+    "Tenacity": {
+      "risk": "<b>Obsession</b> – narrow goal fixation limits perspective and risks misaligned effort",
+      "reframe": "<b>Foresight</b> - to refocus on longer-term vision and ensure alignment of current efforts"
+    }
+  },
+  "strengthResponse": {
+    "Confidence": "<b>Confidence</b> - expresses strong self-belief in their ability to support the change successfully.",
+    "Courage": "<b>Courage</b> – acts purposefully even in the face of uncertainty and risk, undaunted by unpredictable outcomes.",
+    "Curiosity": "<b>Curiosity</b> – rapidly explores multiple new approaches and ideas, prioritising learning and sharing over convergence.",
+    "Discernment": "<b>Discernment</b> – highlights concerns that the change design does not fully account for edge cases.",
+    "Discipline": "<b>Discipline</b> – expresses concern that change may disrupt the reliable execution of established processes and plans.",
+    "Empathy": "<b>Empathy</b> – raises concern about the human impact of role changes or reductions on colleagues’ morale and wellbeing.",
+    "Fairness": "<b>Fairness</b> – regards change as an opportunity to strengthen inclusive, equitable alignment of competing stakeholder interests.",
+    "Foresight": "<b>Foresight</b> – emphasises the long-term benefits of change, with limited focus on near-term transition costs.",
+    "Objectivity": "<b>Objectivity</b> – advocates for continuous, evidence-based change as essential for competitiveness, unclouded by bias toward the status quo.",
+    "Practicality": "<b>Practicality</b> – weighs change against real-world constraints, favouring workable solutions that keep the team productive.",
+    "Prudence": "<b>Prudence</b> – flags risks that moving too quickly could expose the organisation to financial, legal or reputational loss.",
+    "Tenacity": "<b>Tenacity</b> – sustains effort and remains committed to achieving goals despite obstacles created by change."
+  },
+  "email": {
+    "subjectPrefix": "Team Assessment Report – ",
+    "heading": "Team Assessment Report Ready!"
+  }
+}

@@ -1,5 +1,11 @@
 import { emptyResults, type SurveyResults } from './traits.js';
 
+/**
+ * Strength names stored in the question database under their former names. "Initiative" was
+ * "Courage" until 2026-11; the option rows still say "Courage", so map them rather than edit the data.
+ */
+const LEGACY_CONSTRUCT_NAMES: Record<string, string> = { Courage: 'Initiative' };
+
 export type QuestionRow = { id: number | string; question?: string; type?: string };
 export type OptionRow = {
   id: string;
@@ -42,8 +48,9 @@ export function buildSurveyResultsFromDb(
         .toLowerCase()
         .replace(/(^|[^A-Za-z0-9'])([a-z])/g, (_, p1: string, p2: string) => p1 + p2.toUpperCase());
 
-    const a = title(qOpts[0].construct);
-    const b = title(qOpts[1].construct);
+    const canonical = (s: string) => LEGACY_CONSTRUCT_NAMES[title(s)] ?? title(s);
+    const a = canonical(qOpts[0].construct);
+    const b = canonical(qOpts[1].construct);
 
     if (!traitsSet.has(a) || !traitsSet.has(b) || a === b) continue;
 

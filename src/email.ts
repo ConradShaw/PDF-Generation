@@ -1,6 +1,8 @@
 import { env } from './env.js';
+import { escapeHtml } from './html.js';
 import { individualCopy } from './copy/index.js';
 import { teamCopy } from './copy/index.js';
+import { careerCopy, profileCopy, roleFitCopy } from './copy/index.js';
 
 export async function sendEmailViaResend(opts: {
   to: string;
@@ -54,7 +56,7 @@ export async function sendIndividualReportEmail(
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
 <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
   <h1 style="color: #007697;">${e.heading}</h1>
-  <p>Hello${name ? ' ' + name : ''},</p>
+  <p>Hello${name ? ' ' + escapeHtml(name) : ''},</p>
   <p>${e.intro}</p>
   <div style="background-color: #e6f7f8; border-left: 4px solid #007697; padding: 15px; margin: 20px 0;">
     <h2 style="margin-top: 0; color: #007697;">What’s Inside Your Report:</h2>
@@ -80,6 +82,90 @@ export async function sendIndividualReportEmail(
         content: pdfBytes.toString('base64'),
       },
     ],
+  });
+}
+
+function reportEmailHtml(opts: {
+  heading: string;
+  name: string;
+  intro: string;
+  bullets: string[];
+  extraHtml?: string;
+}): string {
+  const bullets = opts.bullets.map((b) => `<li>${b}</li>`).join('');
+  return `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>${opts.heading}</title></head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h1 style="color: #007697;">${opts.heading}</h1>
+  <p>Hello${opts.name ? ' ' + escapeHtml(opts.name) : ''},</p>
+  <p>${opts.intro}</p>
+  <div style="background-color: #e6f7f8; border-left: 4px solid #007697; padding: 15px; margin: 20px 0;">
+    <h2 style="margin-top: 0; color: #007697;">What’s Inside:</h2>
+    <ul style="margin-bottom: 0;">${bullets}</ul>
+  </div>
+  ${opts.extraHtml ?? ''}
+  <p style="margin-top: 30px;">
+    If you have any questions, please reach out to
+    <a href="mailto:support@shawsight.com" style="color: #007697;">support@shawsight.com</a>
+  </p>
+  <p style="margin-top: 30px;">Best regards,<br><strong>Conrad Shaw</strong><br>Shaw Strengths Matrix®</p>
+</div>
+</body>
+</html>`;
+}
+
+/** Free Strength Profile email: PDF attached plus the link to unlock Career Matches. */
+export async function sendProfileReportEmail(
+  email: string,
+  name: string,
+  pdfBytes: Buffer,
+  pdfFilename: string,
+  unlockUrl: string,
+): Promise<void> {
+  const e = profileCopy.email;
+  const extraHtml = `<div style="margin: 24px 0; text-align: center;">
+    <p>${e.unlockIntro}</p>
+    <a href="${escapeHtml(unlockUrl)}" style="display:inline-block;background:#007697;color:#fff;padding:12px 22px;text-decoration:none;font-weight:bold;border-radius:4px;">${e.unlockButton}</a>
+  </div>`;
+  await sendEmailViaResend({
+    to: email,
+    subject: e.subject,
+    html: reportEmailHtml({ heading: e.heading, name, intro: e.intro, bullets: e.bullets, extraHtml }),
+    attachments: [{ filename: pdfFilename, content: pdfBytes.toString('base64') }],
+  });
+}
+
+/** Paid Career Matches email: full report attached. */
+export async function sendCareerMatchEmail(
+  email: string,
+  name: string,
+  pdfBytes: Buffer,
+  pdfFilename: string,
+): Promise<void> {
+  const e = careerCopy.email;
+  await sendEmailViaResend({
+    to: email,
+    subject: e.subject,
+    html: reportEmailHtml({ heading: e.heading, name, intro: e.intro, bullets: e.bullets }),
+    attachments: [{ filename: pdfFilename, content: pdfBytes.toString('base64') }],
+  });
+}
+
+/** Role Fit report email to the buyer, once every invited candidate has finished. */
+export async function sendRoleFitReportEmail(
+  email: string,
+  organisation: string,
+  pdfBytes: Buffer,
+  pdfFilename: string,
+): Promise<void> {
+  const e = roleFitCopy.email;
+  await sendEmailViaResend({
+    to: email,
+    subject: e.subject,
+    html: reportEmailHtml({ heading: e.heading, name: organisation, intro: e.intro, bullets: e.bullets }),
+    attachments: [{ filename: pdfFilename, content: pdfBytes.toString('base64') }],
   });
 }
 

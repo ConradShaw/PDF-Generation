@@ -13,7 +13,7 @@
       "risk": "<b>Arrogance</b> – inflated self-belief limits openness to input and obscures blind spots",
       "reframe": "<b>Discernment</b> - to apply critical judgment and identify what is truly relevant"
     },
-    "Courage": {
+    "Initiative": {
       "risk": "<b>Recklessness</b> – rapid action without adequate sense-checking, increasing avoidable risk",
       "reframe": "<b>Practicality</b> - to remain grounded and composed, focusing on effective, workable solutions"
     },
@@ -31,7 +31,7 @@
     },
     "Empathy": {
       "risk": "<b>Enmeshment</b> – over-identification with others’ emotions blurs boundaries, undermining judgment",
-      "reframe": "<b>Courage</b> - to maintain focus on self-directed actions even in the face of others’ discomfort due to factors beyond your control"
+      "reframe": "<b>Initiative</b> - to maintain focus on self-directed actions even in the face of others’ discomfort due to factors beyond your control"
     },
     "Fairness": {
       "risk": "<b>Indecisiveness</b> – over-weighting perspectives delays decisions and risks lack of closure",
@@ -60,7 +60,7 @@
   },
   "strengthResponse": {
     "Confidence": "<b>Confidence</b> - expresses strong self-belief in their ability to support the change successfully.",
-    "Courage": "<b>Courage</b> – acts purposefully even in the face of uncertainty and risk, undaunted by unpredictable outcomes.",
+    "Initiative": "<b>Initiative</b> – acts proactively toward goals and opportunities without waiting for external direction.",
     "Curiosity": "<b>Curiosity</b> – rapidly explores multiple new approaches and ideas, prioritising learning and sharing over convergence.",
     "Discernment": "<b>Discernment</b> – highlights concerns that the change design does not fully account for edge cases.",
     "Discipline": "<b>Discipline</b> – expresses concern that change may disrupt the reliable execution of established processes and plans.",

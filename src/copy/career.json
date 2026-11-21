@@ -1,0 +1,37 @@
+{
+  "reportTitle": "Shaw Strengths Matrix® Career Matches",
+  "intro": "This report matches your 12 ranked SSM® strengths and your career interests to occupations in the O*NET® database. Occupations that do not fit your interests have been left out, and only the strongest matches are shown.",
+  "interestsHeading": "Your Career Interests",
+  "interestsNote": "From the O*NET® Interest Profiler. Longer bars mean stronger interest.",
+  "matchesHeading": "Your Career Matches",
+  "matchesNote": "Your 25 best-matching occupations, in order of fit. Stars show how well each one fits your ranked strengths: 5 stars is the strongest fit. Occupations that do not match your career interests have been left out.",
+  "summaryBoth": "Your strongest career interests are in {areas} activities, while your characteristic strengths suggest particular alignment with roles requiring {strengths}.",
+  "summaryStrengthsOnly": "Your characteristic strengths suggest particular alignment with roles requiring {strengths}.",
+  "archetypeHeading": "Your Work Archetypes",
+  "archetypeIntro": "Each of your 12 strengths has a Work Archetype. They are listed from your highest-ranked strength to your lowest:",
+  "attribution": "Career interest results come from the O*NET® Interest Profiler. Changes were made: occupation Work Styles were mapped by ShawSight to the 12 SSM® strengths, and results are shown as star ratings.",
+  "fitNotCompetence": [
+    "SSM® adds a personality dimension to an established interest-based occupational matching framework.",
+    "The table above assesses occupational fit, not competence.",
+    "These occupations are those that best align with your interests and characteristic strengths.",
+    "Your current skills, qualifications and experience determine your readiness to move into these occupations."
+  ],
+  "areas": {
+    "R": "Realistic",
+    "I": "Investigative",
+    "A": "Artistic",
+    "S": "Social",
+    "E": "Enterprising",
+    "C": "Conventional"
+  },
+  "email": {
+    "subject": "Your SSM® Career Matches – Shaw Strengths Matrix",
+    "heading": "Your SSM® Career Matches are Ready!",
+    "intro": "Thank you for unlocking your Career Matches. Your full report is attached to this email.",
+    "bullets": [
+      "Occupations matched to your 12 ranked strengths",
+      "Filtered by your O*NET® Interest Profiler results",
+      "Star ratings for your strongest-fit careers"
+    ]
+  }
+}

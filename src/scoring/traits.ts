@@ -1,5 +1,5 @@
 export const TRAITS = [
-  'Courage',
+  'Initiative',
   'Practicality',
   'Curiosity',
   'Prudence',
@@ -56,4 +56,16 @@ export function emptyResults(): SurveyResults {
     }
   }
   return results;
+}
+
+/**
+ * The strength(s) ranked first: more than one when the tie-breaker could not separate them
+ * (they then share the same average rank). `ordered` is best-first, as rankTraits returns it.
+ */
+export function leadingStrengths(
+  ordered: string[],
+  ranks: Record<string, number>,
+): string[] {
+  const best = ranks[ordered[0]];
+  return ordered.filter((t) => ranks[t] === best);
 }

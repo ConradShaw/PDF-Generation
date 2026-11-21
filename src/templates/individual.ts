@@ -1,7 +1,10 @@
+import { fileSafe } from '../filenames.js';
 import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { individualCopy } from '../copy/index.js';
+import { escapeHtml } from '../html.js';
+import { strengthsMatrixHtml } from './matrix.js';
 import {
   categoryForRankNumber,
   colorForCategory,
@@ -11,21 +14,13 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const LOGO_PATH = join(__dirname, '../../logo.png');
 
-function logoDataUri(): string {
+export function logoDataUri(): string {
   if (!existsSync(LOGO_PATH)) return '';
   const b64 = readFileSync(LOGO_PATH).toString('base64');
   return `data:image/png;base64,${b64}`;
 }
 
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function formatLongDate(dateStr: string): string {
+export function formatLongDate(dateStr: string): string {
   const d = new Date(dateStr);
   if (Number.isNaN(d.getTime())) return dateStr;
   return d.toLocaleDateString('en-GB', {
@@ -35,9 +30,9 @@ function formatLongDate(dateStr: string): string {
   });
 }
 
-type RankRow = { rank: number; category: string; trait: string; color: string };
+export type RankRow = { rank: number; category: string; trait: string; color: string };
 
-function buildRows(
+export function buildRows(
   orderedTraits: string[],
   ranks: Record<string, number>,
 ): RankRow[] {
@@ -48,7 +43,7 @@ function buildRows(
   });
 }
 
-function rowsHtml(rows: RankRow[], extraCell: (row: RankRow) => string): string {
+export function rowsHtml(rows: RankRow[], extraCell: (row: RankRow) => string): string {
   let html = '';
   let lastCat: string | null = null;
   for (const row of rows) {
@@ -66,7 +61,7 @@ function rowsHtml(rows: RankRow[], extraCell: (row: RankRow) => string): string 
   return html;
 }
 
-const BASE_CSS = `
+export const BASE_CSS = `
   * { box-sizing: border-box; }
   body { font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #111; margin: 0; }
   h1 { font-size: 22px; margin: 0 0 8px; }
@@ -127,16 +122,7 @@ export function renderIndividualHtml(opts: {
     <h2>${subtitle}</h2>
     <div style="height:8px"></div>`;
 
-  const matrix = `
-    <table class="matrix">
-      <tr><td colspan="5">Shaw Strengths Matrix®</td></tr>
-      <tr><td colspan="2" rowspan="2">Character Strengths</td><td colspan="3">Temporal Preferences</td></tr>
-      <tr><td>Past Reflection</td><td>Present Engagement</td><td>Future Anticipation</td></tr>
-      <tr><td rowspan="4">Cognitive Preferences</td><td>Intuition</td><td class="cell-blue">Foresight</td><td class="cell-blue">Confidence</td><td class="cell-blue">Courage</td></tr>
-      <tr><td>Thinking</td><td class="cell-blue">Curiosity</td><td class="cell-blue">Objectivity</td><td class="cell-blue">Fairness</td></tr>
-      <tr><td>Feeling</td><td class="cell-blue">Empathy</td><td class="cell-blue">Tenacity</td><td class="cell-blue">Prudence</td></tr>
-      <tr><td>Sensing</td><td class="cell-blue">Discernment</td><td class="cell-blue">Practicality</td><td class="cell-blue">Discipline</td></tr>
-    </table>`;
+  const matrix = strengthsMatrixHtml();
 
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><style>${BASE_CSS}</style></head>
@@ -206,5 +192,5 @@ export function individualFilename(
   last: string,
   dateStr: string,
 ): string {
-  return `SSM_${first}_${last}_${dateStr}_v1.pdf`;
+  return `SSM_${fileSafe(first)}_${fileSafe(last)}_${dateStr}_v1.pdf`;
 }

@@ -12,4 +12,7 @@ export const env = {
     getEnv('DISABLE_REPORT_EMAILS', '').toLowerCase(),
   ),
   reportsBucket: getEnv('REPORTS_BUCKET', 'reports'),
+  /** Public site URL, used for the "unlock Career Matches" link in the free report email. */
+  appUrl: getEnv('APP_URL', 'http://localhost:5173').replace(/\/+$/, ''),
+  isProduction: getEnv('NODE_ENV') === 'production',
 };

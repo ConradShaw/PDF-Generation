@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "placeholder": false,
+  "note": "Draft written by Claude from the existing strength descriptions and O*NET work-style labels; approved as written by the owner on 2026-11-19. Edit freely. Set placeholder back to true to make production jobs refuse to send reports.",
+  "archetypes": {
+    "Initiative": "The Initiator. You step forward before anyone asks. At work you take on the unclear or unfamiliar task, make a decision and start moving, and you are at your best where progress depends on someone going first. Others see you as proactive and self-starting.",
+    "Practicality": "The Grounded Problem-Solver. You stay composed when conditions are messy and turn real-world constraints into workable solutions. At work you are the steady person who keeps a clear head under pressure and finds what will actually work, not just what looks good on paper.",
+    "Curiosity": "The Explorer. You are drawn to new information and ideas and you want to understand how things really work. At work you dig deeper, ask the next question and share what you learn, and you thrive where there is always something new to figure out.",
+    "Prudence": "The Careful Guardian. You think before you act and weigh the risks others overlook. At work you slow a decision down when it needs it, protect the team from avoidable mistakes, and bring a calm, deliberate approach to high-stakes choices.",
+    "Confidence": "The Self-Assured Driver. You trust your abilities and your judgement, and that lets you act decisively. At work you back your own views, take ownership of outcomes and give others a sense of direction, especially when the path is not obvious.",
+    "Discernment": "The Detail Expert. You notice what others miss and know which details matter. At work you examine the fine print, separate the relevant from the noise and catch the distinctions that make the difference between good work and excellent work.",
+    "Fairness": "The Balanced Collaborator. You weigh competing interests and look for outcomes that are fair to everyone involved. At work you build cooperation, help people work together and keep decisions even-handed, so teams trust you to be reasonable.",
+    "Tenacity": "The Finisher. You keep going when the work gets hard. At work you stay committed to the goal through setbacks and long stretches of effort, and you are the person who sees a difficult project through to the end.",
+    "Foresight": "The Forward Planner. You read the present and picture what is coming next. At work you adapt early, anticipate change before it arrives and help your team prepare, so you are comfortable in roles where the ground keeps shifting.",
+    "Discipline": "The Reliable Anchor. You do what you said you would do, consistently. At work you follow through on plans and obligations, keep standards steady and give colleagues something they can depend on, which makes you the one others count on.",
+    "Objectivity": "The Independent Thinker. You test claims against the evidence and set aside bias and assumptions. At work you question the obvious answer, form your own insight and bring fresh, well-reasoned perspectives that move the work forward.",
+    "Empathy": "The People Connector. You understand how others see things and what they need. At work you listen closely, read the room and build real connection, so people feel heard around you and you are strong where relationships drive results."
+  }
+}

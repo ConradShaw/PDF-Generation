@@ -1,0 +1,76 @@
+{
+  "title": "SSM® Role Fit | Interpretative Report",
+  "preparedFor": "Report prepared for",
+  "legal": [
+    "Shaw Strengths Matrix™ Profile Copyright 2025 by ShawSight Pty Ltd. All rights reserved.",
+    "Shaw Strengths Matrix™ Interpretive Report Copyright 2025 by ShawSight Pty Ltd. All rights reserved.",
+    "ShawSight logo is Copyright 2025 by ShawSight Pty Ltd. All rights reserved.",
+    "No part of this publication may be reproduced in any form or manner without prior written permission from ShawSight Pty Ltd.",
+    "O*NET is a trademark of the U.S. Department of Labor, Employment and Training Administration."
+  ],
+  "overviewHeading": "Shaw Strengths Matrix® | Overview",
+  "aboutHeading": "About This Report",
+  "about": [
+    "This report provides an overview of the team's SSM® Assessment Character Strengths profile and how it may relate to patterns of communication, collaboration, and overall team dynamics at work. It is designed to support self-awareness, reflection, and developmental discussion in team and workshop settings.",
+    "The SSM® Assessment measures personality — how the team collectively tends to behave — rather than abilities or skills (what you are good at) or interests (what you enjoy doing). It is not intended to provide any clinical diagnosis.",
+    "While the Assessment is grounded in established personality and work style research and has passed content and face validity testing, it is currently undergoing further psychometric validation. Results should therefore be interpreted as insightful tendencies rather than predictive measures. In Role Fit they are one input to be considered alongside other information, such as skills, experience, qualifications and interviews, and should not be the sole basis for hiring, promotion, or other HR decisions.",
+    "In this report, your SSM® Character Strengths profile is also conceptually aligned to O*NET Work Styles and Work Activities.",
+    "The O*NET Resource Center is a professional workforce research portal providing data, tools, technical documentation, and support. It is widely recognised as a global standard in workplace metrics."
+  ],
+  "contentsHeading": "Report Contents",
+  "contents": [
+    "1) Shaw Strengths Matrix®",
+    "2) Target Role Profile",
+    "3) Role Fit Analysis"
+  ],
+  "matrixHeading": "Shaw Strengths Matrix®",
+  "howToRead": "How to Read This Chart",
+  "matrix": [
+    "The Shaw Strengths Matrix® (SSM®) synthesises four interrelated frameworks into one, providing nuanced insights into individual unique preference rankings. It integrates how we:",
+    "* Apply our Cognitive Preferences — Intuition, Thinking, Feeling, and Sensing —\n* Express these across our Temporal Preferences — Past Reflections, Present Awareness, and Future Anticipations, and\n* Combines these two dimensions into cognitive–affective units which, when aggregated across multiple situations, define your ranked suite of Character Strengths.",
+    "Each Strength is therefore a composite of both Cognitive Preference (Intuition, Thinking, Feeling, and Sensing) and Temporal Preference (Past Reflections, Present Awareness, and Future Anticipations).",
+    "Individual survey responses were scored and ranked using a standardised algorithm designed to ensure consistent comparison across all Strengths.",
+    "These rankings reflect patterns described in the CAPS model (Mischel & Shoda), which explains how people tend to think, feel, and behave in consistent ways across different situations. Our higher-ranked Strengths represent tendencies that are more readily accessible to us and therefore guide our responses in real-world situations more often."
+  ],
+  "targetHeading": "Target Role Profile",
+  "target": [
+    "The Target Role Profile presents the target SSM® profile for the nominated O*NET occupation used as the basis for the internal role assessment.",
+    "It ranks the 12 SSM® Character Strengths according to their mapped relevance to the occupation, from 1 (strongest) to 12 (least expressed), based on the O*NET-to-SSM® mapping.",
+    "The occupation's mapped SSM® Character Strengths are grouped into four categories:",
+    "a) Signature Strengths – strengths the target role consistently draws upon and that define how the role performs at its best.\nb) Supporting Strengths – strengths that reinforce the role's core strengths and can be readily applied when needed.\nc) Stretch Strengths – strengths that can be effectively applied when required, but generally require greater coordination, focus or effort.\nd) Situational Strengths – strengths that are primarily valuable in specific situations and may require greater effort to sustain over extended periods."
+  ],
+  "fitHeading": "Role-Fit Analysis",
+  "fit": [
+    "This chart ranks candidates according to their SSM® Role Fit against the selected occupation’s target SSM profile.",
+    "These scores reflect Strength alignment only. They do not measure other factors that may be required to perform the occupation effectively, such as cognitive ability, skills, knowledge, experience, or qualifications."
+  ],
+  "starLegend": [
+    "5 stars — The candidate is in the top fifth of the candidates in this report.",
+    "4 stars — The candidate is in the second fifth of the candidates in this report.",
+    "3 stars — The candidate is in the middle fifth of the candidates in this report.",
+    "2 stars — The candidate is in the fourth fifth of the candidates in this report.",
+    "1 star — The candidate is in the last fifth of the candidates in this report.",
+    "Stars compare the candidates with each other, not with people in general."
+  ],
+  "weightingNote": "Note: Not every strength matters equally. The SSM proprietary algorithm reflects the relative importance of each strength within the occupation, giving greater weight to strengths that are more characteristic of the role and less weight to those that are peripheral.",
+  "tableHeads": {
+    "rank": "Rank",
+    "candidate": "Internal Candidates",
+    "rating": "Fit Rating",
+    "aligned": "Top 3 Aligned Strengths",
+    "misaligned": "Top 3 Misaligned Strengths",
+    "category": "Category",
+    "strength": "SSM® Strengths",
+    "definition": "Definition"
+  },
+  "email": {
+    "subject": "Your SSM® Role Fit report",
+    "heading": "Your SSM® Role Fit report is ready",
+    "intro": "All invited candidates have completed their assessments. Your Role Fit report is attached to this email.",
+    "bullets": [
+      "The target role profile for the occupation you chose",
+      "Candidates ranked by how well their strengths fit the role",
+      "Each candidate's aligned and misaligned strengths"
+    ]
+  }
+}

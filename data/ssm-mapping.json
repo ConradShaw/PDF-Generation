@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "placeholder": false,
+  "source": "Derived from the O*NET Work Style labels already paired with each strength in src/copy/individual.json (onetStyles). 'Innovative' there is O*NET's 'Innovation'. The other 9 of O*NET's 21 Work Styles (Achievement Orientation, Humility, Integrity, Leadership Orientation, Optimism, Sincerity, Social Orientation, Stress Tolerance, Tolerance for Ambiguity) are dropped. Confirmed by the owner on 2026-11-19. Set placeholder back to true to make production jobs refuse to run.",
+  "strengthToWorkStyle": {
+    "Initiative": "Initiative",
+    "Practicality": "Self-Control",
+    "Curiosity": "Intellectual Curiosity",
+    "Prudence": "Cautiousness",
+    "Confidence": "Self-Confidence",
+    "Discernment": "Attention to Detail",
+    "Fairness": "Cooperation",
+    "Tenacity": "Perseverance",
+    "Foresight": "Adaptability",
+    "Discipline": "Dependability",
+    "Objectivity": "Innovation",
+    "Empathy": "Empathy"
+  }
+}

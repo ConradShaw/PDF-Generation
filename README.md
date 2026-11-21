@@ -13,6 +13,7 @@ workers backed by **Redis**.
 | POST | `/jobs/team` | Enqueue team report `{ "company_id": "...", "force": false }` → 202 |
 | POST | `/process-assessment` | Alias of `/jobs/individual` (SvelteKit compat) |
 | POST | `/process-team-report` | Alias of `/jobs/team` (SvelteKit compat) |
+| POST | `/jobs/career-match` | Enqueue the paid Career Match report `{ "purchase_id": "..." }` → 202 |
 
 ## Env
 
@@ -24,6 +25,7 @@ SUPABASE_SERVICE_ROLE_KEY=...
 RESEND_API_KEY=...
 DISABLE_REPORT_EMAILS=false
 RUN_WORKER=1
+APP_URL=https://your-site   # used for the 'Unlock Career Matches' link in the free report email
 ```
 
 ## Local
@@ -43,3 +45,33 @@ npm test
 
 Docker image includes Playwright Chromium. Provide `REDIS_URL` (Railway Redis / Upstash)
 plus Supabase and Resend secrets. Website `PDF_API_URL` should point at this service.
+
+## Strength Profile (free) and Career Match (paid)
+
+- **Free Strength Profile**: assessments of type `psychometrics` get a short report (12 ranked strengths,
+  Work Archetype text for the #1 strength, unlock link) instead of the full individual report.
+- **Career Match**: `/jobs/career-match` runs two stages from the stored 66 answers plus the RIASEC result saved after payment
+  (`career_match_purchases`): (1) interest shortlist: the 150 occupations whose interests correlate best with the
+  customer's, (2) strengths re-rank (geometric weights on the customer's strength ranks), then the **final top 25** with
+  stars in equal groups of the list (five results per star level).
+- Constants (shortlist size, list size, weight ratio, star bands) live in `src/careers/constants.ts`.
+- The strength formerly called Courage is now **Initiative**. Old question-database rows still say "Courage"; `src/scoring/fromAnswers.ts` maps them.
+
+### Owner data (must be supplied before production)
+
+| File | What | Status |
+|------|------|--------|
+| `data/archetypes.json` | The 12 Work Archetype texts | Drafted by Claude, approved by the owner 2026-11-19 (editable) |
+| `data/ssm-mapping.json` | SSM strength → O*NET Work Style | Derived from the existing report copy; confirmed by the owner 2026-11-19 |
+| `data/onet-occupations.json` | Generated from the public O*NET database | Regenerate with the script below |
+
+With `NODE_ENV=production` (the Docker image) the free-profile and career jobs **refuse to run while a file is flagged
+`"placeholder": true`**, so customers never receive placeholder text. Set the flag back to `true` to block sending again.
+
+Regenerate occupations (download the CSV database from https://www.onetcenter.org/database.html):
+
+```bash
+npx tsx scripts/import-onet.ts <dir-with-csvs> 31.0
+```
+
+O*NET attribution (CC BY 4.0) is printed in the Career Match report; keep it.

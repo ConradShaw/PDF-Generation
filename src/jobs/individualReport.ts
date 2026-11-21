@@ -7,13 +7,17 @@ import {
   uploadPdfToStorage,
   getSupabase,
 } from '../supabase.js';
-import { sendIndividualReportEmail } from '../email.js';
+import { sendIndividualReportEmail, sendProfileReportEmail } from '../email.js';
 import { htmlToPdf } from '../pdf/render.js';
 import {
   individualFilename,
   renderIndividualHtml,
 } from '../templates/individual.js';
-import { enqueueTeamReport } from '../queue/queues.js';
+import { profileFilename, renderProfileHtml } from '../templates/profile.js';
+import { archetypeFor, assertOwnerDataReady } from '../careers/data.js';
+import { leadingStrengths } from '../scoring/traits.js';
+import { participantName, recipientEmail, reportDate } from './shared.js';
+import { enqueueCompanyReport } from '../queue/queues.js';
 
 export async function processIndividualReport(
   assessmentId: string,
@@ -26,23 +30,11 @@ export async function processIndividualReport(
     const assessment = data.assessment;
     const demographics = data.demographics ?? {};
 
-    let firstName = '';
-    let lastName = '';
-    const fullName = String(
-      demographics.name ?? assessment.participant_name ?? '',
+    const { first: firstName, last: lastName } = participantName(
+      assessment,
+      demographics,
     );
-    if (fullName.trim()) {
-      const parts = fullName.trim().split(/\s+/);
-      firstName = parts[0];
-      lastName = parts.length > 1 ? parts.slice(1).join(' ') : parts[0];
-    } else {
-      firstName = 'Participant';
-      lastName = 'Name';
-    }
-
-    const dateStr =
-      String(assessment.submitted_at ?? '').slice(0, 10) ||
-      new Date().toISOString().slice(0, 10);
+    const dateStr = reportDate(assessment);
 
     const results = buildSurveyResultsFromDb(
       data.answers,
@@ -51,15 +43,35 @@ export async function processIndividualReport(
     );
     const { ordered, ranks } = rankTraits(results);
 
-    const html = renderIndividualHtml({
-      first: firstName,
-      last: lastName,
-      dateStr,
-      orderedTraits: ordered,
-      ranks,
-    });
+    // The free Strength Profile is the psychometrics route's report (no payment).
+    const isFreeProfile = assessment.assessment_type === 'psychometrics';
+    if (isFreeProfile) assertOwnerDataReady();
+    const unlockUrl = `${env.appUrl}/career-match/unlock?assessment=${assessmentId}`;
+
+    const html = isFreeProfile
+      ? renderProfileHtml({
+          first: firstName,
+          last: lastName,
+          dateStr,
+          orderedTraits: ordered,
+          ranks,
+          archetypes: leadingStrengths(ordered, ranks).map((trait) => ({
+            trait,
+            text: archetypeFor(trait),
+          })),
+          unlockUrl,
+        })
+      : renderIndividualHtml({
+          first: firstName,
+          last: lastName,
+          dateStr,
+          orderedTraits: ordered,
+          ranks,
+        });
     const pdfBytes = await htmlToPdf(html);
-    const pdfFilename = individualFilename(firstName, lastName, dateStr);
+    const pdfFilename = isFreeProfile
+      ? profileFilename(firstName, lastName, dateStr)
+      : individualFilename(firstName, lastName, dateStr);
     const storagePath = `${assessmentId}/${pdfFilename}`;
 
     await uploadPdfToStorage(env.reportsBucket, storagePath, pdfBytes);
@@ -69,18 +81,26 @@ export async function processIndividualReport(
     });
     console.log(`[individual] PDF uploaded: ${storagePath}`);
 
-    const participantEmail = String(
-      demographics.email ?? assessment.participant_email ?? '',
-    );
+    const participantEmail = recipientEmail(assessment, demographics);
     if (participantEmail && !env.disableReportEmails) {
       try {
-        await sendIndividualReportEmail(
-          participantEmail,
-          firstName,
-          assessmentId,
-          pdfBytes,
-          pdfFilename,
-        );
+        if (isFreeProfile) {
+          await sendProfileReportEmail(
+            participantEmail,
+            firstName,
+            pdfBytes,
+            pdfFilename,
+            unlockUrl,
+          );
+        } else {
+          await sendIndividualReportEmail(
+            participantEmail,
+            firstName,
+            assessmentId,
+            pdfBytes,
+            pdfFilename,
+          );
+        }
       } catch (emailErr) {
         console.error('[individual] Email failed (non-fatal):', emailErr);
       }
@@ -167,7 +187,7 @@ async function checkAndEnqueueTeamReport(
     `[team-check] All members complete – enqueue team report for ${companyId}`,
   );
   try {
-    await enqueueTeamReport(companyId, true);
+    await enqueueCompanyReport(company);
   } catch (err) {
     console.error('[team-check] Failed to enqueue team report:', err);
     await sb

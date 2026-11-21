@@ -92,6 +92,23 @@ export async function processTeamReport(
 
   await uploadPdfToStorage(env.reportsBucket, storagePath, pdfBytes);
 
+  const contactEmail = company.contact_email as string | null;
+  if (contactEmail && !env.disableReportEmails) {
+    // Not caught: a failed send must fail the job so BullMQ retries it (a customer who never gets the
+    // report email would just wait). The company is marked generated only after this, so a retry that is
+    // not forced does not see "already generated" and skip the email.
+    await sendTeamReportEmail(
+      contactEmail,
+      companyName,
+      String(company.company_code ?? ''),
+      numMembers,
+      pdfBytes,
+      pdfFilename,
+    );
+  } else if (env.disableReportEmails) {
+    console.log(`[team-report] Email disabled; skipping ${companyId}`);
+  }
+
   await sb
     .from('companies')
     .update({
@@ -103,24 +120,6 @@ export async function processTeamReport(
     .eq('id', companyId);
 
   console.log(`[team-report] PDF uploaded: ${storagePath}`);
-
-  const contactEmail = company.contact_email as string | null;
-  if (contactEmail && !env.disableReportEmails) {
-    try {
-      await sendTeamReportEmail(
-        contactEmail,
-        companyName,
-        String(company.company_code ?? ''),
-        numMembers,
-        pdfBytes,
-        pdfFilename,
-      );
-    } catch (emailErr) {
-      console.error('[team-report] Email failed (non-fatal):', emailErr);
-    }
-  } else if (env.disableReportEmails) {
-    console.log(`[team-report] Email disabled; skipping ${companyId}`);
-  }
 
   return {
     pdfUrl: storagePath,

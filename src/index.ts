@@ -9,6 +9,7 @@ import {
   enqueueIndividualReport,
   enqueueTeamReport,
 } from './queue/queues.js';
+import { readJsonBody } from './http.js';
 import { startWorkers } from './worker.js';
 
 const app = new Hono();
@@ -24,7 +25,7 @@ app.get('/health', (c) =>
 );
 
 async function enqueueIndividual(c: Context) {
-  const body = await c.req.json();
+  const body = await readJsonBody(c);
   const assessmentId = String(body.assessment_id ?? body.assessmentId ?? '');
   if (!assessmentId) {
     return c.json({ success: false, message: 'assessment_id is required' }, 400);
@@ -49,7 +50,7 @@ async function enqueueIndividual(c: Context) {
 }
 
 async function enqueueTeam(c: Context) {
-  const body = await c.req.json();
+  const body = await readJsonBody(c);
   const companyId = String(body.company_id ?? body.companyId ?? '');
   const force = Boolean(body.force);
   if (!companyId) {
@@ -75,7 +76,7 @@ async function enqueueTeam(c: Context) {
 }
 
 async function enqueueCareer(c: Context) {
-  const body = await c.req.json();
+  const body = await readJsonBody(c);
   const purchaseId = String(body.purchase_id ?? body.purchaseId ?? '');
   if (!purchaseId) {
     return c.json({ success: false, message: 'purchase_id is required' }, 400);
@@ -96,7 +97,7 @@ async function enqueueCareer(c: Context) {
 }
 
 async function enqueueRoleFit(c: Context) {
-  const body = await c.req.json().catch(() => ({}));
+  const body = await readJsonBody(c);
   const companyId = String(body.company_id ?? body.companyId ?? '');
   if (!companyId) {
     return c.json({ success: false, message: 'company_id is required' }, 400);

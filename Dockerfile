@@ -18,4 +18,6 @@ ENV RUN_WORKER=1
 
 EXPOSE 8080
 
-CMD ["npx", "tsx", "src/index.ts"]
+# Run node directly (not through npx/npm): the container's main process must be the app itself, or SIGTERM
+# on a deploy kills the wrapper and the in-flight report job instead of letting the worker finish it.
+CMD ["node", "--import", "tsx", "src/index.ts"]

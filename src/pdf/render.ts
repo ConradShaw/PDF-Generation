@@ -7,6 +7,11 @@ async function getBrowser(): Promise<Browser> {
     browserPromise = chromium.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-dev-shm-usage'],
+      // Playwright otherwise kills Chromium the moment a signal arrives, which fails the report that is
+      // mid-render. worker.ts closes the browser itself, after the workers have finished their jobs.
+      handleSIGINT: false,
+      handleSIGTERM: false,
+      handleSIGHUP: false,
     });
   }
   return browserPromise;

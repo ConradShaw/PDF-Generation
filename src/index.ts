@@ -9,6 +9,7 @@ import {
   enqueueIndividualReport,
   enqueueTeamReport,
 } from './queue/queues.js';
+import { BULL_BOARD_BASE_PATH, mountBullBoard } from './queue/board.js';
 import { readJsonBody } from './http.js';
 import { startWorkers } from './worker.js';
 
@@ -23,6 +24,8 @@ app.get('/health', (c) =>
     queue: 'bullmq',
   }),
 );
+
+mountBullBoard(app);
 
 async function enqueueIndividual(c: Context) {
   const body = await readJsonBody(c);
@@ -131,4 +134,5 @@ if (runWorker) {
 
 serve({ fetch: app.fetch, port: env.port }, (info) => {
   console.log(`[boot] PDF API listening on :${info.port}`);
+  console.log(`[boot] Bull Board at http://localhost:${info.port}${BULL_BOARD_BASE_PATH}`);
 });

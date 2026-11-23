@@ -9,6 +9,7 @@ workers backed by **Redis**.
 | Method | Path | Behaviour |
 |--------|------|-----------|
 | GET | `/health` | Health check |
+| GET | `/admin/queues` | Bull Board UI (all PDF queues). Optional basic auth via `BULL_BOARD_USER` / `BULL_BOARD_PASSWORD` |
 | POST | `/jobs/individual` | Enqueue individual report `{ "assessment_id": "..." }` → 202 |
 | POST | `/jobs/team` | Enqueue team report `{ "company_id": "...", "force": false }` → 202 |
 | POST | `/process-assessment` | Alias of `/jobs/individual` (SvelteKit compat) |
@@ -26,6 +27,8 @@ RESEND_API_KEY=...
 DISABLE_REPORT_EMAILS=false
 RUN_WORKER=1
 APP_URL=https://your-site   # used for the 'Unlock Career Matches' link in the free report email
+BULL_BOARD_USER=admin       # optional; with PASSWORD, protects /admin/queues
+BULL_BOARD_PASSWORD=...
 ```
 
 ## Local
@@ -35,6 +38,7 @@ npm install
 npx playwright install chromium
 # Redis must be running
 npm start          # API + in-process workers
+# Open http://localhost:8080/admin/queues for Bull Board
 # or
 RUN_WORKER=0 npm start
 npm run worker     # workers only

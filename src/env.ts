@@ -15,4 +15,7 @@ export const env = {
   /** Public site URL, used for the "unlock Career Matches" link in the free report email. */
   appUrl: getEnv('APP_URL', 'http://localhost:5173').replace(/\/+$/, ''),
   isProduction: getEnv('NODE_ENV') === 'production',
+  /** Optional basic-auth for Bull Board (`/admin/queues`). Both must be set to enable. */
+  bullBoardUser: getEnv('BULL_BOARD_USER'),
+  bullBoardPassword: getEnv('BULL_BOARD_PASSWORD'),
 };

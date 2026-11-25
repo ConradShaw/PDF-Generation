@@ -24,6 +24,12 @@ export function roleFitFilename(organisation: string, dateStr: string): string {
   return `SSM_Role_Fit_${fileSafe(organisation)}_${dateStr}.pdf`;
 }
 
+/** One decimal place; a score that rounds to zero prints as 0.0%, never as "-0.0%". */
+export function formatPercent(score: number): string {
+  const rounded = Number(score.toFixed(1));
+  return `${(rounded === 0 ? 0 : rounded).toFixed(1)}%`;
+}
+
 export function renderRoleFitHtml(opts: {
   organisation: string;
   team: string;
@@ -58,7 +64,7 @@ export function renderRoleFitHtml(opts: {
         <td class="center">${cand.rank}</td>
         <td>${escapeHtml(cand.name)}</td>
         <td class="center">${starsHtml(cand.stars)}</td>
-        <td class="center">${cand.score.toFixed(1)}%</td>
+        <td class="center">${formatPercent(cand.score)}</td>
         <td class="center">${cand.fitLabel}</td>
         <td>${escapeHtml(cand.aligned.join(', '))}</td>
         <td>${escapeHtml(cand.misaligned.join(', '))}</td></tr>`,

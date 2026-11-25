@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { TRAITS } from '../src/scoring/traits.js';
-import { renderRoleFitHtml, roleFitFilename } from '../src/templates/roleFit.js';
+import { formatPercent, renderRoleFitHtml, roleFitFilename } from '../src/templates/roleFit.js';
 import { targetProfile, rankCandidates } from '../src/rolefit/engine.js';
 import type { Occupation } from '../src/careers/types.js';
 
@@ -165,5 +165,21 @@ describe('Role Fit report: page furniture the buyer relies on', () => {
     expect(html).toContain('alt="ShawSight"');
     expect(visible(html)).toContain('The capacity to consistently execute planned actions');
     expect(visible(html)).toContain('Not every strength matters equally');
+  });
+});
+
+describe('formatPercent', () => {
+  it('prints one decimal place', () => {
+    expect(formatPercent(72.116)).toBe('72.1%');
+    expect(formatPercent(100)).toBe('100.0%');
+  });
+
+  it('never prints a minus sign in front of zero: a tiny negative score reads 0.0%', () => {
+    expect(formatPercent(-0.0004)).toBe('0.0%');
+    expect(formatPercent(0)).toBe('0.0%');
+  });
+
+  it('keeps a real negative score visible, since the workbook allows slightly negative fits', () => {
+    expect(formatPercent(-0.7)).toBe('-0.7%');
   });
 });

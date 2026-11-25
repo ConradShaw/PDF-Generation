@@ -109,15 +109,23 @@ describe('Role Fit report: candidate analysis', () => {
     expect(visible(html)).toContain(bob.misaligned.join(', '));
   });
 
-  it('does not print any candidate\'s own fit percentage: the template shows stars only', () => {
+  it('shows each candidate\'s fit score and job-fit category beside the stars, as the client\'s workbook does', () => {
     const text = visible(render());
-    // Whole numbers only: the legend legitimately contains "20%", which contains "0%".
-    const printed = (value: string) => new RegExp(`(?<![\\d.])${value.replace('.', '\\.')}%`);
-    for (const c of candidates) {
-      expect(text).not.toMatch(printed(c.score.toFixed(1)));
-      expect(text).not.toMatch(printed(String(Math.round(c.score))));
-    }
-    expect(text).not.toMatch(/Very (Strong|Weak) Fit/);
+    expect(text).toContain('Fit Score');
+    expect(text).toContain('Job-Fit Category');
+    for (const c of candidates) expect(text).toContain(`${c.score.toFixed(1)}%`);
+    expect(text).toContain('Very Strong Fit'); // Alice Fit matches the role
+    expect(text).toContain('Very Weak Fit'); // Bob Far is its exact opposite
+  });
+
+  it('prints the score and category on the same row as the candidate they belong to', () => {
+    const rows = [...render().matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((m) => visible(m[1]));
+    const alice = rows.find((r) => r.includes('Alice Fit'))!;
+    const bob = rows.find((r) => r.includes('Bob Far'))!;
+    expect(alice).toContain('100.0%');
+    expect(alice).toContain('Very Strong Fit');
+    expect(bob).toContain('0.0%');
+    expect(bob).toContain('Very Weak Fit');
   });
 
   it('explains stars as the client\'s template does: the top 20% of all people for 5 stars, the bottom 20% for 1', () => {

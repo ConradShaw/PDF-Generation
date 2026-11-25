@@ -42,7 +42,8 @@
   "fitHeading": "Role-Fit Analysis",
   "fit": [
     "This chart ranks candidates according to their SSM® Role Fit against the selected occupation’s target SSM profile.",
-    "These scores reflect Strength alignment only. They do not measure other factors that may be required to perform the occupation effectively, such as cognitive ability, skills, knowledge, experience, or qualifications."
+    "These scores reflect Strength alignment only. They do not measure other factors that may be required to perform the occupation effectively, such as cognitive ability, skills, knowledge, experience, or qualifications.",
+    "The Fit Score is the percentage match between the candidate's ranking of the 12 strengths and the target role profile. The Job-Fit Category names the star level, from Very Strong Fit (5 stars) to Very Weak Fit (1 star)."
   ],
   "starLegend": [
     "5 stars — The candidate's Strength fit is in the top 20% of all people.",
@@ -60,7 +61,9 @@
     "misaligned": "Top 3 Misaligned Strengths",
     "category": "Category",
     "strength": "SSM® Strengths",
-    "definition": "Definition"
+    "definition": "Definition",
+    "score": "Fit Score",
+    "fitCategory": "Job-Fit Category"
   },
   "email": {
     "subject": "Your SSM® Role Fit report",

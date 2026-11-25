@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { TRAITS } from '../src/scoring/traits.js';
-import { renderRoleFitHtml, roleFitFilename } from '../src/templates/roleFit.js';
+import { formatPercent, renderRoleFitHtml, roleFitFilename } from '../src/templates/roleFit.js';
 import { targetProfile, rankCandidates } from '../src/rolefit/engine.js';
 import type { Occupation } from '../src/careers/types.js';
 
@@ -85,25 +85,18 @@ describe('Role Fit report: target role profile', () => {
 });
 
 describe('Role Fit report: candidate analysis', () => {
-  it('lists candidates in rank order with their stars', () => {
+  it('lists candidates in rank order with their stars: the matching candidate has 5, the exact opposite 1', () => {
     const html = render();
     expect(html.indexOf('Alice Fit')).toBeLessThan(html.indexOf('Bob Far'));
-    expect(html).toContain('data-stars="5"');
-    expect(html).toContain('data-stars="3"'); // two candidates: the second falls in the middle group
+    expect([...html.matchAll(/data-stars="(\d)"/g)].map((m) => Number(m[1]))).toEqual([5, 1]);
   });
 
-  it('spreads five candidates over five different star levels, best first', () => {
-    // Each candidate is strictly further from the role than the last: the role's top strength sits at
-    // rank 1, 4, 7, 10 (a category further each time), and the last candidate is the exact opposite.
-    const moveTopTo = (position: number) => {
-      const order = [...TRAITS];
-      order.splice(position, 0, order.splice(0, 1)[0]);
-      return order;
-    };
-    const five = rankCandidates(
-      [TRAITS, moveTopTo(3), moveTopTo(6), moveTopTo(9), [...TRAITS].reverse()].map((order, i) => ({ id: String(i), name: `Cand ${i}`, ranks: ranksOf(order) })),
-      profile,
-    );
+  it('shows five different star levels, best first, from the fixed quintile cut-offs', () => {
+    // Fit falls step by step: a perfect match, the role's top strength ranked last, then the top 8 and top 9
+    // strengths reversed, then the exact opposite of the role.
+    const reverseFirst = (n: number) => [...TRAITS.slice(0, n).reverse(), ...TRAITS.slice(n)];
+    const orders = [TRAITS, [...TRAITS.slice(1), TRAITS[0]], reverseFirst(8), reverseFirst(9), [...TRAITS].reverse()];
+    const five = rankCandidates(orders.map((order, i) => ({ id: String(i), name: `Cand ${i}`, ranks: ranksOf(order) })), profile);
     const html = render({ candidates: five });
     expect([...html.matchAll(/data-stars="(\d)"/g)].map((m) => Number(m[1]))).toEqual([5, 4, 3, 2, 1]);
   });
@@ -116,14 +109,31 @@ describe('Role Fit report: candidate analysis', () => {
     expect(visible(html)).toContain(bob.misaligned.join(', '));
   });
 
-  it('shows no percentage or raw fit score', () => {
-    expect(visible(render())).not.toMatch(/\d\s?%/);
+  it('shows each candidate\'s fit score and job-fit category beside the stars, as the client\'s workbook does', () => {
+    const text = visible(render());
+    expect(text).toContain('Fit Score');
+    expect(text).toContain('Job-Fit Category');
+    for (const c of candidates) expect(text).toContain(`${c.score.toFixed(1)}%`);
+    expect(text).toContain('Very Strong Fit'); // Alice Fit matches the role
+    expect(text).toContain('Very Weak Fit'); // Bob Far is its exact opposite
   });
 
-  it('explains stars as groups of the candidates, not percentiles of all people', () => {
+  it('prints the score and category on the same row as the candidate they belong to', () => {
+    const rows = [...render().matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((m) => visible(m[1]));
+    const alice = rows.find((r) => r.includes('Alice Fit'))!;
+    const bob = rows.find((r) => r.includes('Bob Far'))!;
+    expect(alice).toContain('100.0%');
+    expect(alice).toContain('Very Strong Fit');
+    expect(bob).toContain('0.0%');
+    expect(bob).toContain('Very Weak Fit');
+  });
+
+  it('explains stars as the client\'s template does: the top 20% of all people for 5 stars, the bottom 20% for 1', () => {
     const text = visible(render());
-    expect(text).toContain('top fifth of the candidates in this report');
-    expect(text).not.toContain('of all people');
+    expect(text).toContain("5 stars \u2014 The candidate's Strength fit is in the top 20% of all people.");
+    expect(text).toContain("1 star \u2014 The candidate's Strength fit is in the bottom 20% of all people.");
+    expect(text).toContain('21st\u201340th percentile');
+    expect(text).not.toContain('candidates in this report');
   });
 
   it('escapes candidate names', () => {
@@ -155,5 +165,21 @@ describe('Role Fit report: page furniture the buyer relies on', () => {
     expect(html).toContain('alt="ShawSight"');
     expect(visible(html)).toContain('The capacity to consistently execute planned actions');
     expect(visible(html)).toContain('Not every strength matters equally');
+  });
+});
+
+describe('formatPercent', () => {
+  it('prints one decimal place', () => {
+    expect(formatPercent(72.116)).toBe('72.1%');
+    expect(formatPercent(100)).toBe('100.0%');
+  });
+
+  it('never prints a minus sign in front of zero: a tiny negative score reads 0.0%', () => {
+    expect(formatPercent(-0.0004)).toBe('0.0%');
+    expect(formatPercent(0)).toBe('0.0%');
+  });
+
+  it('keeps a real negative score visible, since the workbook allows slightly negative fits', () => {
+    expect(formatPercent(-0.7)).toBe('-0.7%');
   });
 });

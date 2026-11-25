@@ -33,10 +33,15 @@ BULL_BOARD_PASSWORD=...
 
 ## Local
 
+Put the settings above in a `.env` file in this folder: `npm run dev` and `npm start` read it automatically
+(real environment variables always win, and production has no `.env`, so nothing changes there).
+Redis must be running, and `REDIS_URL` must point at it.
+
 ```bash
 npm install
 npx playwright install chromium
 # Redis must be running
+npm run dev        # API + in-process workers, restarts on change
 npm start          # API + in-process workers
 # Open http://localhost:8080/admin/queues for Bull Board
 # or

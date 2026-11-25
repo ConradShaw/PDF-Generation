@@ -42,15 +42,15 @@
   "fitHeading": "Role-Fit Analysis",
   "fit": [
     "This chart ranks candidates according to their SSM® Role Fit against the selected occupation’s target SSM profile.",
-    "These scores reflect Strength alignment only. They do not measure other factors that may be required to perform the occupation effectively, such as cognitive ability, skills, knowledge, experience, or qualifications."
+    "These scores reflect Strength alignment only. They do not measure other factors that may be required to perform the occupation effectively, such as cognitive ability, skills, knowledge, experience, or qualifications.",
+    "The Fit Score is the percentage match between the candidate's ranking of the 12 strengths and the target role profile. The Job-Fit Category names the star level, from Very Strong Fit (5 stars) to Very Weak Fit (1 star)."
   ],
   "starLegend": [
-    "5 stars — The candidate is in the top fifth of the candidates in this report.",
-    "4 stars — The candidate is in the second fifth of the candidates in this report.",
-    "3 stars — The candidate is in the middle fifth of the candidates in this report.",
-    "2 stars — The candidate is in the fourth fifth of the candidates in this report.",
-    "1 star — The candidate is in the last fifth of the candidates in this report.",
-    "Stars compare the candidates with each other, not with people in general."
+    "5 stars — The candidate's Strength fit is in the top 20% of all people.",
+    "4 stars — The candidate's Strength fit is in the 21st–40th percentile",
+    "3 stars — The candidate's Strength fit is in the 41st–60th percentile",
+    "2 stars — The candidate's Strength fit is in the 61st–80th percentile",
+    "1 star — The candidate's Strength fit is in the bottom 20% of all people."
   ],
   "weightingNote": "Note: Not every strength matters equally. The SSM proprietary algorithm reflects the relative importance of each strength within the occupation, giving greater weight to strengths that are more characteristic of the role and less weight to those that are peripheral.",
   "tableHeads": {
@@ -61,7 +61,9 @@
     "misaligned": "Top 3 Misaligned Strengths",
     "category": "Category",
     "strength": "SSM® Strengths",
-    "definition": "Definition"
+    "definition": "Definition",
+    "score": "Fit Score",
+    "fitCategory": "Job-Fit Category"
   },
   "email": {
     "subject": "Your SSM® Role Fit report",

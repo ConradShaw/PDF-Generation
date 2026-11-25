@@ -1,3 +1,8 @@
+import { loadLocalEnv } from './localEnv.js';
+
+// Tests must not pick up a developer's real .env file.
+if (!process.env.VITEST) loadLocalEnv();
+
 export function getEnv(name: string, fallback = ''): string {
   return process.env[name] ?? fallback;
 }
